@@ -1,11 +1,15 @@
 package simulation;
 
+import genome.Genome;
+
 public class Species{
+	private String[] geneNames;
 	private final int ENERGY_DIVISION = 3;
 	private final int MINIMUM_REP_TIME = 2;
 	private final int DEFAULT_SCENT_RANGE = 40;
 	private final int DEFAULT_ENERGY = 4000;
 	private int WINDOW_SIZE = 900;
+	private Genome genome;
 	private int speed;
 	private int xLoc;
 	private int yLoc;
@@ -17,13 +21,16 @@ public class Species{
 	private int scentRange;
 	private int lastRepCycle;
 	
+	//constructor for innitial species construction
 	public Species(int size, int speed, int maxAge) {
-		this.speed = speed;
-		this.size = size;
+		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, DEFAULT_SCENT_RANGE});
+		this.genome.setGeneValues();
+		this.speed = genome.getGeneValue("speed");
+		this.size = genome.getGeneValue("size");
+		this.maxAge = genome.getGeneValue("maxAge");
+		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = DEFAULT_ENERGY;
 		this.age = 0;
-		this.maxAge = maxAge;
-		this.scentRange = DEFAULT_SCENT_RANGE;
 		this.lastRepCycle = 0;
 		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - this.size) + 0.5* size);
@@ -31,13 +38,14 @@ public class Species{
 	}
 	
 //Constructor for multiplying
-	public Species(int size, int speed, int x, int y, int maxAge, int scentRange,int energy) {
-		this.speed = speed;
-		this.size = size;
+	public Species(int x, int y, int energy, Genome genome) {
+		this.genome = genome;
+		this.speed = genome.getGeneValue("speed");
+		this.size = genome.getGeneValue("size");
+		this.maxAge = genome.getGeneValue("maxAge");
+		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = energy;
 		this.age = 0;
-		this.maxAge = maxAge;
-		this.scentRange = scentRange;
 		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.lastRepCycle = 0;
 		this.xLoc = x;
@@ -46,7 +54,7 @@ public class Species{
 
 	public double getEnergyConsumption() {
 		//for underlying classes
-		return 0;
+		return 10000000;
 	}
 	
 	public void move() {
@@ -171,7 +179,12 @@ public class Species{
 		return this.maxAge;
 	}
 
+	public Genome getGenome() {
+		return this.genome;
+	}
+	
 	public boolean foodEaten(int getxLoc, int getyLoc, int size2, int energy2) {
+		// for inheriting classes
 		return false;
 	}
 }

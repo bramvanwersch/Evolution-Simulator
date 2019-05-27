@@ -23,6 +23,14 @@ public class Genome {
 		createDNACode();
 	}
 	
+	public int getGeneValue(String geneName) {
+		return geneValues.get(geneName);
+	}
+	
+	public void mutateGenome(double mutateChance) {
+		DNACode = mutate(DNACode, mutateChance, false);
+	}
+	
 	public boolean isSpeciesSurvivable() {
 		for (String pKey: perfectGenes.keySet()) {
 			boolean survivable = false;
@@ -38,7 +46,7 @@ public class Genome {
 		return true;
 	}
 	
-	public void setGeneValues(String geneName) {
+	public void setGeneValues() {
 		String[] ORFs = getORFs();
 		String[] nameScore;
 		for (String ORF : ORFs) {
@@ -46,8 +54,8 @@ public class Genome {
 			String name = nameScore[0];
 			double score = Double.parseDouble(nameScore[1]);
 			if (name != null) {
-				double value = (score / perfectGenes.get(name).getMaxScore()) * score;
-				if (perfectGenes.containsKey(name)) {
+				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue();
+				if (geneValues.containsKey(name)) {
 					value += geneValues.get(name);
 				}
 				geneValues.put(name, (int) value);
@@ -249,8 +257,8 @@ public class Genome {
 			String newGenSeq = mutate(optimalGenSeq, 0.5, true);
 			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
 			double optimalGenScore = optimalGene.getMaxScore();
-			//randomly generate a gene that is 60% to 25% as efficient as the optimal gene.
-			while (newGenScore >= 0.6 * optimalGenScore || newGenScore <= 0.25 * optimalGenScore) {
+			//randomly generate a gene that is 60% to 40% as efficient as the optimal gene.
+			while (newGenScore >= 0.55 * optimalGenScore || newGenScore <= 0.45 * optimalGenScore) {
 				optimalGenSeq  = optimalGene.getSequence();
 				newGenSeq = mutate(optimalGenSeq, 0.1, true);
 				newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
@@ -293,7 +301,7 @@ public class Genome {
 	 * @param nucleotide; nucleotide that is being mutated
 	 * @return; an array containing 3 nucleotides that are not the nucleotide given as parameter.
 	 */
-	public String[] availableNucleotides(String nucleotide) {
+	private String[] availableNucleotides(String nucleotide) {
 	    String[] returnArray = new String[3];
 		String [] nucleotides = {"A","T","C","G"};
 		int count = 0;

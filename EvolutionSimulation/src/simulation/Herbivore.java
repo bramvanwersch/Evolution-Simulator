@@ -1,13 +1,18 @@
 package simulation;
 
+import genome.Genome;
+
 public class Herbivore extends Species{
+	private String[] geneNames = {"size","speed","maxAge","scentRange"};//needs work
 	
+	//innitial constructor
 	public Herbivore(int size, int speed, int maxAge) {
 		super(size, speed, maxAge);
 	}
 	
-	public Herbivore(int size, int speed, int x, int y, int maxAge, int scentRange,int energy) {
-		super(size, speed, x, y, maxAge, scentRange, energy);
+	//inheriting constructor
+	public Herbivore(int x, int y, int energy, Genome genome) {
+		super(x, y,energy, genome);
 	}
 	
 	public double getEnergyConsumption() {
@@ -40,5 +45,9 @@ public class Herbivore extends Species{
 			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
 			changeEnergy(-1*getEnergyConsumption());
 		}	
+	}
+	
+	public String[] getGeneNames() {
+		return this.geneNames;
 	}
 }

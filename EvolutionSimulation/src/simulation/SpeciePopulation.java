@@ -3,8 +3,10 @@ package simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import genome.Genome;
+
 public class SpeciePopulation {
-	private final double MAX_MUTATION_FRACTION = 0.2;
+	private final double MUTATION_CHANCE = 0.05;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
 	private int[] color;
@@ -34,24 +36,35 @@ public class SpeciePopulation {
 		int energy = s.halfEnergy();
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
-			sCopy = new Carnivore(mutateStat(s.getSize(), MAX_MUTATION_FRACTION),
-					mutateStat(s.getSpeed(), MAX_MUTATION_FRACTION), s.getxLoc(), s.getyLoc(),
-					mutateStat(s.getMaxAge(), MAX_MUTATION_FRACTION), mutateStat(s.getScentRange(), MAX_MUTATION_FRACTION),
-					energy);
+			Genome genome = s.getGenome();
+			genome.mutateGenome(MUTATION_CHANCE);
+			genome.setGeneValues();
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome);
+			}
 		}
 		else if (this.type.equals("Herbivore")) {
-			sCopy = new Herbivore(mutateStat(s.getSize(), MAX_MUTATION_FRACTION),
-					mutateStat(s.getSpeed(), MAX_MUTATION_FRACTION), s.getxLoc(), s.getyLoc(),
-					mutateStat(s.getMaxAge(), MAX_MUTATION_FRACTION), mutateStat(s.getScentRange(), MAX_MUTATION_FRACTION),
-					energy);
+			Genome genome = s.getGenome();
+			genome.mutateGenome(MUTATION_CHANCE);
+			genome.setGeneValues();
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome);
+			}
 		}
 		else if (this.type.equals("Omnivore")) {
-			sCopy = new Omnivore(mutateStat(s.getSize(), MAX_MUTATION_FRACTION),
-					mutateStat(s.getSpeed(), MAX_MUTATION_FRACTION), s.getxLoc(), s.getyLoc(),
-					mutateStat(s.getMaxAge(), MAX_MUTATION_FRACTION), mutateStat(s.getScentRange(), MAX_MUTATION_FRACTION),
-					energy);
+			Genome genome = s.getGenome();
+			genome.mutateGenome(MUTATION_CHANCE);
+			genome.setGeneValues();
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome);
+			}
 		}
-		speciesList.add(sCopy);
+		if(sCopy != null) {
+			speciesList.add(sCopy);
+		}
+		else{
+			diedSpecies += 1;
+		}
 	}
 	
 	private int mutateStat(int stat, double mutatorFraction) {

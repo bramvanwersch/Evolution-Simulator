@@ -1,16 +1,21 @@
 package simulation;
 
+import genome.Genome;
+
 public class Carnivore extends Species{
+	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private int chaseTime;
 	private int MAX_CHASE_TIME = 2000;
 
+	//innitial constructor
 	public Carnivore(int size, int speed, int maxAge) {
 		super(size, speed, maxAge);
 		this.chaseTime = 0;
 	}
 	
-	public Carnivore(int size, int speed, int x, int y, int maxAge, int scentRange,int energy) {
-		super(size, speed, x, y, maxAge, scentRange, energy);
+	//inheriting constructor
+	public Carnivore(int x, int y,int energy, Genome genome) {
+		super(x, y, energy, genome);
 		this.chaseTime = 0;
 	}
 	
@@ -48,6 +53,10 @@ public class Carnivore extends Species{
 			move();
 			chaseTime -= 5;
 		}
+	}
+	
+	public String[] getGeneNames() {
+		return this.geneNames;
 	}
 
 }

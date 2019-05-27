@@ -140,7 +140,6 @@ public class Environment {
 				else if (sp.getType().equals("Carnivore")){
 					closestHerbivore = checkCarnivoreScent(s);
 				}
-				//TODO extra checking required for what species to run away from.
 				if (closestCarnivore != null) {
 					s.moveAway(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
 				}
