@@ -22,10 +22,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Game {
-	private final int[] START_SPECIES_COUNT = {1,2,5};
-	private final int[] START_SIZE_COUNT = {30,22,20};
+	private final int[] START_SPECIES_COUNT = {0,0,10};
+	private final int[] START_SIZE_COUNT = {30,22,30};
 	private final int[] START_SPEED_COUNT = {8,10,8};
-	private final int[] START_MAX_AGES = {60,60,60};
+	private final int[] START_MAX_AGES = {60,60,90};
 	private final int[][] START_COLORS = {{255,0,0},{255,0,255},{0,0,255}};
 	private final String[] SPECIES_TYPES = {"Carnivore","Omnivore","Herbivore"};
 	private final int START_FOOD_COUNT = 500;

@@ -9,8 +9,8 @@ public class Gene {
 
 	public Gene(String name, int value) {
 		this.name = name;
-		//the perfect gene sequence is twice as effective as the startign value.
-		this.value = value *2;
+		//the perfect gene sequence is four times as effective as the startign value.
+		this.value = value *4;
 		this.sequence = createGeneSequence();
 	}
 

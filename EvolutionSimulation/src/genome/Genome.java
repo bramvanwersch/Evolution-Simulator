@@ -10,9 +10,9 @@ public class Genome {
 	private Map<String, Gene> perfectGenes;
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
+	private String DNACode = "";
 	private final int gapP = -4;
 	private final int endGapP = -4;
-	private String DNACode = "";
 	private double STARTING_CODON_COUNT = 300; 
 	
 	public Genome(String[] geneNames, int[] startingValues) {
@@ -23,14 +23,13 @@ public class Genome {
 		createDNACode();
 	}
 	
-	public int getGeneValue(String geneName) {
-		return geneValues.get(geneName);
+	public Genome(Map<String,Gene> perfGenes, String DNAc) {
+		this.perfectGenes = perfGenes;
+		this.DNACode = DNAc;
+		geneValues = new HashMap<String, Integer>();
+		dnaCon = new DNAtoAA().getDNAConversionMap();
 	}
-	
-	public void mutateGenome(double mutateChance) {
-		DNACode = mutate(DNACode, mutateChance, false);
-	}
-	
+
 	public boolean isSpeciesSurvivable() {
 		for (String pKey: perfectGenes.keySet()) {
 			boolean survivable = false;
@@ -52,15 +51,17 @@ public class Genome {
 		for (String ORF : ORFs) {
 			nameScore = getGeneNameScore(ORF);
 			String name = nameScore[0];
+//			System.out.println("Name:"+ name+"  ORF:"+ ORF);
 			double score = Double.parseDouble(nameScore[1]);
 			if (name != null) {
-				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue();
+				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue() +1;
 				if (geneValues.containsKey(name)) {
 					value += geneValues.get(name);
 				}
 				geneValues.put(name, (int) value);
 			}
 		}
+//		System.out.println("\n\n");
 	}
 	
 	/**
@@ -185,6 +186,22 @@ public class Genome {
 		return newSeq;
 	}
 	
+	public int getGeneValue(String geneName) {
+		return geneValues.get(geneName);
+	}
+	
+	public Map<String,Gene> getPerfectGenes(){
+		return this.perfectGenes;
+	}
+	
+	public String getDNACode() {
+		return this.DNACode;
+	}
+	
+	public void mutateGenome(double mutateChance) {
+		DNACode = mutate(DNACode, mutateChance, false);
+	}
+	
 // functions for creating the innital DNA code and genes. Will not be used after innitial creation of species.
 	
 	/**
@@ -257,10 +274,10 @@ public class Genome {
 			String newGenSeq = mutate(optimalGenSeq, 0.5, true);
 			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
 			double optimalGenScore = optimalGene.getMaxScore();
-			//randomly generate a gene that is 60% to 40% as efficient as the optimal gene.
-			while (newGenScore >= 0.55 * optimalGenScore || newGenScore <= 0.45 * optimalGenScore) {
+			//randomly generate a gene that is 30% to 20% as efficient as the optimal gene.
+			while (newGenScore >= 0.3 * optimalGenScore || newGenScore <= 0.2 * optimalGenScore) {
 				optimalGenSeq  = optimalGene.getSequence();
-				newGenSeq = mutate(optimalGenSeq, 0.1, true);
+				newGenSeq = mutate(optimalGenSeq, 0.2, true);
 				newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
 //				System.out.println(newGenScore + "  " + optimalGenScore);
 			}

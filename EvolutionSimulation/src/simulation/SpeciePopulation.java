@@ -6,7 +6,7 @@ import java.util.Collections;
 import genome.Genome;
 
 public class SpeciePopulation {
-	private final double MUTATION_CHANCE = 0.05;
+	private final double MUTATION_CHANCE = 0.01;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
 	private int[] color;
@@ -33,10 +33,10 @@ public class SpeciePopulation {
 	
 	public void multiplySpecies(int index) {
 		Species s = speciesList.get(index);
+		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		int energy = s.halfEnergy();
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
-			Genome genome = s.getGenome();
 			genome.mutateGenome(MUTATION_CHANCE);
 			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {
@@ -44,7 +44,6 @@ public class SpeciePopulation {
 			}
 		}
 		else if (this.type.equals("Herbivore")) {
-			Genome genome = s.getGenome();
 			genome.mutateGenome(MUTATION_CHANCE);
 			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {
@@ -52,7 +51,6 @@ public class SpeciePopulation {
 			}
 		}
 		else if (this.type.equals("Omnivore")) {
-			Genome genome = s.getGenome();
 			genome.mutateGenome(MUTATION_CHANCE);
 			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {

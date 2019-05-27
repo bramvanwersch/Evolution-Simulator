@@ -3,7 +3,6 @@ package simulation;
 import genome.Genome;
 
 public class Species{
-	private String[] geneNames;
 	private final int ENERGY_DIVISION = 3;
 	private final int MINIMUM_REP_TIME = 2;
 	private final int DEFAULT_SCENT_RANGE = 40;
@@ -180,7 +179,7 @@ public class Species{
 	}
 
 	public Genome getGenome() {
-		return this.genome;
+		return genome;
 	}
 	
 	public boolean foodEaten(int getxLoc, int getyLoc, int size2, int energy2) {
