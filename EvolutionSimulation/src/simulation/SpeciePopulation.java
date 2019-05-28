@@ -2,7 +2,9 @@ package simulation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Map;
 
+import genome.Gene;
 import genome.Genome;
 
 public class SpeciePopulation {
@@ -31,28 +33,27 @@ public class SpeciePopulation {
 		return speciesList.get(index);
 	}
 	
-	public void multiplySpecies(int index) {
+	public void multiplySpecies(int index, boolean mutation) {
 		Species s = speciesList.get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
-		int energy = s.halfEnergy();
+		int energy = s.getEnergy();
+		if (mutation) {
+			genome.mutateGenome(MUTATION_CHANCE);
+			energy = s.halfEnergy();
+		}
+		genome.setGeneValues();
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
-			genome.mutateGenome(MUTATION_CHANCE);
-			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {
 				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome);
 			}
 		}
 		else if (this.type.equals("Herbivore")) {
-			genome.mutateGenome(MUTATION_CHANCE);
-			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {
 				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome);
 			}
 		}
 		else if (this.type.equals("Omnivore")) {
-			genome.mutateGenome(MUTATION_CHANCE);
-			genome.setGeneValues();
 			if (genome.isSpeciesSurvivable()) {
 				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome);
 			}
@@ -64,13 +65,7 @@ public class SpeciePopulation {
 			diedSpecies += 1;
 		}
 	}
-	
-	private int mutateStat(int stat, double mutatorFraction) {
-		double min = stat - stat * mutatorFraction;
-		double max = stat + stat * mutatorFraction;
-		return (int) Math.round(Math.random() * (max - min) + min);
-	}
-	
+
 	public void removeSpecies(int index) {	
 		speciesList.remove(index);
 		diedSpecies += 1;
@@ -91,5 +86,4 @@ public class SpeciePopulation {
 	public String getType() {
 		return this.type;
 	}
-
 }

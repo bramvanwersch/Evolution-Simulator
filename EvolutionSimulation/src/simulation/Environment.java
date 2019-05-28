@@ -29,63 +29,49 @@ public class Environment {
 
 	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge) {
 		for (int i = 0; i <populations.size(); i++) {
+			SpeciePopulation p = populations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
-				if (populations.get(i).getType().equals("Carnivore")) {
-					s = new Carnivore(size[i], speed[i], maxAge[i]);
+				if (p.getType().equals("Carnivore")) {
+					if (p.getNrSpecies() == 0) {
+						s = new Carnivore(size[i], speed[i], maxAge[i]);
+					}
 				}
-				else if (populations.get(i).getType().equals("Herbivore")) {
-					s = new Herbivore(size[i], speed[i], maxAge[i]);
+				else if (p.getType().equals("Herbivore")) {
+					if (p.getNrSpecies() == 0) {
+						s = new Herbivore(size[i], speed[i], maxAge[i]);
+					}
 				}
-				else if(populations.get(i).getType().equals("Omnivore")) {
-					s = new Omnivore(size[i], speed[i], maxAge[i]);
+				else if(p.getType().equals("Omnivore")) {
+					if (p.getNrSpecies() == 0) {
+						s = new Omnivore(size[i], speed[i], maxAge[i]);
+					}
 				}
-				checkSpeciesPlacement(s, 0);
-				populations.get(i).addSpecies(s);
+				if (s == null){
+					p.multiplySpecies(p.getNrSpecies()-1, false);
+				}
+				else if (!checkSpeciesPlacement(s)) {
+					j--;
+				}
+				else{
+					p.addSpecies(s);
+				}
 			}
 		}
 	}
 	
-	private void checkSpeciesPlacement(Species spec, int offset) {
-		//ofset is a number that will be used to assure that this method will not be called infinatily.
-		//after a movement causes a counter movement exactly the same aas the movement. This is extremely rare.
+	private boolean checkSpeciesPlacement(Species spec) {
 		for (SpeciePopulation sp: populations ) {
 			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
 				Species s = sp.getSpecies(i);
 				//check if the central point of the species just created is witin another species or not. if so move it.
 				if (s.getxLoc() - s.getSize() < spec.getxLoc() && s.getxLoc() +s.getSize() > spec.getxLoc() &&
 					s.getyLoc() - s.getSize() < spec.getyLoc() && s.getyLoc() +s.getSize() > spec.getyLoc()) {
-					moveSpecies(spec, s, 0);
+					return false;
 				}
 			}
 		}
-	}
-	
-	public void moveSpecies(Species move, Species stat, int offset) {
-		//moveS species to be moved. statS species species alredy placed
-		//this function will move a species if it is created inside another species.
-		double xMove = 0;
-		double yMove = 0;
-		// bigger then 0 if the moveSx is before the half way x point of the statS species.
-		if ((stat.getxLoc() + 0.5 * stat.getSize()) - move.getxLoc() > 0) {
-			xMove = -1 *(move.getxLoc() - stat.getxLoc() + move.getSize() + offset);
-		}
-		//if the moveSx is after the half way x point of the statS species.
-		else {
-			xMove = stat.getxLoc() + stat.getSize() - move.getxLoc() + offset;
-		}
-		// bigger then 0 if the moveSy is before the half way y point of the statS species.
-		if ((stat.getyLoc() + 0.5 * stat.getSize()) - move.getyLoc() > 0) {
-			yMove = -1 *(move.getyLoc() - stat.getyLoc() + move.getSize() + offset);
-			
-		}
-		//if the moveSy is after the half way y point of the statS species.
-		else {
-			yMove = stat.getyLoc() + stat.getSize() - move.getyLoc() + offset;
-		}
-		move.changeXLoc(xMove);
-		move.changeYLoc(yMove);
-		checkSpeciesPlacement(move, offset + 1);
+		return true;
 	}
 
 	public void createFood(int nrFood) {
@@ -157,7 +143,7 @@ public class Environment {
 		for (SpeciePopulation sp: populations ) {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				if (sp.getSpecies(i).isCanMultiply()) {
-					sp.multiplySpecies(i);
+					sp.multiplySpecies(i, true);
 				}
 			}
 		}
