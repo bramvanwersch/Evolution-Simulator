@@ -358,7 +358,7 @@ public class Environment {
 	public double[] getScentStats() {
 		double[] valArray = new double [getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = getAllSpecies().get(i).getScentRange();
+			valArray[i] = getAllSpecies().get(i).getScentRange() - getAllSpecies().get(i).getSize();
 		}
 		int[] minMax = calcMinMax(valArray);
 		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
