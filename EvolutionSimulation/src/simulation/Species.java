@@ -4,10 +4,9 @@ import genome.Genome;
 
 public class Species{
 	private final int ENERGY_DIVISION = 3;
-	private final int MINIMUM_REP_TIME = 2;
 	private final int DEFAULT_SCENT_RANGE = 40;
 	private final int DEFAULT_ENERGY = 4000;
-	private int WINDOW_SIZE = 900;
+	private int WINDOW_SIZE = 950;
 	private Genome genome;
 	private int speed;
 	private int xLoc;
@@ -53,7 +52,7 @@ public class Species{
 
 	public double getEnergyConsumption() {
 		//for underlying classes
-		return 10000000;
+		return 0;
 	}
 	
 	public void move() {
@@ -104,7 +103,7 @@ public class Species{
 	}
 
 	public boolean isCanMultiply() {
-		if (this.energy/2 > DEFAULT_ENERGY && this.lastRepCycle > MINIMUM_REP_TIME) {
+		if (this.energy/2 > DEFAULT_ENERGY && this.lastRepCycle > getRepTime()) {
 			this.lastRepCycle = 0;
 			return true;
 		}
@@ -130,7 +129,7 @@ public class Species{
 	}
 	
 	public int getScentRange() {
-		return this.scentRange;
+		return this.scentRange + this.size;
 	}
 	
 	public int getSpeed() {
@@ -180,6 +179,11 @@ public class Species{
 
 	public Genome getGenome() {
 		return genome;
+	}
+	
+	public int getRepTime() {
+		//for inheriting classes
+		return 0;
 	}
 	
 	public boolean foodEaten(int getxLoc, int getyLoc, int size2, int energy2) {

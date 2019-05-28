@@ -6,6 +6,7 @@ public class Carnivore extends Species{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private int chaseTime;
 	private int MAX_CHASE_TIME = 2000;
+	private final int MINIMUM_REP_TIME = 5;
 
 	//innitial constructor
 	public Carnivore(int size, int speed, int maxAge) {
@@ -22,7 +23,7 @@ public class Carnivore extends Species{
 	public double getEnergyConsumption() {
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.25, contentSurface) - 1)* 0.3* getSpeed() + 0.25 * getScentRange() + getAge();
+		return (Math.pow(1.25, contentSurface) - 1)* 0.3* getSpeed() + 0.25*(getScentRange() - getSize()) + getAge();
 	}
 
 	public boolean checkCanEat(int x, int y, int sSize, int sEnergy) {
@@ -57,6 +58,10 @@ public class Carnivore extends Species{
 	
 	public String[] getGeneNames() {
 		return this.geneNames;
+	}
+	
+	public int getRepTime() { 
+		return this.MINIMUM_REP_TIME;
 	}
 
 }

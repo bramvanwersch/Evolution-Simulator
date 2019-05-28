@@ -1,7 +1,7 @@
 package simulation;
 
 public class Food{
-	private int WINDOW_SIZE = 900;
+	private int WINDOW_SIZE = 950;
 	private int energy;
 	private int size = 10;
 	private int xLoc;

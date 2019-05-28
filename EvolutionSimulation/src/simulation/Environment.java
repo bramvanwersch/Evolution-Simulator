@@ -7,7 +7,7 @@ import java.util.Collections;
 public class Environment {
 	private int DEFAULT_FOOD_E = 100;
 	private int DEFAULT_FOOD_SIZE = 5;
-	private double EAT_SIZE_FACTOR = 1.1;
+	private double EAT_SIZE_FACTOR = 1;
 	private ArrayList<SpeciePopulation> populations;
 	private ArrayList<Food> foodList;
 	

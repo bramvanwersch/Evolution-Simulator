@@ -11,8 +11,8 @@ public class Genome {
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
 	private String DNACode = "";
-	private final int gapP = -4;
-	private final int endGapP = -4;
+	private final int gapP = -6;
+	private final int endGapP = 0;
 	private double STARTING_CODON_COUNT = 300; 
 	
 	public Genome(String[] geneNames, int[] startingValues) {
