@@ -48,25 +48,22 @@ public class SpeciePopulation {
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
+				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1);
 			}
 		}
 		else if (this.type.equals("Herbivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
+				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1);
 			}
 		}
 		else if (this.type.equals("Omnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
+				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1);
 			}
 		}
 		if(sCopy != null) {
 			speciesList.add(sCopy);
 			panGenome.writeSpeciesInfo(sCopy, s.getNumber());
-		}
-		else{
-			diedSpecies += 1;
 		}
 	}
 
