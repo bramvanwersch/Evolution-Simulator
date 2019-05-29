@@ -12,8 +12,8 @@ public class Omnivore extends Species{
 	}
 	
 	//inheriting constructor
-	public Omnivore(int x, int y,int energy, Genome genome) {
-		super(x, y, energy, genome);
+	public Omnivore(int x, int y,int energy, Genome genome, int number) {
+		super(x, y, energy, genome, number);
 	}
 	
 	public double getEnergyConsumption() {

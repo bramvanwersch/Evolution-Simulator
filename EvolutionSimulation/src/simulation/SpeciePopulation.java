@@ -6,6 +6,7 @@ import java.util.Map;
 
 import genome.Gene;
 import genome.Genome;
+import genome.PanGenome;
 
 public class SpeciePopulation {
 	private final double MUTATION_CHANCE = 0.01;
@@ -13,12 +14,14 @@ public class SpeciePopulation {
 	private int diedSpecies;
 	private int[] color;
 	private String type;
+	private PanGenome panGenome;
 	
 	public SpeciePopulation(int[] color, String type) {
 		this.speciesList = new ArrayList<Species>();
 		this.diedSpecies = 0;
 		this.color = color;
 		this.type = type;
+		this.panGenome = new PanGenome(this.type +"Data",this.type);
 	}
 	
 	public void addSpecies(Species s) {
@@ -45,21 +48,22 @@ public class SpeciePopulation {
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome);
+				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
 			}
 		}
 		else if (this.type.equals("Herbivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome);
+				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
 			}
 		}
 		else if (this.type.equals("Omnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome);
+				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, s.getNumber()+1);
 			}
 		}
 		if(sCopy != null) {
 			speciesList.add(sCopy);
+			panGenome.writeSpeciesInfo(sCopy, s.getNumber());
 		}
 		else{
 			diedSpecies += 1;

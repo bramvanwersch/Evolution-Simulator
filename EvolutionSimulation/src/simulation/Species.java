@@ -8,6 +8,7 @@ public class Species{
 	private final int DEFAULT_ENERGY = 4000;
 	private int WINDOW_SIZE = 950;
 	private Genome genome;
+	private int no;
 	private int speed;
 	private int xLoc;
 	private int yLoc;
@@ -28,6 +29,7 @@ public class Species{
 		this.maxAge = genome.getGeneValue("maxAge");
 		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = DEFAULT_ENERGY;
+		this.no = 0;
 		this.age = 0;
 		this.lastRepCycle = 0;
 		this.facingDirection = Math.random() * 2 * Math.PI;
@@ -36,13 +38,14 @@ public class Species{
 	}
 	
 //Constructor for multiplying
-	public Species(int x, int y, int energy, Genome genome) {
+	public Species(int x, int y, int energy, Genome genome, int number) {
 		this.genome = genome;
 		this.speed = genome.getGeneValue("speed");
 		this.size = genome.getGeneValue("size");
 		this.maxAge = genome.getGeneValue("maxAge");
 		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = energy;
+		this.no = number;
 		this.age = 0;
 		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.lastRepCycle = 0;
@@ -184,6 +187,10 @@ public class Species{
 	public int getRepTime() {
 		//for inheriting classes
 		return 0;
+	}
+	
+	public int getNumber() {
+		return this.no;
 	}
 	
 	public boolean foodEaten(int getxLoc, int getyLoc, int size2, int energy2) {

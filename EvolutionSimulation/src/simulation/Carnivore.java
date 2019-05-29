@@ -15,8 +15,8 @@ public class Carnivore extends Species{
 	}
 	
 	//inheriting constructor
-	public Carnivore(int x, int y,int energy, Genome genome) {
-		super(x, y, energy, genome);
+	public Carnivore(int x, int y,int energy, Genome genome, int number) {
+		super(x, y, energy, genome, number);
 		this.chaseTime = 0;
 	}
 	
