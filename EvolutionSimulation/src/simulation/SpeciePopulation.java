@@ -92,7 +92,7 @@ public class SpeciePopulation {
 	private void addSpeciesData(Species s, int prevNumber) {
 		if (speciesData.isEmpty()) {
 			for (String key : s.getGenome().getPerfectGenes().keySet()) {
-				speciesData += ">>"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
+				speciesData += "<"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
 			}
 		}
 		speciesData += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";

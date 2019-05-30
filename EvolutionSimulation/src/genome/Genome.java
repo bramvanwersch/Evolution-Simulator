@@ -131,8 +131,14 @@ public class Genome {
 				else {
 					int dScore = SubstitutionMatrix.getScore(String.valueOf(seq2.charAt(x)), String.valueOf(seq1.charAt(y)));
 					int diaValue = valueMatrix[y-1][x-1] + dScore;
-					int downValue = valueMatrix[y-1][x] + gapP;
 					int rightValue = valueMatrix[y][x-1] + gapP;
+					if (seq1.length()-1 == y) {
+						rightValue = valueMatrix[y][x-1] + endGapP;
+					}
+					int downValue = valueMatrix[y-1][x] + gapP;
+					if(seq2.length()-1 == x) {
+						downValue = valueMatrix[y-1][x] + endGapP;
+					}
 					valueMatrix[y][x] = Math.max(diaValue, Math.max(downValue, rightValue));
 				}
 			}
