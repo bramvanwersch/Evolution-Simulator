@@ -15,13 +15,15 @@ public class SpeciePopulation {
 	private int[] color;
 	private String type;
 	private PanGenome panGenome;
+	private String speciesData;
 	
 	public SpeciePopulation(int[] color, String type) {
 		this.speciesList = new ArrayList<Species>();
 		this.diedSpecies = 0;
 		this.color = color;
 		this.type = type;
-		this.panGenome = new PanGenome(this.type +"Data",this.type);
+		this.speciesData = "";
+		this.panGenome = new PanGenome(this.type +"Data");
 	}
 	
 	public void addSpecies(Species s) {
@@ -63,7 +65,7 @@ public class SpeciePopulation {
 		}
 		if(sCopy != null) {
 			speciesList.add(sCopy);
-			panGenome.writeSpeciesInfo(sCopy, s.getNumber());
+			addSpeciesData(sCopy, s.getNumber());
 		}
 	}
 
@@ -86,5 +88,17 @@ public class SpeciePopulation {
 
 	public String getType() {
 		return this.type;
+	}
+	private void addSpeciesData(Species s, int prevNumber) {
+		if (speciesData.isEmpty()) {
+			for (String key : s.getGenome().getPerfectGenes().keySet()) {
+				speciesData += ">>"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
+			}
+		}
+		speciesData += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";
+		if (speciesData.length() > 10000) {
+			panGenome.writeSpeciesInfo(speciesData);
+			speciesData = " ";
+		}
 	}
 }

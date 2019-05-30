@@ -18,7 +18,7 @@ public class Gene {
 		// start with a start codon
 		String seq = "ATG";
 		double min =  1 * avgAminoAcids;
-		double max =  2 * avgAminoAcids;
+		double max =  1.5 * avgAminoAcids;
 		int amntAminoAcids = (int) ((Math.random() * (max - min)) + min);
 		String [] nucleotides = {"A","T","C","G"};
 		for (int i = 0; i < amntAminoAcids; i++) {
