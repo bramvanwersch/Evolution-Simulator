@@ -34,7 +34,7 @@ public class Genome {
 		for (String pKey: perfectGenes.keySet()) {
 			boolean survivable = false;
 			for (String gKey : geneValues.keySet()) {
-				if (pKey.equals(gKey)) {
+				if (pKey.equals(gKey) && geneValues.get(gKey) > 0) {
 					survivable = true;
 				}
 			}
