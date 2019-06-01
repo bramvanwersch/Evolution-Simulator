@@ -35,16 +35,19 @@ public class Environment {
 				if (p.getType().equals("Carnivore")) {
 					if (p.getNrSpecies() == 0) {
 						s = new Carnivore(size[i], speed[i], maxAge[i]);
+						p.addSpeciesData(s, -1);
 					}
 				}
 				else if (p.getType().equals("Herbivore")) {
 					if (p.getNrSpecies() == 0) {
 						s = new Herbivore(size[i], speed[i], maxAge[i]);
+						p.addSpeciesData(s, -1);
 					}
 				}
 				else if(p.getType().equals("Omnivore")) {
 					if (p.getNrSpecies() == 0) {
 						s = new Omnivore(size[i], speed[i], maxAge[i]);
+						p.addSpeciesData(s, -1);
 					}
 				}
 				if (s == null){

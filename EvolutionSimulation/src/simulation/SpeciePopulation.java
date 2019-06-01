@@ -89,7 +89,7 @@ public class SpeciePopulation {
 	public String getType() {
 		return this.type;
 	}
-	private void addSpeciesData(Species s, int prevNumber) {
+	public void addSpeciesData(Species s, int prevNumber) {
 		if (speciesData.isEmpty()) {
 			for (String key : s.getGenome().getPerfectGenes().keySet()) {
 				speciesData += "<"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";

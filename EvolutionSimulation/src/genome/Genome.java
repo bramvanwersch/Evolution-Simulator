@@ -11,8 +11,8 @@ public class Genome {
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
 	private String DNACode = "";
-	private final int gapP = -6;
-	private final int endGapP = 0;
+	private final int gapP = -4;
+	private final int endGapP = -1;
 	private double STARTING_CODON_COUNT = 300; 
 	
 	public Genome(String[] geneNames, int[] startingValues) {
@@ -253,7 +253,7 @@ public class Genome {
 		int count = 0;
 		for (int i = 0; i < this.STARTING_CODON_COUNT; i++) {
 			String codon = nucleotides[(int) (Math.random() * 4)] + nucleotides[(int) (Math.random() * 4)] + nucleotides[(int) (Math.random() * 4)];
-			if (codon.equals("ATG")){
+			if (codon.equals("ATG") || codon.equals("TAG") || codon.equals("TAA") || codon.equals("TGA")){
 				i--;
 				continue;
 			}
@@ -283,7 +283,7 @@ public class Genome {
 			//randomly generate a gene that is 30% to 20% as efficient as the optimal gene.
 			while (newGenScore >= 0.3 * optimalGenScore || newGenScore <= 0.2 * optimalGenScore) {
 				optimalGenSeq  = optimalGene.getSequence();
-				newGenSeq = mutate(optimalGenSeq, 0.2, true);
+				newGenSeq = mutate(optimalGenSeq, 0.5, true);
 				newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
 //				System.out.println(newGenScore + "  " + optimalGenScore);
 			}

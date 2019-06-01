@@ -4,7 +4,7 @@ import genome.Genome;
 
 public class Herbivore extends Species{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};//needs work
-	private final int MINIMUM_REP_TIME = 1;
+	private final int MINIMUM_REP_TIME = 0;
 	
 	//innitial constructor
 	public Herbivore(int size, int speed, int maxAge) {
