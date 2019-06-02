@@ -32,13 +32,7 @@ public class Genome {
 
 	public boolean isSpeciesSurvivable() {
 		for (String pKey: perfectGenes.keySet()) {
-			boolean survivable = false;
-			for (String gKey : geneValues.keySet()) {
-				if (pKey.equals(gKey) && geneValues.get(gKey) > 0) {
-					survivable = true;
-				}
-			}
-			if (!survivable) {
+			if (!geneValues.containsKey(pKey)) {
 				return false;
 			}
 		}
@@ -54,8 +48,8 @@ public class Genome {
 //			System.out.println("Name:"+ name+"  ORF:"+ ORF);
 			double score = Double.parseDouble(nameScore[1]);
 			if (name != null) {
-				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue() +1;
-				if (geneValues.containsKey(name)) {
+				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue();
+				if (geneValues.containsKey(name) && value >= 0) {
 					value += geneValues.get(name);
 				}
 				geneValues.put(name, (int) value);
