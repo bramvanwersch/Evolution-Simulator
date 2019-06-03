@@ -130,10 +130,10 @@ public class Environment {
 					closestHerbivore = checkCarnivoreScent(s);
 				}
 				if (closestCarnivore != null) {
-					s.moveAway(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
+					s.useScentToMove(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
 				}
 				else if (closestHerbivore != null) {
-					s.moveAway(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
+					s.useScentToMove(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
 				}
 				else {
 					s.move();

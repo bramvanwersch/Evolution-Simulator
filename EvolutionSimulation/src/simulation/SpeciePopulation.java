@@ -9,7 +9,7 @@ import genome.Genome;
 import genome.PanGenome;
 
 public class SpeciePopulation {
-	private final double MUTATION_CHANCE = 0.01;
+	private final double MUTATION_CHANCE = 0.005;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
 	private int[] color;

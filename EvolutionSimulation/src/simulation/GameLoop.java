@@ -35,7 +35,7 @@ public class GameLoop implements ActionListener{
 		 environment.eatFood();
 		 environment.eatSpecies();
 		 addFood();
-		 if (timeElapsed % 1000 == 0) {
+		 if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			 environment.multiplySpecies();
 			 environment.addCheckAge();
 			 addDataValues();
