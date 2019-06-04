@@ -19,7 +19,7 @@ public class Herbivore extends Species{
 	public double getEnergyConsumption() {
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.25, contentSurface) - 1)* 0.3* getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
+		return (Math.pow(1.25, contentSurface) - 1)* 0.3* getSpeed() + 0.125 * (getScentRange() - getSize()) + 0.5*getAge();
 	}
 
 	
@@ -62,7 +62,7 @@ public class Herbivore extends Species{
 	 * value is set to 25 procent of the maximum value.
 	 */
 	public int getSize() {
-		return (int) (((getGenome().getGeneValue("size") - 0.15 * getGenome().getGeneValue("size")) * getAge()) /
-				(getAge() + 3) + 0.15 * getGenome().getGeneValue("size"));
+		return (int) (((getGenome().getGeneValue("size") - 0.25 * getGenome().getGeneValue("size")) * getAge()) /
+				(getAge() + 3) + 0.25 * getGenome().getGeneValue("size"));
 	}
 }

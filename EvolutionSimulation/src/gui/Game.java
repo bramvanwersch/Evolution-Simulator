@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 
 public class Game {
 	private final int[] START_SPECIES_COUNT = {2,0,10};
-	private final int[] START_SIZE_COUNT = {30,35,30};
+	private final int[] START_SIZE_COUNT = {30,35,35};
 	private final int[] START_SPEED_COUNT = {15,20,13};
 	private final int[] START_MAX_AGES = {90,90,90};
 	private final int[][] START_COLORS = {{255,0,0},{255,0,255},{0,0,255}};
