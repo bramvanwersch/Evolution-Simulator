@@ -38,9 +38,9 @@ public class Herbivore extends Species{
 		if (getEnergy() > 0) {
 			double slopeLength = Math.sqrt(Math.pow(x - getxLoc(), 2) + Math.pow(y - getyLoc(), 2));
 			//direction that is straigh away from the target
-			double fd = Math.atan2((y - getyLoc())/ slopeLength, (x - getxLoc())/ slopeLength);
-			double min = (fd - 0.1 * Math.PI);
-			double max = (fd + 0.1 * Math.PI);
+			double fd = Math.atan((y - getyLoc())/ slopeLength);
+			double min = (fd - 0.25 * Math.PI);
+			double max = (fd + 0.25 * Math.PI);
 			setFacingDirection((Math.random() * (max - min)) + min);
 			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
 			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));

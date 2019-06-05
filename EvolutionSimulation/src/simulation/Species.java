@@ -57,12 +57,12 @@ public class Species{
 	}
 	
 	public void move() {
-		if (this.energy > 0) {
-			double min = (facingDirection - 0.25 * Math.PI);
-			double max = (facingDirection + 0.25 * Math.PI);
-			facingDirection = (Math.random() * (max - min)) + min;
-			changeXLoc(Math.sin(facingDirection) * this.speed);
-			changeYLoc((-1 * Math.cos(facingDirection) * this.speed));
+		if (getEnergy() > 0) {
+			double min = (getFacingDirection() - 0.25 * Math.PI);
+			double max = (getFacingDirection() + 0.25 * Math.PI);
+			setFacingDirection((Math.random() * (max - min)) + min);
+			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
+			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
 			changeEnergy(-1*getEnergyConsumption());
 		}
 	}
@@ -134,7 +134,7 @@ public class Species{
 	}
 	
 	public int getSpeed() {
-		return speed;
+		return this.speed;
 	}
 	
 	public void addAge() {
@@ -191,6 +191,10 @@ public class Species{
 	public int getRepTime() {
 		//for inheriting classes
 		return 0;
+	}
+	
+	public void setSpeed(int i) {
+		this.speed = i;
 	}
 	
 	public int getNumber() {

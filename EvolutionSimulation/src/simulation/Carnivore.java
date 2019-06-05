@@ -4,20 +4,21 @@ import genome.Genome;
 
 public class Carnivore extends Species{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
-	private int chaseTime;
-	private int MAX_CHASE_TIME = 2000;
-	private final int MINIMUM_REP_TIME = 5;
+	private final int FOOD_DIGEST_TIME = 1000;
+	boolean eating = false;
+	private int timeSinceEating;
+	private final int MINIMUM_REP_TIME = 2;
 
 	//innitial constructor
 	public Carnivore(int size, int speed, int maxAge) {
 		super(size, speed, maxAge);
-		this.chaseTime = 0;
+		this.timeSinceEating = 0;
 	}
 	
 	//inheriting constructor
 	public Carnivore(int x, int y,int energy, Genome genome, int number) {
 		super(x, y, energy, genome, number);
-		this.chaseTime = 0;
+		this.timeSinceEating = 0;
 	}
 	
 	public double getEnergyConsumption() {
@@ -29,8 +30,8 @@ public class Carnivore extends Species{
 	/**
 	 * Function that will check if a eatable species is completely in the bounding box of the carnivore.
 	 * If this is the case true is returned and the energy is added to the energy of the carnivore. This means
-	 * that the species got eaten and will be removed from the game. The chase time will be set to almost
-	 * max ensuring that the carnivore will rest for a while before attackign again.
+	 * that the species got eaten and will be removed from the game. The eating boolean will be set to true making
+	 * carnivores slow so they cant effectively eat.
 	 * @param x the x coordinate of the eatable species
 	 * @param y the y coordinate of the eatable species
 	 * @param size the sSize the size of the eatable species
@@ -41,7 +42,7 @@ public class Carnivore extends Species{
 		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
 				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
 			changeEnergy(sEnergy);
-			this.chaseTime = MAX_CHASE_TIME -1;
+			this.eating = true;
 			return true;
 		}
 		return false;
@@ -50,8 +51,7 @@ public class Carnivore extends Species{
 	public void useScentToMove(int ix, int iy) {
 		double y  = (double) iy;
 		double x = (double) ix;
-		if (getEnergy() > 0 && this.chaseTime < this.MAX_CHASE_TIME) {
-			this.chaseTime += 50;
+		if (getEnergy() > 0 && !this.eating) {
 			double slopeLength = Math.sqrt(Math.pow(x - getxLoc(), 2) + Math.pow(y - getyLoc(), 2));
 			//direction that is straigh away from the target
 			changeXLoc((x - getxLoc())/ slopeLength *getSpeed());
@@ -64,11 +64,31 @@ public class Carnivore extends Species{
 		}
 		else {
 			move();
-			if (this.chaseTime - 5 < this.MAX_CHASE_TIME) {
-				this.chaseTime = 0;
+		}
+	}
+	
+	public void move() {
+		eatTimeCheck();
+		if (getEnergy() > 0) {
+			double min = (getFacingDirection() - 0.25 * Math.PI);
+			double max = (getFacingDirection() + 0.25 * Math.PI);
+			setFacingDirection((Math.random() * (max - min)) + min);
+			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
+			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
+			changeEnergy(-1*getEnergyConsumption());			
+		}
+	}
+	
+	public void eatTimeCheck() {
+		if (this.eating) {
+			if (this.timeSinceEating == 0) {
+				setSpeed(3);
 			}
-			else {
-				this.chaseTime -= 5;
+			this.timeSinceEating += 50;
+			if (this.timeSinceEating >= this.FOOD_DIGEST_TIME) {
+				this.eating = false;
+				this.timeSinceEating = 0;
+				setSpeed(getGenome().getGeneValue("speed"));
 			}
 		}
 	}
