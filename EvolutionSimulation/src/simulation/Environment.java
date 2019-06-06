@@ -285,6 +285,13 @@ public class Environment {
 	}
 
 // methods for getting certain collections of species from populations.
+	private ArrayList<Species> getAllSpecies() {
+		ArrayList<Species> specList = getAllCarnivores();
+		specList.addAll(getAllOmnivores());
+		specList.addAll(getAllHerbivores());
+		return specList;
+	}
+	
 	private ArrayList<Species> getAllMeatEaters() {
 		ArrayList<Species> meatList = getAllCarnivores();
 		meatList.addAll(getAllOmnivores());
@@ -295,17 +302,6 @@ public class Environment {
 		ArrayList<Species> greenList = getAllHerbivores();
 		greenList.addAll(getAllOmnivores());
 		return greenList;
-	}
-
-
-	private ArrayList<Species> getAllSpecies() {
-		ArrayList<Species> specList = new ArrayList<Species>();
-		for (Population sp: populations ) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				specList.add(sp.getSpecies(i));
-			}
-		}
-		return specList;
 	}
 	
 	private ArrayList<Species> getAllCarnivores() {
