@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import simulation.Food;
-import simulation.SpeciePopulation;
+import simulation.Population;
 import simulation.Species;
 import simulation.Environment;
 
@@ -39,7 +39,7 @@ public class TerrainPanel extends JPanel{
 	}
 
 	private void drawSpecies() {
-		for (SpeciePopulation sp : environment.getPopulations()) {
+		for (Population sp : environment.getPopulations()) {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				int xCoord = s.getxLoc() - s.getSize()/2;

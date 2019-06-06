@@ -67,7 +67,7 @@ public class Species{
 		}
 	}
 	
-	public void useScentToMove(int x, int y) {
+	public void scentMovement(int x, int y) {
 		//method for inheriting classes
 	}
 	

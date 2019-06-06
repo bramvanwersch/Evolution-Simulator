@@ -56,7 +56,7 @@ public class Carnivore extends Species{
 	 * @param ix integer representing the x coordinate of the herbivore
 	 * @param iy integer representing the y coordinate of the herbivore
 	 */
-	public void useScentToMove(int ix, int iy) {
+	public void scentMovement(int ix, int iy) {
 		double y  = (double) iy;
 		double x = (double) ix;
 		if (getEnergy() > 0 && !this.eating) {

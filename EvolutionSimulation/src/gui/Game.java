@@ -304,7 +304,7 @@ public class Game {
 	private void stopTimer() {
 		timer.stop();
 	}
-	
+	//broken needs fixing
 	private void restartTimer() {
 		if (timer != null) {
 			timer.stop();

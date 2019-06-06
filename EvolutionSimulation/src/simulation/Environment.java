@@ -8,28 +8,216 @@ public class Environment {
 	private int DEFAULT_FOOD_E = 100;
 	private int DEFAULT_FOOD_SIZE = 5;
 	private double EAT_SIZE_FACTOR = 1;
-	private ArrayList<SpeciePopulation> populations;
+	private ArrayList<Population> populations;
 	private ArrayList<Food> foodList;
 	
+	/**
+	 * Class that will manage species populations. It contains methods that affect all species and directs underlying population
+	 * classes to manage their respective species.
+	 * @param nrSpecies
+	 * @param size
+	 * @param speed
+	 * @param maxAge
+	 * @param colors
+	 * @param type
+	 * @param nrFood
+	 */
 	public Environment(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[][]colors,
 			String[] type, int nrFood) {
 		this.foodList = new ArrayList<Food>();
-		this.populations = new ArrayList<SpeciePopulation>();
+		this.populations = new ArrayList<Population>();
 		createPopulations(nrSpecies.length, colors, type);
 		createSpecies(nrSpecies, size, speed, maxAge);
 		createFood(nrFood);
 	}
+	
+	/**
+	 * Container function for invoking methods that need to be updated every frame.
+	 */
+	public void nextTimeStep() {
+		checkAliveSpecies();
+		moveSpecies();
+		eatFood();
+		eatSpecies();
+		checkCanMultiply();
+		shuffleLists();
+	}
+	
+// methods that need checking every frame.
+	/**
+	 * Function for invoking the checkAliveSpecies for every population.
+	 */
+	public void checkAliveSpecies() {
+		for (Population sp: populations ) {
+			sp.checkAliveSpecies();
+		}
+	}
+	
+	/**
+	 * Function for moving all the species. First is checked if a species is in range of the scent of another species if this is the case
+	 * scentmovement is used to move. Otherwise normal movement will be used to move.
+	 */
+	public void moveSpecies() {
+		for (Population sp: populations ) {
+			for (int i = 0; i < sp.getNrSpecies(); i++) {
+				Species s = sp.getSpecies(i);
+				Species closestCarnivore = null;
+				Species closestHerbivore = null;
+				if (sp.getType().equals("Herbivore")){
+					closestCarnivore = checkHerbivoreScent(s);
+					if (closestCarnivore != null) {
+						s.scentMovement(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
+					}
+				}
+				else if (sp.getType().equals("Carnivore")){
+					closestHerbivore = checkCarnivoreScent(s);
+					if (closestHerbivore != null) {
+						s.scentMovement(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
+					}
+				}
+				else {
+					s.move();
+				}
+			}
+		}	
+	}
+	
+	/**
+	 * Function to check for the closest carnivore that is bigger then the herbivore so scent movement can
+	 * be used to move away from it. 
+	 * @param s1: the herbivore.
+	 * @return the closest carnivore or null if no carnivore is in range of the scent.
+	 */
+	public Species checkHerbivoreScent(Species s1) {
+		Species closestCarnivore = null;
+		double lowestC = s1.getScentRange();
+		for (int i = 0; i < getAllCarnivores().size(); i++) {
+			Species s2 = getAllCarnivores().get(i);
+			//getting slope of triangle using pythagoras.
+			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
+					< lowestC && s2.getSize() > EAT_SIZE_FACTOR* s1.getSize()) {
+				closestCarnivore = s2;
+				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
+			}
+		}
+		return closestCarnivore;
+	}
+	
+	/**
+	 * Function to check for the closest herbivore that is smaller then the carnivore so scent movement can
+	 * be used to move towards it. 
+	 * @param s1: the carnivore.
+	 * @return the closest herbivore or null if no herbivore is in range of the scent.
+	 */
+	public Species checkCarnivoreScent(Species s1) {
+		Species closestHerbivore = null;
+		double lowestC = s1.getScentRange();
+		for (int i = 0; i < getAllHerbivores().size(); i++) {
+			Species s2 = getAllHerbivores().get(i);
+			//getting slope of triangle using pythagoras.
+			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
+					< lowestC && s2.getSize() < EAT_SIZE_FACTOR* s1.getSize()) {
+				closestHerbivore = s2;
+				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
+			}
+		}
+		return closestHerbivore;
+	}
+	
+	/**
+	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
+	 * case the food is consumed and the species gets energy
+	 */
+	public void eatFood() {
+		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
+			Species s = getAllPlantEaters().get(i);
+			for(int j = getNrFood() - 1; j >= 0; j--) {
+				Food f = getFood(j);
+				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
+					removeFood(j);
+				}
+			}
+		}	
+	}
+	
+	/**
+	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
+	 * the case the herbivore will be removed.
+	 */
+	public void eatSpecies() {
+		for(int i = 0; i < getAllCarnivores().size() + getAllOmnivores().size(); i++) {
+			for (Population sp: populations ) {
+				if (sp.getType().equals("Herbivore")) {
+					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
+						Species s1 = getAllMeatEaters().get(i);
+						Species s2 = sp.getSpecies(j);
+						if (s1.getSize() > s2.getSize() * EAT_SIZE_FACTOR) {
+							if (s1.checkCanEat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+								sp.removeSpecies(j);
+								if (i != 0) {
+									i--;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Function that invokes a function for every population that checks if species are eligible for 
+	 * multiplication
+	 */
+	public void checkCanMultiply() {
+		for (Population sp: populations ) {
+			sp.checkCanMultiply();
+		}
+	}
+	
+	/**
+	 * Function for checking is species are older then theire max age. If this is the case the species will
+	 * die and be removed. Otherwise the age of the species is increased.
+	 * Note: this method is only invoked once every second.
+	 */
+	public void addCheckAge() {
+		for (Population sp: populations ) {
+			for (int i = 0; i < sp.getNrSpecies(); i++) {
+				Species s = sp.getSpecies(i);
+				if (s.getAge() <= s.getMaxAge()) {
+					s.addRepTime();
+					s.addAge();
+				}
+				else {
+					sp.removeSpecies(i);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Function to invoke the shuffle list function for each population. And to shuffle the foodlist.
+	 * This is important to make sure that checks that loop trough lists are not biased towards the objects
+	 * at the top of the lists.
+	 */
+	public void shuffleLists() {
+		for (Population sp: populations ) {
+			sp.shuffleSpeciesList();
+		}
+		Collections.shuffle(foodList);	
+	}
 
 	private void createPopulations(int nrPopulations, int[][] colors, String[] type) {
 		for (int i = 0; i < nrPopulations; i++) {
-			SpeciePopulation p = new SpeciePopulation(colors[i], type[i]);
+			Population p = new Population(colors[i], type[i]);
 			populations.add(p);
 		}
 	}
 
+//methods for innitialy creating species that are specified.
 	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge) {
 		for (int i = 0; i <populations.size(); i++) {
-			SpeciePopulation p = populations.get(i);
+			Population p = populations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
 				if (p.getType().equals("Carnivore")) {
@@ -64,7 +252,7 @@ public class Environment {
 	}
 	
 	private boolean checkSpeciesPlacement(Species spec) {
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
 				Species s = sp.getSpecies(i);
 				//check if the central point of the species just created is witin another species or not. if so move it.
@@ -77,6 +265,7 @@ public class Environment {
 		return true;
 	}
 
+// methods for food managing methods.
 	public void createFood(int nrFood) {
 		for (int i = 0; i < nrFood; i++) {
 			foodList.add(new Food(DEFAULT_FOOD_E, DEFAULT_FOOD_SIZE));
@@ -95,136 +284,7 @@ public class Environment {
 		foodList.remove(index);
 	}
 
-	public void shuffleLists() {
-		for (SpeciePopulation sp: populations ) {
-			sp.shuffleSpeciesList();
-		}
-		Collections.shuffle(foodList);	
-	}
-	
-	public void addCheckAge() {
-		for (SpeciePopulation sp: populations ) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
-				if (s.getAge() <= s.getMaxAge()) {
-					s.addRepTime();
-					s.addAge();
-				}
-				else {
-					sp.removeSpecies(i);
-				}
-			}
-		}
-	}
-
-	public void moveSpecies() {
-		for (SpeciePopulation sp: populations ) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
-				Species closestCarnivore = null;
-				Species closestHerbivore = null;
-				if (sp.getType().equals("Herbivore")){
-					closestCarnivore = checkHerbivoreScent(s);
-				}
-				else if (sp.getType().equals("Carnivore")){
-					closestHerbivore = checkCarnivoreScent(s);
-				}
-				if (closestCarnivore != null) {
-					s.useScentToMove(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
-				}
-				else if (closestHerbivore != null) {
-					s.useScentToMove(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
-				}
-				else {
-					s.move();
-				}
-			}
-		}	
-	}
-	
-	public void multiplySpecies() {
-		for (SpeciePopulation sp: populations ) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				if (sp.getSpecies(i).isCanMultiply()) {
-					sp.multiplySpecies(i, true);
-				}
-			}
-		}
-	}
-	
-	public Species checkHerbivoreScent(Species s1) {
-		Species closestSprite = null;
-		double lowestC = s1.getScentRange();
-		for (int i = 0; i < getAllCarnivores().size(); i++) {
-			Species s2 = getAllCarnivores().get(i);
-			//getting slope of triangle using pythagoras.
-			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() > EAT_SIZE_FACTOR* s1.getSize()) {
-				closestSprite = s2;
-				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
-			}
-		}
-		return closestSprite;
-	}
-	
-	public Species checkCarnivoreScent(Species s1) {
-		Species closestSprite = null;
-		double lowestC = s1.getScentRange();
-		for (int i = 0; i < getAllHerbivores().size(); i++) {
-			Species s2 = getAllHerbivores().get(i);
-			//getting slope of triangle using pythagoras.
-			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() < EAT_SIZE_FACTOR* s1.getSize()) {
-				closestSprite = s2;
-				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
-			}
-		}
-		return closestSprite;
-	}
-	
-	public void checkAliveSpecies() {
-		for (SpeciePopulation sp: populations ) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				if (sp.getSpecies(i).getEnergy() <= 0) {
-					sp.removeSpecies(i);
-				}
-			}
-		}
-	}
-	
-	public void eatFood() {
-		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
-			Species s = getAllPlantEaters().get(i);
-			for(int j = getNrFood() - 1; j >= 0; j--) {
-				Food f = getFood(j);
-				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
-					removeFood(j);
-				}
-			}
-		}	
-	}
-	
-	public void eatSpecies() {
-		for(int i = 0; i < getAllCarnivores().size() + getAllOmnivores().size(); i++) {
-			for (SpeciePopulation sp: populations ) {
-				if (sp.getType().equals("Herbivore")) {
-					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
-						Species s1 = getAllMeatEaters().get(i);
-						Species s2 = sp.getSpecies(j);
-						if (s1.getSize() > s2.getSize() * EAT_SIZE_FACTOR) {
-							if (s1.checkCanEat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
-								sp.removeSpecies(j);
-								if (i != 0) {
-									i--;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	
+// methods for getting certain collections of species from populations.
 	private ArrayList<Species> getAllMeatEaters() {
 		ArrayList<Species> meatList = getAllCarnivores();
 		meatList.addAll(getAllOmnivores());
@@ -240,7 +300,7 @@ public class Environment {
 
 	private ArrayList<Species> getAllSpecies() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				specList.add(sp.getSpecies(i));
 			}
@@ -250,7 +310,7 @@ public class Environment {
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			if (sp.getType().equals("Carnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -262,7 +322,7 @@ public class Environment {
 	
 	private ArrayList<Species> getAllOmnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			if (sp.getType().equals("Omnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -274,7 +334,7 @@ public class Environment {
 	
 	private ArrayList<Species> getAllHerbivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			if (sp.getType().equals("Herbivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -283,7 +343,8 @@ public class Environment {
 		}
 		return specList;
 	}
-	
+
+// metthods for getting any amount of species
 	public int getNrHerbivores() {
 		return getAllHerbivores().size();
 	}
@@ -298,7 +359,7 @@ public class Environment {
 
 	public int getNrSpecies() {
 		int count = 0;
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			count += sp.getNrSpecies();
 		}
 		return count;
@@ -306,17 +367,17 @@ public class Environment {
 	
 	public int getAllDeadSpecies() {
 		int count = 0;
-		for (SpeciePopulation sp: populations ) {
+		for (Population sp: populations ) {
 			count += sp.getDiedSpecies();
 		}
 		return count;
 	}
 	
-	public ArrayList<SpeciePopulation> getPopulations() {
+	public ArrayList<Population> getPopulations() {
 		return populations;
 	}
 	
-	//data stats
+//Methods for data class. These methods calculate max, min and average values for all species for a certain statistic
 	public double[] getSpeedStats() {
 		double[] valArray = new double[getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {

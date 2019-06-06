@@ -8,7 +8,7 @@ import genome.Gene;
 import genome.Genome;
 import genome.PanGenome;
 
-public class SpeciePopulation {
+public class Population {
 	private final double MUTATION_CHANCE = 0.005;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
@@ -17,7 +17,7 @@ public class SpeciePopulation {
 	private PanGenome panGenome;
 	private String speciesData;
 	
-	public SpeciePopulation(int[] color, String type) {
+	public Population(int[] color, String type) {
 		this.speciesList = new ArrayList<Species>();
 		this.diedSpecies = 0;
 		this.color = color;
@@ -36,6 +36,14 @@ public class SpeciePopulation {
 	
 	public Species getSpecies(int index) {
 		return speciesList.get(index);
+	}
+	
+	public void checkCanMultiply() {
+		for (int i = 0; i < getNrSpecies(); i++) {
+			if (getSpecies(i).isCanMultiply()) {
+				multiplySpecies(i, true);
+			}
+		}
 	}
 	
 	public void multiplySpecies(int index, boolean mutation) {
@@ -99,6 +107,14 @@ public class SpeciePopulation {
 		if (speciesData.length() > 10000) {
 			panGenome.writeSpeciesInfo(speciesData);
 			speciesData = " ";
+		}
+	}
+
+	public void checkAliveSpecies() {
+		for (int i = 0; i < getNrSpecies(); i++) {
+			if (getSpecies(i).getEnergy() <= 0) {
+				removeSpecies(i);
+			}
 		}
 	}
 }

@@ -9,7 +9,6 @@ import javax.swing.Timer;
 import gui.Game;
 import gui.TerrainPanel;
 
-//TODO make gui nicer and add max age counter.
 public class GameLoop implements ActionListener{
 	private Environment environment;
 	private TerrainPanel panel;
@@ -18,6 +17,14 @@ public class GameLoop implements ActionListener{
 	private Game frame;
 	private Data data;
 
+	/**
+	 * Class for updating the main panel every 50 ms by invoking updating methods of species and saving data
+	 * to be able to track progression.
+	 * @param panel: the main panel that draws all generated species and food objects
+	 * @param txtFoodRegen: number for a text field to set the food regeneration time.
+	 * @param dataObj: data class object that stores values every second.
+	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
+	 */
 	public GameLoop(TerrainPanel panel, JTextField txtFoodRegen, Data dataObj, Game mainFrame) {
 		this.frame = mainFrame;
 		this.environment = panel.getEnvironment();
@@ -28,25 +35,27 @@ public class GameLoop implements ActionListener{
 		environment.moveSpecies();
 	}
 	
-	 public void actionPerformed(ActionEvent e) {
-		 timeElapsed += 50;
-		 environment.moveSpecies();
-		 environment.checkAliveSpecies();
-		 environment.eatFood();
-		 environment.eatSpecies();
-		 addFood();
-		 if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
-			 environment.multiplySpecies();
-			 environment.addCheckAge();
-			 addDataValues();
-		 }
-		 panel.repaint();
-		 if (!checkIfAllDead(e)) {
-			 frame.updateLabels(getLabelTexts());
-		 }
-		 this.environment.shuffleLists();
-     }
-
+	/**
+	 * Function that is invoked every time this class recieves an update. This is the main function to keep 
+	 * the game running
+	 */
+	public void actionPerformed(ActionEvent e) {
+		timeElapsed += 50;
+		environment.nextTimeStep();
+		environment.createFood(Integer.parseInt(foodRegenTxt.getText()));
+		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
+			addDataValues();
+			environment.addCheckAge();
+		}
+		panel.repaint();
+		if (!checkIfAllDead(e)) {
+			frame.updateLabels(getLabelTexts());
+		}
+	}
+ 
+	/**
+	 * Function that is evoked every second to record data points for every stat of the species and time.
+	 */
 	private void addDataValues() {
 		data.setNrHerbivores(environment.getNrHerbivores());
 		data.setNrOmnivores(environment.getNrOmnivores());
@@ -59,11 +68,11 @@ public class GameLoop implements ActionListener{
 		data.addTime();
 	}
 	
-	private void addFood() {
-		Environment t = this.environment;
-		t.createFood(Integer.parseInt(foodRegenTxt.getText()));
-	}
-	
+	/**
+	 * Function for collecting data to be displayed in the labels besides the game to easier track progression
+	 * of statics of species. (this function is bad structure getting game instance and refering back to it).
+	 * @return Array of statistics.
+	 */
 	private String[] getLabelTexts() {
 		String [] lblTexts = new String [7];
 		Environment t = this.environment;
@@ -76,7 +85,13 @@ public class GameLoop implements ActionListener{
 		lblTexts[6] = String.format("%d Seconds", timeElapsed/1000);
 		return lblTexts;
 	}
-
+	
+	/**
+	 * Function that will check if there are species alive. If no species are alive the game is stopped. This
+	 * is important because ever increasing food objects flood memory.
+	 * @param e: actionevent variable to stop the timer invoked in the Game class
+	 * @return boolean telling if the game should be continued or stopped.
+	 */
 	private boolean checkIfAllDead(ActionEvent e) {
 		if (this.environment.getNrSpecies() == 0) {
 			Timer t  = (Timer) e.getSource();

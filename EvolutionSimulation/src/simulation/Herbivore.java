@@ -32,7 +32,7 @@ public class Herbivore extends Species{
 		return false;
 	}
 	
-	public void useScentToMove(int ix, int iy) {
+	public void scentMovement(int ix, int iy) {
 		double y  = (double) iy;
 		double x = (double) ix;
 		if (getEnergy() > 0) {
