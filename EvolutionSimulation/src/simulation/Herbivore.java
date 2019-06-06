@@ -19,7 +19,7 @@ public class Herbivore extends Species{
 	public double getEnergyConsumption() {
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.25, contentSurface) - 1)* 0.3* getSpeed() + 0.125 * (getScentRange() - getSize()) + 0.5*getAge();
+		return (Math.pow(1.25, contentSurface) - 1) + getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
 	}
 
 	
@@ -38,7 +38,7 @@ public class Herbivore extends Species{
 		if (getEnergy() > 0) {
 			double slopeLength = Math.sqrt(Math.pow(x - getxLoc(), 2) + Math.pow(y - getyLoc(), 2));
 			//direction that is straigh away from the target
-			double fd = Math.atan((y - getyLoc())/ slopeLength);
+			double fd = Math.atan2((y - getyLoc())/ slopeLength, (x - getxLoc())/slopeLength);
 			double min = (fd - 0.25 * Math.PI);
 			double max = (fd + 0.25 * Math.PI);
 			setFacingDirection((Math.random() * (max - min)) + min);
