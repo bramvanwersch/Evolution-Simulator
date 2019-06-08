@@ -3,7 +3,6 @@ package simulation;
 import java.util.ArrayList;
 import java.util.Collections;
 
-//TODO species need to not be pushed outside the map.
 public class Environment {
 	private int DEFAULT_FOOD_E = 100;
 	private int DEFAULT_FOOD_SIZE = 5;
@@ -68,11 +67,17 @@ public class Environment {
 					if (closestCarnivore != null) {
 						s.scentMovement(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
 					}
+					else {
+						s.move();
+					}
 				}
 				else if (sp.getType().equals("Carnivore")){
 					closestHerbivore = checkCarnivoreScent(s);
 					if (closestHerbivore != null) {
 						s.scentMovement(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
+					}
+					else {
+						s.move();
 					}
 				}
 				else {
@@ -373,7 +378,10 @@ public class Environment {
 		return populations;
 	}
 	
-//Methods for data class. These methods calculate max, min and average values for all species for a certain statistic
+/*
+ * Methods for data class. These methods calculate max, min and average values for all species for a 
+ * certain statistic. Probably is a better way of doing this.
+ */
 	public double[] getSpeedStats() {
 		double[] valArray = new double[getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {
