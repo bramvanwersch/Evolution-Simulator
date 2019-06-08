@@ -262,7 +262,8 @@ public class Genome {
 	
 	/**
 	 * Function for creating starting genes based on the perfectGenes generated at creation of the genome.
-	 * Starter genes have an alignment score that is about 25 -60% of the max score of corresponding perfect genes.
+	 * Starter genes have an alignment score that is about 24 -26% of the max score of the corresponding 
+	 * perfect genes.
 	 * @return an array of starter genes.
 	 */
 	private String[] createStarterGenes() {
@@ -274,10 +275,10 @@ public class Genome {
 			String newGenSeq = mutate(optimalGenSeq, 0.5, true);
 			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
 			double optimalGenScore = optimalGene.getMaxScore();
-			//randomly generate a gene that is 30% to 20% as efficient as the optimal gene.
-			while (newGenScore >= 0.3 * optimalGenScore || newGenScore <= 0.2 * optimalGenScore) {
+			//randomly generate a gene that is 26% to 24% as efficient as the optimal gene.
+			while (newGenScore >= 0.26 * optimalGenScore || newGenScore <= 0.24 * optimalGenScore) {
 				optimalGenSeq  = optimalGene.getSequence();
-				newGenSeq = mutate(optimalGenSeq, 0.5, true);
+				newGenSeq = mutate(optimalGenSeq, 0.25, true);
 				newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
 //				System.out.println(newGenScore + "  " + optimalGenScore);
 			}

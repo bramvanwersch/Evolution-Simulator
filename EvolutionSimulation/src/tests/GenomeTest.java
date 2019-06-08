@@ -11,7 +11,7 @@ public class GenomeTest extends TestCase {
 		Genome g = new Genome(new String[] {"gen1"}, new int[] {8});
 		//stopcodons are always assumed and removed.
 		int score = g.sequenceAlligner("THISLINE#", "ISALIGNED#");
-		assertEquals(7, score);
+		assertEquals(16, score);
 	}
 	
 	public void testSequenceAllignment2() {
@@ -37,7 +37,6 @@ public class GenomeTest extends TestCase {
 	public void testGetORFs() {
 		Genome g = new Genome(new String[] {"gen1","gen2","gen3"}, new int[] {8,8,8});
 		String[] orfs = g.getORFs();
-		System.out.println(Arrays.toString(orfs));
 		assertEquals(3, orfs.length);
 	}
 
