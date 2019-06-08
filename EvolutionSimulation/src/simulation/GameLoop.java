@@ -25,12 +25,12 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, JTextField txtFoodRegen, Data dataObj, Game mainFrame) {
+	public GameLoop(TerrainPanel panel, JTextField txtFoodRegen, Game mainFrame) {
 		this.frame = mainFrame;
 		this.environment = panel.getEnvironment();
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
-		this.data = dataObj;
+		this.data = new Data();
 		this.timeElapsed = 0;
 		environment.moveSpecies();
 	}
@@ -99,5 +99,9 @@ public class GameLoop implements ActionListener{
 			return true;
 		}
 		return false;
+	}
+
+	public Data getData() {
+		return this.data;
 	}
 }

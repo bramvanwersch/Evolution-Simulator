@@ -17,13 +17,12 @@ public class TerrainPanel extends JPanel{
 	private int width;
 	private Graphics2D g2d;
 	private Environment environment;
-	private int WINDOW_SIZE = 900;
 			
 	
-	public TerrainPanel(int heigth, int width, int[] nrSpecies, int[]speed, int[]size, int[]maxAge,int[][] colors,String[] type, int nrFood) {
+	public TerrainPanel(int heigth, int width, Environment environment) {
 		this.heigth = heigth;
 		this.width = width;
-		this.environment = new Environment(nrSpecies, speed, size, maxAge,colors,type, nrFood);
+		this.environment = environment;
 		this.setBackground(Color.WHITE);
 	}
 	

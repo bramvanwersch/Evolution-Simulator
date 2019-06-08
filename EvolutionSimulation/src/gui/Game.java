@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import simulation.Data;
+import simulation.Environment;
 import simulation.GameLoop;
 
 import javax.swing.JPanel;
@@ -41,20 +42,25 @@ public class Game {
 	private JLabel lblAvgScentText;
 	private JLabel lblAvgAgeText;
 	private JLabel lblEnergyConsumptionText;
-	private Data dataObj;
+	private Environment environment;
+	private GameLoop gameloop;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Game().createGui();
+				new Game();
 			}
 		});
 	}
+	public Game() {
+		new OptionMenue();
+		createGui();
+	}
 	
 	private void createGui() {
-		this.dataObj = new Data();
-		panel = new TerrainPanel(950,950, START_SPECIES_COUNT,START_SIZE_COUNT, START_SPEED_COUNT,START_MAX_AGES,
-				START_COLORS,SPECIES_TYPES, START_FOOD_COUNT);
+		this.environment = new Environment(START_SPECIES_COUNT, START_SIZE_COUNT, START_SPEED_COUNT,
+				START_MAX_AGES,START_COLORS,SPECIES_TYPES, START_FOOD_COUNT);
+		panel = new TerrainPanel(950,950, this.environment);
 		SwingUtilities.isEventDispatchThread();
 		JFrame f = new JFrame("Terrain");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,6 +70,14 @@ public class Game {
 		GridBagLayout gbl_gamePannel = new GridBagLayout();
 		gamePannel.setLayout(gbl_gamePannel);
 		
+		// the panel containing the good stuff
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.gridheight = 14;
+		gbc_panel.gridy = 0;
+		gbc_panel.gridx = 0;
+		gamePannel.add(panel, gbc_panel);
+		
 		JLabel lblStatistics = new JLabel("Statistics:");
 		GridBagConstraints gbc_lblStatistics = new GridBagConstraints();
 		gbc_lblStatistics.gridwidth = 2;
@@ -71,14 +85,6 @@ public class Game {
 		gbc_lblStatistics.gridx = 1;
 		gbc_lblStatistics.gridy = 0;
 		gamePannel.add(lblStatistics, gbc_lblStatistics);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
-		gbc_panel.gridheight = 14;
-		gbc_panel.gridy = 0;
-		gbc_panel.gridx = 0;
-		
-		// the panel containing the good stuff
-		gamePannel.add(panel, gbc_panel);
 
 		JLabel lblNrSpecies = new JLabel("Number of individuals:");
 		lblNrSpecies.setOpaque(true);
@@ -90,7 +96,7 @@ public class Game {
 		gbc_lblNrSpecies.gridy = 1;
 		gamePannel.add(lblNrSpecies, gbc_lblNrSpecies);
 		
-		lblNrSpeciesText = new JLabel(panel.getEnvironment().getNrSpecies() + "");
+		lblNrSpeciesText = new JLabel("");
 		GridBagConstraints gbc_lblNrSpeciesText = new GridBagConstraints();
 		gbc_lblNrSpeciesText.anchor = GridBagConstraints.WEST;
 		gbc_lblNrSpeciesText.weightx = 1.0;
@@ -194,7 +200,7 @@ public class Game {
 		JButton btnShowGraph = new JButton("Show Graph");
 		btnShowGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GraphBuilder(dataObj.getTimeArray(), dataObj.getDataArray()
+				new GraphBuilder(gameloop.getData().getTimeArray(), gameloop.getData().getDataArray()
 						,1000, 800, new String [] {"Time", ""}, false);
 			}
 
@@ -292,8 +298,8 @@ public class Game {
 	private void startTimer() {
 		if (timer == null) {
 			lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
-			ActionListener al = new GameLoop(panel,txtNumberFood, dataObj, this);
-			timer = new Timer(UPDATE_TIME, al);
+			this.gameloop = new GameLoop(panel,txtNumberFood, this);
+			timer = new Timer(UPDATE_TIME, gameloop);
 			timer.start();
 		}
 		else {
