@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import simulation.Data;
+import genome.OptionMenu;
 import simulation.Environment;
 import simulation.GameLoop;
 
@@ -20,6 +20,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 public class Game {
@@ -53,11 +56,11 @@ public class Game {
 		});
 	}
 	public Game() {
-		new OptionMenue();
-		createGui();
+		OptionMenu options = new OptionMenu();
+		initGUI();
 	}
 	
-	private void createGui() {
+	private void initGUI() {
 		this.environment = new Environment(START_SPECIES_COUNT, START_SIZE_COUNT, START_SPEED_COUNT,
 				START_MAX_AGES,START_COLORS,SPECIES_TYPES, START_FOOD_COUNT);
 		panel = new TerrainPanel(950,950, this.environment);
@@ -70,13 +73,36 @@ public class Game {
 		GridBagLayout gbl_gamePannel = new GridBagLayout();
 		gamePannel.setLayout(gbl_gamePannel);
 		
-		// the panel containing the good stuff
+// the panel containing the good stuff
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.gridheight = 14;
 		gbc_panel.gridy = 0;
 		gbc_panel.gridx = 0;
 		gamePannel.add(panel, gbc_panel);
+		
+//menu bar
+		JMenuBar menuBar = new JMenuBar();
+		f.setJMenuBar(menuBar);
+		
+		JMenu evolutionMenu = new JMenu("Evolution game");
+		menuBar.add(evolutionMenu);
+		
+		JMenuItem mntmNew = new JMenuItem("New...");
+		mntmNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newGame();
+			}
+		});
+		evolutionMenu.add(mntmNew);
+		
+		JMenuItem mntmOpen = new JMenuItem("Restart...");
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				restartGame();
+			}
+		});
+		evolutionMenu.add(mntmOpen);
 		
 		JLabel lblStatistics = new JLabel("Statistics:");
 		GridBagConstraints gbc_lblStatistics = new GridBagConstraints();
@@ -260,19 +286,6 @@ public class Game {
 		gbc_btnPause.gridy = 10;
 		gamePannel.add(btnPause, gbc_btnPause);
 		
-		JButton btnRestart = new JButton("Restart");
-		btnRestart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				restartTimer();
-			}
-		});
-		GridBagConstraints gbc_btnRestart = new GridBagConstraints();
-		gbc_btnRestart.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRestart.insets = new Insets(5, 5, 5, 5);
-		gbc_btnRestart.gridx = 1;
-		gbc_btnRestart.gridy = 11;
-		gamePannel.add(btnRestart, gbc_btnRestart);
-		
 		JLabel lblTimeElapsed = new JLabel("Time elapsed:");
 		GridBagConstraints gbc_lblTimeElapsed = new GridBagConstraints();
 		gbc_lblTimeElapsed.anchor = GridBagConstraints.WEST;
@@ -310,13 +323,19 @@ public class Game {
 	private void stopTimer() {
 		timer.stop();
 	}
+	
+	private void newGame() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	//broken needs fixing
-	private void restartTimer() {
+	private void restartGame() {
 		if (timer != null) {
 			timer.stop();
 		}
 		timer.restart();
-		createGui();
+		initGUI();
 	}
 	
 	public void updateLabels(String [] textArray) {
