@@ -1,18 +1,14 @@
 package genome;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
@@ -22,23 +18,27 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Container;
+
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 
 public class OptionMenu extends JFrame {
 
 	private JPanel contentPane;
-	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	private final JPanel environmentPanel = new JPanel();
-	private final JPanel populationPanel = new JPanel();
-	private final JPanel speciesPanel = new JPanel();
-	private final JLabel lblFoodEnergy = new JLabel("Food Energy:");
 	private final JTextField foodEnergyTxt = new JTextField();
-	private final JLabel lblFoodSize = new JLabel("Food Size:");
 	private final JTextField foodSizeTxt = new JTextField();
-	private final JLabel lblEatSizeFactor = new JLabel("Eat Size Factor:");
 	private final JTextField eatSizeFactorTxt = new JTextField();
-	private final JPanel panel = new JPanel();
-	private final JPanel panel_1 = new JPanel();
-	private final JLabel lblTbd = new JLabel("TBD");
+	private JTextField nameTxt;
+	private JTextField noIndField;
+	private JTextField sizeTxt;
+	private JTextField speedTxt;
+	private JTextField maxAgeTxt;
+	private JScrollPane scrollPane;
+	private JPanel scrollPanel;
 
 	/**
 	 * Launch the application.
@@ -67,6 +67,7 @@ public class OptionMenu extends JFrame {
 		foodEnergyTxt.setText("100");
 		foodEnergyTxt.setColumns(10);
 		initGUI();
+		scrollPane.setViewportView(addPopulationLabel());
 	}
 	
 	private void initGUI() {
@@ -79,17 +80,20 @@ public class OptionMenu extends JFrame {
 
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 0;
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, gbc_tabbedPane);
 		
+		JPanel environmentPanel = new JPanel();
 		tabbedPane.addTab("Environment", null, environmentPanel, null);
 		GridBagLayout gbl_environmentPanel = new GridBagLayout();
 		gbl_environmentPanel.columnWidths = new int[]{0, 0, 0};
@@ -98,27 +102,30 @@ public class OptionMenu extends JFrame {
 		gbl_environmentPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		environmentPanel.setLayout(gbl_environmentPanel);
 		
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(20, 20, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Food properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
-		environmentPanel.add(panel, gbc_panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		GridBagConstraints gbc_foodPanel = new GridBagConstraints();
+		gbc_foodPanel.gridheight = 2;
+		gbc_foodPanel.gridwidth = 2;
+		gbc_foodPanel.insets = new Insets(20, 20, 5, 20);
+		gbc_foodPanel.fill = GridBagConstraints.BOTH;
+		gbc_foodPanel.gridx = 0;
+		gbc_foodPanel.gridy = 0;
+		JPanel foodPanel = new JPanel();
+		foodPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Food properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		environmentPanel.add(foodPanel, gbc_foodPanel);
+		GridBagLayout gbl_foodPanel = new GridBagLayout();
+		gbl_foodPanel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_foodPanel.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_foodPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_foodPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		foodPanel.setLayout(gbl_foodPanel);
 		
 		GridBagConstraints gbc_lblFoodEnergy = new GridBagConstraints();
 		gbc_lblFoodEnergy.anchor = GridBagConstraints.WEST;
 		gbc_lblFoodEnergy.insets = new Insets(10, 5, 5, 5);
 		gbc_lblFoodEnergy.gridx = 0;
 		gbc_lblFoodEnergy.gridy = 0;
-		panel.add(lblFoodEnergy, gbc_lblFoodEnergy);
+		JLabel lblFoodEnergy = new JLabel("Food Energy:");
+		foodPanel.add(lblFoodEnergy, gbc_lblFoodEnergy);
 		lblFoodEnergy.setToolTipText("Energy each food item gives herbivores and omnivores.");
 		lblFoodEnergy.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -126,14 +133,15 @@ public class OptionMenu extends JFrame {
 		gbc_foodEnergyTxt.insets = new Insets(10, 10, 5, 5);
 		gbc_foodEnergyTxt.gridx = 1;
 		gbc_foodEnergyTxt.gridy = 0;
-		panel.add(foodEnergyTxt, gbc_foodEnergyTxt);
+		foodPanel.add(foodEnergyTxt, gbc_foodEnergyTxt);
 		
 		GridBagConstraints gbc_lblFoodSize = new GridBagConstraints();
 		gbc_lblFoodSize.anchor = GridBagConstraints.WEST;
 		gbc_lblFoodSize.insets = new Insets(0, 5, 5, 5);
 		gbc_lblFoodSize.gridx = 0;
 		gbc_lblFoodSize.gridy = 1;
-		panel.add(lblFoodSize, gbc_lblFoodSize);
+		JLabel lblFoodSize = new JLabel("Food Size:");
+		foodPanel.add(lblFoodSize, gbc_lblFoodSize);
 		lblFoodSize.setToolTipText("Size of the food for herbivores and omnivores.");
 		lblFoodSize.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -141,45 +149,188 @@ public class OptionMenu extends JFrame {
 		gbc_foodSizeTxt.insets = new Insets(0, 10, 5, 5);
 		gbc_foodSizeTxt.gridx = 1;
 		gbc_foodSizeTxt.gridy = 1;
-		panel.add(foodSizeTxt, gbc_foodSizeTxt);
+		foodPanel.add(foodSizeTxt, gbc_foodSizeTxt);
 		
 		GridBagConstraints gbc_lblEatSizeFactor = new GridBagConstraints();
 		gbc_lblEatSizeFactor.anchor = GridBagConstraints.WEST;
 		gbc_lblEatSizeFactor.insets = new Insets(0, 5, 5, 5);
 		gbc_lblEatSizeFactor.gridx = 0;
 		gbc_lblEatSizeFactor.gridy = 2;
+		JLabel lblEatSizeFactor = new JLabel("Eat Size Factor:");
 		lblEatSizeFactor.setToolTipText("<html>\r\nFactor that tells how mutch bigger a species has to be to be<br>\r\nable to eat its respective food. A value of 1 means that the<br>\r\nspecies has to be as big or bigger to be able to eat its food.<br>\r\n</html>\r\n");
-		panel.add(lblEatSizeFactor, gbc_lblEatSizeFactor);
+		foodPanel.add(lblEatSizeFactor, gbc_lblEatSizeFactor);
 		lblEatSizeFactor.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		GridBagConstraints gbc_eatSizeFactorTxt = new GridBagConstraints();
 		gbc_eatSizeFactorTxt.insets = new Insets(0, 10, 5, 5);
 		gbc_eatSizeFactorTxt.gridx = 1;
 		gbc_eatSizeFactorTxt.gridy = 2;
-		panel.add(eatSizeFactorTxt, gbc_eatSizeFactorTxt);
+		foodPanel.add(eatSizeFactorTxt, gbc_eatSizeFactorTxt);
 		
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 2;
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Terrain properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
-		environmentPanel.add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		GridBagConstraints gbc_terrainPanel = new GridBagConstraints();
+		gbc_terrainPanel.gridwidth = 2;
+		gbc_terrainPanel.gridheight = 2;
+		gbc_terrainPanel.insets = new Insets(20, 20, 5, 20);
+		gbc_terrainPanel.fill = GridBagConstraints.BOTH;
+		gbc_terrainPanel.gridx = 0;
+		gbc_terrainPanel.gridy = 2;
+		JPanel terrainPanel = new JPanel();
+		terrainPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Terrain properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		environmentPanel.add(terrainPanel, gbc_terrainPanel);
+		GridBagLayout gbl_terrainPanel = new GridBagLayout();
+		gbl_terrainPanel.columnWidths = new int[]{0, 0};
+		gbl_terrainPanel.rowHeights = new int[]{0, 0};
+		gbl_terrainPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_terrainPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		terrainPanel.setLayout(gbl_terrainPanel);
 		
 		GridBagConstraints gbc_lblTbd = new GridBagConstraints();
+		gbc_lblTbd.insets = new Insets(1, 5, 5, 5);
 		gbc_lblTbd.gridx = 0;
 		gbc_lblTbd.gridy = 0;
-		panel_1.add(lblTbd, gbc_lblTbd);
+		JLabel lblTbd = new JLabel("TBD");
+		terrainPanel.add(lblTbd, gbc_lblTbd);
 		
-		tabbedPane.addTab("Environment", null, populationPanel, null);
+		JPanel populationPanel = new JPanel();
+		tabbedPane.addTab("Populations", null, populationPanel, null);
+		tabbedPane.setEnabledAt(1, true);
+		GridBagLayout gbl_populationPanel = new GridBagLayout();
+		gbl_populationPanel.columnWidths = new int[]{631, 0};
+		gbl_populationPanel.rowHeights = new int[]{296, 0};
+		gbl_populationPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_populationPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		populationPanel.setLayout(gbl_populationPanel);
 		
-		tabbedPane.addTab("Species", null, speciesPanel, null);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		populationPanel.add(scrollPane, gbc_scrollPane);
+
+		
+		
+		
+	}
+
+	private JPanel addPopulationLabel() {
+		JPanel panel_1 = new JPanel();
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		gbc_lblType.anchor = GridBagConstraints.WEST;
+		gbc_lblType.insets = new Insets(10, 10, 5, 5);
+		gbc_lblType.gridx = 0;
+		gbc_lblType.gridy = 0;
+		JLabel lblType = new JLabel("Type:");
+		panel_1.add(lblType, gbc_lblType);
+		
+		GridBagConstraints gbc_typeComboBox = new GridBagConstraints();
+		gbc_typeComboBox.anchor = GridBagConstraints.WEST;
+		gbc_typeComboBox.insets = new Insets(10, 0, 5, 5);
+		gbc_typeComboBox.gridx = 1;
+		gbc_typeComboBox.gridy = 0;
+		JComboBox<String> typeComboBox = new JComboBox();
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Herbivore", "Omnivore", "Carnivore"}));
+		panel_1.add(typeComboBox, gbc_typeComboBox);
+		
+		JLabel lblName = new JLabel("Name:");
+		GridBagConstraints gbc_lblName = new GridBagConstraints();
+		gbc_lblName.anchor = GridBagConstraints.WEST;
+		gbc_lblName.insets = new Insets(5, 10, 5, 5);
+		gbc_lblName.gridx = 0;
+		gbc_lblName.gridy = 1;
+		panel_1.add(lblName, gbc_lblName);
+		
+		nameTxt = new JTextField();
+		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
+		gbc_nameTxt.anchor = GridBagConstraints.WEST;
+		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
+		gbc_nameTxt.gridx = 1;
+		gbc_nameTxt.gridy = 1;
+		panel_1.add(nameTxt, gbc_nameTxt);
+		nameTxt.setColumns(10);
+		
+		JLabel noIndLabel = new JLabel("No ind.:");
+		noIndLabel.setToolTipText("Number of individuals.\r\n");
+		GridBagConstraints gbc_noIndLabel = new GridBagConstraints();
+		gbc_noIndLabel.anchor = GridBagConstraints.WEST;
+		gbc_noIndLabel.insets = new Insets(5, 10, 5, 5);
+		gbc_noIndLabel.gridx = 0;
+		gbc_noIndLabel.gridy = 2;
+		panel_1.add(noIndLabel, gbc_noIndLabel);
+		
+		noIndField = new JTextField();
+		GridBagConstraints gbc_noIndField = new GridBagConstraints();
+		gbc_noIndField.anchor = GridBagConstraints.WEST;
+		gbc_noIndField.insets = new Insets(0, 0, 5, 5);
+		gbc_noIndField.gridx = 1;
+		gbc_noIndField.gridy = 2;
+		panel_1.add(noIndField, gbc_noIndField);
+		noIndField.setColumns(10);
+		
+		JLabel sizeLabel = new JLabel("Size:");
+		sizeLabel.setToolTipText("Starting size of the species in pixels.");
+		GridBagConstraints gbc_sizeLabel = new GridBagConstraints();
+		gbc_sizeLabel.anchor = GridBagConstraints.WEST;
+		gbc_sizeLabel.insets = new Insets(5, 10, 5, 5);
+		gbc_sizeLabel.gridx = 0;
+		gbc_sizeLabel.gridy = 3;
+		panel_1.add(sizeLabel, gbc_sizeLabel);
+		
+		sizeTxt = new JTextField();
+		GridBagConstraints gbc_sizeTxt = new GridBagConstraints();
+		gbc_sizeTxt.anchor = GridBagConstraints.WEST;
+		gbc_sizeTxt.insets = new Insets(0, 0, 5, 5);
+		gbc_sizeTxt.gridx = 1;
+		gbc_sizeTxt.gridy = 3;
+		panel_1.add(sizeTxt, gbc_sizeTxt);
+		sizeTxt.setColumns(10);
+		
+		JLabel speedLabel = new JLabel("Speed:");
+		speedLabel.setToolTipText("The starting speed of the species in pixels moved per frame.");
+		GridBagConstraints gbc_speedLabel = new GridBagConstraints();
+		gbc_speedLabel.anchor = GridBagConstraints.WEST;
+		gbc_speedLabel.insets = new Insets(5, 10, 5, 5);
+		gbc_speedLabel.gridx = 0;
+		gbc_speedLabel.gridy = 4;
+		panel_1.add(speedLabel, gbc_speedLabel);
+		
+		speedTxt = new JTextField();
+		GridBagConstraints gbc_speedTxt = new GridBagConstraints();
+		gbc_speedTxt.anchor = GridBagConstraints.WEST;
+		gbc_speedTxt.insets = new Insets(0, 0, 5, 5);
+		gbc_speedTxt.gridx = 1;
+		gbc_speedTxt.gridy = 4;
+		panel_1.add(speedTxt, gbc_speedTxt);
+		speedTxt.setColumns(10);
+		
+		JLabel maxAgeLabel = new JLabel("Max age:");
+		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
+		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
+		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
+		gbc_maxAgeLabel.insets = new Insets(5, 10, 0, 5);
+		gbc_maxAgeLabel.gridx = 0;
+		gbc_maxAgeLabel.gridy = 5;
+		panel_1.add(maxAgeLabel, gbc_maxAgeLabel);
+		
+		maxAgeTxt = new JTextField();
+		GridBagConstraints gbc_maxAgeTxt = new GridBagConstraints();
+		gbc_maxAgeTxt.anchor = GridBagConstraints.WEST;
+		gbc_maxAgeTxt.insets = new Insets(0, 0, 0, 5);
+		gbc_maxAgeTxt.gridx = 1;
+		gbc_maxAgeTxt.gridy = 5;
+		panel_1.add(maxAgeTxt, gbc_maxAgeTxt);
+		maxAgeTxt.setColumns(10);
+		return panel_1;
+		
 	}
 
 }
