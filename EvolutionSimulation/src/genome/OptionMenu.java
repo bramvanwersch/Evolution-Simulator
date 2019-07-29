@@ -209,7 +209,6 @@ public class OptionMenu extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		populationPanel.add(scrollPane, gbc_scrollPane);
-
 		
 		
 		
