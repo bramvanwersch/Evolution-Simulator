@@ -7,4 +7,13 @@ There are 3 species available herbivore, carnivore and omnivore.
 
 ## Working on:
 - At the moment i am working on making an option interface to easily configure the game instead of changing hard coded values.
-- Also see ToDo.txt under the data tab. 
+- add genomes to plants
+- make non essential genes
+- make more genes
+- fix predators being smaller then prey
+- make predators more viable
+- fix chase mechanic
+- fix either energy consumption droppign to zero for a frame or species having zero energy consumption for a frame
+- fix species standing still for no reason.
+- fix species count going from 0 to 2. There is no species 1
+- give predators an ability to eat species bigger then themselves. --> give it a cap.
