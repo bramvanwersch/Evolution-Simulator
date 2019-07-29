@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -67,12 +68,11 @@ public class OptionMenu extends JFrame {
 		foodEnergyTxt.setText("100");
 		foodEnergyTxt.setColumns(10);
 		initGUI();
-		scrollPane.setViewportView(addPopulationLabel());
 	}
 	
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 664, 471);
+		setBounds(0, 0, 1000, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,6 +86,7 @@ public class OptionMenu extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.gridheight = 2;
 		gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
@@ -113,10 +114,6 @@ public class OptionMenu extends JFrame {
 		foodPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Food properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 		environmentPanel.add(foodPanel, gbc_foodPanel);
 		GridBagLayout gbl_foodPanel = new GridBagLayout();
-		gbl_foodPanel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_foodPanel.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_foodPanel.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_foodPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		foodPanel.setLayout(gbl_foodPanel);
 		
 		GridBagConstraints gbc_lblFoodEnergy = new GridBagConstraints();
@@ -169,7 +166,6 @@ public class OptionMenu extends JFrame {
 		
 		GridBagConstraints gbc_terrainPanel = new GridBagConstraints();
 		gbc_terrainPanel.gridwidth = 2;
-		gbc_terrainPanel.gridheight = 2;
 		gbc_terrainPanel.insets = new Insets(20, 20, 5, 20);
 		gbc_terrainPanel.fill = GridBagConstraints.BOTH;
 		gbc_terrainPanel.gridx = 0;
@@ -178,10 +174,6 @@ public class OptionMenu extends JFrame {
 		terrainPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Terrain properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 		environmentPanel.add(terrainPanel, gbc_terrainPanel);
 		GridBagLayout gbl_terrainPanel = new GridBagLayout();
-		gbl_terrainPanel.columnWidths = new int[]{0, 0};
-		gbl_terrainPanel.rowHeights = new int[]{0, 0};
-		gbl_terrainPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_terrainPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		terrainPanel.setLayout(gbl_terrainPanel);
 		
 		GridBagConstraints gbc_lblTbd = new GridBagConstraints();
@@ -195,21 +187,44 @@ public class OptionMenu extends JFrame {
 		tabbedPane.addTab("Populations", null, populationPanel, null);
 		tabbedPane.setEnabledAt(1, true);
 		GridBagLayout gbl_populationPanel = new GridBagLayout();
-		gbl_populationPanel.columnWidths = new int[]{631, 0};
-		gbl_populationPanel.rowHeights = new int[]{296, 0};
-		gbl_populationPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_populationPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_populationPanel.rowHeights = new int[] {0};
+		gbl_populationPanel.columnWidths = new int[] {0};
+		gbl_populationPanel.columnWeights = new double[]{1.0};
+		gbl_populationPanel.rowWeights = new double[]{1.0};
 		populationPanel.setLayout(gbl_populationPanel);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
-		scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		populationPanel.add(scrollPane, gbc_scrollPane);
 		
+		scrollPanel = new JPanel();
+		scrollPanel.setPreferredSize(new Dimension(1000, 800));
+		GridBagLayout gbl_scrollPanel = new GridBagLayout();
+		gbl_scrollPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_scrollPanel.rowHeights = new int[] {0};
+		gbl_scrollPanel.columnWidths = new int[] {0};
+		scrollPanel.setLayout(gbl_scrollPanel);
+		
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 3; j++) {
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.gridx = i;
+				gbc_panel.gridy = j;
+				scrollPanel.add(addPopulationLabel(), gbc_panel);
+			}
+		}
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.anchor = GridBagConstraints.WEST;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 3;
+		JButton btnMoreSpecies = new JButton();
+		scrollPanel.add(btnMoreSpecies, gbc_panel);
+		scrollPane.setViewportView(scrollPanel);
 		
 		
 	}
@@ -217,10 +232,6 @@ public class OptionMenu extends JFrame {
 	private JPanel addPopulationLabel() {
 		JPanel panel_1 = new JPanel();
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		GridBagConstraints gbc_lblType = new GridBagConstraints();
