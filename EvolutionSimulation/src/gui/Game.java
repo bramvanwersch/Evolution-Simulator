@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-import genome.OptionMenu;
 import simulation.Environment;
 import simulation.GameLoop;
 
