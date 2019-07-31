@@ -1,4 +1,4 @@
-package genome;
+package gui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -203,7 +203,6 @@ public class OptionMenu extends JFrame {
 		populationPanel.add(scrollPane, gbc_scrollPane);
 		
 		scrollPanel = new JPanel();
-		scrollPanel.setPreferredSize(new Dimension(1000, 800));
 		GridBagLayout gbl_scrollPanel = new GridBagLayout();
 		gbl_scrollPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
 		gbl_scrollPanel.rowHeights = new int[] {0};
@@ -211,7 +210,7 @@ public class OptionMenu extends JFrame {
 		scrollPanel.setLayout(gbl_scrollPanel);
 		
 		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 8; j++) {
 				GridBagConstraints gbc_panel = new GridBagConstraints();
 				gbc_panel.gridx = i;
 				gbc_panel.gridy = j;
@@ -222,11 +221,9 @@ public class OptionMenu extends JFrame {
 		gbc_panel.anchor = GridBagConstraints.WEST;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		JButton btnMoreSpecies = new JButton();
+		JButton btnMoreSpecies = new JButton("New Species");
 		scrollPanel.add(btnMoreSpecies, gbc_panel);
-		scrollPane.setViewportView(scrollPanel);
-		
-		
+		scrollPane.setViewportView(scrollPanel);		
 	}
 
 	private JPanel addPopulationLabel() {
