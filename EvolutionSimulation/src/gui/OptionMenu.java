@@ -16,6 +16,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import simulation.Population;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Container;
@@ -33,14 +36,11 @@ public class OptionMenu extends JFrame {
 	private final JTextField foodEnergyTxt = new JTextField();
 	private final JTextField foodSizeTxt = new JTextField();
 	private final JTextField eatSizeFactorTxt = new JTextField();
-	private JTextField nameTxt;
-	private JTextField noIndField;
-	private JTextField sizeTxt;
-	private JTextField speedTxt;
-	private JTextField maxAgeTxt;
 	private JScrollPane scrollPane;
 	private JPanel scrollPanel;
-
+	private int numberOfSpecies;
+	private ArrayList<Population> speciesPanels;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +61,7 @@ public class OptionMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public OptionMenu() {
+		numberOfSpecies = 0;
 		eatSizeFactorTxt.setText("1");
 		eatSizeFactorTxt.setColumns(10);
 		foodSizeTxt.setText("5");
@@ -208,22 +209,23 @@ public class OptionMenu extends JFrame {
 		gbl_scrollPanel.rowHeights = new int[] {0};
 		gbl_scrollPanel.columnWidths = new int[] {0};
 		scrollPanel.setLayout(gbl_scrollPanel);
-		
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 8; j++) {
-				GridBagConstraints gbc_panel = new GridBagConstraints();
-				gbc_panel.gridx = i;
-				gbc_panel.gridy = j;
-				scrollPanel.add(addPopulationLabel(), gbc_panel);
-			}
-		}
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.anchor = GridBagConstraints.WEST;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 3;
+
 		JButton btnMoreSpecies = new JButton("New Species");
-		scrollPanel.add(btnMoreSpecies, gbc_panel);
-		scrollPane.setViewportView(scrollPanel);		
+		btnMoreSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.gridy = numberOfSpecies / 4 + 1;
+				gbc_panel.gridx = numberOfSpecies % 4;
+				numberOfSpecies += 1;
+				scrollPanel.add(addPopulationLabel(), gbc_panel);
+				scrollPane.setViewportView(scrollPanel);
+			}});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.gridy = 0;
+		gbc_button.gridx = 2;
+		scrollPanel.add(btnMoreSpecies, gbc_button);
+		scrollPane.setViewportView(scrollPanel);
+
 	}
 
 	private JPanel addPopulationLabel() {
@@ -256,7 +258,7 @@ public class OptionMenu extends JFrame {
 		gbc_lblName.gridy = 1;
 		panel_1.add(lblName, gbc_lblName);
 		
-		nameTxt = new JTextField();
+		JTextField nameTxt = new JTextField();
 		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
 		gbc_nameTxt.anchor = GridBagConstraints.WEST;
 		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
@@ -274,7 +276,7 @@ public class OptionMenu extends JFrame {
 		gbc_noIndLabel.gridy = 2;
 		panel_1.add(noIndLabel, gbc_noIndLabel);
 		
-		noIndField = new JTextField();
+		JTextField noIndField = new JTextField();
 		GridBagConstraints gbc_noIndField = new GridBagConstraints();
 		gbc_noIndField.anchor = GridBagConstraints.WEST;
 		gbc_noIndField.insets = new Insets(0, 0, 5, 5);
@@ -292,7 +294,7 @@ public class OptionMenu extends JFrame {
 		gbc_sizeLabel.gridy = 3;
 		panel_1.add(sizeLabel, gbc_sizeLabel);
 		
-		sizeTxt = new JTextField();
+		JTextField sizeTxt = new JTextField();
 		GridBagConstraints gbc_sizeTxt = new GridBagConstraints();
 		gbc_sizeTxt.anchor = GridBagConstraints.WEST;
 		gbc_sizeTxt.insets = new Insets(0, 0, 5, 5);
@@ -310,7 +312,7 @@ public class OptionMenu extends JFrame {
 		gbc_speedLabel.gridy = 4;
 		panel_1.add(speedLabel, gbc_speedLabel);
 		
-		speedTxt = new JTextField();
+		JTextField speedTxt = new JTextField();
 		GridBagConstraints gbc_speedTxt = new GridBagConstraints();
 		gbc_speedTxt.anchor = GridBagConstraints.WEST;
 		gbc_speedTxt.insets = new Insets(0, 0, 5, 5);
@@ -328,7 +330,7 @@ public class OptionMenu extends JFrame {
 		gbc_maxAgeLabel.gridy = 5;
 		panel_1.add(maxAgeLabel, gbc_maxAgeLabel);
 		
-		maxAgeTxt = new JTextField();
+		JTextField maxAgeTxt = new JTextField();
 		GridBagConstraints gbc_maxAgeTxt = new GridBagConstraints();
 		gbc_maxAgeTxt.anchor = GridBagConstraints.WEST;
 		gbc_maxAgeTxt.insets = new Insets(0, 0, 0, 5);
