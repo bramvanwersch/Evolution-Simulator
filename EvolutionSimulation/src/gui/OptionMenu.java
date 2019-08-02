@@ -49,6 +49,7 @@ public class OptionMenu extends JFrame {
 	private ArrayList<JColorChooser> speciesColors;
 	private ArrayList<JComboBox> speciesTypes;
 	private ArrayList<JTextField> speciesNames;
+	private OptionData data;
 	
 	/**
 	 * Launch the application.
@@ -74,7 +75,8 @@ public class OptionMenu extends JFrame {
 		spinnerValues =  new ArrayList<ArrayList<JSpinner>>();
 		speciesColors = new ArrayList<JColorChooser>();
 		speciesTypes = new ArrayList<JComboBox>();
-		speciesNames = new ArrayList<JTextField>(); 
+		speciesNames = new ArrayList<JTextField>();
+		data = new OptionData();
 		foodSizeTxt.setText("5");
 		foodSizeTxt.setColumns(10);
 		foodEnergyTxt.setText("100");
@@ -89,16 +91,15 @@ public class OptionMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.gridheight = 2;
+		gbc_tabbedPane.gridheight = 3;
 		gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
@@ -217,7 +218,22 @@ public class OptionMenu extends JFrame {
 		gbc_button.gridx = 2;
 		scrollPanel.add(btnMoreSpecies, gbc_button);
 		scrollPane.setViewportView(scrollPanel);
-
+		
+		JButton startGameButton = new JButton("Start game");
+		startGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveData();
+				setVisible(false);
+				dispose();
+				new Game(data);
+			}
+		});
+		GridBagConstraints gbc_startGameButton = new GridBagConstraints();
+		gbc_startGameButton = new GridBagConstraints();
+		gbc_startGameButton.fill = GridBagConstraints.VERTICAL;
+		gbc_startGameButton.gridx = 0;
+		gbc_startGameButton.gridy = 3;
+		contentPane.add(startGameButton, gbc_startGameButton);
 	}
 
 	private JPanel addPopulationLabel() {
@@ -423,76 +439,18 @@ public class OptionMenu extends JFrame {
 		spinnerValues.add(textList);
 		return panel_1;
 	}
-	
-	public String[] getTypes() {
-		String[] types = new String[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			types[i] = (String) speciesTypes.get(i).getSelectedItem();
+
+	public void saveData() {
+		for(int i = 0; i < speciesTypes.size(); i++) {
+			data.addTypeList((String) speciesTypes.get(i).getSelectedItem());
+			data.addNamesList(speciesNames.get(i).getText());
+			data.addNoIndividualsList((int) spinnerValues.get(i).get(0).getValue());
+			data.addSizesList((int) spinnerValues.get(i).get(1).getValue());
+			data.addMaxAgesList((int) spinnerValues.get(i).get(2).getValue());
+			data.addScentRangeList((int) spinnerValues.get(i).get(3).getValue());
+			data.addColorsList(speciesColors.get(i).getColor());
+			data.addEatSizeFactorList((int) spinnerValues.get(i).get(4).getValue());
 		}
-		return types;
 	}
 	
-	public String[] getNames() {
-		String[] names = new String[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			names[i] = speciesNames.get(i).getText();
-		}
-		return names;
-	}
-	
-	public int[] getNoIndividuals() {
-		int[] noIndividuals = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			noIndividuals[i] = (int) spinnerValues.get(i).get(0).getValue();
-		}
-		return noIndividuals;
-	}
-	
-	public int[] getSizes() {
-		int[] sizes = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			sizes[i] = (int) spinnerValues.get(i).get(1).getValue();
-		}
-		return sizes;
-	}
-	
-	public int[] getSpeeds() {
-		int[] speeds = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			speeds[i] = (int) spinnerValues.get(i).get(2).getValue();
-		}
-		return speeds;
-	}
-	
-	public int[] getMaxAges() {
-		int[] maxAges = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			maxAges[i] = (int) spinnerValues.get(i).get(3).getValue();
-		}
-		return maxAges;
-	}
-	
-	public int[] getScentRanges() {
-		int[] scentRanges = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			scentRanges[i] = (int) spinnerValues.get(i).get(4).getValue();
-		}
-		return scentRanges;
-	}
-	
-	public Color[] getColors() {
-		Color[] colors = new Color[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			colors[i] = speciesColors.get(i).getColor();
-		}
-		return colors;
-	}
-	
-	public int[] getEatSizeFactors() {
-		int[] eatSizeFactors = new int[speciesTypes.size()];
-		for (int i = 0; i < speciesTypes.size(); i++) {
-			eatSizeFactors[i] = (int) spinnerValues.get(i).get(5).getValue();
-		}
-		return eatSizeFactors;
-	}
 }
