@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class OptionData {
 	ArrayList<String> types;
@@ -62,42 +63,52 @@ public class OptionData {
 		eatSizeFactor.add(val);
 	}
 
-	public ArrayList<String> getTypes() {
-		return types;
+	public String[] getTypes() {
+		return types.toArray(new String[types.size()]);
 	}
 
-	public ArrayList<String> getNames() {
-		return names;
+	public String[] getNames() {
+		return names.toArray(new String[names.size()]);
 	}
 
-	public ArrayList<Integer> getNoIndividuals() {
-		return noIndividuals;
+	public int[] getNoIndividuals() {
+		return convertIntegers(noIndividuals);
 	}
 
-	public ArrayList<Integer> getSizes() {
-		return sizes;
+	public int[] getSizes() {
+		return convertIntegers(sizes);
 	}
 
-	public ArrayList<Integer> getSpeeds() {
-		return speeds;
+	public int[] getSpeeds() {
+		return convertIntegers(speeds);
 	}
 
-	public ArrayList<Integer> getMaxAges() {
-		return maxAges;
+	public int[] getMaxAges() {
+		return convertIntegers(maxAges);
 	}
 
-	public ArrayList<Integer> getScentRange() {
-		return scentRange;
+	public int[] getScentRange() {
+		return convertIntegers(scentRange);
 	}
 
-	public ArrayList<Color> getColors() {
-		return colors;
+	public Color[] getColors() {
+		return colors.toArray(new Color[colors.size()]);
 	}
 
-	public ArrayList<Integer> getEatSizeFactor() {
-		return eatSizeFactor;
+	public int[] getEatSizeFactor() {
+		return convertIntegers(eatSizeFactor);
 	}
 
+	private  int[] convertIntegers(ArrayList<Integer> integers)
+	{
+	    int[] ret = new int[integers.size()];
+	    Iterator<Integer> iterator = integers.iterator();
+	    for (int i = 0; i < ret.length; i++)
+	    {
+	        ret[i] = iterator.next().intValue();
+	    }
+	    return ret;
+	}
 	
 	
 }
