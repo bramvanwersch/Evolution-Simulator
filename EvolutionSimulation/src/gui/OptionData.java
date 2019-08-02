@@ -13,7 +13,7 @@ public class OptionData {
 	ArrayList<Integer> maxAges;
 	ArrayList<Integer> scentRange;
 	ArrayList<Color> colors;
-	ArrayList<Integer> eatSizeFactor;
+	ArrayList<Double> eatSizeFactor;
 	
 	public OptionData() {
 		this.types = new ArrayList<String>();
@@ -24,7 +24,7 @@ public class OptionData {
 		this.maxAges = new ArrayList<Integer>();
 		this.scentRange = new ArrayList<Integer>();
 		this.colors = new ArrayList<Color>();
-		this.eatSizeFactor = new ArrayList<Integer>();
+		this.eatSizeFactor = new ArrayList<Double>();
 	}
 	
 	public void addTypeList(String val) {
@@ -59,7 +59,7 @@ public class OptionData {
 		colors.add(val);
 	}
 	
-	public void addEatSizeFactorList(int val) {
+	public void addEatSizeFactorList(double val) {
 		eatSizeFactor.add(val);
 	}
 
@@ -87,7 +87,7 @@ public class OptionData {
 		return convertIntegers(maxAges);
 	}
 
-	public int[] getScentRange() {
+	public int[] getScentRanges() {
 		return convertIntegers(scentRange);
 	}
 
@@ -95,17 +95,24 @@ public class OptionData {
 		return colors.toArray(new Color[colors.size()]);
 	}
 
-	public int[] getEatSizeFactor() {
-		return convertIntegers(eatSizeFactor);
+	public double[] getEatSizeFactor() {
+		return convertDoubles(eatSizeFactor);
 	}
 
-	private  int[] convertIntegers(ArrayList<Integer> integers)
-	{
+	private int[] convertIntegers(ArrayList<Integer> integers){
 	    int[] ret = new int[integers.size()];
 	    Iterator<Integer> iterator = integers.iterator();
-	    for (int i = 0; i < ret.length; i++)
-	    {
+	    for (int i = 0; i < ret.length; i++){
 	        ret[i] = iterator.next().intValue();
+	    }
+	    return ret;
+	}
+	
+	private double[] convertDoubles(ArrayList<Double> doubles) {
+	    double[] ret = new double[doubles.size()];
+	    Iterator<Double> iterator = doubles.iterator();
+	    for (int i = 0; i < ret.length; i++){
+	        ret[i] = iterator.next().doubleValue();
 	    }
 	    return ret;
 	}

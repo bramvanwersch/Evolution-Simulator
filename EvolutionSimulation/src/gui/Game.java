@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 
 public class Game {
 	private final int[] START_SPECIES_COUNT = {2,0,10};
-	private final int[] START_SIZE_COUNT = {35,35,30};
+	private final int[] START_SIZE_COUNT = {55,55,50};
 	private final int[] START_SPEED_COUNT = {10,20,10};
 	private final int[] START_MAX_AGES = {40,90,90};
 	private final int[][] START_COLORS = {{255,0,0},{255,0,255},{0,0,255}};
@@ -46,22 +46,22 @@ public class Game {
 	private JLabel lblEnergyConsumptionText;
 	private Environment environment;
 	private GameLoop gameloop;
+	private OptionData options;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Game();
-			}
-		});
-	}
-	public Game() {
-		OptionMenu options = new OptionMenu();
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				new Game();
+//			}
+//		});
+//	}
+	public Game(OptionData data) {
+		this.options = data;
 		initGUI();
 	}
 	
 	private void initGUI() {
-		this.environment = new Environment(START_SPECIES_COUNT, START_SIZE_COUNT, START_SPEED_COUNT,
-				START_MAX_AGES,START_COLORS,SPECIES_TYPES, START_FOOD_COUNT);
+		this.environment = new Environment(this.options);
 		panel = new TerrainPanel(950,950, this.environment);
 		SwingUtilities.isEventDispatchThread();
 		JFrame f = new JFrame("Terrain");

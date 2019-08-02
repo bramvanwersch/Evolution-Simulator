@@ -1,7 +1,11 @@
 package simulation;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+
+import gui.OptionData;
 
 public class Environment {
 	private int DEFAULT_FOOD_E = 100;
@@ -21,13 +25,27 @@ public class Environment {
 	 * @param type
 	 * @param nrFood
 	 */
-	public Environment(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[][]colors,
-			String[] type, int nrFood) {
+	public Environment(OptionData options) {
 		this.foodList = new ArrayList<Food>();
 		this.populations = new ArrayList<Population>();
-		createPopulations(nrSpecies.length, colors, type);
-		createSpecies(nrSpecies, size, speed, maxAge);
-		createFood(nrFood);
+		System.out.println(Arrays.toString(options.getColors()));
+
+		System.out.println(Arrays.toString(options.getTypes()));
+
+		System.out.println(Arrays.toString(options.getNoIndividuals()));
+
+		System.out.println(Arrays.toString(options.getSizes()));
+		System.out.println(Arrays.toString(options.getSpeeds()));
+		System.out.println(Arrays.toString(options.getMaxAges()));
+		System.out.println(Arrays.toString(options.getEatSizeFactor()));
+		System.out.println(Arrays.toString(options.getNames()));
+		System.out.println(Arrays.toString(options.getScentRanges()));
+
+
+		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes());
+		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges());
+		//TODO: fill in
+		createFood(50);
 	}
 	
 	/**
@@ -212,7 +230,7 @@ public class Environment {
 		Collections.shuffle(foodList);	
 	}
 
-	private void createPopulations(int nrPopulations, int[][] colors, String[] type) {
+	private void createPopulations(int nrPopulations, Color[] colors, String[] type) {
 		for (int i = 0; i < nrPopulations; i++) {
 			Population p = new Population(colors[i], type[i]);
 			populations.add(p);

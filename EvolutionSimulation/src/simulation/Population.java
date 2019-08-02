@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
@@ -12,12 +13,12 @@ public class Population {
 	private final double MUTATION_CHANCE = 0.005;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
-	private int[] color;
+	private Color color;
 	private String type;
 	private PanGenome panGenome;
 	private String speciesData;
 	
-	public Population(int[] color, String type) {
+	public Population(Color color, String type) {
 		this.speciesList = new ArrayList<Species>();
 		this.diedSpecies = 0;
 		this.color = color;
@@ -90,7 +91,7 @@ public class Population {
 		Collections.shuffle(speciesList);
 	}
 
-	public int[] getColor() {
+	public Color getColor() {
 		return this.color;
 	}
 
@@ -104,7 +105,7 @@ public class Population {
 			}
 		}
 		speciesData += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";
-		if (speciesData.length() > 10000) {
+		if (speciesData.length() > 100000) {
 			panGenome.writeSpeciesInfo(speciesData);
 			speciesData = " ";
 		}

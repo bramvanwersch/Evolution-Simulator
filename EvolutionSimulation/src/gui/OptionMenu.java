@@ -46,7 +46,7 @@ public class OptionMenu extends JFrame {
 	private JPanel scrollPanel;
 	private int numberOfSpecies;
 	private ArrayList<ArrayList<JSpinner>> spinnerValues;
-	private ArrayList<JColorChooser> speciesColors;
+	private ArrayList<JLabel> speciesColors;
 	private ArrayList<JComboBox> speciesTypes;
 	private ArrayList<JTextField> speciesNames;
 	private OptionData data;
@@ -73,7 +73,7 @@ public class OptionMenu extends JFrame {
 	public OptionMenu() {
 		numberOfSpecies = 0;
 		spinnerValues =  new ArrayList<ArrayList<JSpinner>>();
-		speciesColors = new ArrayList<JColorChooser>();
+		speciesColors = new ArrayList<JLabel>();
 		speciesTypes = new ArrayList<JComboBox>();
 		speciesNames = new ArrayList<JTextField>();
 		data = new OptionData();
@@ -404,7 +404,7 @@ public class OptionMenu extends JFrame {
 				JColorChooser chooser = new JColorChooser();
 				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.BLUE);
 				colorLabel.setBackground(speciesColor);
-				speciesColors.add(chooser);
+				speciesColors.add(colorLabel);
 			}
 		});
 		GridBagConstraints gbc_newColorBtn = new GridBagConstraints();
@@ -446,10 +446,11 @@ public class OptionMenu extends JFrame {
 			data.addNamesList(speciesNames.get(i).getText());
 			data.addNoIndividualsList((int) spinnerValues.get(i).get(0).getValue());
 			data.addSizesList((int) spinnerValues.get(i).get(1).getValue());
-			data.addMaxAgesList((int) spinnerValues.get(i).get(2).getValue());
-			data.addScentRangeList((int) spinnerValues.get(i).get(3).getValue());
-			data.addColorsList(speciesColors.get(i).getColor());
-			data.addEatSizeFactorList((int) spinnerValues.get(i).get(4).getValue());
+			data.addSpeedsList((int) spinnerValues.get(i).get(2).getValue());
+			data.addMaxAgesList((int) spinnerValues.get(i).get(3).getValue());
+			data.addScentRangeList((int) spinnerValues.get(i).get(4).getValue());
+			data.addColorsList(speciesColors.get(i).getBackground());
+			data.addEatSizeFactorList((double) spinnerValues.get(i).get(5).getValue());
 		}
 	}
 	
