@@ -43,7 +43,7 @@ public class TerrainPanel extends JPanel{
 				Species s = sp.getSpecies(i);
 				int xCoord = s.getxLoc() - s.getSize()/2;
 				int yCoord = s.getyLoc() - s.getSize()/2;
-				g2d.setColor(getStatBasedColer(s, sp.getColor()));
+				g2d.setColor(sp.getColor());
 				g2d.fillOval(xCoord, yCoord, s.getSize(), s.getSize());
 				g2d.setColor(Color.BLACK);
 				//for drawing the enrgy
@@ -51,17 +51,6 @@ public class TerrainPanel extends JPanel{
 				drawCenteredString(s.getxLoc(), s.getyLoc(),String.format("%d",s.getNumber()));
 			}
 		}
-	}
-	
-	private Color getStatBasedColer(Species s, int[] baseColor) {
-		// add green to the color based on their speed
-		double presumedMaxSpeed = 50.0;
-		double green = s.getSpeed()/presumedMaxSpeed * 255;
-		if (green > 255) {
-			green = 255;
-		}
-		Color c =  new Color(baseColor[0], (int) green,baseColor[2]);
-		return c;
 	}
 	
 	private void drawCenteredString(int xCoord, int yCoord, String text) {
