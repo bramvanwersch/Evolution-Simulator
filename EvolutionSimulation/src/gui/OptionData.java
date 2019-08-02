@@ -50,7 +50,7 @@ public class OptionData {
 		maxAges.add(val);
 	}
 	
-	public void addNoScentRangeList(int val) {
+	public void addScentRangeList(int val) {
 		scentRange.add(val);
 	}
 	
