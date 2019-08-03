@@ -25,13 +25,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 public class Game {
-	private final int[] START_SPECIES_COUNT = {2,0,10};
-	private final int[] START_SIZE_COUNT = {55,55,50};
-	private final int[] START_SPEED_COUNT = {10,20,10};
-	private final int[] START_MAX_AGES = {40,90,90};
-	private final int[][] START_COLORS = {{255,0,0},{255,0,255},{0,0,255}};
-	private final String[] SPECIES_TYPES = {"Carnivore","Omnivore","Herbivore"};
-	private final int START_FOOD_COUNT = 500;
 	private final int UPDATE_TIME = 50;
 	private final int FOOD_REGENERATION_RATE = 50;
 	private TerrainPanel panel;
@@ -48,13 +41,6 @@ public class Game {
 	private GameLoop gameloop;
 	private OptionData options;
 	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				new Game();
-//			}
-//		});
-//	}
 	public Game(OptionData data) {
 		this.options = data;
 		initGUI();
