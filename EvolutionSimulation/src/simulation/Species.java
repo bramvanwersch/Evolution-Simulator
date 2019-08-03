@@ -60,7 +60,7 @@ public class Species{
 	public double getEnergyConsumption() {
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.25, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
+		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
 	}
 	
 	/**
