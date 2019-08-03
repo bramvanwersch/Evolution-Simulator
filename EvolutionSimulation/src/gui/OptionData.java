@@ -59,7 +59,7 @@ public class OptionData {
 		colors.add(val);
 	}
 	
-	public void addEatSizeFactorList(double val) {
+	public void addEatSizeFactorsList(double val) {
 		eatSizeFactor.add(val);
 	}
 
