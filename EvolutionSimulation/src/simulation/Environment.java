@@ -10,7 +10,6 @@ import gui.OptionData;
 public class Environment {
 	private int DEFAULT_FOOD_E = 100;
 	private int DEFAULT_FOOD_SIZE = 5;
-	private double EAT_SIZE_FACTOR = 1;
 	private ArrayList<Population> populations;
 	private ArrayList<Food> foodList;
 	
@@ -105,7 +104,7 @@ public class Environment {
 			Species s2 = getAllCarnivores().get(i);
 			//getting slope of triangle using pythagoras.
 			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() > EAT_SIZE_FACTOR* s1.getSize()) {
+					< lowestC && s2.getSize() > s1.getEatSizeFactor()* s1.getSize()) {
 				closestCarnivore = s2;
 				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
 			}
@@ -126,7 +125,7 @@ public class Environment {
 			Species s2 = getAllHerbivores().get(i);
 			//getting slope of triangle using pythagoras.
 			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() < EAT_SIZE_FACTOR* s1.getSize()) {
+					< lowestC && s2.getSize() < s1.getEatSizeFactor()* s1.getSize()) {
 				closestHerbivore = s2;
 				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
 			}
@@ -161,7 +160,7 @@ public class Environment {
 					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
 						Species s1 = getAllMeatEaters().get(i);
 						Species s2 = sp.getSpecies(j);
-						if (s1.getSize() > s2.getSize() * EAT_SIZE_FACTOR) {
+						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {
 							if (s1.checkCanEat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
 								sp.removeSpecies(j);
 								if (i != 0) {
