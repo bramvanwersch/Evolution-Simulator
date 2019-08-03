@@ -11,9 +11,9 @@ public class OptionData {
 	ArrayList<Integer> sizes;
 	ArrayList<Integer> speeds;
 	ArrayList<Integer> maxAges;
-	ArrayList<Integer> scentRange;
+	ArrayList<Integer> scentRanges;
 	ArrayList<Color> colors;
-	ArrayList<Double> eatSizeFactor;
+	ArrayList<Double> eatSizeFactors;
 	
 	public OptionData() {
 		this.types = new ArrayList<String>();
@@ -22,9 +22,9 @@ public class OptionData {
 		this.sizes = new ArrayList<Integer>();
 		this.speeds = new ArrayList<Integer>();
 		this.maxAges = new ArrayList<Integer>();
-		this.scentRange = new ArrayList<Integer>();
+		this.scentRanges = new ArrayList<Integer>();
 		this.colors = new ArrayList<Color>();
-		this.eatSizeFactor = new ArrayList<Double>();
+		this.eatSizeFactors = new ArrayList<Double>();
 	}
 	
 	public void addTypeList(String val) {
@@ -51,8 +51,8 @@ public class OptionData {
 		maxAges.add(val);
 	}
 	
-	public void addScentRangeList(int val) {
-		scentRange.add(val);
+	public void addScentRangesList(int val) {
+		scentRanges.add(val);
 	}
 	
 	public void addColorsList(Color val) {
@@ -60,7 +60,7 @@ public class OptionData {
 	}
 	
 	public void addEatSizeFactorsList(double val) {
-		eatSizeFactor.add(val);
+		eatSizeFactors.add(val);
 	}
 
 	public String[] getTypes() {
@@ -88,15 +88,15 @@ public class OptionData {
 	}
 
 	public int[] getScentRanges() {
-		return convertIntegers(scentRange);
+		return convertIntegers(scentRanges);
 	}
 
 	public Color[] getColors() {
 		return colors.toArray(new Color[colors.size()]);
 	}
 
-	public double[] getEatSizeFactor() {
-		return convertDoubles(eatSizeFactor);
+	public double[] getEatSizeFactors() {
+		return convertDoubles(eatSizeFactors);
 	}
 
 	private int[] convertIntegers(ArrayList<Integer> integers){

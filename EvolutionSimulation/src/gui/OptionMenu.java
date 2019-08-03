@@ -448,7 +448,7 @@ public class OptionMenu extends JFrame {
 			data.addSizesList((int) spinnerValues.get(i).get(1).getValue());
 			data.addSpeedsList((int) spinnerValues.get(i).get(2).getValue());
 			data.addMaxAgesList((int) spinnerValues.get(i).get(3).getValue());
-			data.addScentRangeList((int) spinnerValues.get(i).get(4).getValue());
+			data.addScentRangesList((int) spinnerValues.get(i).get(4).getValue());
 			data.addColorsList(speciesColors.get(i).getBackground());
 			data.addEatSizeFactorsList((double) spinnerValues.get(i).get(5).getValue());
 		}

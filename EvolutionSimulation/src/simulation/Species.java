@@ -18,9 +18,11 @@ public class Species{
 	private int maxAge;
 	private int scentRange;
 	private int lastRepCycle;
+	private String name;
+	private double eatSizeFactor;
 	
 	//constructor for innitial species construction
-	public Species(int size, int speed, int maxAge) {
+	public Species(int size, int speed, int maxAge, String name, double eatSizeFactor) {
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, DEFAULT_SCENT_RANGE});
 		this.genome.setGeneValues();
 		this.speed = genome.getGeneValue("speed");
@@ -33,10 +35,12 @@ public class Species{
 		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* size);
 		this.yLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* size);
+		this.name = name;
+		this.eatSizeFactor = eatSizeFactor;
 	}
 	
 //Constructor for multiplying
-	public Species(int x, int y, int energy, Genome genome, int number) {
+	public Species(int x, int y, int energy, Genome genome, int number, String name, double eatSizeFactor) {
 		this.genome = genome;
 		this.speed = genome.getGeneValue("speed");
 		//make species grow
@@ -49,6 +53,8 @@ public class Species{
 		this.lastRepCycle = 0;
 		this.xLoc = x;
 		this.yLoc = y;
+		this.name = name;
+		this.eatSizeFactor = eatSizeFactor;
 	}
 
 	public double getEnergyConsumption() {
@@ -205,5 +211,13 @@ public class Species{
 	public boolean foodEaten(int getxLoc, int getyLoc, int size2, int energy2) {
 		// for inheriting classes
 		return false;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public double getEatSizeFactor() {
+		return this.eatSizeFactor;
 	}
 }

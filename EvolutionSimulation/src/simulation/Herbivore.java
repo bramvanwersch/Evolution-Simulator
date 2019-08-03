@@ -7,13 +7,13 @@ public class Herbivore extends Species{
 	private final int MINIMUM_REP_TIME = 0;
 	
 	//innitial constructor
-	public Herbivore(int size, int speed, int maxAge) {
-		super(size, speed, maxAge);
+	public Herbivore(int size, int speed, int maxAge, String name, double eatSizeFactor) {
+		super(size, speed, maxAge, name, eatSizeFactor);
 	}
 	
 	//inheriting constructor
-	public Herbivore(int x, int y, int energy, Genome genome, int number) {
-		super(x, y,energy, genome, number);
+	public Herbivore(int x, int y, int energy, Genome genome, int number, String name, double eatSizeFactor) {
+		super(x, y,energy, genome, number, name, eatSizeFactor);
 	}
 	
 	public boolean foodEaten(int x, int y, int fSize, int fEnergy) {

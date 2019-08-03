@@ -28,22 +28,9 @@ public class Environment {
 	public Environment(OptionData options) {
 		this.foodList = new ArrayList<Food>();
 		this.populations = new ArrayList<Population>();
-		System.out.println(Arrays.toString(options.getColors()));
-
-		System.out.println(Arrays.toString(options.getTypes()));
-
-		System.out.println(Arrays.toString(options.getNoIndividuals()));
-
-		System.out.println(Arrays.toString(options.getSizes()));
-		System.out.println(Arrays.toString(options.getSpeeds()));
-		System.out.println(Arrays.toString(options.getMaxAges()));
-		System.out.println(Arrays.toString(options.getEatSizeFactor()));
-		System.out.println(Arrays.toString(options.getNames()));
-		System.out.println(Arrays.toString(options.getScentRanges()));
-
-
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes());
-		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges());
+		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
+				options.getNames(), options.getEatSizeFactors());
 		//TODO: fill in
 		createFood(50);
 	}
@@ -238,26 +225,26 @@ public class Environment {
 	}
 
 //methods for innitialy creating species that are specified.
-	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge) {
+	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, String[] names, double[] eatSizeFactor) {
 		for (int i = 0; i <populations.size(); i++) {
 			Population p = populations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
 				if (p.getType().equals("Carnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Carnivore(size[i], speed[i], maxAge[i]);
+						s = new Carnivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if (p.getType().equals("Herbivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Herbivore(size[i], speed[i], maxAge[i]);
+						s = new Herbivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if(p.getType().equals("Omnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Omnivore(size[i], speed[i], maxAge[i]);
+						s = new Omnivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}

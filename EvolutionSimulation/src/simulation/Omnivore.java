@@ -7,13 +7,13 @@ public class Omnivore extends Species{
 	private int MINIMUM_REP_TIME = 5;
 
 	//innitial constructor
-	public Omnivore(int size, int speed, int maxAge) {
-		super(size, speed, maxAge);
+	public Omnivore(int size, int speed, int maxAge, String name, double eatSizeFactor) {
+		super(size, speed, maxAge, name, eatSizeFactor);
 	}
 	
 	//inheriting constructor
-	public Omnivore(int x, int y,int energy, Genome genome, int number) {
-		super(x, y, energy, genome, number);
+	public Omnivore(int x, int y,int energy, Genome genome, int number, String name, double eatSizeFactor) {
+		super(x, y, energy, genome, number, name, eatSizeFactor);
 	}
 
 	public boolean checkCanEat(int x, int y, int sSize, int sEnergy) {

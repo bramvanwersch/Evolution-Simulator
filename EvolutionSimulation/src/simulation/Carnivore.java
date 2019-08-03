@@ -9,14 +9,14 @@ public class Carnivore extends Species{
 	private int timeSinceEating;
 
 	//innitial constructor
-	public Carnivore(int size, int speed, int maxAge) {
-		super(size, speed, maxAge);
+	public Carnivore(int size, int speed, int maxAge, String name, double eatSizeFactor) {
+		super(size, speed, maxAge, name, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
 	
 	//inheriting constructor
-	public Carnivore(int x, int y,int energy, Genome genome, int number) {
-		super(x, y, energy, genome, number);
+	public Carnivore(int x, int y,int energy, Genome genome, int number, String name, double eatSizeFactor) {
+		super(x, y, energy, genome, number, name, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
 
