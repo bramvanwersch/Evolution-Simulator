@@ -6,7 +6,7 @@ To read the data files and get some usefull information out of it i wrote some p
 There are 3 species available herbivore, carnivore and omnivore. 
 
 ## Working on:
-- At the moment i am working on making an option interface to easily configure the game instead of changing hard coded values.
+- At the moment i am working on making an option interface to easily configure the game instead of changing hard coded values. --> more informarion.
 - add genomes to plants
 - make non essential genes
 - make more genes
@@ -17,3 +17,6 @@ There are 3 species available herbivore, carnivore and omnivore.
 - fix species standing still for no reason.
 - fix species count going from 0 to 2. There is no species 1
 - give predators an ability to eat species bigger then themselves. --> give it a cap.
+- Fix graph not displaying the right data. --> lines dont match with innitial starting values.
+- Make restart and new button actualy work.
+- Add all values that are saved in the option menu into the game.
