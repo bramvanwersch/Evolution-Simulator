@@ -24,6 +24,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 public class Game {
+
+
 	private final int UPDATE_TIME = 50;
 	private final int FOOD_REGENERATION_RATE = 50;
 	private TerrainPanel panel;
@@ -341,6 +343,14 @@ public class Game {
 		this.lblAvgScentText.setText(textArray[4]);
 		this.lblEnergyConsumptionText.setText(textArray[5]);
 		this.lblTime.setText(textArray[6]);
+	}
+	
+	public Environment getEnvironment() {
+		return environment;
+	}
+
+	public GameLoop getGameloop() {
+		return gameloop;
 	}
 }
 

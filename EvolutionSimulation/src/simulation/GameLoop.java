@@ -10,6 +10,8 @@ import gui.Game;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
+
+
 	private Environment environment;
 	private TerrainPanel panel;
 	private int timeElapsed;
@@ -103,5 +105,9 @@ public class GameLoop implements ActionListener{
 
 	public Data getData() {
 		return this.data;
+	}
+	
+	public int getTimeElapsed() {
+		return timeElapsed;
 	}
 }

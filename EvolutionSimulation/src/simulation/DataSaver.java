@@ -52,6 +52,7 @@ public class DataSaver {
 		tempoptions.addTypeList("Herbivore");
 		
 		Game game =  new Game(tempoptions, false);
+		game.getEnvironment();
 		
 		
 		
