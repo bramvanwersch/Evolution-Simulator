@@ -39,6 +39,7 @@ public class Game {
 	private Environment environment;
 	private GameLoop gameloop;
 	private OptionData options;
+	private JFrame f;
 	
 	public Game(OptionData data) {
 		this.options = data;
@@ -49,8 +50,8 @@ public class Game {
 		this.environment = new Environment(this.options);
 		panel = new TerrainPanel(950,950, this.environment);
 		SwingUtilities.isEventDispatchThread();
-		JFrame f = new JFrame("Terrain");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f = new JFrame("Terrain");
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel gamePannel = new JPanel();
 		f.getContentPane().add(gamePannel, BorderLayout.EAST);
@@ -317,9 +318,13 @@ public class Game {
 	private void restartGame() {
 		if (timer != null) {
 			timer.stop();
-		}
-		timer.restart();
-		initGUI();
+			f.removeAll();
+			initGUI();
+			panel.repaint();
+			lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
+			this.gameloop = new GameLoop(panel,txtNumberFood, this);
+			timer.restart();
+			}
 	}
 	
 	public void updateLabels(String [] textArray) {
