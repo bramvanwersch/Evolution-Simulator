@@ -40,10 +40,14 @@ public class Game {
 	private GameLoop gameloop;
 	private OptionData options;
 	private JFrame f;
+	private boolean runGUI;
 	
-	public Game(OptionData data) {
+	public Game(OptionData data, boolean runGUI) {
 		this.options = data;
-		initGUI();
+		this.runGUI = runGUI;
+		if(runGUI) {
+			initGUI();
+		}
 	}
 	
 	private void initGUI() {
@@ -295,7 +299,9 @@ public class Game {
 	
 	private void startTimer() {
 		if (timer == null) {
-			lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
+			if(runGUI) {
+				lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
+			}
 			this.gameloop = new GameLoop(panel,txtNumberFood, this);
 			timer = new Timer(UPDATE_TIME, gameloop);
 			timer.start();

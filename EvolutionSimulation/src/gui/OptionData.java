@@ -25,6 +25,7 @@ public class OptionData {
 		this.scentRanges = new ArrayList<Integer>();
 		this.colors = new ArrayList<Color>();
 		this.eatSizeFactors = new ArrayList<Double>();
+		
 	}
 	
 	public void addTypeList(String val) {
