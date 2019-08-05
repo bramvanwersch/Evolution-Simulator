@@ -46,6 +46,7 @@ public class Game {
 	
 	public Game(OptionData data, boolean runGUI) {
 		this.options = data;
+		this.environment = new Environment(this.options);
 		this.runGUI = runGUI;
 		if(runGUI) {
 			initGUI();
@@ -53,7 +54,6 @@ public class Game {
 	}
 	
 	private void initGUI() {
-		this.environment = new Environment(this.options);
 		panel = new TerrainPanel(950,950, this.environment);
 		SwingUtilities.isEventDispatchThread();
 		f = new JFrame("Terrain");
