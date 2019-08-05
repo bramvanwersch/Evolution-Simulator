@@ -299,7 +299,7 @@ public class Game {
 		f.setVisible(true);
 	}
 	
-	private void startTimer() {
+	public void startTimer() {
 		if (timer == null) {
 			if(runGUI) {
 				lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
