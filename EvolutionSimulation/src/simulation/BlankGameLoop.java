@@ -37,6 +37,7 @@ public class BlankGameLoop implements ActionListener {
 		if (!checkIfAllDead(e)) {
 		System.out.println("looove");
 		}
+		System.out.println("looove");
 	}
 	/**
 	 * Function that will check if there are species alive. If no species are alive the game is stopped. This
