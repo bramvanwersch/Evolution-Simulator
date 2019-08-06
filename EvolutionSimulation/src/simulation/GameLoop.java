@@ -16,6 +16,7 @@ public class GameLoop implements ActionListener{
 	private int foodRegenTxt;
 	private SidePanelGui sidePanel;
 	private Data data;
+	private boolean runGui;
 
 	/**
 	 * Class for updating the main panel every 50 ms by invoking updating methods of species and saving data
@@ -25,13 +26,14 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, int txtFoodRegen, SidePanelGui sidePanel) {
+	public GameLoop(TerrainPanel panel, Environment environment, int txtFoodRegen, SidePanelGui sidePanel, boolean runGui) {
 		this.sidePanel = sidePanel;
-		this.environment = panel.getEnvironment();
+		this.environment = environment;
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
 		this.data = new Data();
 		this.timeElapsed = 0;
+		this.runGui = runGui;
 		environment.moveSpecies();
 	}
 	
@@ -47,9 +49,11 @@ public class GameLoop implements ActionListener{
 			addDataValues();
 			environment.addCheckAge();
 		}
-		panel.repaint();
-		if (!checkIfAllDead(e)) {
-			sidePanel.updateLabels(getLabelTexts());
+		if (runGui) {
+			panel.repaint();
+			if (!checkIfAllDead(e)) {
+				sidePanel.updateLabels(getLabelTexts());
+			}
 		}
 	}
  

@@ -20,17 +20,25 @@ import simulation.GameLoop;
 public class Run {
 	private Timer timer;
 	private int UPDATE_TIME = 50;
+	private SidePanelGui sidePanel;
+	private TerrainPanel panel;
+	private GameLoop loop;
+	private Environment environment;
 	
 	
-	public Run(OptionData data, boolean runGUI) {
-		Environment environment = new Environment(data);
-		TerrainPanel panel = new TerrainPanel(950,950, environment);
-		
-		SidePanelGui sidePanel = new SidePanelGui(950, 300);
-		GameLoop loop = new GameLoop(panel, 50, sidePanel);
+	public Run(OptionData data, boolean runGui) {
+		environment = new Environment(data);
+		if (runGui) {
+			createGui();
+		}
+		loop = new GameLoop(panel,environment, 50, sidePanel, runGui);
 		timer = new Timer(UPDATE_TIME, loop);
+	}
 	
-
+	private void createGui() {
+		panel = new TerrainPanel(950,950, environment);
+		
+		sidePanel = new SidePanelGui(950, 300);
 		JFrame f =  new JFrame();
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
@@ -62,7 +70,6 @@ public class Run {
 		f.pack();
 		f.setVisible(true);
 	}
-	
 	
 	
 	public void startTimer() {
