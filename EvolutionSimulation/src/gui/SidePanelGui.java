@@ -1,28 +1,14 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
-
-import simulation.GameLoop;
 
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
 public class SidePanelGui extends JPanel{
