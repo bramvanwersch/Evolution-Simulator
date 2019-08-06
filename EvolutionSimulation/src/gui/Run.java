@@ -1,9 +1,15 @@
 package gui;
-import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import gui.Game;
+import gui.SidePanelGui;
 import gui.OptionData;
+import simulation.Data;
 import simulation.Environment;
 import simulation.GameLoop;
 
@@ -15,11 +21,21 @@ public class Run {
 	public Run(OptionData data, boolean runGUI) {
 		Environment environment = new Environment(data);
 		TerrainPanel panel = new TerrainPanel(950,950, environment);
-
-		Game game = new Game(environment, panel, timer);
-		GameLoop loop = new GameLoop(panel, game.txtNumberFood, game);
+		
+		SidePanelGui sidePanel = new SidePanelGui(950, 300);
+		GameLoop loop = new GameLoop(panel, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 
+		JFrame f =  new JFrame();
+		BorderLayout bd = new BorderLayout();
+		f.setLayout(bd);
+		f = new JFrame("Terrain");
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.add(panel, bd.CENTER);
+		f.add(sidePanel, bd.EAST);
+			
+		f.pack();
+		f.setVisible(true);
 	}
 
 }

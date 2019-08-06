@@ -225,7 +225,7 @@ public class OptionMenu extends JFrame {
 				saveData();
 				setVisible(false);
 				dispose();
-				new Game(data, true);
+				new Run(data, true);
 			}
 		});
 		GridBagConstraints gbc_startGameButton = new GridBagConstraints();

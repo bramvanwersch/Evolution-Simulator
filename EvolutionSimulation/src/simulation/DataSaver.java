@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.io.PrintWriter;
 
-import gui.Game;
+import gui.SidePanelGui;
 import gui.OptionData;
 import gui.OptionMenu;
+import gui.Run;
 
 
 public class DataSaver {
@@ -51,8 +52,7 @@ public class DataSaver {
 		tempoptions.addSpeedsList(1);
 		tempoptions.addTypeList("Herbivore");
 		
-		Game game =  new Game(tempoptions, false);
-		game.getEnvironment();
+		Run game =  new Run(tempoptions, false);
 		
 		
 		

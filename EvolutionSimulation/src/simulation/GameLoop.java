@@ -6,17 +6,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
-import gui.Game;
+import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
-
-
 	private Environment environment;
 	private TerrainPanel panel;
 	private int timeElapsed;
-	private JTextField foodRegenTxt;
-	private Game frame;
+	private int foodRegenTxt;
+	private SidePanelGui sidePanel;
 	private Data data;
 
 	/**
@@ -27,8 +25,8 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, JTextField txtFoodRegen, Game mainFrame) {
-		this.frame = mainFrame;
+	public GameLoop(TerrainPanel panel, int txtFoodRegen, SidePanelGui sidePanel) {
+		this.sidePanel = sidePanel;
 		this.environment = panel.getEnvironment();
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
@@ -44,14 +42,13 @@ public class GameLoop implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		timeElapsed += 50;
 		environment.nextTimeStep();
-		environment.createFood(Integer.parseInt(foodRegenTxt.getText()));
+		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			addDataValues();
 			environment.addCheckAge();
 		}
 		panel.repaint();
 		if (!checkIfAllDead(e)) {
-			frame.updateLabels(getLabelTexts());
 		}
 	}
  
