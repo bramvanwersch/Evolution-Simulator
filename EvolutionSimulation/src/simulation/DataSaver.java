@@ -22,6 +22,7 @@ public class DataSaver {
 			public void run() {
 				try {
 					DataSaver data = new DataSaver(); 
+					data.createOptionData();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +53,8 @@ public class DataSaver {
 		tempoptions.addSpeedsList(1);
 		tempoptions.addTypeList("Herbivore");
 		
-		Run game =  new Run(tempoptions, false);
+		Run run =  new Run(tempoptions, false);
+		run.startTimer();
 		
 		
 		
