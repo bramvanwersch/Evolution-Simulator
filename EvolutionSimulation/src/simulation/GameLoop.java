@@ -49,6 +49,7 @@ public class GameLoop implements ActionListener{
 		}
 		panel.repaint();
 		if (!checkIfAllDead(e)) {
+			sidePanel.updateLabels(getLabelTexts());
 		}
 	}
  

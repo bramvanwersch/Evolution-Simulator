@@ -29,15 +29,12 @@ public class SidePanelGui extends JPanel{
 		gbl_gamePanel = new GridBagLayout();
 		this.heigth = heigth;
 		this.width = width;
+		drawPanel();
 		
 	}
 	public Dimension getPreferredSize() {
         return new Dimension(width, heigth);
     }
-	
-	public void paintComponent(Graphics g) {
-		drawPanel();
-	}
 		
 //menu bar
 //		JMenuBar menuBar = new JMenuBar();
@@ -220,33 +217,6 @@ public class SidePanelGui extends JPanel{
 		gbc_txtNumberFood.gridy = 8;
 		add(txtNumberFood, gbc_txtNumberFood);
 		txtNumberFood.setColumns(10);
-
-//		JButton btnStart = new JButton("Start");
-//		btnStart.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				startTimer();
-//			}
-//		});
-//		
-//		GridBagConstraints gbc_btnStart = new GridBagConstraints();
-//		gbc_btnStart.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_btnStart.insets = new Insets(5, 5, 5, 5);
-//		gbc_btnStart.gridx = 1;
-//		gbc_btnStart.gridy = 10;
-//		gamePannel.add(btnStart, gbc_btnStart);
-//		
-//		JButton btnPause = new JButton("Pause");
-//		btnPause.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				stopTimer();
-//			}
-//		});
-//		GridBagConstraints gbc_btnPause = new GridBagConstraints();
-//		gbc_btnPause.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_btnPause.insets = new Insets(5, 5, 5, 0);
-//		gbc_btnPause.gridx = 2;
-//		gbc_btnPause.gridy = 10;
-//		gamePannel.add(btnPause, gbc_btnPause);
 		
 //		JLabel lblTimeElapsed = new JLabel("Time elapsed:");
 //		GridBagConstraints gbc_lblTimeElapsed = new GridBagConstraints();
@@ -267,18 +237,7 @@ public class SidePanelGui extends JPanel{
 //		gamePannel.add(lblTime, gbc_lblTime);
 	}
 	
-//	public void startTimer() {
-//		timer.start();
-//	}
-//	
-//	private void stopTimer() {
-//		timer.stop();
-//	}
-//	
-//	private void newGame() {
-//		// TODO Auto-generated method stub
-//		
-//	}
+
 //	
 //	//broken needs fixing
 //	private void restartGame() {
@@ -301,7 +260,7 @@ public class SidePanelGui extends JPanel{
 		this.lblAvgAgeText.setText(textArray[3]);
 		this.lblAvgScentText.setText(textArray[4]);
 		this.lblEnergyConsumptionText.setText(textArray[5]);
-		this.lblTime.setText(textArray[6]);
+//		this.lblTime.setText(textArray[6]);
 	}
 
 }
