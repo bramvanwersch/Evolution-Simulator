@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import gui.SidePanelGui;
 import gui.OptionData;
+import simulation.BlankGameLoop;
 import simulation.Data;
 import simulation.Environment;
 import simulation.GameLoop;
@@ -23,6 +24,7 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
+	private BlankGameLoop blankLoop;
 	private Environment environment;
 	
 	
@@ -30,9 +32,13 @@ public class Run {
 		environment = new Environment(data);
 		if (runGui) {
 			createGui();
+			loop = new GameLoop(panel,environment, 50, sidePanel, runGui);
+			timer = new Timer(UPDATE_TIME, loop);
+		}else {
+			blankLoop = new BlankGameLoop( 50, environment);
+			timer = new Timer(UPDATE_TIME, loop);
 		}
-		loop = new GameLoop(panel,environment, 50, sidePanel, runGui);
-		timer = new Timer(UPDATE_TIME, loop);
+
 	}
 	
 	private void createGui() {
@@ -88,7 +94,7 @@ public class Run {
 		timer.stop();
 	}
 	
-
+ 
 	private void restartTimer() {
 		// TODO Auto-generated method stub
 		
