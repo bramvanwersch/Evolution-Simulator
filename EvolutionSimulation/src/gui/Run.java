@@ -65,6 +65,14 @@ public class Run {
 		});
 		buttonPanel.add(btnPause, bd.NORTH);
 		
+		JButton btnRestart = new JButton("Restart");
+		btnRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				restartTimer();
+			}
+		});
+		buttonPanel.add(btnRestart, bd.NORTH);
+		
 		f.add(buttonPanel, bd.NORTH);
 			
 		f.pack();
@@ -78,6 +86,12 @@ public class Run {
 	
 	private void stopTimer() {
 		timer.stop();
+	}
+	
+
+	private void restartTimer() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	private void newGame() {

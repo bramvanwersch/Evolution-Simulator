@@ -197,13 +197,32 @@ public class SidePanelGui extends JPanel{
 //		gbc_btnShowGraph.gridx = 2;
 //		gbc_btnShowGraph.gridy = 11;
 //		gamePannel.add(btnShowGraph, gbc_btnShowGraph);
-//		
+//	
+		
+		JLabel lblTimeElapsed = new JLabel("Time elapsed:");
+		GridBagConstraints gbc_lblTimeElapsed = new GridBagConstraints();
+		gbc_lblTimeElapsed.anchor = GridBagConstraints.WEST;
+		gbc_lblTimeElapsed.weightx = 1.0;
+		gbc_lblTimeElapsed.insets = new Insets(5, 5, 5, 5);
+		gbc_lblTimeElapsed.gridx = 1;
+		gbc_lblTimeElapsed.gridy = 8;
+		add(lblTimeElapsed, gbc_lblTimeElapsed);
+		
+		lblTime = new JLabel("");
+		GridBagConstraints gbc_lblTime = new GridBagConstraints();
+		gbc_lblTime.anchor = GridBagConstraints.WEST;
+		gbc_lblTime.insets = new Insets(5, 5, 5, 0);
+		gbc_lblTime.weightx = 1.0;
+		gbc_lblTime.gridx = 2;
+		gbc_lblTime.gridy = 8;
+		add(lblTime, gbc_lblTime);
+		
 		JLabel lblNrFood = new JLabel("Regen of food:");
 		GridBagConstraints gbc_lblNrFood = new GridBagConstraints();
 		gbc_lblNrFood.anchor = GridBagConstraints.WEST;
 		gbc_lblNrFood.insets = new Insets(5, 5, 5, 5);
 		gbc_lblNrFood.gridx = 1;
-		gbc_lblNrFood.gridy = 8;
+		gbc_lblNrFood.gridy = 9;
 		add(lblNrFood, gbc_lblNrFood);
 		
 		txtNumberFood = new JTextField();
@@ -214,27 +233,9 @@ public class SidePanelGui extends JPanel{
 		gbc_txtNumberFood.insets = new Insets(0, 0, 5, 0);
 		gbc_txtNumberFood.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNumberFood.gridx = 2;
-		gbc_txtNumberFood.gridy = 8;
+		gbc_txtNumberFood.gridy = 9;
 		add(txtNumberFood, gbc_txtNumberFood);
 		txtNumberFood.setColumns(10);
-		
-//		JLabel lblTimeElapsed = new JLabel("Time elapsed:");
-//		GridBagConstraints gbc_lblTimeElapsed = new GridBagConstraints();
-//		gbc_lblTimeElapsed.anchor = GridBagConstraints.WEST;
-//		gbc_lblTimeElapsed.weightx = 1.0;
-//		gbc_lblTimeElapsed.insets = new Insets(5, 5, 5, 5);
-//		gbc_lblTimeElapsed.gridx = 1;
-//		gbc_lblTimeElapsed.gridy = 8;
-//		gamePannel.add(lblTimeElapsed, gbc_lblTimeElapsed);
-//		
-//		lblTime = new JLabel("");
-//		GridBagConstraints gbc_lblTime = new GridBagConstraints();
-//		gbc_lblTime.anchor = GridBagConstraints.WEST;
-//		gbc_lblTime.insets = new Insets(5, 5, 5, 0);
-//		gbc_lblTime.weightx = 1.0;
-//		gbc_lblTime.gridx = 2;
-//		gbc_lblTime.gridy = 8;
-//		gamePannel.add(lblTime, gbc_lblTime);
 	}
 	
 
@@ -260,7 +261,7 @@ public class SidePanelGui extends JPanel{
 		this.lblAvgAgeText.setText(textArray[3]);
 		this.lblAvgScentText.setText(textArray[4]);
 		this.lblEnergyConsumptionText.setText(textArray[5]);
-//		this.lblTime.setText(textArray[6]);
+		this.lblTime.setText(textArray[6]);
 	}
 
 }
