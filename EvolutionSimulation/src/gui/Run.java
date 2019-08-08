@@ -32,7 +32,7 @@ public class Run {
 		environment = new Environment(data);
 		if (runGui) {
 			createGui();
-			loop = new GameLoop(panel,environment, 50, sidePanel, runGui);
+			loop = new GameLoop(panel,environment, 50, sidePanel);
 			timer = new Timer(UPDATE_TIME, loop);
 		}else {
 			blankLoop = new BlankGameLoop( 50, environment);
