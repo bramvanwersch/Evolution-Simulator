@@ -8,25 +8,17 @@ import java.util.Collections;
 import gui.OptionData;
 
 public class Environment {
-	private int DEFAULT_FOOD_E = 100;
-	private int DEFAULT_FOOD_SIZE = 5;
+	private int foodEnergy;
+	private int foodSize;
 	private ArrayList<Population> populations;
 	private ArrayList<Food> foodList;
 	
-	/**
-	 * Class that will manage species populations. It contains methods that affect all species and directs underlying population
-	 * classes to manage their respective species.
-	 * @param nrSpecies
-	 * @param size
-	 * @param speed
-	 * @param maxAge
-	 * @param colors
-	 * @param type
-	 * @param nrFood
-	 */
+
 	public Environment(OptionData options) {
 		this.foodList = new ArrayList<Food>();
 		this.populations = new ArrayList<Population>();
+		this.foodEnergy = options.getFoodEnergy();
+		this.foodSize = options.getFoodSize();
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getNames(), options.getEatSizeFactors());
@@ -284,7 +276,7 @@ public class Environment {
 // methods for food managing methods.
 	public void createFood(int nrFood) {
 		for (int i = 0; i < nrFood; i++) {
-			foodList.add(new Food(DEFAULT_FOOD_E, DEFAULT_FOOD_SIZE));
+			foodList.add(new Food(foodEnergy, foodSize));
 		}	
 	}
 	

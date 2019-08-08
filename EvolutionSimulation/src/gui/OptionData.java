@@ -5,16 +5,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class OptionData {
-	ArrayList<String> types;
-	ArrayList<String> names;
-	ArrayList<Integer> noIndividuals;
-	ArrayList<Integer> sizes;
-	ArrayList<Integer> speeds;
-	ArrayList<Integer> maxAges;
-	ArrayList<Integer> scentRanges;
-	ArrayList<Color> colors;
-	ArrayList<Double> eatSizeFactors;
-	
+	private ArrayList<String> types;
+	private ArrayList<String> names;
+	private ArrayList<Integer> noIndividuals;
+	private ArrayList<Integer> sizes;
+	private ArrayList<Integer> speeds;
+	private ArrayList<Integer> maxAges;
+	private ArrayList<Integer> scentRanges;
+	private ArrayList<Color> colors;
+	private ArrayList<Double> eatSizeFactors;
+	private int foodSize;
+	private int foodEnergy;
+
 	public OptionData() {
 		this.types = new ArrayList<String>();
 		this.names = new ArrayList<String>();
@@ -62,6 +64,22 @@ public class OptionData {
 	
 	public void addEatSizeFactorsList(double val) {
 		eatSizeFactors.add(val);
+	}
+	
+	public int getFoodSize() {
+		return foodSize;
+	}
+
+	public void setFoodSize(int foodSize) {
+		this.foodSize = foodSize;
+	}
+
+	public int getFoodEnergy() {
+		return foodEnergy;
+	}
+
+	public void setFoodEnergy(int foodEnergy) {
+		this.foodEnergy = foodEnergy;
 	}
 
 	public String[] getTypes() {

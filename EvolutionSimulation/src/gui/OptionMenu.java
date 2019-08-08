@@ -40,8 +40,8 @@ import javax.swing.JColorChooser;
 public class OptionMenu extends JFrame {
 
 	private JPanel contentPane;
-	private final JTextField foodEnergyTxt = new JTextField();
-	private final JTextField foodSizeTxt = new JTextField();
+	private JSpinner foodEnergySpinner;
+	private JSpinner foodSizeSpinner;
 	private JScrollPane scrollPane;
 	private JPanel scrollPanel;
 	private int numberOfSpecies;
@@ -77,10 +77,6 @@ public class OptionMenu extends JFrame {
 		speciesTypes = new ArrayList<JComboBox>();
 		speciesNames = new ArrayList<JTextField>();
 		data = new OptionData();
-		foodSizeTxt.setText("5");
-		foodSizeTxt.setColumns(10);
-		foodEnergyTxt.setText("100");
-		foodEnergyTxt.setColumns(10);
 		initGUI();
 	}
 	
@@ -134,32 +130,36 @@ public class OptionMenu extends JFrame {
 		gbc_lblFoodEnergy.insets = new Insets(10, 5, 5, 5);
 		gbc_lblFoodEnergy.gridx = 0;
 		gbc_lblFoodEnergy.gridy = 0;
-		JLabel lblFoodEnergy = new JLabel("Food Energy:");
+		JLabel lblFoodEnergy = new JLabel("Food Energy(50-500):");
 		foodPanel.add(lblFoodEnergy, gbc_lblFoodEnergy);
 		lblFoodEnergy.setToolTipText("Energy each food item gives herbivores and omnivores.");
 		lblFoodEnergy.setHorizontalAlignment(SwingConstants.LEFT);
 		
+		SpinnerNumberModel foodEnergyModel = new SpinnerNumberModel(100, 50, 500, 10);
+		foodEnergySpinner = new JSpinner(foodEnergyModel);
 		GridBagConstraints gbc_foodEnergyTxt = new GridBagConstraints();
 		gbc_foodEnergyTxt.insets = new Insets(10, 10, 5, 5);
 		gbc_foodEnergyTxt.gridx = 1;
 		gbc_foodEnergyTxt.gridy = 0;
-		foodPanel.add(foodEnergyTxt, gbc_foodEnergyTxt);
+		foodPanel.add(foodEnergySpinner, gbc_foodEnergyTxt);
 		
 		GridBagConstraints gbc_lblFoodSize = new GridBagConstraints();
 		gbc_lblFoodSize.anchor = GridBagConstraints.WEST;
 		gbc_lblFoodSize.insets = new Insets(0, 5, 5, 5);
 		gbc_lblFoodSize.gridx = 0;
 		gbc_lblFoodSize.gridy = 1;
-		JLabel lblFoodSize = new JLabel("Food Size:");
+		JLabel lblFoodSize = new JLabel("Food Size(1-100):");
 		foodPanel.add(lblFoodSize, gbc_lblFoodSize);
 		lblFoodSize.setToolTipText("Size of the food for herbivores and omnivores.");
 		lblFoodSize.setHorizontalAlignment(SwingConstants.LEFT);
 		
+		SpinnerNumberModel foodSizeModel = new SpinnerNumberModel(5, 1, 100, 1);
+		foodSizeSpinner = new JSpinner(foodSizeModel);
 		GridBagConstraints gbc_foodSizeTxt = new GridBagConstraints();
 		gbc_foodSizeTxt.insets = new Insets(0, 10, 5, 5);
 		gbc_foodSizeTxt.gridx = 1;
 		gbc_foodSizeTxt.gridy = 1;
-		foodPanel.add(foodSizeTxt, gbc_foodSizeTxt);
+		foodPanel.add(foodSizeSpinner, gbc_foodSizeTxt);
 	
 		GridBagConstraints gbc_terrainPanel = new GridBagConstraints();
 		gbc_terrainPanel.gridwidth = 2;
@@ -441,6 +441,8 @@ public class OptionMenu extends JFrame {
 	}
 
 	public void saveData() {
+		data.setFoodEnergy((int) foodEnergySpinner.getValue());
+		data.setFoodSize((int) foodSizeSpinner.getValue());
 		for(int i = 0; i < speciesTypes.size(); i++) {
 			data.addTypeList((String) speciesTypes.get(i).getSelectedItem());
 			data.addNamesList(speciesNames.get(i).getText());
