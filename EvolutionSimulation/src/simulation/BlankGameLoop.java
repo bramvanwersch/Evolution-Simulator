@@ -12,12 +12,12 @@ public class BlankGameLoop implements ActionListener {
 	private Environment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
-	private Data data;
+	private PopulationData data;
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment ) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
-		this.data = new Data();
+		this.data = new PopulationData();
 		this.timeElapsed = 0;
 		environment.moveSpecies();
 	}

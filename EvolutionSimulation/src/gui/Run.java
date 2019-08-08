@@ -14,7 +14,7 @@ import javax.swing.Timer;
 import gui.SidePanelGui;
 import gui.OptionData;
 import simulation.BlankGameLoop;
-import simulation.Data;
+import simulation.PopulationData;
 import simulation.Environment;
 import simulation.GameLoop;
 

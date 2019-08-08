@@ -3,7 +3,7 @@ package simulation;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Data {
+public class PopulationData {
 	private ArrayList<Double> avgSpeed;
 	private ArrayList<Double> avgSize;
 	private ArrayList<Double> avgAge;
@@ -14,7 +14,7 @@ public class Data {
 	private ArrayList<Double> nrCarnivores;
 	private int time;
 	
-	public Data() {
+	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
 		this.avgSize = new ArrayList<Double>(100);
 		this.avgAge = new ArrayList<Double>(100);
