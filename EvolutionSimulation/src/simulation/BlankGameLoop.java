@@ -32,7 +32,7 @@ public class BlankGameLoop implements ActionListener {
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
-			environment.addCheckAge();
+			environment.addAge();
 		}
 		if (!checkIfAllDead(e)) {
 		System.out.println("looove");
