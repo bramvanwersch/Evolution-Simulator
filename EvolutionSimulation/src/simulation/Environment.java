@@ -30,16 +30,28 @@ public class Environment {
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
+		checkPopulationAlive();
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
 		eatFood();
+		
 		eatSpecies();
 		checkCanMultiply();
 		shuffleLists();
 	}
 	
 // methods that need checking every frame.
+	/**
+	 * Function for checking if a population still contains species. If not the poulation is removed.
+	 */
+	public void checkPopulationAlive() {
+		for (Population sp: populations) {
+			if (sp.getNrSpecies() == 0){
+				populations.remove(sp);
+			}
+		}
+	}
 	/**
 	 * Function for invoking the checkAliveSpecies for every species in a population.
 	 */
