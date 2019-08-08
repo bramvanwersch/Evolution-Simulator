@@ -3,7 +3,7 @@ package simulation;
 import genome.Genome;
 
 public class Species{
-	private final int ENERGY_DIVISION = 3;
+	private final int ENERGY_DIVISION = 2;
 	private final int DEFAULT_SCENT_RANGE = 60;
 	private final int DEFAULT_ENERGY = 4000;
 	private int WINDOW_SIZE = 950;
