@@ -45,7 +45,7 @@ public class GameLoop implements ActionListener{
 		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			addDataValues();
-			environment.addCheckAge();
+			environment.addAge();
 		}
 		panel.repaint();
 		if (!checkIfAllDead(e)) {

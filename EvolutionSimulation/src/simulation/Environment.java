@@ -35,10 +35,11 @@ public class Environment {
 	}
 	
 	/**
-	 * Container function for invoking methods that need to be updated every frame.
+	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
 		checkAliveSpecies();
+		checkAge();
 		moveSpecies();
 		eatFood();
 		eatSpecies();
@@ -48,7 +49,7 @@ public class Environment {
 	
 // methods that need checking every frame.
 	/**
-	 * Function for invoking the checkAliveSpecies for every population.
+	 * Function for invoking the checkAliveSpecies for every species in a population.
 	 */
 	public void checkAliveSpecies() {
 		for (Population sp: populations ) {
@@ -189,15 +190,21 @@ public class Environment {
 	 * die and be removed. Otherwise the age of the species is increased.
 	 * Note: this method is only invoked once every second.
 	 */
-	public void addCheckAge() {
+	public void addAge() {
 		for (Population sp: populations ) {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
-				if (s.getAge() <= s.getMaxAge()) {
-					s.addRepTime();
-					s.addAge();
-				}
-				else {
+				s.addRepTime();
+				s.addAge();
+			}
+		}
+	}
+	
+	public void checkAge() {
+		for (Population sp: populations ) {
+			for (int i = 0; i < sp.getNrSpecies(); i++) {
+				Species s = sp.getSpecies(i);
+				if (s.getAge() >= s.getMaxAge()) {
 					sp.removeSpecies(i);
 				}
 			}
@@ -205,15 +212,15 @@ public class Environment {
 	}
 	
 	/**
-	 * Function to invoke the shuffle list function for each population. And to shuffle the foodlist.
-	 * This is important to make sure that checks that loop trough lists are not biased towards the objects
-	 * at the top of the lists.
+	 * Function that shuffles the species food and populations list making sure that checks that are biased by list order
+	 * are less biased
 	 */
 	public void shuffleLists() {
 		for (Population sp: populations ) {
 			sp.shuffleSpeciesList();
 		}
 		Collections.shuffle(foodList);	
+		Collections.shuffle(populations);
 	}
 
 	private void createPopulations(int nrPopulations, Color[] colors, String[] type) {
