@@ -397,6 +397,7 @@ public class OptionMenu extends JFrame {
 		gbc_colorLabel.gridx = 2;
 		gbc_colorLabel.gridy = 2;
 		panel_1.add(colorLabel, gbc_colorLabel);
+		speciesColors.add(colorLabel);
 		
 		JButton newColorBtn = new JButton("Choose color");
 		newColorBtn.addActionListener(new ActionListener() {
@@ -404,7 +405,6 @@ public class OptionMenu extends JFrame {
 				JColorChooser chooser = new JColorChooser();
 				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.BLUE);
 				colorLabel.setBackground(speciesColor);
-				speciesColors.add(colorLabel);
 			}
 		});
 		GridBagConstraints gbc_newColorBtn = new GridBagConstraints();
