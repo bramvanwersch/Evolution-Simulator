@@ -12,15 +12,20 @@ public class BlankGameLoop implements ActionListener {
 	private Environment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
-	private PopulationData data;
+	private boolean simulationFinished;
+	private PopulationData[] popData;
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment ) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
-		this.data = new PopulationData();
 		this.timeElapsed = 0;
-		this.data = new PopulationData();
+		this.popData = new PopulationData[environment.getPopulations().size()];
+		for (int i = 0; i < environment.getPopulations().size(); i ++) {
+			this.popData[i] = new PopulationData();
+		}
 		environment.moveSpecies();
+		
+		
 	}
 	
 	/**
@@ -28,16 +33,16 @@ public class BlankGameLoop implements ActionListener {
 	 * the game running
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("looove");
-		timeElapsed += 50;
+		timeElapsed += 23;
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			environment.addAge();
 		}
-		if (checkIfAllDead(e)) {
-		addDataValues();
-		System.out.println("One species died");
+		if (checkIfSoleSurvivor(e)) {
+			addPopData();
+			simulationFinished = true;
+		
 		}
 		
 	}
@@ -45,16 +50,16 @@ public class BlankGameLoop implements ActionListener {
 	/**
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
-	private void addDataValues() {
-		data.setNrHerbivores(environment.getNrHerbivores());
-		data.setNrOmnivores(environment.getNrOmnivores());
-		data.setNrCarnivores(environment.getNrCarnivores());
-		data.setAvgSpeed(environment.getSpeedStats()[0]);
-		data.setAvgSize(environment.getSizeStats()[0]);
-		data.setAvgAge(environment.getMaxAgeStats()[0]);
-		data.setAvgScent(environment.getScentStats()[0]);
-		data.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
-		data.addTime();
+	private void addPopData() {
+		for (int i = 0; i < environment.getPopulations().size(); i ++) {
+			Population sp = environment.getPopulations().get(i);
+			popData[i].setAvgSpeed(sp.getSpeedStats()[0]);
+			popData[i].setAvgSize(sp.getSizeStats()[0]);
+			popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
+			popData[i].setAvgScent(sp.getScentStats()[0]);
+			popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
+			popData[i].addTime();	
+		}
 	}
 	
 	/**
@@ -63,7 +68,7 @@ public class BlankGameLoop implements ActionListener {
 	 * @param e: actionevent variable to stop the timer invoked in the Game class
 	 * @return boolean telling if the game should be continued or stopped.
 	 */
-	private boolean checkIfAllDead(ActionEvent e) {
+	private boolean checkIfSoleSurvivor(ActionEvent e) {
 		if (this.environment.getNrSpecies() == 1) {
 			Timer t  = (Timer) e.getSource();
 			t.stop();
@@ -72,8 +77,13 @@ public class BlankGameLoop implements ActionListener {
 		return false;
 	}
 
-	public PopulationData getData() {
-		return data;
+	public PopulationData[] getData() {
+		return popData;
+	}
+	
+	
+	public boolean simulationFinished() {
+		return simulationFinished;
 	}
 	
 	
