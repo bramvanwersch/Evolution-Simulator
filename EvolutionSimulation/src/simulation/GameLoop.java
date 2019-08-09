@@ -3,7 +3,6 @@ package simulation;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import gui.SidePanelGui;
@@ -15,7 +14,8 @@ public class GameLoop implements ActionListener{
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private SidePanelGui sidePanel;
-	private PopulationData data;
+	private PopulationData averageData;
+	private PopulationData popData[];
 
 	/**
 	 * Class for updating the main panel every 50 ms by invoking updating methods of species and saving data
@@ -30,7 +30,8 @@ public class GameLoop implements ActionListener{
 		this.environment = environment;
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
-		this.data = new PopulationData();
+		this.averageData = new PopulationData();
+		this.popData = new PopulationData[environment.getPopulations().size()];
 		this.timeElapsed = 0;
 		environment.moveSpecies();
 	}
@@ -44,7 +45,7 @@ public class GameLoop implements ActionListener{
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
-			addDataValues();
+			addAverageDataValues();
 			environment.addAge();
 		}
 		panel.repaint();
@@ -56,17 +57,29 @@ public class GameLoop implements ActionListener{
 	/**
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
-	private void addDataValues() {
-		data.setNrHerbivores(environment.getNrHerbivores());
-		data.setNrOmnivores(environment.getNrOmnivores());
-		data.setNrCarnivores(environment.getNrCarnivores());
-		data.setAvgSpeed(environment.getSpeedStats()[0]);
-		data.setAvgSize(environment.getSizeStats()[0]);
-		data.setAvgAge(environment.getMaxAgeStats()[0]);
-		data.setAvgScent(environment.getScentStats()[0]);
-		data.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
-		data.addTime();
+	private void addAverageDataValues() {
+		averageData.setNrHerbivores(environment.getNrHerbivores());
+		averageData.setNrOmnivores(environment.getNrOmnivores());
+		averageData.setNrCarnivores(environment.getNrCarnivores());
+		averageData.setAvgSpeed(environment.getSpeedStats()[0]);
+		averageData.setAvgSize(environment.getSizeStats()[0]);
+		averageData.setAvgAge(environment.getMaxAgeStats()[0]);
+		averageData.setAvgScent(environment.getScentStats()[0]);
+		averageData.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
+		averageData.addTime();
 	}
+	
+		private void addPopData() {
+			for (int i = 0; i < environment.getPopulations().size(); i ++) {
+				Population sp = environment.getPopulations().get(i);
+				popData[i].setAvgSpeed(sp.getSpeedStats()[0]);
+				popData[i].setAvgSize(sp.getSizeStats()[0]);
+				popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
+				popData[i].setAvgScent(sp.getScentStats()[0]);
+				popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
+				popData[i].addTime();	
+			}
+		}
 	
 	/**
 	 * Function for collecting data to be displayed in the labels besides the game to easier track progression
@@ -103,7 +116,7 @@ public class GameLoop implements ActionListener{
 	}
 
 	public PopulationData getData() {
-		return this.data;
+		return this.averageData;
 	}
 	
 	public int getTimeElapsed() {
