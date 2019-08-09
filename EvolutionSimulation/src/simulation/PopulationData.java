@@ -2,6 +2,12 @@ package simulation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+/**
+ * PopulationData class records one instance of population
+ * @author wytze
+ *
+ */
+
 
 public class PopulationData {
 	private ArrayList<Double> avgSpeed;
@@ -13,7 +19,10 @@ public class PopulationData {
 	private ArrayList<Double> nrOmnivores;
 	private ArrayList<Double> nrCarnivores;
 	private int time;
+	private ArrayList<Integer> nrSpecies;
 	
+
+
 	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
 		this.avgSize = new ArrayList<Double>(100);
@@ -122,6 +131,14 @@ public class PopulationData {
 
 	public void setNrHerbivores(double d) {
 		this.nrHerbivores.add(d);
+	}
+	
+	public ArrayList<Integer> getNrSpecies() {
+		return nrSpecies;
+	}
+
+	public void setNrSpecies(int i) {
+		this.nrSpecies.add(i);
 	}
 
 

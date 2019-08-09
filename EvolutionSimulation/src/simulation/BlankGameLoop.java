@@ -33,6 +33,7 @@ public class BlankGameLoop implements ActionListener {
 	 * the game running
 	 */
 	public void actionPerformed(ActionEvent e) {
+		System.out.println("is it running?");
 		timeElapsed += 23;
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
@@ -59,6 +60,7 @@ public class BlankGameLoop implements ActionListener {
 			popData[i].setAvgScent(sp.getScentStats()[0]);
 			popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
 			popData[i].addTime();	
+			popData[i].setNrSpecies(sp.getNrSpecies());
 		}
 	}
 	

@@ -2,6 +2,8 @@ package simulation;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import gui.SidePanelGui;
@@ -31,7 +33,7 @@ public class DataSaver {
 		});
 	}
 	
-	private void createOptionData() {
+	private void createOptionData() throws IOException {
 		OptionData tempoptions = new OptionData();
 		tempoptions.addColorsList(new Color(66,66,66));
 		tempoptions.addEatSizeFactorsList(1);
@@ -53,6 +55,20 @@ public class DataSaver {
 		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Carnivore");
 		Run run =  new Run(tempoptions, 10);
+		
+		if(run.getBlankLoop().simulationFinished()) {
+			FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
+			PopulationData[] data = run.getBlankLoop().getData();
+			
+			
+			for(int i = 0; i < data.length; i++) {
+				
+				
+				
+			}
+			
+		}
+		
 		
 		
 	}
