@@ -66,7 +66,7 @@ public class GameLoop implements ActionListener{
 		averageData.setNrOmnivores(environment.getNrOmnivores());
 		averageData.setNrCarnivores(environment.getNrCarnivores());
 		averageData.setAvgSpeed(environment.getSpeedStats()[0]);
-		averageData.setAvgSize(environment.getSizeStats()[0]);
+		averageData.setAvgSize(environment.getMaxSizeStats()[0]);
 		averageData.setAvgAge(environment.getMaxAgeStats()[0]);
 		averageData.setAvgScent(environment.getScentStats()[0]);
 		averageData.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
@@ -77,11 +77,12 @@ public class GameLoop implements ActionListener{
 			for (int i = 0; i < environment.getPopulations().size(); i ++) {
 				Population sp = environment.getPopulations().get(i);
 				popData[i].setAvgSpeed(sp.getSpeedStats()[0]);
-				popData[i].setAvgSize(sp.getSizeStats()[0]);
+				popData[i].setAvgSize(sp.getMaxSizeStats()[0]);
 				popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
 				popData[i].setAvgScent(sp.getScentStats()[0]);
 				popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
-				popData[i].addTime();	
+				popData[i].addTime();
+				popData[i].setNrSpecies(sp.getNrSpecies());
 			}
 		}
 	
@@ -95,7 +96,7 @@ public class GameLoop implements ActionListener{
 		Environment t = this.environment;
 		lblTexts[0] = String.format("%d|%d|%d (%d)",environment.getNrHerbivores(),environment.getNrOmnivores(), environment.getNrCarnivores(), environment.getAllDeadSpecies());
 		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", environment.getSpeedStats()[0],environment.getSpeedStats()[1],environment.getSpeedStats()[2]);
-		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", environment.getSizeStats()[0],environment.getSizeStats()[1],environment.getSizeStats()[2]);
+		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", environment.getMaxSizeStats()[0],environment.getMaxSizeStats()[1],environment.getMaxSizeStats()[2]);
 		lblTexts[3] = String.format("%.2f (%.0f - %.0f)", environment.getMaxAgeStats()[0],environment.getMaxAgeStats()[1],environment.getMaxAgeStats()[2]);
 		lblTexts[4] = String.format("%.2f (%.0f - %.0f)", environment.getScentStats()[0],environment.getScentStats()[1],environment.getScentStats()[2]);
 		lblTexts[5] = String.format("%.2f (%.0f - %.0f)", environment.getEnergyConsumptionStats()[0],environment.getEnergyConsumptionStats()[1],environment.getEnergyConsumptionStats()[2]);
