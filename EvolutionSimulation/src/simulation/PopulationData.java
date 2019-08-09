@@ -33,6 +33,7 @@ public class PopulationData {
 		this.nrOmnivores = new ArrayList<Double>(100);
 		this.nrCarnivores = new ArrayList<Double>(100);
 		this.time = 0;
+		this.nrSpecies = new ArrayList<Integer>(100);
 	}
 	
 	public int[] convertDoubles(ArrayList<Double> doubles){
@@ -144,6 +145,24 @@ public class PopulationData {
 
 	public void addTime() {
 		this.time += 1;
+	}
+	//This method makes a string matrix of all arrays in this list as columns
+	//
+	//
+	public String getMatrix() {
+		StringBuilder storage = new StringBuilder();
+		int length = this.getAvgSpeed().length;
+
+		for(int i=0; i < length ; i++) {
+
+			String row = Double.toString(this.getAvgAge()[i])+"\t"+Double.toString(this.getAvgEnergyCost()[i])+"\t"+Double.toString(this.getAvgScent()[i])
+				+"\t"+Double.toString(this.getAvgSize()[i])+"\t"+Double.toString(this.getAvgSpeed()[i])
+				+"\t"+Double.toString(this.getNrCarnivores()[i])+"\t"+Double.toString(this.getNrHerbivores()[i])
+				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Integer.toString(this.getNrSpecies().get(i));
+			storage.append(row);
+			storage.append("\n");
+		}
+		return storage.toString();
 	}
 
 	
