@@ -149,7 +149,7 @@ public class PopulationData {
 	//This method makes a string matrix of all arrays in this list as columns
 	//
 	//
-	public String getMatrix() {
+	public String getMatrixString() {
 		StringBuilder storage = new StringBuilder();
 		int length = this.getAvgSpeed().length;
 
@@ -159,10 +159,14 @@ public class PopulationData {
 				+"\t"+Double.toString(this.getAvgSize()[i])+"\t"+Double.toString(this.getAvgSpeed()[i])
 				+"\t"+Double.toString(this.getNrCarnivores()[i])+"\t"+Double.toString(this.getNrHerbivores()[i])
 				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Integer.toString(this.getNrSpecies().get(i));
+			
 			storage.append(row);
-			storage.append("\n");
+			
 		}
-		return storage.toString();
+		storage.append("\n");
+		String string = storage.toString();
+		System.out.println(string);
+		return string;
 	}
 
 	

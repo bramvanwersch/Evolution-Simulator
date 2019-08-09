@@ -47,34 +47,39 @@ public class DataSaver {
 		
 		tempoptions.addColorsList(new Color(66,66,66));
 		tempoptions.addEatSizeFactorsList(0);
-		tempoptions.addMaxAgesList(8);
+		tempoptions.addMaxAgesList(4);
 		tempoptions.addNamesList("Wytzeus");
 		tempoptions.addNoIndividualsList(1);
 		tempoptions.addScentRangesList(10);
 		tempoptions.addSizesList(50);
 		tempoptions.addSpeedsList(10);
-		tempoptions.addTypeList("Carnivore");
+		tempoptions.addTypeList("Omnivore");
 		Run run =  new Run(tempoptions, 10);
-		System.out.println(run.getBlankLoop());
-		if(run.getBlankLoop().isSimulationFinished()) {
-			FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
-			PopulationData[] data = run.getBlankLoop().getData();
-			
-			
-			for(int i = 0; i < data.length; i++) {
-				System.out.println("Matrixprinter");
-				System.out.println(data[i].getMatrix());
-				
-				
+		
+		
+		
+		System.out.println(run.getBlankLoop().isSimulationFinished());
+		boolean checker = false;
+		while(!checker) {
+			checker = run.getBlankLoop().isSimulationFinished();
+
 			}
+				
+		FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
+		PopulationData[] data = run.getBlankLoop().getData();
+	
+	
+		for(int i = 0; i < data.length; i++) {
+			System.out.println("Matrixprinter");
+			System.out.println(data[i].getMatrixString());
 			
-		}
+		
 		
 		
 		
 	}
 	
 	
-	
+	}
 
 }
