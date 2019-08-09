@@ -9,8 +9,8 @@ public class Carnivore extends Species{
 	private int timeSinceEating;
 
 	//innitial constructor
-	public Carnivore(int size, int speed, int maxAge, String name, double eatSizeFactor) {
-		super(size, speed, maxAge, name, eatSizeFactor);
+	public Carnivore(int size, int speed, int maxAge, int scentRange, String name, double eatSizeFactor) {
+		super(size, speed, maxAge, scentRange, name, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
 	
