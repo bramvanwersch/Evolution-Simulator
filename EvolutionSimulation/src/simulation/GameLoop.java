@@ -32,6 +32,9 @@ public class GameLoop implements ActionListener{
 		this.foodRegenTxt = txtFoodRegen;
 		this.averageData = new PopulationData();
 		this.popData = new PopulationData[environment.getPopulations().size()];
+		for (int i = 0; i < environment.getPopulations().size(); i ++) {
+			this.popData[i] = new PopulationData();
+		}
 		this.timeElapsed = 0;
 		environment.moveSpecies();
 	}
@@ -46,6 +49,7 @@ public class GameLoop implements ActionListener{
 		environment.createFood(foodRegenTxt);
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			addAverageDataValues();
+			addPopData();
 			environment.addAge();
 		}
 		panel.repaint();
