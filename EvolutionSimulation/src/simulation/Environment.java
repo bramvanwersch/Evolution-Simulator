@@ -404,10 +404,10 @@ public class Environment {
 		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
 	}
 	
-	public double[] getSizeStats() {
+	public double[] getMaxSizeStats() {
 		double[] valArray = new double[populations.size()];
 		for (int i = 0; i < populations.size(); i++) {
-			valArray[i] = populations.get(i).getSizeStats()[0];
+			valArray[i] = populations.get(i).getMaxSizeStats()[0];
 		}
 		int[] minMax = calcMinMax(valArray);
 		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};

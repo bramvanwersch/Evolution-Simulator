@@ -185,6 +185,10 @@ public class Species{
 	public int getMaxAge() {
 		return this.genome.getGeneValue("maxAge");
 	}
+	
+	public int getMaxSize() {
+		return this.genome.getGeneValue("speed");
+	}
 
 	public Genome getGenome() {
 		return genome;
