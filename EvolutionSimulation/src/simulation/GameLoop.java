@@ -66,7 +66,7 @@ public class GameLoop implements ActionListener{
 		averageData.setNrOmnivores(environment.getNrOmnivores());
 		averageData.setNrCarnivores(environment.getNrCarnivores());
 		averageData.setAvgSpeed(environment.getSpeedStats()[0]);
-		averageData.setAvgSize(environment.getMaxSizeStats()[0]);
+		averageData.setAvgSize(environment.getMaxAgeStats()[0]);
 		averageData.setAvgAge(environment.getMaxAgeStats()[0]);
 		averageData.setAvgScent(environment.getScentStats()[0]);
 		averageData.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);

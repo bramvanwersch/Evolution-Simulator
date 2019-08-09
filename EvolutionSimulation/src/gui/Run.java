@@ -37,7 +37,8 @@ public class Run {
 	
 	public Run(OptionData data, int updateTime) {
 		environment = new Environment(data);
-		blankLoop = new BlankGameLoop( 50, environment);
+		System.out.println("constructor RUn");
+		blankLoop = new BlankGameLoop( 50, environment, updateTime);
 		timer = new Timer(updateTime, blankLoop);
 		timer.start();	
 	}
