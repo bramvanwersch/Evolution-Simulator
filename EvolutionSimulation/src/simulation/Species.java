@@ -9,14 +9,11 @@ public class Species{
 	private int WINDOW_SIZE = 950;
 	private Genome genome;
 	private int no;
-	private int speed;
 	private int xLoc;
 	private int yLoc;
 	private int energy;
 	private double facingDirection;
 	private int age;
-	private int maxAge;
-	private int scentRange;
 	private int lastRepCycle;
 	private String name;
 	private double eatSizeFactor;
@@ -25,9 +22,6 @@ public class Species{
 	public Species(int size, int speed, int maxAge, String name, double eatSizeFactor) {
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, DEFAULT_SCENT_RANGE});
 		this.genome.setGeneValues();
-		this.speed = genome.getGeneValue("speed");
-		this.maxAge = genome.getGeneValue("maxAge");
-		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = DEFAULT_ENERGY;
 		this.no = 0;
 		this.age = 1;
@@ -42,10 +36,7 @@ public class Species{
 //Constructor for multiplying
 	public Species(int x, int y, int energy, Genome genome, int number, String name, double eatSizeFactor) {
 		this.genome = genome;
-		this.speed = genome.getGeneValue("speed");
 		//make species grow
-		this.maxAge = genome.getGeneValue("maxAge");
-		this.scentRange = genome.getGeneValue("scentRange");
 		this.energy = energy;
 		this.no = number;
 		this.age = 1;
@@ -147,11 +138,11 @@ public class Species{
 	}
 	
 	public int getScentRange() {
-		return this.scentRange + getSize();
+		return this.genome.getGeneValue("scentRange") + getSize();
 	}
 	
 	public int getSpeed() {
-		return this.speed;
+		return this.genome.getGeneValue("speed");
 	}
 	
 	public void addAge() {
@@ -188,7 +179,7 @@ public class Species{
 	}
 	
 	public int getMaxAge() {
-		return this.maxAge;
+		return this.genome.getGeneValue("maxAge");
 	}
 
 	public Genome getGenome() {
@@ -201,7 +192,7 @@ public class Species{
 	}
 	
 	public void setSpeed(int i) {
-		this.speed = i;
+		this.genome.setGeneValue("speed", i);
 	}
 	
 	public int getNumber() {
