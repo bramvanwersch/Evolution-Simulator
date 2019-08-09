@@ -7,8 +7,8 @@ public class Omnivore extends Species{
 	private int MINIMUM_REP_TIME = 5;
 
 	//innitial constructor
-	public Omnivore(int size, int speed, int maxAge, String name, double eatSizeFactor) {
-		super(size, speed, maxAge, name, eatSizeFactor);
+	public Omnivore(int size, int speed, int maxAge, int scentRange, String name, double eatSizeFactor) {
+		super(size, speed, maxAge, scentRange , name, eatSizeFactor);
 	}
 	
 	//inheriting constructor

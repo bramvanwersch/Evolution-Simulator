@@ -21,7 +21,7 @@ public class Environment {
 		this.foodSize = options.getFoodSize();
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
-				options.getNames(), options.getEatSizeFactors());
+				options.getScentRanges(), options.getNames(), options.getEatSizeFactors());
 		//TODO: fill in
 		createFood(50);
 	}
@@ -235,26 +235,27 @@ public class Environment {
 	}
 
 //methods for innitialy creating species that are specified.
-	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, String[] names, double[] eatSizeFactor) {
+	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange,
+			String[] names, double[] eatSizeFactor) {
 		for (int i = 0; i <populations.size(); i++) {
 			Population p = populations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
 				if (p.getType().equals("Carnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Carnivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
+						s = new Carnivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if (p.getType().equals("Herbivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Herbivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
+						s = new Herbivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if(p.getType().equals("Omnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Omnivore(size[i], speed[i], maxAge[i], names[i], eatSizeFactor[i]);
+						s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
@@ -433,7 +434,7 @@ public class Environment {
 	public double[] getEnergyConsumptionStats() {
 		double[] valArray = new double[populations.size()];
 		for (int i = 0; i < populations.size(); i++) {
-			valArray[i] = populations.get(i).getSizeStats()[0];
+			valArray[i] = populations.get(i).getEnergyConsumptionStats()[0];
 		}
 		int[] minMax = calcMinMax(valArray);
 		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
