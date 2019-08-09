@@ -19,12 +19,9 @@ public class Species{
 	
 	//constructor for innitial species construction
 	public Species(int size, int speed, int maxAge, int scentRange, String name, double eatSizeFactor) {
-		System.out.println("" + size + " " + speed + " " +maxAge + " " +name +" " + eatSizeFactor);
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
 		this.genome.setGeneValues();
 		this.energy = DEFAULT_ENERGY;
-		System.out.println("" + genome.getGeneValue("size") + " " + genome.getGeneValue("speed")+ " " +
-				genome.getGeneValue("maxAge"));
 		this.no = 0;
 		this.age = 1;
 		this.lastRepCycle = 0;
@@ -51,8 +48,6 @@ public class Species{
 	}
 
 	public double getEnergyConsumption() {
-		System.out.println("" + genome.getGeneValue("size") + " " + genome.getGeneValue("speed")+ " " +
-				genome.getGeneValue("maxAge"));
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
 		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
