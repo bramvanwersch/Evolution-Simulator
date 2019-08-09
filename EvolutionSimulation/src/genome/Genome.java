@@ -190,6 +190,10 @@ public class Genome {
 		return geneValues.get(geneName);
 	}
 	
+	public void setGeneValue(String stat, int val) {
+		geneValues.put(stat, val);
+	}
+	
 	public Map<String,Gene> getPerfectGenes(){
 		return this.perfectGenes;
 	}
@@ -235,6 +239,9 @@ public class Genome {
 			}
 		}
 	}	
+	
+//Functions for innitial DNA creation
+
 	
 	/**
 	 * Creates a DNA code that is the specified amount of codons (STARTING_CODON_COUNT) long plus the generated starter genes.
