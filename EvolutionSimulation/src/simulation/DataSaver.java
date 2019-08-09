@@ -34,13 +34,13 @@ public class DataSaver {
 	private void createOptionData() {
 		OptionData tempoptions = new OptionData();
 		tempoptions.addColorsList(new Color(66,66,66));
-		tempoptions.addEatSizeFactorsList(0);
+		tempoptions.addEatSizeFactorsList(1);
 		tempoptions.addMaxAgesList(8);
 		tempoptions.addNamesList("Brams");
 		tempoptions.addNoIndividualsList(1);
-		tempoptions.addScentRangesList(1);
-		tempoptions.addSizesList(1);
-		tempoptions.addSpeedsList(1);
+		tempoptions.addScentRangesList(10);
+		tempoptions.addSizesList(50);
+		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Carnivore");
 		
 		tempoptions.addColorsList(new Color(66,66,66));
@@ -48,11 +48,13 @@ public class DataSaver {
 		tempoptions.addMaxAgesList(8);
 		tempoptions.addNamesList("Wytzeus");
 		tempoptions.addNoIndividualsList(1);
-		tempoptions.addScentRangesList(1);
-		tempoptions.addSizesList(1);
-		tempoptions.addSpeedsList(1);
+		tempoptions.addScentRangesList(10);
+		tempoptions.addSizesList(50);
+		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Carnivore");
-		Run run =  new Run(tempoptions, false);
+		Run run =  new Run(tempoptions, 10);
+		
+		
 	}
 	
 	

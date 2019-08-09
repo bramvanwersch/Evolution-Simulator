@@ -35,9 +35,10 @@ public class Run {
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
-	public Run(OptionData data, int update_time) {
+	public Run(OptionData data, int updateTime) {
+		environment = new Environment(data);
 		blankLoop = new BlankGameLoop( 50, environment);
-		timer = new Timer(UPDATE_TIME, blankLoop);
+		timer = new Timer(updateTime, blankLoop);
 		timer.start();	
 		System.out.println("skjfaahld");
 	}
