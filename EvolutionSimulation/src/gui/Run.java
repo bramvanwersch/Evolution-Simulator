@@ -40,7 +40,6 @@ public class Run {
 		blankLoop = new BlankGameLoop( 50, environment);
 		timer = new Timer(updateTime, blankLoop);
 		timer.start();	
-		System.out.println("skjfaahld");
 	}
 	
 	private void createGui() {
@@ -106,5 +105,10 @@ public class Run {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public BlankGameLoop getBlankLoop() {
+		return blankLoop;
+	}
+
 
 }

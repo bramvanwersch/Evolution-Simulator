@@ -19,6 +19,7 @@ public class BlankGameLoop implements ActionListener {
 		this.foodRegenTxt = txtFoodRegen;
 		this.data = new PopulationData();
 		this.timeElapsed = 0;
+		this.data = new PopulationData();
 		environment.moveSpecies();
 	}
 	
@@ -34,11 +35,28 @@ public class BlankGameLoop implements ActionListener {
 		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
 			environment.addAge();
 		}
-		if (!checkIfAllDead(e)) {
-		System.out.println("looove");
+		if (checkIfAllDead(e)) {
+		addDataValues();
+		System.out.println("One species died");
 		}
-		System.out.println("looove");
+		
 	}
+	
+	/**
+	 * Function that is evoked every second to record data points for every stat of the species and time.
+	 */
+	private void addDataValues() {
+		data.setNrHerbivores(environment.getNrHerbivores());
+		data.setNrOmnivores(environment.getNrOmnivores());
+		data.setNrCarnivores(environment.getNrCarnivores());
+		data.setAvgSpeed(environment.getSpeedStats()[0]);
+		data.setAvgSize(environment.getSizeStats()[0]);
+		data.setAvgAge(environment.getMaxAgeStats()[0]);
+		data.setAvgScent(environment.getScentStats()[0]);
+		data.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
+		data.addTime();
+	}
+	
 	/**
 	 * Function that will check if there are species alive. If no species are alive the game is stopped. This
 	 * is important because ever increasing food objects flood memory.
@@ -53,5 +71,11 @@ public class BlankGameLoop implements ActionListener {
 		}
 		return false;
 	}
+
+	public PopulationData getData() {
+		return data;
+	}
+	
+	
 
 }
