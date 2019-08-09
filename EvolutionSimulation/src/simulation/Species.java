@@ -182,7 +182,7 @@ public class Species{
 	}
 	
 	public int getMaxSize() {
-		return this.genome.getGeneValue("speed");
+		return this.genome.getGeneValue("size");
 	}
 
 	public Genome getGenome() {
