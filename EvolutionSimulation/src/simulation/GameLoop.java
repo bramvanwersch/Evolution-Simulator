@@ -94,6 +94,7 @@ public class GameLoop implements ActionListener{
 	 */
 	private boolean checkIfAllDead(ActionEvent e) {
 		if (this.environment.getNrSpecies() == 0) {
+			System.out.println("asiuhdk");
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			return true;

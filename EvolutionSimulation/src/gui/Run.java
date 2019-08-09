@@ -36,7 +36,9 @@ public class Run {
 			timer = new Timer(UPDATE_TIME, loop);
 		}else {
 			blankLoop = new BlankGameLoop( 50, environment);
-			timer = new Timer(UPDATE_TIME, loop);
+			timer = new Timer(UPDATE_TIME, blankLoop);
+			timer.start();	
+			System.out.println("skjfaahld");
 		}
 
 	}

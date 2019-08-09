@@ -46,8 +46,7 @@ public class BlankGameLoop implements ActionListener {
 	 * @return boolean telling if the game should be continued or stopped.
 	 */
 	private boolean checkIfAllDead(ActionEvent e) {
-		if (this.environment.getNrSpecies() == 2) {
-			System.out.println("35082");
+		if (this.environment.getNrSpecies() == 1) {
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			return true;
