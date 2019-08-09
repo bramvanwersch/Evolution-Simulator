@@ -12,14 +12,14 @@ public class BlankGameLoop implements ActionListener {
 	private Environment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
-	private boolean IsSimulationFinished;
+	private boolean isSimulationFinished;
 	private PopulationData[] popData;
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment ) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
-		this.IsSimulationFinished = false;
+		this.isSimulationFinished = false;
 		this.popData = new PopulationData[environment.getPopulations().size()];
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
 			this.popData[i] = new PopulationData();
@@ -34,7 +34,6 @@ public class BlankGameLoop implements ActionListener {
 	 * the game running
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("is it running?");
 		timeElapsed += 23;
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
@@ -43,7 +42,7 @@ public class BlankGameLoop implements ActionListener {
 		}
 		if (checkIfSoleSurvivor(e)) {
 			addPopData();
-			this.IsSimulationFinished = true;
+			this.isSimulationFinished = true;
 		
 		}
 		
@@ -86,7 +85,7 @@ public class BlankGameLoop implements ActionListener {
 	
 	
 	public boolean isSimulationFinished() {
-		return IsSimulationFinished;
+		return isSimulationFinished;
 	}
 	
 	

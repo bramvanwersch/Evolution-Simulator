@@ -55,7 +55,7 @@ public class DataSaver {
 		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Carnivore");
 		Run run =  new Run(tempoptions, 10);
-		System.out.println(run.getBlankLoop().isSimulationFinished());
+		System.out.println(run.getBlankLoop());
 		if(run.getBlankLoop().isSimulationFinished()) {
 			FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
 			PopulationData[] data = run.getBlankLoop().getData();
