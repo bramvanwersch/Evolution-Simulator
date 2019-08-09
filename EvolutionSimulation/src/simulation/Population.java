@@ -184,7 +184,6 @@ public class Population {
 	}
 	
 	private int[] calcMinMax(double[] attrArray) {
-		System.out.println(getNrSpecies());
 		if (attrArray.length == 0) {
 			return new int [] {0,0};
 		}
