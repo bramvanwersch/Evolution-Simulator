@@ -70,7 +70,7 @@ public class Run {
 				stopTimer();
 			}
 		});
-		buttonPanel.add(btnPause, bd.NORTH);
+		buttonPanel.add(btnPause, BorderLayout.NORTH);
 		
 		JButton btnRestart = new JButton("Restart");
 		btnRestart.addActionListener(new ActionListener() {
@@ -78,9 +78,17 @@ public class Run {
 				restartTimer();
 			}
 		});
-		buttonPanel.add(btnRestart, bd.NORTH);
+		buttonPanel.add(btnRestart, BorderLayout.NORTH);
 		
-		f.add(buttonPanel, bd.NORTH);
+		JButton btnGraph = new JButton("Graph");
+		btnGraph.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				drawGraph();
+			}
+		});
+		buttonPanel.add(btnGraph, BorderLayout.NORTH);
+		
+		f.add(buttonPanel, BorderLayout.NORTH);
 			
 		f.pack();
 		f.setVisible(true);
@@ -104,6 +112,12 @@ public class Run {
 	private void newGame() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+
+	private void drawGraph() {
+		new GraphBuilder(loop.getData().getTimeArray(), loop.getData().getDataArray()
+				,1000, 800, new String [] {"Time", ""}, false);
 	}
 
 	public BlankGameLoop getBlankLoop() {
