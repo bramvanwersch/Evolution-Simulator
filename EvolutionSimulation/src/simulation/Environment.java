@@ -46,9 +46,9 @@ public class Environment {
 	 * Function for checking if a population still contains species. If not the poulation is removed.
 	 */
 	public void checkPopulationAlive() {
-		for (Population sp: populations) {
-			if (sp.getNrSpecies() == 0){
-				populations.remove(sp);
+		for (int i =0; i < populations.size(); i++) {
+			if (populations.get(i).getNrSpecies() == 0){
+				populations.remove(i);
 			}
 		}
 	}

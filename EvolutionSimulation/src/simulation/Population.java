@@ -174,6 +174,9 @@ public class Population {
 	
 	public double calcAvgAttribute(double[] attrArray) {
 		double total = 0;
+		if (attrArray.length == 0) {
+			return 0;
+		}
 		for(double arr : attrArray){
 			total += arr;
 		}
@@ -181,6 +184,10 @@ public class Population {
 	}
 	
 	private int[] calcMinMax(double[] attrArray) {
+		System.out.println(getNrSpecies());
+		if (attrArray.length == 0) {
+			return new int [] {0,0};
+		}
 		int[] minMax = {(int) attrArray[0],(int) attrArray[0]};
 		for(int i = 0; i < getNrSpecies(); i++){
 			if (attrArray[i] < minMax[0]) {
