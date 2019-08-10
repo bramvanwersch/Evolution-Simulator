@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 import gui.SidePanelGui;
 import gui.OptionData;
 import gui.OptionMenu;
@@ -35,6 +37,9 @@ public class DataSaver {
 	
 	private void createOptionData() throws IOException {
 		OptionData tempoptions = new OptionData();
+		tempoptions.setFoodEnergy(100);
+		tempoptions.setFoodSize(5);
+		
 		tempoptions.addColorsList(new Color(66,66,66));
 		tempoptions.addEatSizeFactorsList(1);
 		tempoptions.addMaxAgesList(8);
@@ -54,16 +59,16 @@ public class DataSaver {
 		tempoptions.addSizesList(50);
 		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Omnivore");
+		
 		Run run =  new Run(tempoptions, 10);
-		
-		
+		run.startTimer();
+		JOptionPane.showConfirmDialog(null, "ldfh;oifhjqrf");
 		
 		System.out.println(run.getBlankLoop().isSimulationFinished());
 		boolean checker = false;
 		while(!checker) {
 			checker = run.getBlankLoop().isSimulationFinished();
-
-			}
+		}
 				
 		FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
 		PopulationData[] data = run.getBlankLoop().getData();
@@ -72,14 +77,7 @@ public class DataSaver {
 		for(int i = 0; i < data.length; i++) {
 			System.out.println("Matrixprinter");
 			System.out.println(data[i].getMatrixString());
-			
-		
-		
-		
-		
-	}
-	
-	
-	}
 
+		}
+	}
 }

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -40,7 +41,7 @@ public class Run {
 		System.out.println("constructor RUn");
 		blankLoop = new BlankGameLoop( 50, environment, updateTime);
 		timer = new Timer(updateTime, blankLoop);
-		timer.start();	
+
 	}
 	
 	private void createGui() {
