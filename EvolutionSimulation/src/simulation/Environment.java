@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 import gui.OptionData;
 
@@ -12,6 +13,7 @@ public class Environment {
 	private int foodSize;
 	private ArrayList<Population> populations;
 	private ArrayList<Food> foodList;
+	private int[] popOrderSeed;
 	
 
 	public Environment(OptionData options) {
@@ -19,10 +21,11 @@ public class Environment {
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();
 		this.foodSize = options.getFoodSize();
+		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
-		//TODO: fill in
+		//TODO: Make sure that this has a proper feedback mechanism.
 		createFood(50);
 	}
 	
@@ -30,7 +33,7 @@ public class Environment {
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
-		checkPopulationAlive();
+		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
@@ -42,21 +45,27 @@ public class Environment {
 	}
 	
 // methods that need checking every frame.
+
 	/**
-	 * Function for checking if a population still contains species. If not the poulation is removed.
+	 * Method that creates an array that is the lenght of the popultion list that helps rendomize the selection of
+	 * populations by functions This has to be done this way to make sure populations are chosen at random but are not 
+	 * actualy shuffled which leads to problems in the data collection.
+	 * @return
 	 */
-	public void checkPopulationAlive() {
-		for (int i =0; i < populations.size(); i++) {
-			if (populations.get(i).getNrSpecies() == 0){
-				populations.remove(i);
-			}
+	private int[] createPopOrderSeed(int numberOfPopulations) {
+		int[] numberArray = new int[numberOfPopulations];
+		for (int i = 0; i < numberOfPopulations; i++ ) {
+			numberArray[i] = i;
 		}
+		return shufflePopOrderSeed(numberArray);
 	}
+
 	/**
 	 * Function for invoking the checkAliveSpecies for every species in a population.
 	 */
 	public void checkAliveSpecies() {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			sp.checkAliveSpecies();
 		}
 	}
@@ -66,7 +75,8 @@ public class Environment {
 	 * scentmovement is used to move. Otherwise normal movement will be used to move.
 	 */
 	public void moveSpecies() {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				Species closestCarnivore = null;
@@ -160,7 +170,8 @@ public class Environment {
 	 */
 	public void eatSpecies() {
 		for(int i = 0; i < getAllCarnivores().size() + getAllOmnivores().size(); i++) {
-			for (Population sp: populations ) {
+			for (int loc : popOrderSeed) {
+				Population sp =  populations.get(loc);
 				if (sp.getType().equals("Herbivore")) {
 					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
 						Species s1 = getAllMeatEaters().get(i);
@@ -184,7 +195,8 @@ public class Environment {
 	 * multiplication
 	 */
 	public void checkCanMultiply() {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			sp.checkCanMultiply();
 		}
 	}
@@ -195,7 +207,8 @@ public class Environment {
 	 * Note: this method is only invoked once every second.
 	 */
 	public void addAge() {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				s.addRepTime();
@@ -205,7 +218,8 @@ public class Environment {
 	}
 	
 	public void checkAge() {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				if (s.getAge() >= s.getMaxAge()) {
@@ -216,15 +230,27 @@ public class Environment {
 	}
 	
 	/**
-	 * Function that shuffles the species food and populations list making sure that checks that are biased by list order
-	 * are less biased
+	 * Function that shuffles the species and food list making sure that checks that are biased by list order
+	 * are less biased. Besided that a seed that is a list of integer locations is shuffled making sure the popultions
+	 * are looped trough in a random order but dont change order
 	 */
 	public void shuffleLists() {
 		for (Population sp: populations ) {
 			sp.shuffleSpeciesList();
 		}
-		Collections.shuffle(foodList);	
-		Collections.shuffle(populations);
+		Collections.shuffle(foodList);
+		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
+	}
+	
+	private int[] shufflePopOrderSeed(int[] ar) {
+		Random rnd = new Random();
+		for (int i = ar.length - 1; i > 0; i--){
+			int index = rnd.nextInt(i + 1);
+			int a = ar[index];
+			ar[index] = ar[i];
+			ar[i] = a;
+		}
+		return ar;
 	}
 
 	private void createPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
@@ -273,7 +299,8 @@ public class Environment {
 	}
 	
 	private boolean checkSpeciesPlacement(Species spec) {
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
 				Species s = sp.getSpecies(i);
 				//check if the central point of the species just created is witin another species or not. if so move it.
@@ -327,7 +354,8 @@ public class Environment {
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			if (sp.getType().equals("Carnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -339,7 +367,8 @@ public class Environment {
 	
 	private ArrayList<Species> getAllOmnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			if (sp.getType().equals("Omnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -351,7 +380,8 @@ public class Environment {
 	
 	private ArrayList<Species> getAllHerbivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (Population sp: populations ) {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
 			if (sp.getType().equals("Herbivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
