@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -125,6 +126,8 @@ class GraphBuilder1 extends JPanel{
 	
 	private JRadioButton[] selectedPopulations;
 	private JRadioButton[] selectedAttributes;
+	private Color[] colors;
+	private Stroke[] strokes;
 
 
     public GraphBuilder1(int[] xData, int[][][] yData, JRadioButton[] selectedPopulations, JRadioButton[] selectedAttributes,
@@ -136,7 +139,12 @@ class GraphBuilder1 extends JPanel{
     	this.axisNames = axisNames;
     	this.dataPoints = dataPoints;
     	this.selectedPopulations = selectedPopulations;
-    	this.selectedAttributes = selectedAttributes; 
+    	this.selectedAttributes = selectedAttributes;
+        colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
+        strokes = new Stroke[] {new BasicStroke(3), 
+        		new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0),
+                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9, 18}, 0),
+                new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{5}, 0)};
     	this.setBackground(Color.WHITE);
     }
 
@@ -156,10 +164,23 @@ class GraphBuilder1 extends JPanel{
     	g2d = (Graphics2D) g;
     	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         drawGraphGrid(selectedYData);
-        Color[] colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
+        ArrayList<Color> orderColors = new ArrayList<Color>();
+        ArrayList<Stroke> orderStrokes = new ArrayList<Stroke>();
+        //Getting all correct colors needed instead of the first of the list
+    	for (int i = 0; i < this.allYData.length; i++) {
+        	if (selectedPopulations[i].isSelected()) {
+        		orderStrokes.add(this.strokes[i]);
+        	}
+    	}
+    	//Getting all correct strokes needed instead of the first of the list.
+    	for (int j = 0; j < this.allYData[0].length; j++) {
+			if (selectedAttributes[j].isSelected()) {
+				orderColors.add(this.colors[j]);
+			}
+    	}
         for (int i = 0; i < selectedYData.length; i++) {
         	for (int j = 0; j < selectedYData[i].length; j++) {
-        		drawGraphLine(allXData, selectedYData[i][j],selectedYData, colors[j]);
+        		drawGraphLine(allXData, selectedYData[i][j],selectedYData, orderColors.get(j), orderStrokes.get(i));
         	}
         }
         drawAxisNames();
@@ -173,7 +194,7 @@ class GraphBuilder1 extends JPanel{
     	return (int) nrOfPoints;
     }
     
-    public void drawGraphLine(int[] xData, int[] yData, int[][][] selectedYData, Color col){
+    public void drawGraphLine(int[] xData, int[] yData, int[][][] selectedYData, Color col, Stroke stroke){
     	//get the amount of pixels per 1 number. 
         for (int i = 0; i < xData.length-1; i++) {
         	g2d.setColor(col);
@@ -181,7 +202,7 @@ class GraphBuilder1 extends JPanel{
         	int x2 = (int) (xData[i+1]*nrToPixelX() + DISTANCE_BORDER);
         	int y1 = (int) ((pHeigth - yData[i]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
         	int y2 = (int) ((pHeigth -yData[i+1]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
-        	g2d.setStroke(new BasicStroke(3));
+        	g2d.setStroke(stroke);
             g2d.drawLine(x1, y1, x2, y2);
             g2d.setColor(Color.BLACK);
             if (dataPoints) {
