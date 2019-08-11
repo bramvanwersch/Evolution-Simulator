@@ -120,8 +120,12 @@ public class GameLoop implements ActionListener{
 		return false;
 	}
 
-	public PopulationData getData() {
+	public PopulationData getAverageData() {
 		return this.averageData;
+	}
+	
+	public PopulationData[] getPopulationData() {
+		return this.popData;
 	}
 	
 	public int getTimeElapsed() {

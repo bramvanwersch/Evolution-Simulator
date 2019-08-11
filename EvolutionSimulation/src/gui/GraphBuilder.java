@@ -11,38 +11,46 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GraphBuilder{
 	private JPanel sidePanel;
-	private JRadioButton[] populationActive;
-	private JRadioButton[] attributeActive;
+	private JPanel graphPanel;
+	public JRadioButton[] selectedPopulations;
+	public JRadioButton[] selectedAttributes;
 	
-	public GraphBuilder(int[] xData, int[][] yData,int width,int height,String[] axisNames, boolean dataPoints) {
+	public GraphBuilder(int[] xData, int[][][] yData, String[] populationNames, String[] attributeNames
+			,int width,int height,String[] axisNames, boolean dataPoints) {
 		JFrame f = new JFrame("Graph");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		sidePanel = new JPanel();
 		GridBagLayout gbl = new GridBagLayout();
 		sidePanel.setLayout(gbl);
-		populationActive = new JRadioButton[5];
-		attributeActive = new JRadioButton[1];
+		selectedPopulations = new JRadioButton[populationNames.length];
+		selectedAttributes = new JRadioButton[attributeNames.length];
 		
 		//HARDCODED
-		createSidePanelWidgets(yData, new String[] {"pop 1","pop 2","pop 3","pop 4","pop 5"}, new String[] {"speed"});
-		GraphBuilder1 graphPane = new GraphBuilder1(xData,yData, width,height,axisNames, dataPoints);
-		f.add(graphPane, BorderLayout.WEST);
+		createSidePanelWidgets(yData, populationNames, attributeNames);
+		graphPanel = new GraphBuilder1(xData,yData, selectedPopulations, selectedAttributes,
+				width,height,axisNames, dataPoints);
+		f.add(graphPanel, BorderLayout.WEST);
 		f.add(sidePanel, BorderLayout.EAST);
 		f.pack();
 		f.setVisible(true);
 	}
     
-    private void createSidePanelWidgets(int[][] yData, String[] populationNames, String[] attributeNames){
+    private void createSidePanelWidgets(int[][][] yData, String[] populationNames, String[] attributeNames){
     	//Hardcoded
     	//spacing kind of bad solution.
     	JLabel populationsLbl = new JLabel("Populations:            ");
@@ -51,30 +59,41 @@ public class GraphBuilder{
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		sidePanel.add(populationsLbl, gbc);
-    	for (int i = 0; i < 5; i++) {
+    	for (int i = 0; i < populationNames.length; i++) {
     		JRadioButton rd = new JRadioButton(populationNames[i]);
+    		rd.setSelected(true);
+        	gbc.anchor = gbc.CENTER;
     		gbc.gridy += 1;
     		sidePanel.add(rd, gbc);
-    		populationActive[i] = rd;
+    		selectedPopulations[i] = rd;
     	}
+    	gbc.anchor = gbc.WEST;
     	JLabel spaceLbl = new JLabel("  ");
 		gbc.gridy += 1;
 		sidePanel.add(spaceLbl, gbc);
     	JLabel attributeLbl = new JLabel("Attributes:");
 		gbc.gridy += 1;
 		sidePanel.add(attributeLbl, gbc);
-    	for (int j = 0; j < 1; j++) {
+    	for (int j = 0; j < attributeNames.length; j++) {
+        	gbc.anchor = gbc.CENTER;
     		JRadioButton rd = new JRadioButton(attributeNames[j]);
+    		rd.setSelected(true);
     		gbc.gridy += 1;
     		sidePanel.add(rd, gbc);
-    		attributeActive[j] = rd;
+    		selectedAttributes[j] = rd;
     	}
+    	JButton refreshBtn = new JButton("Refresh");
+    	refreshBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				graphPanel.
+			}
+		});
     }
 }
 
 class GraphBuilder1 extends JPanel{
 	private int[] allXData;
-	private int[][] allYData;
+	private int[][][] allYData;
 	private int pHeigth;
 	private int pWidth;
 	//distance from graph to end of pane
@@ -100,15 +119,21 @@ class GraphBuilder1 extends JPanel{
 	private int AXIS_FONT_SIZE;
 	private Graphics2D g2d;
 	private boolean dataPoints = true;
+	
+	private JRadioButton[] selectedPopulations;
+	private JRadioButton[] selectedAttributes;
 
 
-    public GraphBuilder1(int[] xData, int[][] yData,int width,int height,String[] axisNames, boolean dataPoints) {
+    public GraphBuilder1(int[] xData, int[][][] yData, JRadioButton[] selectedPopulations, JRadioButton[] selectedAttributes,
+    		int width,int height,String[] axisNames, boolean dataPoints) {
     	this.allXData =xData;
     	this.allYData = yData;
     	this.pHeigth = (int) height;
     	this.pWidth= (int) width;
     	this.axisNames = axisNames;
     	this.dataPoints = dataPoints;
+    	this.selectedPopulations = selectedPopulations;
+    	this.selectedAttributes = selectedAttributes; 
     	this.setBackground(Color.WHITE);
     }
 
@@ -116,16 +141,17 @@ class GraphBuilder1 extends JPanel{
         return new Dimension(pWidth,pHeigth);
     }
 	
-	public void redraw(double width, double heigth) {
-		this.pWidth = (int) width;
-		this.pHeigth = (int) heigth;
-		if (g2d != null) {
-			this.paintComponent(g2d);
-		}
-	}
+//	public void redraw(double width, double heigth) {
+//		this.pWidth = (int) width;
+//		this.pHeigth = (int) heigth;
+//		if (g2d != null) {
+//			this.paintComponent(g2d);
+//		}
+//	}
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        this.allYData = getSelectedYData();
     	this.DISTANCE_BORDER = (int) (pHeigth *0.05 +55);
     	this.SIZE_X_AXIS = pWidth - DISTANCE_BORDER - DISTANCE_END;
     	this.SIZE_Y_AXIS = pHeigth - DISTANCE_BORDER -DISTANCE_END;
@@ -135,14 +161,17 @@ class GraphBuilder1 extends JPanel{
     	g2d = (Graphics2D) g;
     	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         drawGraphGrid();
-        Color[] colors = new Color[] {Color.GREEN,Color.PINK,Color.RED,Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN};
+        Color[] colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN};
         for (int i = 0; i < allYData.length; i++) {
-        	drawGraphLine(allXData, allYData[i], colors[i]);
+        	for (int j = 0; j < allYData[i].length; j++) {
+        		drawGraphLine(allXData, allYData[i][j], colors[j]);
+        	}
+        	
         }
         drawAxisNames();
     }
-    
-    public int getNrOfAxisPoints(int axisSize) {
+
+	public int getNrOfAxisPoints(int axisSize) {
     	double nrOfPoints = 100;
     	while (axisSize / nrOfPoints < MIN_AXIS_NUMBER_DISTANCE) {
     		nrOfPoints -= 1;
@@ -252,7 +281,6 @@ class GraphBuilder1 extends JPanel{
     	g2d.drawString(text, 0,0);
     	g2d.setTransform(old);
     }
-
     
     private int getAxisFont() {
     	int size = 1;
@@ -268,12 +296,47 @@ class GraphBuilder1 extends JPanel{
         }
 	}
     
-    private int max(int[][] data) {
+    
+    private int[][][] getSelectedYData() {
+    	//create boolean array to signify which populations and attributes are selected
+    	int selectedPopCount = 0;
+    	for (int i = 0; i < this.allYData.length; i++) {
+    		if (selectedPopulations[i].isSelected()) {
+    			selectedPopCount ++;
+    		}
+    	}
+    	int selectedAttrCount = 0;
+    	for (int i = 0; i < this.allYData[0].length; i++) {
+    		if (selectedAttributes[i].isSelected()) {
+    			selectedAttrCount ++;
+    		}
+    	}
+    	int[][][] yData = new int[selectedPopCount][][];
+    	for (int i = 0; i < this.allYData.length; i++) {
+        	if (selectedPopulations[i].isSelected()) {
+        		int [][] populationAttributes = new int[selectedAttrCount][];
+        		for (int j = 0; j < this.allYData[i].length; j++) {
+        			int [] attributeDataPoints = this.allYData[i][j];
+        			if (selectedAttributes[j].isSelected()) {
+        				populationAttributes[j] = attributeDataPoints;
+        			}
+        		}
+        		if (populationAttributes.length != 0) {
+        			yData[i] = populationAttributes;	
+        		}
+        	}
+    	}
+		return yData;
+	}
+    
+    private int max(int[][][] data) {
     	int maxVal = 0;
-    	for (int[] dataRow: data) {
-    		for (int n: dataRow) {
-	    		if (n > maxVal) {
-	    			maxVal = n;
+    	for (int[][] population : data) {
+    		for (int[] dataRow: population) {
+	    		for (int n: dataRow) {
+		    		if (n > maxVal) {
+		    			maxVal = n;
+		    		}
 	    		}
     		}
     	}

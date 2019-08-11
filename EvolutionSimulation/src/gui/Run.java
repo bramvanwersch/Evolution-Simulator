@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import simulation.BlankGameLoop;
 import simulation.PopulationData;
 import simulation.Environment;
 import simulation.GameLoop;
+import simulation.Population;
 
 public class Run {
 	private Timer timer;
@@ -116,8 +118,22 @@ public class Run {
 	
 
 	private void drawGraph() {
-		new GraphBuilder(loop.getData().getTimeArray(), loop.getData().getDataArray()
-				,1000, 800, new String [] {"Time", ""}, false);
+		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
+		String[] populationNames = new String[loop.getPopulationData().length];
+		for (int i = 0; i < environment.getPopulations().size(); i++) {
+			Population sp = environment.getPopulations().get(i);
+			populationNames[i] = sp.getName();
+		}
+		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy"};
+		//Array in the form of [populations[attributes[data points]]]
+		int [][][] yDataArray = new int[loop.getPopulationData().length][5][loop.getAverageData().getTimeArray().length];
+		for (int j = 0; j < loop.getPopulationData().length; j++) {
+			PopulationData pd = loop.getPopulationData()[j];
+			yDataArray[j] = pd.getDataArray();
+		}
+		System.out.println(Arrays.deepToString(yDataArray));
+		new GraphBuilder(loop.getAverageData().getTimeArray(), yDataArray, populationNames, attributeNames,
+				1000, 800, new String [] {"Time", ""}, false);
 	}
 
 }

@@ -53,7 +53,7 @@ public class PopulationData {
 		return timeArray;
 	}
 	
-	public int[][] getDataArray(){
+	public int[][] getAverageDataArray(){
 		int[][] dataArray = new int[8][this.time];
 		dataArray[0] = getNrHerbivores();
 		dataArray[1] = getNrOmnivores();
@@ -63,6 +63,16 @@ public class PopulationData {
 		dataArray[5] = getAvgAge();
 		dataArray[6] = getAvgScent();
 		dataArray[7] = getAvgEnergyCost();
+		return dataArray;
+	}
+	
+	public int[][] getDataArray(){
+		int[][] dataArray = new int[5][this.time];
+		dataArray[0] = getAvgSpeed();
+		dataArray[1] = getAvgSize();
+		dataArray[2] = getAvgAge();
+		dataArray[3] = getAvgScent();
+		dataArray[4] = getAvgEnergyCost();
 		return dataArray;
 	}
 	
