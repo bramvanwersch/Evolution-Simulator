@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
 import gui.OptionData;
@@ -25,8 +27,8 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
-	private BlankGameLoop blankLoop;
 	private Environment environment;
+
 	
 	
 	public Run(OptionData data) {
@@ -36,13 +38,7 @@ public class Run {
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
-	public Run(OptionData data, int updateTime) {
-		environment = new Environment(data);
-		System.out.println("constructor RUn");
-		blankLoop = new BlankGameLoop( 50, environment, updateTime);
-		timer = new Timer(updateTime, blankLoop);
 
-	}
 	
 	private void createGui() {
 		panel = new TerrainPanel(950,950, environment);
@@ -96,6 +92,8 @@ public class Run {
 		f.setVisible(true);
 	}
 	
+
+	
 	
 	public void startTimer() {
 		timer.start();
@@ -121,10 +119,5 @@ public class Run {
 		new GraphBuilder(loop.getData().getTimeArray(), loop.getData().getDataArray()
 				,1000, 800, new String [] {"Time", ""}, false);
 	}
-
-	public BlankGameLoop getBlankLoop() {
-		return blankLoop;
-	}
-
 
 }
