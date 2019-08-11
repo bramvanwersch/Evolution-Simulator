@@ -2,22 +2,37 @@ package simulation;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
+import gui.BlankRun;
 import gui.OptionData;
 import gui.OptionMenu;
 import gui.Run;
 
 
 public class DataSaver {
+	private int runCounter;
 	
 	public DataSaver() {
-		
+		runCounter = 0;
+		try {
+			createOptionData();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -26,7 +41,7 @@ public class DataSaver {
 			public void run() {
 				try {
 					DataSaver data = new DataSaver(); 
-					data.createOptionData();
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,13 +75,21 @@ public class DataSaver {
 		tempoptions.addSpeedsList(10);
 		tempoptions.addTypeList("Omnivore");
 		
-		Run run =  new Run(tempoptions, 10);
+		
+		JOptionPane pane = new JOptionPane();
+		
+		BlankRun run =  new BlankRun(tempoptions, 10, 50);
 		run.startTimer();
-		JOptionPane.showConfirmDialog(null, "ldfh;oifhjqrf");
+		
+		
+		
+//		pane.showConfirmDialog(null, "heeyy");
+		
 		
 		System.out.println(run.getBlankLoop().isSimulationFinished());
 		boolean checker = false;
 		while(!checker) {
+			System.out.println(run.getBlankLoop().isSimulationFinished());
 			checker = run.getBlankLoop().isSimulationFinished();
 		}
 				
@@ -77,7 +100,9 @@ public class DataSaver {
 		for(int i = 0; i < data.length; i++) {
 			System.out.println("Matrixprinter");
 			System.out.println(data[i].getMatrixString());
-
 		}
-	}
+		
+		
+}
+
 }
