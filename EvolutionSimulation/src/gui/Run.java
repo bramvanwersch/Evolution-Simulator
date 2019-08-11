@@ -124,9 +124,9 @@ public class Run {
 			Population sp = environment.getPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
-		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy"};
+		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};
 		//Array in the form of [populations[attributes[data points]]]
-		int [][][] yDataArray = new int[loop.getPopulationData().length][5][loop.getAverageData().getTimeArray().length];
+		int [][][] yDataArray = new int[loop.getPopulationData().length][][];
 		for (int j = 0; j < loop.getPopulationData().length; j++) {
 			PopulationData pd = loop.getPopulationData()[j];
 			yDataArray[j] = pd.getDataArray();

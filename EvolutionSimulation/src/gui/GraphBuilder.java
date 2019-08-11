@@ -82,12 +82,15 @@ public class GraphBuilder{
     		sidePanel.add(rd, gbc);
     		selectedAttributes[j] = rd;
     	}
+    	gbc.anchor = gbc.CENTER;
+		gbc.gridy += 1;
     	JButton refreshBtn = new JButton("Refresh");
     	refreshBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				graphPanel.
+				graphPanel.repaint();
 			}
 		});
+    	sidePanel.add(refreshBtn, gbc);
     }
 }
 
@@ -140,18 +143,10 @@ class GraphBuilder1 extends JPanel{
 	public Dimension getPreferredSize() {
         return new Dimension(pWidth,pHeigth);
     }
-	
-//	public void redraw(double width, double heigth) {
-//		this.pWidth = (int) width;
-//		this.pHeigth = (int) heigth;
-//		if (g2d != null) {
-//			this.paintComponent(g2d);
-//		}
-//	}
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.allYData = getSelectedYData();
+        int[][][] selectedYData = getSelectedYData();
     	this.DISTANCE_BORDER = (int) (pHeigth *0.05 +55);
     	this.SIZE_X_AXIS = pWidth - DISTANCE_BORDER - DISTANCE_END;
     	this.SIZE_Y_AXIS = pHeigth - DISTANCE_BORDER -DISTANCE_END;
@@ -160,13 +155,12 @@ class GraphBuilder1 extends JPanel{
     	this.AXIS_FONT_SIZE = getAxisFont();
     	g2d = (Graphics2D) g;
     	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        drawGraphGrid();
-        Color[] colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN};
-        for (int i = 0; i < allYData.length; i++) {
-        	for (int j = 0; j < allYData[i].length; j++) {
-        		drawGraphLine(allXData, allYData[i][j], colors[j]);
+        drawGraphGrid(selectedYData);
+        Color[] colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
+        for (int i = 0; i < selectedYData.length; i++) {
+        	for (int j = 0; j < selectedYData[i].length; j++) {
+        		drawGraphLine(allXData, selectedYData[i][j],selectedYData, colors[j]);
         	}
-        	
         }
         drawAxisNames();
     }
@@ -179,14 +173,14 @@ class GraphBuilder1 extends JPanel{
     	return (int) nrOfPoints;
     }
     
-    public void drawGraphLine(int[] xData, int[] yData, Color col){
+    public void drawGraphLine(int[] xData, int[] yData, int[][][] selectedYData, Color col){
     	//get the amount of pixels per 1 number. 
         for (int i = 0; i < xData.length-1; i++) {
         	g2d.setColor(col);
         	int x1 = (int) (xData[i]*nrToPixelX() + DISTANCE_BORDER);
         	int x2 = (int) (xData[i+1]*nrToPixelX() + DISTANCE_BORDER);
-        	int y1 = (int) ((pHeigth - yData[i]*nrToPixelY()) - DISTANCE_BORDER);
-        	int y2 = (int) ((pHeigth -yData[i+1]*nrToPixelY()) - DISTANCE_BORDER);
+        	int y1 = (int) ((pHeigth - yData[i]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
+        	int y2 = (int) ((pHeigth -yData[i+1]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
         	g2d.setStroke(new BasicStroke(3));
             g2d.drawLine(x1, y1, x2, y2);
             g2d.setColor(Color.BLACK);
@@ -197,13 +191,13 @@ class GraphBuilder1 extends JPanel{
         }
     }
     
-    public void drawGraphGrid() {
+    public void drawGraphGrid(int[][][] yData) {
     	//basic x y axis
     	g2d.fillRect(DISTANCE_BORDER, pHeigth - DISTANCE_BORDER + 2, pWidth - DISTANCE_END- DISTANCE_BORDER + 1, 2);
     	g2d.fillRect(DISTANCE_BORDER, DISTANCE_END , 2, pHeigth - DISTANCE_BORDER - DISTANCE_END + 2);
     	//values on axis
     	int xMax = max(allXData);
-    	int yMax = max(allYData);
+    	int yMax = max(yData);
     	//draw the 0
     	drawCenteredString(DISTANCE_BORDER, pHeigth - DISTANCE_BORDER + NUMBER_DISTANCE,"0");
     	drawCenteredString(DISTANCE_BORDER - NUMBER_DISTANCE, pHeigth - DISTANCE_BORDER, "0");
@@ -236,7 +230,7 @@ class GraphBuilder1 extends JPanel{
     	count = 1;
     	for (int i= stepSizeY; i <= graphStepSize(yMax, NUMBER_OF_AXIS_POINTS_Y)[1]; i += stepSizeY ) {
     		int xCoord = DISTANCE_BORDER;
-    		double yCoord =  pHeigth - DISTANCE_BORDER - nrToPixelY()*stepSizeY*count;
+    		double yCoord =  pHeigth - DISTANCE_BORDER - nrToPixelY(yData)*stepSizeY*count;
     		String nrText = i +"";
     		if (i >= 1000) {
     			nrText = getPowerTenNumber(nrText); 
@@ -296,7 +290,6 @@ class GraphBuilder1 extends JPanel{
         }
 	}
     
-    
     private int[][][] getSelectedYData() {
     	//create boolean array to signify which populations and attributes are selected
     	int selectedPopCount = 0;
@@ -312,18 +305,22 @@ class GraphBuilder1 extends JPanel{
     		}
     	}
     	int[][][] yData = new int[selectedPopCount][][];
+    	int popArrayCount = 0;
     	for (int i = 0; i < this.allYData.length; i++) {
         	if (selectedPopulations[i].isSelected()) {
         		int [][] populationAttributes = new int[selectedAttrCount][];
+        		int attrArrayCount = 0;
         		for (int j = 0; j < this.allYData[i].length; j++) {
         			int [] attributeDataPoints = this.allYData[i][j];
         			if (selectedAttributes[j].isSelected()) {
-        				populationAttributes[j] = attributeDataPoints;
+        				populationAttributes[attrArrayCount] = attributeDataPoints;
         			}
+        			attrArrayCount ++;
         		}
         		if (populationAttributes.length != 0) {
-        			yData[i] = populationAttributes;	
+        			yData[popArrayCount] = populationAttributes;	
         		}
+        		popArrayCount ++;
         	}
     	}
 		return yData;
@@ -367,8 +364,8 @@ class GraphBuilder1 extends JPanel{
     	return (SIZE_X_AXIS) / new Double(max(allXData));
     }
     
-    private double nrToPixelY() {
-    	return (SIZE_Y_AXIS) / new Double(graphStepSize(max(allYData), NUMBER_OF_AXIS_POINTS_Y)[1]);
+    private double nrToPixelY(int[][][] yData) {
+    	return (SIZE_Y_AXIS) / new Double(graphStepSize(max(yData), NUMBER_OF_AXIS_POINTS_Y)[1]);
     }
     
     private int[] graphStepSize(int val, int axisPoints) {

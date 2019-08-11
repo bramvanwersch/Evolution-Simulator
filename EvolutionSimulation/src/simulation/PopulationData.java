@@ -19,9 +19,7 @@ public class PopulationData {
 	private ArrayList<Double> nrOmnivores;
 	private ArrayList<Double> nrCarnivores;
 	private int time;
-	private ArrayList<Integer> nrSpecies;
-	
-
+	private ArrayList<Double> nrSpecies;
 
 	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
@@ -33,7 +31,7 @@ public class PopulationData {
 		this.nrOmnivores = new ArrayList<Double>(100);
 		this.nrCarnivores = new ArrayList<Double>(100);
 		this.time = 0;
-		this.nrSpecies = new ArrayList<Integer>(100);
+		this.nrSpecies = new ArrayList<Double>(100);
 	}
 	
 	public int[] convertDoubles(ArrayList<Double> doubles){
@@ -67,12 +65,13 @@ public class PopulationData {
 	}
 	
 	public int[][] getDataArray(){
-		int[][] dataArray = new int[5][this.time];
+		int[][] dataArray = new int[6][this.time];
 		dataArray[0] = getAvgSpeed();
 		dataArray[1] = getAvgSize();
 		dataArray[2] = getAvgAge();
 		dataArray[3] = getAvgScent();
 		dataArray[4] = getAvgEnergyCost();
+		dataArray[5] = getNrSpecies();
 		return dataArray;
 	}
 	
@@ -111,6 +110,10 @@ public class PopulationData {
 	public int[] getNrCarnivores() {
 		return convertDoubles(this.nrCarnivores);
 	}
+	
+	public int[] getNrSpecies() {
+		return convertDoubles(this.nrSpecies);
+	}
 
 	public void setAvgSpeed(double d) {
 		this.avgSpeed.add(d);
@@ -143,12 +146,8 @@ public class PopulationData {
 	public void setNrHerbivores(double d) {
 		this.nrHerbivores.add(d);
 	}
-	
-	public ArrayList<Integer> getNrSpecies() {
-		return nrSpecies;
-	}
 
-	public void setNrSpecies(int i) {
+	public void setNrSpecies(double i) {
 		this.nrSpecies.add(i);
 	}
 
@@ -168,7 +167,7 @@ public class PopulationData {
 			String row = Double.toString(this.getAvgAge()[i])+"\t"+Double.toString(this.getAvgEnergyCost()[i])+"\t"+Double.toString(this.getAvgScent()[i])
 				+"\t"+Double.toString(this.getAvgSize()[i])+"\t"+Double.toString(this.getAvgSpeed()[i])
 				+"\t"+Double.toString(this.getNrCarnivores()[i])+"\t"+Double.toString(this.getNrHerbivores()[i])
-				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Integer.toString(this.getNrSpecies().get(i));
+				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Double.toString(this.getNrSpecies()[i]);
 			
 			storage.append(row);
 			
