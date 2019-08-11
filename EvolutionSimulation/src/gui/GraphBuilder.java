@@ -314,13 +314,13 @@ class GraphBuilder1 extends JPanel{
         			int [] attributeDataPoints = this.allYData[i][j];
         			if (selectedAttributes[j].isSelected()) {
         				populationAttributes[attrArrayCount] = attributeDataPoints;
+            			attrArrayCount ++;
         			}
-        			attrArrayCount ++;
         		}
         		if (populationAttributes.length != 0) {
-        			yData[popArrayCount] = populationAttributes;	
+        			yData[popArrayCount] = populationAttributes;
+            		popArrayCount ++;
         		}
-        		popArrayCount ++;
         	}
     	}
 		return yData;
