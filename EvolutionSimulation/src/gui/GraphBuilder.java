@@ -7,23 +7,69 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
-public class GraphBuilder extends JFrame{
+public class GraphBuilder{
+	private JPanel sidePanel;
+	private JRadioButton[] populationActive;
+	private JRadioButton[] attributeActive;
 	
 	public GraphBuilder(int[] xData, int[][] yData,int width,int height,String[] axisNames, boolean dataPoints) {
 		JFrame f = new JFrame("Graph");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		sidePanel = new JPanel();
+		GridBagLayout gbl = new GridBagLayout();
+		sidePanel.setLayout(gbl);
+		populationActive = new JRadioButton[5];
+		attributeActive = new JRadioButton[1];
 		
+		//HARDCODED
+		createSidePanelWidgets(yData, new String[] {"pop 1","pop 2","pop 3","pop 4","pop 5"}, new String[] {"speed"});
 		GraphBuilder1 graphPane = new GraphBuilder1(xData,yData, width,height,axisNames, dataPoints);
-		f.add(graphPane);
+		f.add(graphPane, BorderLayout.WEST);
+		f.add(sidePanel, BorderLayout.EAST);
 		f.pack();
 		f.setVisible(true);
 	}
+    
+    private void createSidePanelWidgets(int[][] yData, String[] populationNames, String[] attributeNames){
+    	//Hardcoded
+    	//spacing kind of bad solution.
+    	JLabel populationsLbl = new JLabel("Populations:            ");
+    	GridBagConstraints gbc = new GridBagConstraints();
+    	gbc.anchor = gbc.WEST;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		sidePanel.add(populationsLbl, gbc);
+    	for (int i = 0; i < 5; i++) {
+    		JRadioButton rd = new JRadioButton(populationNames[i]);
+    		gbc.gridy += 1;
+    		sidePanel.add(rd, gbc);
+    		populationActive[i] = rd;
+    	}
+    	JLabel spaceLbl = new JLabel("  ");
+		gbc.gridy += 1;
+		sidePanel.add(spaceLbl, gbc);
+    	JLabel attributeLbl = new JLabel("Attributes:");
+		gbc.gridy += 1;
+		sidePanel.add(attributeLbl, gbc);
+    	for (int j = 0; j < 1; j++) {
+    		JRadioButton rd = new JRadioButton(attributeNames[j]);
+    		gbc.gridy += 1;
+    		sidePanel.add(rd, gbc);
+    		attributeActive[j] = rd;
+    	}
+    }
 }
 
 class GraphBuilder1 extends JPanel{
@@ -206,6 +252,7 @@ class GraphBuilder1 extends JPanel{
     	g2d.drawString(text, 0,0);
     	g2d.setTransform(old);
     }
+
     
     private int getAxisFont() {
     	int size = 1;
