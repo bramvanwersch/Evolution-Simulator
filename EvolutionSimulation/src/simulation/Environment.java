@@ -33,7 +33,6 @@ public class Environment {
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
-		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
