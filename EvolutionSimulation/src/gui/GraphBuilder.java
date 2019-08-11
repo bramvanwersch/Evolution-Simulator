@@ -140,11 +140,11 @@ class GraphBuilder1 extends JPanel{
     	this.dataPoints = dataPoints;
     	this.selectedPopulations = selectedPopulations;
     	this.selectedAttributes = selectedAttributes;
-        colors = new Color[] {Color.DARK_GRAY,Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
+        colors = new Color[] {Color.RED, Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
         strokes = new Stroke[] {new BasicStroke(3), 
         		new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0),
-                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9, 18}, 0),
-                new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{5}, 0)};
+                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{8, 4, 16, 4}, 0),
+                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1,2}, 0)};
     	this.setBackground(Color.WHITE);
     }
 
@@ -195,14 +195,13 @@ class GraphBuilder1 extends JPanel{
     }
     
     public void drawGraphLine(int[] xData, int[] yData, int[][][] selectedYData, Color col, Stroke stroke){
-    	//get the amount of pixels per 1 number. 
+    	g2d.setStroke(stroke);
         for (int i = 0; i < xData.length-1; i++) {
         	g2d.setColor(col);
         	int x1 = (int) (xData[i]*nrToPixelX() + DISTANCE_BORDER);
         	int x2 = (int) (xData[i+1]*nrToPixelX() + DISTANCE_BORDER);
         	int y1 = (int) ((pHeigth - yData[i]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
         	int y2 = (int) ((pHeigth -yData[i+1]*nrToPixelY(selectedYData)) - DISTANCE_BORDER);
-        	g2d.setStroke(stroke);
             g2d.drawLine(x1, y1, x2, y2);
             g2d.setColor(Color.BLACK);
             if (dataPoints) {

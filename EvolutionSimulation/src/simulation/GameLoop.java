@@ -51,11 +51,11 @@ public class GameLoop implements ActionListener{
 			addAverageDataValues();
 			addPopData();
 			environment.addAge();
+			if (!checkIfAllDead(e)) {
+				sidePanel.updateLabels(getLabelTexts());
+			}
 		}
 		panel.repaint();
-		if (!checkIfAllDead(e)) {
-			sidePanel.updateLabels(getLabelTexts());
-		}
 	}
  
 	/**

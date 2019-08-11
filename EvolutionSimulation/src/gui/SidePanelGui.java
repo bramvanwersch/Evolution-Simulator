@@ -73,7 +73,7 @@ public class SidePanelGui extends JPanel{
 
 		JLabel lblNrSpecies = new JLabel("Number of individuals:");
 		lblNrSpecies.setOpaque(true);
-		lblNrSpecies.setBackground(Color.RED);
+		lblNrSpecies.setBackground(Color.GREEN);
 		GridBagConstraints gbc_lblNrSpecies = new GridBagConstraints();
 		gbc_lblNrSpecies.anchor = GridBagConstraints.WEST;
 		gbc_lblNrSpecies.insets = new Insets(5, 5, 5, 5);
@@ -92,7 +92,7 @@ public class SidePanelGui extends JPanel{
 		
 		JLabel lblAvgSpeed = new JLabel("Average speed:");
 		lblAvgSpeed.setOpaque(true);
-		lblAvgSpeed.setBackground(Color.DARK_GRAY);
+		lblAvgSpeed.setBackground(Color.RED);
 		GridBagConstraints gbc_lblAvgSpeed = new GridBagConstraints();
 		gbc_lblAvgSpeed.anchor = GridBagConstraints.WEST;
 		gbc_lblAvgSpeed.insets = new Insets(5, 5, 5, 5);
