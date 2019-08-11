@@ -19,9 +19,9 @@ public class Environment {
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();
 		this.foodSize = options.getFoodSize();
-		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes());
+		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
-				options.getScentRanges(), options.getNames(), options.getEatSizeFactors());
+				options.getScentRanges(), options.getEatSizeFactors());
 		//TODO: fill in
 		createFood(50);
 	}
@@ -227,35 +227,35 @@ public class Environment {
 		Collections.shuffle(populations);
 	}
 
-	private void createPopulations(int nrPopulations, Color[] colors, String[] type) {
+	private void createPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
-			Population p = new Population(colors[i], type[i]);
+			Population p = new Population(colors[i], type[i], names[i]);
 			populations.add(p);
 		}
 	}
 
 //methods for innitialy creating species that are specified.
-	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange,
-			String[] names, double[] eatSizeFactor) {
+	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
+			, double[] eatSizeFactor) {
 		for (int i = 0; i <populations.size(); i++) {
 			Population p = populations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
 				if (p.getType().equals("Carnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Carnivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
+						s = new Carnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if (p.getType().equals("Herbivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Herbivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
+						s = new Herbivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}
 				else if(p.getType().equals("Omnivore")) {
 					if (p.getNrSpecies() == 0) {
-						s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], names[i], eatSizeFactor[i]);
+						s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
 						p.addSpeciesData(s, -1);
 					}
 				}

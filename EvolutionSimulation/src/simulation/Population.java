@@ -17,13 +17,16 @@ public class Population {
 	private String type;
 	private PanGenome panGenome;
 	private String speciesData;
+	private String name;
 	
-	public Population(Color color, String type) {
+	public Population(Color color, String type, String name) {
 		this.speciesList = new ArrayList<Species>();
 		this.diedSpecies = 0;
 		this.color = color;
 		this.type = type;
 		this.speciesData = "";
+		this.name = name;
+
 		this.panGenome = new PanGenome(this.type +"Data");
 	}
 	
@@ -59,20 +62,20 @@ public class Population {
 		Species sCopy = null;
 		if (this.type.equals("Carnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1,
-						s.getName(), s.getEatSizeFactor());
+				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
+						, s.getEatSizeFactor());
 			}
 		}
 		else if (this.type.equals("Herbivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1,
-						s.getName(), s.getEatSizeFactor());
+				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
+						, s.getEatSizeFactor());
 			}
 		}
 		else if (this.type.equals("Omnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1,
-						s.getName(), s.getEatSizeFactor());
+				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
+						, s.getEatSizeFactor());
 			}
 		}
 		if(sCopy != null) {
@@ -120,6 +123,10 @@ public class Population {
 				removeSpecies(i);
 			}
 		}
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	/*
