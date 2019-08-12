@@ -73,7 +73,7 @@ public class BlankGameLoop implements ActionListener {
 			popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
 			popData[i].setAvgScent(sp.getScentStats()[0]);
 			popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
-			popData[i].addTime();	
+			popData[i].setTime(timeElapsed);
 			popData[i].setNrSpecies(sp.getNrSpecies());
 		}
 	}

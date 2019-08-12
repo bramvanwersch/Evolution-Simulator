@@ -18,7 +18,7 @@ public class PopulationData {
 	private ArrayList<Double> nrHerbivores;
 	private ArrayList<Double> nrOmnivores;
 	private ArrayList<Double> nrCarnivores;
-	private int time;
+	private ArrayList<Double> time;
 	private ArrayList<Double> nrSpecies;
 
 	public PopulationData() {
@@ -30,7 +30,7 @@ public class PopulationData {
 		this.nrHerbivores = new ArrayList<Double>(100);
 		this.nrOmnivores = new ArrayList<Double>(100);
 		this.nrCarnivores = new ArrayList<Double>(100);
-		this.time = 0;
+		this.time = new ArrayList<Double>(100);
 		this.nrSpecies = new ArrayList<Double>(100);
 	}
 	
@@ -43,16 +43,8 @@ public class PopulationData {
 	    return ret;
 	}
 	
-	public int[] getTimeArray() {
-		int [] timeArray= new int[this.time];
-		for (int i=0; i < this.time; i++) {
-			timeArray[i] = i;
-		}
-		return timeArray;
-	}
-	
 	public int[][] getAverageDataArray(){
-		int[][] dataArray = new int[8][this.time];
+		int[][] dataArray = new int[8][];
 		dataArray[0] = getNrHerbivores();
 		dataArray[1] = getNrOmnivores();
 		dataArray[2] = getNrCarnivores();
@@ -65,7 +57,7 @@ public class PopulationData {
 	}
 	
 	public int[][] getDataArray(){
-		int[][] dataArray = new int[6][this.time];
+		int[][] dataArray = new int[6][];
 		dataArray[0] = getAvgSpeed();
 		dataArray[1] = getAvgSize();
 		dataArray[2] = getAvgAge();
@@ -95,8 +87,8 @@ public class PopulationData {
 		return convertDoubles(this.avgEnergyCost);
 	}
 	
-	public int getTime() {
-		return time;
+	public int[] getTime() {
+		return convertDoubles(this.time);
 	}
 	
 	public int[] getNrHerbivores() {
@@ -152,8 +144,8 @@ public class PopulationData {
 	}
 
 
-	public void addTime() {
-		this.time += 1;
+	public void setTime(double i) {
+		this.time.add(i);
 	}
 	//This method makes a string matrix of all arrays in this list as columns
 	//

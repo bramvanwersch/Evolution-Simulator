@@ -70,7 +70,7 @@ public class GameLoop implements ActionListener{
 		averageData.setAvgAge(environment.getMaxAgeStats()[0]);
 		averageData.setAvgScent(environment.getScentStats()[0]);
 		averageData.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
-		averageData.addTime();
+		averageData.setTime(timeElapsed);
 	}
 	
 		private void addPopData() {
@@ -81,7 +81,7 @@ public class GameLoop implements ActionListener{
 				popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
 				popData[i].setAvgScent(sp.getScentStats()[0]);
 				popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
-				popData[i].addTime();
+				popData[i].setTime(timeElapsed);
 				popData[i].setNrSpecies(sp.getNrSpecies());
 			}
 		}

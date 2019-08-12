@@ -143,7 +143,7 @@ class GraphBuilder1 extends JPanel{
         colors = new Color[] {Color.RED, Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
         strokes = new Stroke[] {new BasicStroke(3), 
         		new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0),
-                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{8, 4, 16, 4}, 0),
+                new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4, 2, 8, 2}, 0),
                 new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{1,2}, 0)};
     	this.setBackground(Color.WHITE);
     }
