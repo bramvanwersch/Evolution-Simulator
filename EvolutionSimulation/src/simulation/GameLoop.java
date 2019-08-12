@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import gui.OptionData;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 
@@ -44,20 +45,23 @@ public class GameLoop implements ActionListener{
 	 * the game running
 	 */
 	public void actionPerformed(ActionEvent e) {
-		timeElapsed += 50;
-		environment.nextTimeStep();
-		environment.createFood(foodRegenTxt);
-		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
+		if (timeElapsed % 1000 == 0) {
 			addAverageDataValues();
 			addPopData();
-			environment.addAge();
+			if (timeElapsed != 0) {
+				environment.addAge();
+			}
 			if (!checkIfAllDead(e)) {
 				sidePanel.updateLabels(getLabelTexts());
 			}
 		}
+		timeElapsed += 50;
+		environment.nextTimeStep();
+		environment.createFood(foodRegenTxt);
+		
 		panel.repaint();
 	}
- 
+	
 	/**
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */

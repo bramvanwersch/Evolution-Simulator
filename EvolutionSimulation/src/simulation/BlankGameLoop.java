@@ -46,20 +46,20 @@ public class BlankGameLoop implements ActionListener {
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
 		System.out.println(this.environment.getPopulations().size());
-		if (timeElapsed % 1000 == 0 && timeElapsed != 0) {
-			environment.addAge();
-		}
-		if (checkIfSoleSurvivor(e)) {
-			System.out.println("Dying is not an option");
-			this.isSimulationFinished = true;
-			runCount += 1 ;
-			System.out.println(runCount);
-			blankRun.updateCounter(runCount);
+		if (timeElapsed % 1000 == 0) {
+			if (timeElapsed != 0) {
+				environment.addAge();
+			}
 			addPopData();
+			if (checkIfSoleSurvivor(e)) {
+				System.out.println("Dying is not an option");
+				this.isSimulationFinished = true;
+				runCount += 1 ;
+				System.out.println(runCount);
+				blankRun.updateCounter(runCount);
 			
-		
+			}
 		}
-		
 	}
 	
 	/**

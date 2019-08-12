@@ -1,23 +1,15 @@
 package gui;
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
 import gui.OptionData;
-import simulation.BlankGameLoop;
 import simulation.PopulationData;
 import simulation.Environment;
 import simulation.GameLoop;
@@ -43,9 +35,12 @@ public class Run {
 
 	
 	private void createGui() {
+		//main panel
 		panel = new TerrainPanel(950,950, environment);
 		
+		//panel tot the side
 		sidePanel = new SidePanelGui(950, 300);
+		
 		JFrame f =  new JFrame();
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
