@@ -476,7 +476,6 @@ public class Environment {
 			}
 		}
 		int[] minMax = calcMinMax(valArray);
-		System.out.println(Arrays.toString(valArray));
 		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
 	}
 	
