@@ -62,7 +62,7 @@ public class BlankRun extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JLabel lblCounter = new JLabel("0");
+		lblCounter = new JLabel("0");
 		panel.add(lblCounter);
 		
 		JButton btnLoops = new JButton("Start Loops");
