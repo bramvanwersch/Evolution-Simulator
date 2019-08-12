@@ -1,8 +1,14 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,36 +18,71 @@ import javax.swing.border.EmptyBorder;
 import simulation.BlankGameLoop;
 import simulation.Environment;
 
-public class BlankRun {
+public class BlankRun extends JFrame {
 	private Timer timer;
 	private Environment environment;
 	private BlankGameLoop blankLoop;
+	private JPanel contentPane;
 	
 	
-	public BlankRun(OptionData data, int updateTime, int runCounter) {
-		environment = new Environment(data);
-		createBlankGui();
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					BlankRun frame = new BlankRun(10);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}	
+	
+	public BlankRun( int updateTime) {
+		OptionData optionData = makeOptionData();
+		environment = new Environment(optionData);
 		blankLoop = new BlankGameLoop( 50, environment, updateTime);
 		timer = new Timer(updateTime, blankLoop);
+		createBlankGui();
+//		setVisible(true);
 
 	}
-	
+
 	public void createBlankGui() {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(0, 0, 100, 100);
-		JPanel contentPane = new JPanel();
+		JFrame f = new JFrame("Blank Run");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(contentPane);
+		f.setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		contentPane.setLayout(gbl_contentPane);
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
 		
-		GridBagConstraints gbc_lblTbd = new GridBagConstraints();
-		JLabel lblTbd = new JLabel("TBD");
-		lblTbd.setText("possible");
-		contentPane.add(lblTbd, gbc_lblTbd);
-		frame.setVisible(true);
+		JLabel lblNewLabel = new JLabel("New label");
+		panel.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel.add(btnNewButton);
+	
+		
+	//	add(btnStart, BorderLayout.NORTH);
+		
+	//	add(btnStart, bl.NORTH);
+	//	add(lblTbd, bl.NORTH);
+		
+//		buttonPanel.add(btnStart);
+	//	buttonPanel.add(lblTbd);
+
+		
+	//	add(buttonPanel, bl.NORTH);
+		f.add(panel);
+		f.pack();
+		f.setVisible(true);
+		
+		
 		
 		
 	}
@@ -56,6 +97,34 @@ public class BlankRun {
 	
 	private void stopTimer() {
 		timer.stop();
+	}
+	
+	private OptionData makeOptionData() {
+		OptionData optionData = new OptionData();
+		optionData.setFoodEnergy(100);
+		optionData.setFoodSize(5);
+		
+		optionData.addColorsList(new Color(66,66,66));
+		optionData.addEatSizeFactorsList(1);
+		optionData.addMaxAgesList(8);
+		optionData.addNamesList("Brams");
+		optionData.addNoIndividualsList(1);
+		optionData.addScentRangesList(10);
+		optionData.addSizesList(50);
+		optionData.addSpeedsList(10);
+		optionData.addTypeList("Carnivore");
+		
+		optionData.addColorsList(new Color(66,66,66));
+		optionData.addEatSizeFactorsList(0);
+		optionData.addMaxAgesList(4);
+		optionData.addNamesList("Wytzeus");
+		optionData.addNoIndividualsList(1);
+		optionData.addScentRangesList(10);
+		optionData.addSizesList(50);
+		optionData.addSpeedsList(10);
+		optionData.addTypeList("Omnivore");
+		return optionData;
+		
 	}
 
 

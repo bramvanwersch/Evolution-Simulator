@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
+import gui.Trial_And_Error;
 import gui.BlankRun;
 import gui.OptionData;
 import gui.OptionMenu;
@@ -33,6 +35,10 @@ public class DataSaver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		catch ( InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -41,8 +47,6 @@ public class DataSaver {
 			public void run() {
 				try {
 					DataSaver data = new DataSaver(); 
-					
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,7 +54,7 @@ public class DataSaver {
 		});
 	}
 	
-	private void createOptionData() throws IOException {
+	private void createOptionData() throws IOException, InterruptedException {
 		OptionData tempoptions = new OptionData();
 		tempoptions.setFoodEnergy(100);
 		tempoptions.setFoodSize(5);
@@ -76,11 +80,12 @@ public class DataSaver {
 		tempoptions.addTypeList("Omnivore");
 		
 		
-		JOptionPane pane = new JOptionPane();
+//		JOptionPane pane = new JOptionPane();
+		Trial_And_Error frame = new Trial_And_Error();
+		frame.setVisible(true);
 		
-		BlankRun run =  new BlankRun(tempoptions, 10, 50);
-		run.startTimer();
 		
+		BlankRun run =  new BlankRun(tempoptions, 10);
 		
 		
 //		pane.showConfirmDialog(null, "heeyy");
