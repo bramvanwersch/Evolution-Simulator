@@ -1,12 +1,12 @@
 # EvolutionaryGame
-A rough programme that aims to simulate evolution of genetic information trough the visual simulation of species interacting whit a very
-basic enviornment. Each species has an individual genome. A pool of genes is pre determined. This is neccesairy to be able to have species
-evolve new genes. Idealy there would be a different solution for this in the future.
-To read the data files and get some usefull information out of it i wrote some python scripts that have to stil be intergrated.
+A rough program that aims to simulate evolution of genetic information through the visual simulation of species interacting with a very
+basic enviroment. Each species has an individual genome. A pool of genes is pre-determined. This is necessary to be able to have species
+evolve new genes. Ideally there would be a different solution for this in the future.
+To read the data files and get some useful information out of it I wrote some python scripts that have to stil be intergrated.
 There are 3 species available herbivore, carnivore and omnivore. 
 
 ## Working on:
-- At the moment i am working on making an option interface to easily configure the game instead of changing hard coded values. --> more informarion.
+- At the moment I am working on making an option interface to easily configure the game instead of changing hard coded values. --> more information.
 - add genomes to plants
 - make non essential genes
 - make more genes
