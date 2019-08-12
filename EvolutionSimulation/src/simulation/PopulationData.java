@@ -2,6 +2,7 @@ package simulation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 /**
  * PopulationData class records one instance of population
  * @author wytze
@@ -20,6 +21,7 @@ public class PopulationData {
 	private ArrayList<Double> nrCarnivores;
 	private ArrayList<Double> time;
 	private ArrayList<Double> nrSpecies;
+	private double dataDivisionFactor;
 
 	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
@@ -32,9 +34,12 @@ public class PopulationData {
 		this.nrCarnivores = new ArrayList<Double>(100);
 		this.time = new ArrayList<Double>(100);
 		this.nrSpecies = new ArrayList<Double>(100);
+		dataDivisionFactor = 1;
 	}
 	
 	public int[] convertDoubles(ArrayList<Double> doubles){
+		//first reduce the data before converting to doubles
+		doubles = reduceData(doubles);
 	    int[] ret = new int[doubles.size()];
 	    Iterator<Double> iterator = doubles.iterator();
 	    for (int i = 0; i < ret.length; i++){
@@ -65,6 +70,34 @@ public class PopulationData {
 		dataArray[4] = getAvgEnergyCost();
 		dataArray[5] = getNrSpecies();
 		return dataArray;
+	}
+	
+	public void setDataDivisionFactor() {
+		int divisionFactor = 1;
+		int arrayLength = getTime().length;
+		while (arrayLength/divisionFactor > 50){
+			divisionFactor += 1;
+		}
+		dataDivisionFactor = divisionFactor;
+	}
+	
+	private ArrayList<Double> reduceData(ArrayList<Double> dataArray) {
+		ArrayList<Double> averagedData = new ArrayList<Double>();
+		for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
+			if (i + dataDivisionFactor <= dataArray.size()) {
+				List<Double> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
+				averagedData.add(sum(values)/dataDivisionFactor);
+			}
+		}
+		return averagedData;
+	}
+	
+	private double sum(List<Double> values) {
+		double sum = 0;
+		for (double val : values) {
+			sum += val;
+		}
+		return sum;
 	}
 	
 	public int[] getAvgSpeed() {

@@ -124,8 +124,10 @@ public class Run {
 		int [][][] yDataArray = new int[loop.getPopulationData().length][][];
 		for (int j = 0; j < loop.getPopulationData().length; j++) {
 			PopulationData pd = loop.getPopulationData()[j];
+			pd.setDataDivisionFactor();
 			yDataArray[j] = pd.getDataArray();
 		}
+		loop.getAverageData().setDataDivisionFactor();
 		new GraphBuilder(loop.getAverageData().getTime(), yDataArray, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false);
 	}
