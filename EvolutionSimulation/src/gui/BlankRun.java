@@ -23,6 +23,7 @@ public class BlankRun extends JFrame {
 	private Environment environment;
 	private BlankGameLoop blankLoop;
 	private JPanel contentPane;
+	private JLabel lblCounter;
 	
 	
 	public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class BlankRun extends JFrame {
 	public BlankRun( int updateTime) {
 		OptionData optionData = makeOptionData();
 		environment = new Environment(optionData);
-		blankLoop = new BlankGameLoop( 50, environment, updateTime);
+		blankLoop = new BlankGameLoop( 50, environment, updateTime, this);
 		timer = new Timer(updateTime, blankLoop);
 		createBlankGui();
 //		setVisible(true);
@@ -61,23 +62,22 @@ public class BlankRun extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
+		JLabel lblCounter = new JLabel("0");
+		panel.add(lblCounter);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+		JButton btnLoops = new JButton("Start Loops");
+		panel.add(btnLoops);
+		btnLoops.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				startTimer();
+				getBlankLoop();
+			}
+		});
 	
-		
-	//	add(btnStart, BorderLayout.NORTH);
-		
-	//	add(btnStart, bl.NORTH);
-	//	add(lblTbd, bl.NORTH);
-		
-//		buttonPanel.add(btnStart);
-	//	buttonPanel.add(lblTbd);
+	//	JButton btn
 
 		
-	//	add(buttonPanel, bl.NORTH);
+		
 		f.add(panel);
 		f.pack();
 		f.setVisible(true);
@@ -125,6 +125,11 @@ public class BlankRun extends JFrame {
 		optionData.addTypeList("Omnivore");
 		return optionData;
 		
+	}
+	public void updateCounter(Integer count) {
+		String strCount = Integer.toString(count);
+		System.out.println(count + "has printed");
+		this.lblCounter.setText(strCount);
 	}
 
 

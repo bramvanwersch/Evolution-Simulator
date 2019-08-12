@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import gui.BlankRun;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 
@@ -15,10 +16,13 @@ public class BlankGameLoop implements ActionListener {
 	private boolean isSimulationFinished;
 	private PopulationData[] popData;
 	private int updateTime;
+	private BlankRun blankRun;
+	private Integer runCount;
 	
-	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime ) {
+	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime, BlankRun blankRun ) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
+		this.blankRun = blankRun;
 		this.timeElapsed = 0;
 		this.isSimulationFinished = false;
 		this.updateTime = updateTime;
@@ -27,6 +31,7 @@ public class BlankGameLoop implements ActionListener {
 			this.popData[i] = new PopulationData();
 		}
 		environment.moveSpecies();
+		runCount = 0;
 		
 		
 	}
@@ -45,7 +50,11 @@ public class BlankGameLoop implements ActionListener {
 			environment.addAge();
 		}
 		if (checkIfSoleSurvivor(e)) {
+			System.out.println("Dying is not an option");
 			this.isSimulationFinished = true;
+			runCount += 1 ;
+			System.out.println(runCount);
+			blankRun.updateCounter(runCount);
 			addPopData();
 			
 		
