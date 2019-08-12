@@ -131,7 +131,7 @@ public class Run {
 			PopulationData pd = loop.getPopulationData()[j];
 			yDataArray[j] = pd.getDataArray();
 		}
-		new GraphBuilder(loop.getAverageData().getTimeArray(), yDataArray, populationNames, attributeNames,
+		new GraphBuilder(loop.getAverageData().getTime(), yDataArray, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false);
 	}
 
