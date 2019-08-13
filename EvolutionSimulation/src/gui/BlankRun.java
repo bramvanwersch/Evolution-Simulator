@@ -116,19 +116,18 @@ public class BlankRun extends JFrame {
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(4);
+		optionData.addMaxAgesList(2);
 		optionData.addNamesList("Wytzeus");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
 		optionData.addSizesList(50);
 		optionData.addSpeedsList(10);
-		optionData.addTypeList("Omnivore");
+		optionData.addTypeList("Carnivore");
 		return optionData;
 		
 	}
 	public void updateCounter(Integer count) {
 		String strCount = Integer.toString(count);
-		System.out.println(count + "has printed");
 		this.lblCounter.setText(strCount);
 	}
 
