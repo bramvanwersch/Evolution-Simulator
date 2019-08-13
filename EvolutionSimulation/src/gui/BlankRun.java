@@ -19,11 +19,11 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import simulation.BlankGameLoop;
-import simulation.Enviroment;
+import simulation.Environment;
 
-public class BlankRunGUI extends JFrame {
+public class BlankRun extends JFrame {
 	private Timer timer;
-	private Enviroment environment;
+	private Environment environment;
 	private BlankGameLoop blankLoop;
 	private JPanel contentPane;
 	private JLabel lblCounter;
@@ -35,7 +35,7 @@ public class BlankRunGUI extends JFrame {
 			public void run() {
 				try {
 					
-					BlankRunGUI frame = new BlankRunGUI(10);
+					BlankRun frame = new BlankRun(10);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,11 +44,7 @@ public class BlankRunGUI extends JFrame {
 		});
 	}	
 	
-	public BlankRunGUI( int updateTime) {
-		OptionData optionData = makeOptionData();
-		environment = new Enviroment(optionData);
-		blankLoop = new BlankGameLoop( 50, environment, updateTime, this);
-		timer = new Timer(updateTime, blankLoop);
+	public BlankRun( int updateTime) {
 		createBlankGui();
 //		setVisible(true);
 
@@ -74,9 +70,6 @@ public class BlankRunGUI extends JFrame {
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startLoopsHandler();
-				loopAmount.getText();
-				startTimer();
-				getBlankLoop();
 
 
 			}
@@ -116,9 +109,19 @@ public class BlankRunGUI extends JFrame {
 		} else if (str.chars().allMatch( Character::isDigit ) && Integer.parseInt(str) < 10) {
 			int runs = Integer.parseInt(str);
 			for(int i = 0; i < runs; i++) {
-				
-				BlankGameLoop blankGameLoop = getBlankLoop();
-
+				System.out.println("I get to my runs loop");
+				OptionData optionData = makeOptionData();
+				environment = new Environment(optionData);
+				blankLoop = new BlankGameLoop( 50, environment, 10);
+				timer = new Timer(10, blankLoop);
+				startTimer();
+				while(!blankLoop.isSimulationFinished()) {
+					System.out.println("stuck in while loop");
+					System.out.println(blankLoop.getDeadPopulation());
+					if(blankLoop.isSimulationFinished()) {
+						System.out.println("simulation finshed");
+					}
+				}
 			}
 		}
 	}
@@ -152,7 +155,7 @@ public class BlankRunGUI extends JFrame {
 		optionData.addScentRangesList(10);
 		optionData.addSizesList(50);
 		optionData.addSpeedsList(10);
-		optionData.addTypeList("Herbivore");
+		optionData.addTypeList("Carnivore");
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);

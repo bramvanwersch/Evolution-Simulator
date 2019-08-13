@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
 import gui.Trial_And_Error;
-import gui.BlankRunGUI;
+import gui.BlankRun;
 import gui.OptionData;
 import gui.OptionMenu;
 import gui.Run;
@@ -85,7 +85,7 @@ public class DataSaver {
 		frame.setVisible(true);
 		
 		
-		BlankRunGUI run =  new BlankRunGUI(tempoptions, 10);
+		BlankRun run =  new BlankRun(tempoptions, 10);
 		
 		
 //		pane.showConfirmDialog(null, "heeyy");

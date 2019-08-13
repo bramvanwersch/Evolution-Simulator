@@ -11,7 +11,7 @@ import javax.swing.Timer;
 import gui.SidePanelGui;
 import gui.OptionData;
 import simulation.PopulationData;
-import simulation.Enviroment;
+import simulation.Environment;
 import simulation.GameLoop;
 import simulation.Population;
 
@@ -21,12 +21,12 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
-	private Enviroment environment;
+	private Environment environment;
 
 	
 	
 	public Run(OptionData data) {
-		environment = new Enviroment(data);
+		environment = new Environment(data);
 		createGui();
 		loop = new GameLoop(panel,environment, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);

@@ -6,24 +6,23 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import gui.BlankRunGUI;
+import gui.BlankRun;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class BlankGameLoop implements ActionListener {
-	private Enviroment environment;
+	private Environment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private boolean isSimulationFinished;
 	private PopulationData[] popData;
 	private int updateTime;
-	private BlankRunGUI blankRun;
 	private Integer runCount;
 	
-	public BlankGameLoop(int txtFoodRegen, Enviroment enviroment, int updateTime, BlankRunGUI blankRun ) {
+	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
-		this.blankRun = blankRun;
+
 		this.timeElapsed = 0;
 		this.isSimulationFinished = false;
 		this.updateTime = updateTime;
@@ -56,8 +55,6 @@ public class BlankGameLoop implements ActionListener {
 				System.out.println("Dying is not an option");
 				this.isSimulationFinished = true;
 				runCount += 1 ;
-				System.out.println(runCount);
-				blankRun.updateCounter(runCount);
 			
 			}
 		}
@@ -99,7 +96,7 @@ public class BlankGameLoop implements ActionListener {
 	
 	
 	
-	private Integer getDeadPopulation() {
+	public Integer getDeadPopulation() {
 		Integer countDeadPopulation = 0;
 		ArrayList<Population> pops = this.environment.getPopulations();
 		for(int i = 0; i < pops.size() ; i++ ) {
@@ -114,11 +111,15 @@ public class BlankGameLoop implements ActionListener {
 	public PopulationData[] getData() {
 		return popData;
 	}
-	
+	public String getRunCountString() {
+		return runCount.toString();
+	}
 	
 	public boolean isSimulationFinished() {
 		return isSimulationFinished;
 	}
+
+
 	
 	
 

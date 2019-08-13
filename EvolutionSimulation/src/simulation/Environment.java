@@ -8,7 +8,7 @@ import java.util.Random;
 
 import gui.OptionData;
 
-public class Enviroment {
+public class Environment {
 	private int foodEnergy;
 	private int foodSize;
 	private ArrayList<Population> populations;
@@ -16,7 +16,7 @@ public class Enviroment {
 	private int[] popOrderSeed;
 	
 
-	public Enviroment(OptionData options) {
+	public Environment(OptionData options) {
 		this.foodList = new ArrayList<Food>();
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();
