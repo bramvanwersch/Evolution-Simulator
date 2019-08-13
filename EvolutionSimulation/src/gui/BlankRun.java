@@ -69,7 +69,16 @@ public class BlankRun extends JFrame {
 		panel.add(btnLoops);
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				startLoopsHandler();
+	//			startLoopsHandler();
+				OptionData optionData = makeOptionData();
+				TempBlankRun tempBlankRun = new TempBlankRun(optionData);
+				tempBlankRun.startTimer();
+				while(!tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
+					
+				
+				
+				}
+				System.out.println("baby stopped");
 
 
 			}
@@ -108,17 +117,16 @@ public class BlankRun extends JFrame {
 			JOptionPane.showMessageDialog(contentPane, "Too many runs will take a lot of time", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (str.chars().allMatch( Character::isDigit ) && Integer.parseInt(str) < 10) {
 			int runs = Integer.parseInt(str);
+			OptionData optionData = makeOptionData();
 			for(int i = 0; i < runs; i++) {
 				System.out.println("I get to my runs loop");
-				OptionData optionData = makeOptionData();
-				environment = new Environment(optionData);
-				blankLoop = new BlankGameLoop( 50, environment, 10);
-				timer = new Timer(10, blankLoop);
-				startTimer();
-				while(!blankLoop.isSimulationFinished()) {
+				TempBlankRun tempBlankRun = new TempBlankRun(optionData);
+				tempBlankRun.startTimer();
+				
+				while(!tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
 					System.out.println("stuck in while loop");
-					System.out.println(blankLoop.getDeadPopulation());
-					if(blankLoop.isSimulationFinished()) {
+					System.out.println(tempBlankRun.getBlankGameLoop().getDeadPopulation());
+					if(tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
 						System.out.println("simulation finshed");
 					}
 				}
@@ -149,7 +157,7 @@ public class BlankRun extends JFrame {
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(1);
-		optionData.addMaxAgesList(8);
+		optionData.addMaxAgesList(3);
 		optionData.addNamesList("Brams");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
@@ -159,7 +167,7 @@ public class BlankRun extends JFrame {
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(5);
+		optionData.addMaxAgesList(3);
 		optionData.addNamesList("Wytzeus");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
