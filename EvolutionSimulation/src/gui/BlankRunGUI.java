@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,19 +12,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import simulation.BlankGameLoop;
-import simulation.Environment;
+import simulation.Enviroment;
 
-public class BlankRun extends JFrame {
+public class BlankRunGUI extends JFrame {
 	private Timer timer;
-	private Environment environment;
+	private Enviroment environment;
 	private BlankGameLoop blankLoop;
 	private JPanel contentPane;
 	private JLabel lblCounter;
+	private JTextField loopAmount; 
 	
 	
 	public static void main(String[] args) {
@@ -31,7 +35,7 @@ public class BlankRun extends JFrame {
 			public void run() {
 				try {
 					
-					BlankRun frame = new BlankRun(10);
+					BlankRunGUI frame = new BlankRunGUI(10);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,9 +44,9 @@ public class BlankRun extends JFrame {
 		});
 	}	
 	
-	public BlankRun( int updateTime) {
+	public BlankRunGUI( int updateTime) {
 		OptionData optionData = makeOptionData();
-		environment = new Environment(optionData);
+		environment = new Enviroment(optionData);
 		blankLoop = new BlankGameLoop( 50, environment, updateTime, this);
 		timer = new Timer(updateTime, blankLoop);
 		createBlankGui();
@@ -69,10 +73,19 @@ public class BlankRun extends JFrame {
 		panel.add(btnLoops);
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				startLoopsHandler();
+				loopAmount.getText();
 				startTimer();
 				getBlankLoop();
+
+
 			}
 		});
+		
+		loopAmount = new JTextField("");
+		loopAmount.setPreferredSize(new Dimension( 200, 24 ));
+		panel.add(loopAmount);
+
 	
 	//	JButton btn
 
@@ -86,6 +99,33 @@ public class BlankRun extends JFrame {
 		
 		
 	}
+	
+	/**This is the error handler for the Jtextfield with the amount of runs one wants to do.
+	 * 	It will use ........... to do all the runs
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	private void startLoopsHandler() {
+		String str = loopAmount.getText();
+		if (str.chars().allMatch( Character::isLetter )) {
+			JOptionPane.showMessageDialog(contentPane, "These are charcters", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (Integer.parseInt(str) > 10) {
+			JOptionPane.showMessageDialog(contentPane, "Too many runs will take a lot of time", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (str.chars().allMatch( Character::isDigit ) && Integer.parseInt(str) < 10) {
+			int runs = Integer.parseInt(str);
+			for(int i = 0; i < runs; i++) {
+				
+				BlankGameLoop blankGameLoop = getBlankLoop();
+
+			}
+		}
+	}
+	
+
+	
+	
 	public BlankGameLoop getBlankLoop() {
 		return blankLoop;
 	}
@@ -112,11 +152,11 @@ public class BlankRun extends JFrame {
 		optionData.addScentRangesList(10);
 		optionData.addSizesList(50);
 		optionData.addSpeedsList(10);
-		optionData.addTypeList("Carnivore");
+		optionData.addTypeList("Herbivore");
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(2);
+		optionData.addMaxAgesList(5);
 		optionData.addNamesList("Wytzeus");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);

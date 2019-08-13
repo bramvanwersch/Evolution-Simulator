@@ -2,24 +2,25 @@ package simulation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import gui.BlankRun;
+import gui.BlankRunGUI;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class BlankGameLoop implements ActionListener {
-	private Environment environment;
+	private Enviroment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private boolean isSimulationFinished;
 	private PopulationData[] popData;
 	private int updateTime;
-	private BlankRun blankRun;
+	private BlankRunGUI blankRun;
 	private Integer runCount;
 	
-	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime, BlankRun blankRun ) {
+	public BlankGameLoop(int txtFoodRegen, Enviroment enviroment, int updateTime, BlankRunGUI blankRun ) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
 		this.blankRun = blankRun;
@@ -41,12 +42,12 @@ public class BlankGameLoop implements ActionListener {
 	 * the game running
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("running");
 		timeElapsed += updateTime;
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
-		System.out.println(this.environment.getPopulations().size());
 		if (timeElapsed % 1000 == 0) {
+			System.out.println("Age step taken");
+			System.out.println(this.environment.getPopulations().size());
 			if (timeElapsed != 0) {
 				environment.addAge();
 			}
@@ -79,18 +80,35 @@ public class BlankGameLoop implements ActionListener {
 	}
 	
 	/**
-	 * Function that will check if there are species alive. If no species are alive the game is stopped. This
-	 * is important because ever increasing food objects flood memory.
+	 * Function that will check if there are species alive. If there is one species alive the timer stops.
+	 * Because these GUIless games are used to make a inference about good starting values.
 	 * @param e: actionevent variable to stop the timer invoked in the Game class
 	 * @return boolean telling if the game should be continued or stopped.
 	 */
 	private boolean checkIfSoleSurvivor(ActionEvent e) {
-		if (this.environment.getPopulations().size()>= 1) {
+		Integer countDeadPopulation = getDeadPopulation();
+
+		if (countDeadPopulation>= 1) {
+			System.out.println("Timer stopped");
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			return true;
 		}
 		return false;
+	}
+	
+	
+	
+	private Integer getDeadPopulation() {
+		Integer countDeadPopulation = 0;
+		ArrayList<Population> pops = this.environment.getPopulations();
+		for(int i = 0; i < pops.size() ; i++ ) {
+			if(pops.get(i).getNrSpecies()==0) {
+				countDeadPopulation += 1;
+			}
+		}
+		
+		return countDeadPopulation;
 	}
 
 	public PopulationData[] getData() {

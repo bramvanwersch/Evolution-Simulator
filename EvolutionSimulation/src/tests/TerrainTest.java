@@ -2,7 +2,7 @@ package tests;
 
 import junit.framework.TestCase;
 import simulation.Species;
-import simulation.Environment;
+import simulation.Enviroment;
 
 public class TerrainTest extends TestCase {
 	

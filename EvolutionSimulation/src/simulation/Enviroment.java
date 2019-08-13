@@ -8,7 +8,7 @@ import java.util.Random;
 
 import gui.OptionData;
 
-public class Environment {
+public class Enviroment {
 	private int foodEnergy;
 	private int foodSize;
 	private ArrayList<Population> populations;
@@ -16,7 +16,7 @@ public class Environment {
 	private int[] popOrderSeed;
 	
 
-	public Environment(OptionData options) {
+	public Enviroment(OptionData options) {
 		this.foodList = new ArrayList<Food>();
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();
@@ -33,6 +33,7 @@ public class Environment {
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
+
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();

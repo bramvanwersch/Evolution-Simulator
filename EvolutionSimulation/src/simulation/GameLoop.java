@@ -10,7 +10,7 @@ import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
-	private Environment environment;
+	private Enviroment environment;
 	private TerrainPanel panel;
 	private int timeElapsed;
 	private int foodRegenTxt;
@@ -26,7 +26,7 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, Environment environment, int txtFoodRegen, SidePanelGui sidePanel) {
+	public GameLoop(TerrainPanel panel, Enviroment environment, int txtFoodRegen, SidePanelGui sidePanel) {
 		this.sidePanel = sidePanel;
 		this.environment = environment;
 		this.panel = panel;
@@ -97,7 +97,7 @@ public class GameLoop implements ActionListener{
 	 */
 	private String[] getLabelTexts() {
 		String [] lblTexts = new String [7];
-		Environment t = this.environment;
+		Enviroment t = this.environment;
 		lblTexts[0] = String.format("%d|%d|%d (%d)",environment.getNrHerbivores(),environment.getNrOmnivores(), environment.getNrCarnivores(), environment.getAllDeadSpecies());
 		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", environment.getSpeedStats()[0],environment.getSpeedStats()[1],environment.getSpeedStats()[2]);
 		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", environment.getMaxSizeStats()[0],environment.getMaxSizeStats()[1],environment.getMaxSizeStats()[2]);
