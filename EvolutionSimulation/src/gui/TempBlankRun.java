@@ -43,12 +43,12 @@ public class TempBlankRun {
 	public void stopTimer() {
 		timer.stop();
 	}
-	private void writeData() {
+	private Population writeData() {
 		ArrayList<Population> populations = environment.getPopulations();
-		
+		Population rightPopulation = null;
 		for(int i =0; i<populations.size(); i++) {
 			if(populations.get(i).getNrSpecies()>0) {
-				Population rightPopulation = populations.get(i);
+				rightPopulation = populations.get(i);
 			}
 		}
 		return rightPopulation;
