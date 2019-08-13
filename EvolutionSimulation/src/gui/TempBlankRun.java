@@ -2,12 +2,14 @@ package gui;
 
 
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
 import simulation.BlankGameLoop;
 import simulation.Environment;
+import simulation.Population;
 
 public class TempBlankRun {
 	private Timer timer;
@@ -21,6 +23,9 @@ public class TempBlankRun {
 		
 		
 		while(timer.isRunning()) {
+			
+		}
+		while(!timer.isRunning()) {
 			
 		}
 	}
@@ -38,4 +43,17 @@ public class TempBlankRun {
 	public void stopTimer() {
 		timer.stop();
 	}
+	private void writeData() {
+		ArrayList<Population> populations = environment.getPopulations();
+		
+		for(int i =0; i<populations.size(); i++) {
+			if(populations.get(i).getNrSpecies()>0) {
+				Population rightPopulation = populations.get(i);
+			}
+		}
+		return rightPopulation;
+	}
+	
 }
+
+

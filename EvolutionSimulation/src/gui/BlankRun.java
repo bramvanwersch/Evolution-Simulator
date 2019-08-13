@@ -69,16 +69,11 @@ public class BlankRun extends JFrame {
 		panel.add(btnLoops);
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-	//			startLoopsHandler();
-				OptionData optionData = makeOptionData();
-				TempBlankRun tempBlankRun = new TempBlankRun(optionData);
-				tempBlankRun.startTimer();
-				while(!tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
-					
-				
-				
-				}
-				System.out.println("baby stopped");
+				startLoopsHandler();
+	//			OptionData optionData = makeOptionData();
+	//			TempBlankRun tempBlankRun = new TempBlankRun(optionData);
+	//			tempBlankRun.startTimer();
+	
 
 
 			}
@@ -123,13 +118,7 @@ public class BlankRun extends JFrame {
 				TempBlankRun tempBlankRun = new TempBlankRun(optionData);
 				tempBlankRun.startTimer();
 				
-				while(!tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
-					System.out.println("stuck in while loop");
-					System.out.println(tempBlankRun.getBlankGameLoop().getDeadPopulation());
-					if(tempBlankRun.getBlankGameLoop().isSimulationFinished()) {
-						System.out.println("simulation finshed");
-					}
-				}
+
 			}
 		}
 	}

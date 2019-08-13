@@ -500,5 +500,19 @@ public class Environment {
 		}
 		return minMax;
 	}
+	
+//	public Population getMaxNrSpeciesPop() {
+//		ArrayList<Integer> nrSpecies = new ArrayList<Integer>();
+//		for(int i =0; i < this.populations.size(); i++) {
+//			nrSpecies.add(populations.get(i).getNrSpecies());
+//		}
+//		int max = Collections.max(nrSpecies);
+//		for(int i =0; i < this.populations.size(); i++) {
+//			if(max==populations.get(i).getNrSpecies()) {
+//				Population maxPopulation = populations.get(i);
+//			}
+//		}
+//		return maxPopulation;
+//	}
 
 }
