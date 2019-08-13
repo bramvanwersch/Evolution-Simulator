@@ -32,6 +32,7 @@ public class GameLoop implements ActionListener{
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
 		this.averageData = new PopulationData();
+		this.averageData.setReduce(true);
 		this.popData = new PopulationData[environment.getPopulations().size()];
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
 			this.popData[i] = new PopulationData();
