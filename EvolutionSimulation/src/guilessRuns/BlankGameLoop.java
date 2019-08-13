@@ -17,14 +17,14 @@ public class BlankGameLoop implements ActionListener {
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private boolean isSimulationFinished;
-	private PopulationData[] popData;
 	private int updateTime;
 	private Integer runCount;
+	private PopulationData popData[];
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
-
+		this.popData = new PopulationData[environment.getPopulations().size()];
 		this.timeElapsed = 0;
 		this.isSimulationFinished = false;
 		this.updateTime = updateTime;
@@ -46,6 +46,7 @@ public class BlankGameLoop implements ActionListener {
 		timeElapsed += updateTime;
 		environment.nextTimeStep();
 		environment.createFood(foodRegenTxt);
+		addPopData();
 		if (timeElapsed % 1000 == 0) {
 			System.out.println("Age step taken");
 			System.out.println(this.environment.getPopulations().size());
