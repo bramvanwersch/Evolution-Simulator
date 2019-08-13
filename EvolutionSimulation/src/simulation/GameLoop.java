@@ -35,6 +35,8 @@ public class GameLoop implements ActionListener{
 		this.popData = new PopulationData[environment.getPopulations().size()];
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
 			this.popData[i] = new PopulationData();
+			//make sure data is reduced
+			this.popData[i].setReduce(true);
 		}
 		this.timeElapsed = 0;
 		environment.moveSpecies();

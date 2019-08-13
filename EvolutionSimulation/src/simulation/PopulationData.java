@@ -22,6 +22,7 @@ public class PopulationData {
 	private ArrayList<Double> time;
 	private ArrayList<Double> nrSpecies;
 	private double dataDivisionFactor;
+	private boolean reduce;
 
 	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
@@ -34,12 +35,15 @@ public class PopulationData {
 		this.nrCarnivores = new ArrayList<Double>(100);
 		this.time = new ArrayList<Double>(100);
 		this.nrSpecies = new ArrayList<Double>(100);
+		this.reduce = false;
 		dataDivisionFactor = 1;
 	}
 	
 	public int[] convertDoubles(ArrayList<Double> doubles){
 		//first reduce the data before converting to doubles
-		doubles = reduceData(doubles);
+		if (this.reduce) {
+			doubles = reduceData(doubles);
+		}
 	    int[] ret = new int[doubles.size()];
 	    Iterator<Double> iterator = doubles.iterator();
 	    for (int i = 0; i < ret.length; i++){
@@ -179,6 +183,10 @@ public class PopulationData {
 
 	public void setTime(double i) {
 		this.time.add(i);
+	}
+	
+	public void setReduce(boolean b) {
+		this.reduce = b;
 	}
 	//This method makes a string matrix of all arrays in this list as columns
 	//

@@ -23,16 +23,12 @@ public class Run {
 	private GameLoop loop;
 	private Environment environment;
 
-	
-	
 	public Run(OptionData data) {
 		environment = new Environment(data);
 		createGui();
 		loop = new GameLoop(panel,environment, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
-	
-
 	
 	private void createGui() {
 		//main panel
