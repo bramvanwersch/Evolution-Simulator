@@ -1,4 +1,4 @@
-package simulation;
+package guilessRuns;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import gui.BlankRun;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
+import simulation.Environment;
+import simulation.Population;
+import simulation.PopulationData;
 
 public class BlankGameLoop implements ActionListener {
 	private Environment environment;

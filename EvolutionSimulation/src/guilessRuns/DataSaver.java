@@ -1,4 +1,4 @@
-package simulation;
+package guilessRuns;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.SidePanelGui;
 import gui.Trial_And_Error;
-import gui.BlankRun;
+import simulation.PopulationData;
 import gui.OptionData;
 import gui.OptionMenu;
 import gui.Run;

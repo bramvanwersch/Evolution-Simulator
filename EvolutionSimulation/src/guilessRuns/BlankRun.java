@@ -1,4 +1,4 @@
-package gui;
+package guilessRuns;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-import simulation.BlankGameLoop;
+import gui.OptionData;
 import simulation.Environment;
 
 public class BlankRun extends JFrame {

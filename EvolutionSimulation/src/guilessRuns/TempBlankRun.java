@@ -1,4 +1,4 @@
-package gui;
+package guilessRuns;
 
 
 
@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
-import simulation.BlankGameLoop;
+import gui.OptionData;
 import simulation.Environment;
 import simulation.Population;
 
