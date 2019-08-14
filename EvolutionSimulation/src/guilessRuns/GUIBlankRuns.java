@@ -34,7 +34,6 @@ public class GUIBlankRuns extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
 					GUIBlankRuns frame = new GUIBlankRuns(10);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -46,8 +45,6 @@ public class GUIBlankRuns extends JFrame {
 	
 	public GUIBlankRuns( int updateTime) {
 		createBlankGui();
-//		setVisible(true);
-
 	}
 
 	public void createBlankGui() {
@@ -70,9 +67,7 @@ public class GUIBlankRuns extends JFrame {
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startLoopsHandler();
-	//			OptionData optionData = makeOptionData();
-	//			TempBlankRun tempBlankRun = new TempBlankRun(optionData);
-	//			tempBlankRun.startTimer();
+
 	
 
 
@@ -82,27 +77,14 @@ public class GUIBlankRuns extends JFrame {
 		loopAmount = new JTextField("");
 		loopAmount.setPreferredSize(new Dimension( 200, 24 ));
 		panel.add(loopAmount);
-
-	
-	//	JButton btn
-
-		
 		
 		f.add(panel);
 		f.pack();
 		f.setVisible(true);
-		
-		
-		
-		
 	}
 	
 	/**This is the error handler for the Jtextfield with the amount of runs one wants to do.
 	 * 	It then uses the tempBlankRun class to create the small runs
-	 * 
-	 * 
-	 * 
-	 * 
 	 */
 	private void startLoopsHandler() {
 		String str = loopAmount.getText();
@@ -114,9 +96,7 @@ public class GUIBlankRuns extends JFrame {
 			int runs = Integer.parseInt(str);
 			OptionData optionData = makeOptionData();
 			for(int i = 0; i < runs; i++) {
-				System.out.println("I get to my runs loop");
 				BlankRun blankRun = new BlankRun(optionData);
-				System.out.println("I get to my runs loop");
 				blankRun.startTimer();
 				
 
@@ -140,6 +120,9 @@ public class GUIBlankRuns extends JFrame {
 		timer.stop();
 	}
 	
+	/* This creates an instance of optionData with all the values necessary to complete a run. Normally one would select these values in OptionMenu.java.
+	 * 
+	 */
 	private OptionData makeOptionData() {
 		OptionData optionData = new OptionData();
 		optionData.setFoodEnergy(100);
@@ -165,7 +148,6 @@ public class GUIBlankRuns extends JFrame {
 		optionData.addSpeedsList(10);
 		optionData.addTypeList("Carnivore");
 		return optionData;
-		
 	}
 	public void updateCounter(Integer count) {
 		String strCount = Integer.toString(count);

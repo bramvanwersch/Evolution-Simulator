@@ -23,6 +23,7 @@ public class PopulationData {
 	private ArrayList<Double> nrSpecies;
 	private double dataDivisionFactor;
 	private boolean reduce;
+	private String type;
 
 	public PopulationData() {
 		this.avgSpeed = new ArrayList<Double>(100);
@@ -187,6 +188,18 @@ public class PopulationData {
 	
 	public void setReduce(boolean b) {
 		this.reduce = b;
+	}
+	public String getEatingPref() {
+		String eatingPref = null;
+		System.out.println(this.nrCarnivores.toString());
+		if(this.nrCarnivores.toString()!="[]") {
+			eatingPref = "Carnivore";
+		} else if (this.nrHerbivores.toString()!="[]") {
+			eatingPref = "Herbivore";
+		} else if (this.nrOmnivores.toString()!="[]") {
+			eatingPref = "Omnivore";
+		}
+		return eatingPref;
 	}
 	//This method makes a string matrix of all arrays in this list as columns
 	//

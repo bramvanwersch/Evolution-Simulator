@@ -57,12 +57,19 @@ public class BlankGameLoop implements ActionListener {
 			}
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
+				survivorAndDataHandler();
 				System.out.println("Dying is not an option");
 				this.isSimulationFinished = true;
 				runCount += 1 ;
-			
 			}
 		}
+	}
+	private void survivorAndDataHandler() {
+		PopulationData soleSurvivor = getSoleSurvivor();
+		String header = makeHeader();
+		ArrayList<String> eatingPref = getEatingPref(soleSurvivor);
+		String dataString = makeString(soleSurvivor, header, eatingPref);
+		writeToFile(dataString);
 	}
 	
 	/**
@@ -111,8 +118,6 @@ public class BlankGameLoop implements ActionListener {
 			}
 		System.out.println("SoleSurvivor found");
 		System.out.println(Integer.toString(soleSurvivor.getAvgSpeed()[0]));
-		
-		
 		return soleSurvivor;
 	}
 	private String makeHeader() {
@@ -122,9 +127,7 @@ public class BlankGameLoop implements ActionListener {
 		list.add("AvgSpeed");
 		list.add("AvgScent");
 		list.add("NrSpec");
-		list.add("NrCarn");
-		list.add("NrHerb");
-		list.add("NrOmni");
+		list.add("EatingPref");
 		StringBuilder sb = new StringBuilder();
 		for (String s : list) {
 			sb.append(s);
@@ -133,12 +136,37 @@ public class BlankGameLoop implements ActionListener {
 		sb.append("\n");
 		return sb.toString();
 	}
-	
-	private String makeString(PopulationData soleSurvivor, String header) {
+	/* This obtains the "type" of the population(omnivore="O", herbivore="H" or carnivore="C") and returns a List of characters
+	 * of the length of the data
+	 * @ param PopulationData solesurvivor ; the sole survivor of the run.
+	 */
+	private ArrayList<String> getEatingPref(PopulationData soleSurvivor){
+		Population pop =  environment.getMaxNrSpeciesPop();
+		System.out.println(pop.getType());
+		int length = soleSurvivor.getAvgAge().length;
+		String eatingPref = "Nan";
+		if(pop.getType().equals("Carnivore")){
+			eatingPref = "C";
+		}else if (pop.getType().equals("Herbivore")) {
+			eatingPref = "H";
+		}else if (pop.getType().equals("Omnivore")) {
+			eatingPref = "O";
+		}
+		ArrayList<String> eatingPrefList = new ArrayList<String>(length);
+		for (int i = 0 ; i < length ; i++) {
+			eatingPrefList.add(eatingPref);
+		}
+		return eatingPrefList;
+	}
+	/* This formats the string to write into the file, it puts together: the type obtained from getEatingpref,
+	 * the header made with makeHeader and the data of the lone survivor obtained from populationData.
+	 * 
+	 */
+	private String makeString(PopulationData soleSurvivor, String header, ArrayList<String> eatingPrefList) {
 		StringBuilder sb = new StringBuilder();
+		int length = soleSurvivor.getAvgAge().length;	
 		String string = "";
 		sb.append(header);
-		int length = soleSurvivor.getAvgAge().length;
 		for(int i = 0 ; i < length ; i++) {
 			sb.append(Integer.toString(soleSurvivor.getAvgAge()[i]));
 			sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[i]));
@@ -146,11 +174,8 @@ public class BlankGameLoop implements ActionListener {
 			sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[i]));
 			sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[i]));
 			sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getNrCarnivores()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getNrHerbivores()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getNrOmnivores()[i]));
+			sb.append("\t" + eatingPrefList.get(i));
 			sb.append("\n");
-		
 		}
 		System.out.println("String made");
 		System.out.println(sb.toString());
@@ -175,9 +200,6 @@ public class BlankGameLoop implements ActionListener {
 			}
 			
 		}
-		
-		
-
 	}
 	
 	
@@ -203,9 +225,4 @@ public class BlankGameLoop implements ActionListener {
 	public boolean isSimulationFinished() {
 		return isSimulationFinished;
 	}
-
-
-	
-	
-
 }
