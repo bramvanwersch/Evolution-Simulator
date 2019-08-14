@@ -2,6 +2,8 @@ package guilessRuns;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -97,6 +99,86 @@ public class BlankGameLoop implements ActionListener {
 		return false;
 	}
 	
+	private PopulationData getSoleSurvivor() {
+		int length = 0;
+		PopulationData soleSurvivor = null;
+		for(int i = 0; i < popData.length ; i++ ) {
+			length = popData[i].getNrSpecies().length;
+			if(popData[i].getNrSpecies()[length-1]!=0) {
+				System.out.println(popData[i].getNrSpecies()[length-1]);
+				soleSurvivor = popData[i];
+			}
+			}
+		System.out.println("SoleSurvivor found");
+		System.out.println(Integer.toString(soleSurvivor.getAvgSpeed()[0]));
+		
+		
+		return soleSurvivor;
+	}
+	private String makeHeader() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("AvgEnergyCost");
+		list.add("AvgSize");
+		list.add("AvgSpeed");
+		list.add("AvgScent");
+		list.add("NrSpec");
+		list.add("NrCarn");
+		list.add("NrHerb");
+		list.add("NrOmni");
+		StringBuilder sb = new StringBuilder();
+		for (String s : list) {
+			sb.append(s);
+			sb.append("\t");
+		}
+		sb.append("\n");
+		return sb.toString();
+	}
+	
+	private String makeString(PopulationData soleSurvivor, String header) {
+		StringBuilder sb = new StringBuilder();
+		String string = "";
+		sb.append(header);
+		int length = soleSurvivor.getAvgAge().length;
+		for(int i = 0 ; i < length ; i++) {
+			sb.append(Integer.toString(soleSurvivor.getAvgAge()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getNrCarnivores()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getNrHerbivores()[i]));
+			sb.append("\t" + Integer.toString(soleSurvivor.getNrOmnivores()[i]));
+			sb.append("\n");
+		
+		}
+		System.out.println("String made");
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
+	
+	private void writeToFile(String string) {
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter("DataDocument.txt",true);
+			fileWriter.write(string);
+		} catch (IOException e) {
+			System.out.println("File could not be found");
+			e.printStackTrace();
+		}finally {
+			try {
+				fileWriter.flush();
+				fileWriter.close();
+			} catch (IOException e) {
+				System.out.println("File was not saved");
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+
+	}
 	
 	
 	public Integer getDeadPopulation() {
