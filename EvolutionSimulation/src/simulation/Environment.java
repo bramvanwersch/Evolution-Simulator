@@ -452,61 +452,7 @@ public class Environment {
 		return finalArray;
 	}
 	
-//	public double[] getSpeedStats() {
-//		double[] valArray = new double[populations.size()];
-//		for (int i = 0; i < populations.size(); i++) {
-//			if (populations.get(i).getNrSpecies() != 0) {
-//				valArray[i] = populations.get(i).getSpeedStats()[0];
-//			}
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getMaxSizeStats() {
-//		double[] valArray = new double[populations.size()];
-//		for (int i = 0; i < populations.size(); i++) {
-//			if (populations.get(i).getNrSpecies() != 0) {
-//				valArray[i] = populations.get(i).getMaxSizeStats()[0];
-//			}
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getMaxAgeStats() {
-//		double[] valArray = new double[populations.size()];
-//		for (int i = 0; i < populations.size(); i++) {
-//			if (populations.get(i).getNrSpecies() != 0) {
-//				valArray[i] = populations.get(i).getMaxAgeStats()[0];
-//			}
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getScentStats() {
-//		double[] valArray = new double[populations.size()];
-//		for (int i = 0; i < populations.size(); i++) {
-//			if (populations.get(i).getNrSpecies() != 0) {
-//				valArray[i] = populations.get(i).getScentStats()[0];
-//			}
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getEnergyConsumptionStats() {
-//		double[] valArray = new double[populations.size()];
-//		for (int i = 0; i < populations.size(); i++) {
-//			if (populations.get(i).getNrSpecies() != 0) {
-//				valArray[i] = populations.get(i).getEnergyConsumptionStats()[0];
-//			}
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
+
 	public double calcAvgAttribute(double[] attrArray) {
 		double total = 0;
 		for(double arr : attrArray){
@@ -528,33 +474,11 @@ public class Environment {
 		return minMax;
 	}
 	
-//	public Population getMaxNrSpeciesPop() {
-//		ArrayList<Integer> nrSpecies = new ArrayList<Integer>();
-//		for(int i =0; i < this.populations.size(); i++) {
-//			nrSpecies.add(populations.get(i).getNrSpecies());
-//		}
-//		int max = Collections.max(nrSpecies);
-//		for(int i =0; i < this.populations.size(); i++) {
-//			if(max==populations.get(i).getNrSpecies()) {
-//				Population maxPopulation = populations.get(i);
-//			}
-//		}
-//		return maxPopulation;
-//	}
-
-
-
-	
 	public Population getMaxNrSpeciesPop() {
-		Population maxPopulation = null;
-		ArrayList<Integer> nrSpecies = new ArrayList<Integer>();
-		for(int i =0; i < this.populations.size(); i++) {
-			nrSpecies.add(populations.get(i).getNrSpecies());
-		}
-		int max = Collections.max(nrSpecies);
-		for(int i =0; i < this.populations.size(); i++) {
-			if(max==populations.get(i).getNrSpecies()) {
-				 maxPopulation = populations.get(i);
+		Population maxPopulation = populations.get(0);
+		for (int i = 1; i < populations.size(); i++) {
+			if (populations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
+				maxPopulation = populations.get(i);
 			}
 		}
 		return maxPopulation;

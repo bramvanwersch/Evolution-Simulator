@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
 
-import genome.Gene;
 import genome.Genome;
 import genome.PanGenome;
 
@@ -151,53 +148,7 @@ public class Population {
 		}
 		return finalArray;
 	}
-	
-//	
-//	public double[] getSpeedStats() {
-//		double[] valArray = new double[getNrSpecies()];
-//		for (int i = 0; i < getNrSpecies(); i++) {
-//			valArray[i] = speciesList.get(i).getSpeed();
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getMaxSizeStats() {
-//		double[] valArray = new double[getNrSpecies()];
-//		for (int i = 0; i < getNrSpecies(); i++) {
-//			valArray[i] = speciesList.get(i).getMaxSize();
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getMaxAgeStats() {
-//		double[] valArray = new double[getNrSpecies()];
-//		for (int i = 0; i < getNrSpecies(); i++) {
-//			valArray[i] = speciesList.get(i).getMaxAge();
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getScentStats() {
-//		double[] valArray = new double [getNrSpecies()];
-//		for (int i = 0; i < getNrSpecies(); i++) {
-//			valArray[i] = speciesList.get(i).getScentRange() - speciesList.get(i).getSize();
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-//	
-//	public double[] getEnergyConsumptionStats() {
-//		double[] valArray = new double[getNrSpecies()];
-//		for (int i = 0; i < getNrSpecies(); i++) {
-//			valArray[i] = speciesList.get(i).getEnergyConsumption();
-//		}
-//		int[] minMax = calcMinMax(valArray);
-//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-//	}
-	
+
 	public double calcAvgAttribute(double[] attrArray) {
 		double total = 0;
 		if (attrArray.length == 0) {
