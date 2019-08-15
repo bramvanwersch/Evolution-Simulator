@@ -424,17 +424,25 @@ public class Environment {
 		return populations;
 	}
 	
-	public double[][] getAveragePopulationStats() {
-		double[][] valArray = new double[5][];
-		for (int i = 0; i < populations.size(); i++) {
-			if (populations.get(i).getNrSpecies() != 0) {
-				double[][] attributes = populations.get(i).getStats();
-				for (int j = 0; j < attributes.length; j++) {
-					valArray[j][i] = attributes[j][0];
-				}
+	private ArrayList<Population> getLivingPopulations() {
+		ArrayList<Population> livingPopulations = new ArrayList<Population>();
+		for (Population sp: populations) {
+			if (sp.getNrSpecies() > 0) {
+				livingPopulations.add(sp);
 			}
 		}
-		System.out.println(Arrays.deepToString(valArray));
+		return livingPopulations;
+	}
+	
+	public double[][] getAveragePopulationStats() {
+		double[][] valArray = new double[5][getLivingPopulations().size()];
+		
+		for (int i = 0; i < getLivingPopulations().size(); i++) {
+			double[][] attributes = getLivingPopulations().get(i).getStats();
+			for (int j = 0; j < attributes.length; j++) {
+				valArray[j][i] = attributes[j][0];
+			}
+		}
 		double[][] finalArray = new double[5][];
 		for (int k = 0; k < finalArray.length; k++) {
 			double[] attribute = valArray[k];	
