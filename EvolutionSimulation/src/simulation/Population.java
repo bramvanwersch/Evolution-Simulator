@@ -2,8 +2,10 @@ package simulation;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 import genome.Gene;
 import genome.Genome;
@@ -133,51 +135,68 @@ public class Population {
  * Methods for data class. These methods calculate max, min and average values for all species for a 
  * certain statistic. Probably is a better way of doing this.
  */
-	
-	public double[] getSpeedStats() {
-		double[] valArray = new double[getNrSpecies()];
+	public double[][] getStats() {
+		double[][] valArray = new double[5][getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = speciesList.get(i).getSpeed();
+			double[] attributes = speciesList.get(i).getAttributeData();
+			for (int j = 0; j < attributes.length; j++) {
+				valArray[j][i] = attributes[j];
+			}
 		}
-		int[] minMax = calcMinMax(valArray);
-		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+		double[][] finalArray = new double[5][];
+		for (int k = 0; k < finalArray.length; k++) {
+			double[] attribute = valArray[k];	
+			int[] minMax = calcMinMax(attribute);
+			finalArray[k] = new double[]{calcAvgAttribute(attribute), minMax[0], minMax[1]};
+		}
+		return finalArray;
 	}
 	
-	public double[] getMaxSizeStats() {
-		double[] valArray = new double[getNrSpecies()];
-		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = speciesList.get(i).getMaxSize();
-		}
-		int[] minMax = calcMinMax(valArray);
-		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-	}
-	
-	public double[] getMaxAgeStats() {
-		double[] valArray = new double[getNrSpecies()];
-		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = speciesList.get(i).getMaxAge();
-		}
-		int[] minMax = calcMinMax(valArray);
-		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-	}
-	
-	public double[] getScentStats() {
-		double[] valArray = new double [getNrSpecies()];
-		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = speciesList.get(i).getScentRange() - speciesList.get(i).getSize();
-		}
-		int[] minMax = calcMinMax(valArray);
-		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-	}
-	
-	public double[] getEnergyConsumptionStats() {
-		double[] valArray = new double[getNrSpecies()];
-		for (int i = 0; i < getNrSpecies(); i++) {
-			valArray[i] = speciesList.get(i).getEnergyConsumption();
-		}
-		int[] minMax = calcMinMax(valArray);
-		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
-	}
+//	
+//	public double[] getSpeedStats() {
+//		double[] valArray = new double[getNrSpecies()];
+//		for (int i = 0; i < getNrSpecies(); i++) {
+//			valArray[i] = speciesList.get(i).getSpeed();
+//		}
+//		int[] minMax = calcMinMax(valArray);
+//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+//	}
+//	
+//	public double[] getMaxSizeStats() {
+//		double[] valArray = new double[getNrSpecies()];
+//		for (int i = 0; i < getNrSpecies(); i++) {
+//			valArray[i] = speciesList.get(i).getMaxSize();
+//		}
+//		int[] minMax = calcMinMax(valArray);
+//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+//	}
+//	
+//	public double[] getMaxAgeStats() {
+//		double[] valArray = new double[getNrSpecies()];
+//		for (int i = 0; i < getNrSpecies(); i++) {
+//			valArray[i] = speciesList.get(i).getMaxAge();
+//		}
+//		int[] minMax = calcMinMax(valArray);
+//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+//	}
+//	
+//	public double[] getScentStats() {
+//		double[] valArray = new double [getNrSpecies()];
+//		for (int i = 0; i < getNrSpecies(); i++) {
+//			valArray[i] = speciesList.get(i).getScentRange() - speciesList.get(i).getSize();
+//		}
+//		int[] minMax = calcMinMax(valArray);
+//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+//	}
+//	
+//	public double[] getEnergyConsumptionStats() {
+//		double[] valArray = new double[getNrSpecies()];
+//		for (int i = 0; i < getNrSpecies(); i++) {
+//			valArray[i] = speciesList.get(i).getEnergyConsumption();
+//		}
+//		int[] minMax = calcMinMax(valArray);
+//		return new double[]{calcAvgAttribute(valArray), minMax[0], minMax[1]};
+//	}
 	
 	public double calcAvgAttribute(double[] attrArray) {
 		double total = 0;

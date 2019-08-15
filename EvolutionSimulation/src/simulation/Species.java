@@ -115,6 +115,16 @@ public class Species{
 		return false;
 	}
 	
+	public double[] getAttributeData() {
+		double[] attributeArray = new double[5];
+		attributeArray[0] = getSpeed();
+		attributeArray[1] = getMaxSize();
+		attributeArray[2] = getMaxAge();
+		attributeArray[3] = getScentRange() - getSize();
+		attributeArray[4] = getEnergyConsumption();
+		return attributeArray;
+	}
+	
 	public void changeXLoc(double d) {
 		d = inXBounds(d);
 		this.xLoc += Math.round(d);

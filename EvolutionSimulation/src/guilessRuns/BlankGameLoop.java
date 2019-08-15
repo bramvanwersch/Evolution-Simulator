@@ -74,14 +74,14 @@ public class BlankGameLoop implements ActionListener {
 	 */
 	private void addPopData() {
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			Population sp = environment.getPopulations().get(i);
-			popData[i].setAvgSpeed(sp.getSpeedStats()[0]);
-			popData[i].setAvgSize(sp.getMaxSizeStats()[0]);
-			popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
-			popData[i].setAvgScent(sp.getScentStats()[0]);
-			popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
+			double[][] stats = environment.getPopulations().get(i).getStats();
+			popData[i].setAvgSpeed(stats[0][0]);
+			popData[i].setAvgSize(stats[1][0]);
+			popData[i].setAvgAge(stats[2][0]);
+			popData[i].setAvgScent(stats[3][0]);
+			popData[i].setAvgEnergyCost(stats[4][0]);
 			popData[i].setTime(timeElapsed/1000);
-			popData[i].setNrSpecies(sp.getNrSpecies());
+			popData[i].setNrSpecies(environment.getPopulations().get(i).getNrSpecies());
 		}
 	}
 	

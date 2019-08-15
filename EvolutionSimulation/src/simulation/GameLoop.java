@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.Timer;
 
@@ -72,26 +73,27 @@ public class GameLoop implements ActionListener{
 		averageData.setNrHerbivores(environment.getNrHerbivores());
 		averageData.setNrOmnivores(environment.getNrOmnivores());
 		averageData.setNrCarnivores(environment.getNrCarnivores());
-		averageData.setAvgSpeed(environment.getSpeedStats()[0]);
-		averageData.setAvgSize(environment.getMaxAgeStats()[0]);
-		averageData.setAvgAge(environment.getMaxAgeStats()[0]);
-		averageData.setAvgScent(environment.getScentStats()[0]);
-		averageData.setAvgEnergyCost(environment.getEnergyConsumptionStats()[0]);
+		double[][] averageStats = environment.getAveragePopulationStats();
+		averageData.setAvgSpeed(averageStats[0][0]);
+		averageData.setAvgSize(averageStats[1][0]);
+		averageData.setAvgAge(averageStats[2][0]);
+		averageData.setAvgScent(averageStats[3][0]);
+		averageData.setAvgEnergyCost(averageStats[4][0]);
 		averageData.setTime(timeElapsed/1000);
 	}
 	
-		private void addPopData() {
-			for (int i = 0; i < environment.getPopulations().size(); i ++) {
-				Population sp = environment.getPopulations().get(i);
-				popData[i].setAvgSpeed(sp.getSpeedStats()[0]);
-				popData[i].setAvgSize(sp.getMaxSizeStats()[0]);
-				popData[i].setAvgAge(sp.getMaxAgeStats()[0]);
-				popData[i].setAvgScent(sp.getScentStats()[0]);
-				popData[i].setAvgEnergyCost(sp.getEnergyConsumptionStats()[0]);
-				popData[i].setTime(timeElapsed/1000);
-				popData[i].setNrSpecies(sp.getNrSpecies());
-			}
+	private void addPopData() {
+		for (int i = 0; i < environment.getPopulations().size(); i ++) {
+			double[][] stats = environment.getPopulations().get(i).getStats();
+			popData[i].setAvgSpeed(stats[0][0]);
+			popData[i].setAvgSize(stats[1][0]);
+			popData[i].setAvgAge(stats[2][0]);
+			popData[i].setAvgScent(stats[3][0]);
+			popData[i].setAvgEnergyCost(stats[4][0]);
+			popData[i].setTime(timeElapsed/1000);
+			popData[i].setNrSpecies(environment.getPopulations().get(i).getNrSpecies());
 		}
+	}
 	
 	/**
 	 * Function for collecting data to be displayed in the labels besides the game to easier track progression
@@ -100,13 +102,13 @@ public class GameLoop implements ActionListener{
 	 */
 	private String[] getLabelTexts() {
 		String [] lblTexts = new String [7];
-		Environment t = this.environment;
+		double[][] averageStats = environment.getAveragePopulationStats();
 		lblTexts[0] = String.format("%d|%d|%d (%d)",environment.getNrHerbivores(),environment.getNrOmnivores(), environment.getNrCarnivores(), environment.getAllDeadSpecies());
-		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", environment.getSpeedStats()[0],environment.getSpeedStats()[1],environment.getSpeedStats()[2]);
-		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", environment.getMaxSizeStats()[0],environment.getMaxSizeStats()[1],environment.getMaxSizeStats()[2]);
-		lblTexts[3] = String.format("%.2f (%.0f - %.0f)", environment.getMaxAgeStats()[0],environment.getMaxAgeStats()[1],environment.getMaxAgeStats()[2]);
-		lblTexts[4] = String.format("%.2f (%.0f - %.0f)", environment.getScentStats()[0],environment.getScentStats()[1],environment.getScentStats()[2]);
-		lblTexts[5] = String.format("%.2f (%.0f - %.0f)", environment.getEnergyConsumptionStats()[0],environment.getEnergyConsumptionStats()[1],environment.getEnergyConsumptionStats()[2]);
+		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", averageStats[0][0], averageStats[0][1], averageStats[0][2]);
+		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", averageStats[1][0], averageStats[1][1], averageStats[1][2]);
+		lblTexts[3] = String.format("%.2f (%.0f - %.0f)", averageStats[2][0], averageStats[2][1], averageStats[2][2]);
+		lblTexts[4] = String.format("%.2f (%.0f - %.0f)", averageStats[3][0], averageStats[3][1], averageStats[3][2]);
+		lblTexts[5] = String.format("%.2f (%.0f - %.0f)", averageStats[4][0], averageStats[4][1], averageStats[4][2]);
 		lblTexts[6] = String.format("%d Seconds", timeElapsed/1000);
 		return lblTexts;
 	}
