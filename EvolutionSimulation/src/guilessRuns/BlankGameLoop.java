@@ -18,24 +18,23 @@ public class BlankGameLoop implements ActionListener {
 	private Environment environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
-	private boolean isSimulationFinished;
 	private int updateTime;
 	private Integer runCount;
 	private PopulationData popData[];
+	private boolean runFinished;
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
 		this.popData = new PopulationData[environment.getPopulations().size()];
 		this.timeElapsed = 0;
-		this.isSimulationFinished = false;
 		this.updateTime = updateTime;
 		this.popData = new PopulationData[environment.getPopulations().size()];
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
 			this.popData[i] = new PopulationData();
 		}
 		environment.moveSpecies();
-		runCount = 0;
+
 		
 		
 	}
@@ -58,9 +57,7 @@ public class BlankGameLoop implements ActionListener {
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
 				survivorAndDataHandler();
-				System.out.println("Dying is not an option");
-				this.isSimulationFinished = true;
-				runCount += 1 ;
+				
 			}
 		}
 	}
@@ -101,6 +98,7 @@ public class BlankGameLoop implements ActionListener {
 			System.out.println("Timer stopped");
 			Timer t  = (Timer) e.getSource();
 			t.stop();
+			runFinished = true;
 			return true;
 		}
 		return false;
@@ -221,8 +219,9 @@ public class BlankGameLoop implements ActionListener {
 	public String getRunCountString() {
 		return runCount.toString();
 	}
-	
-	public boolean isSimulationFinished() {
-		return isSimulationFinished;
+	public boolean getRunFinished() {
+		return runFinished;
 	}
+	
+
 }

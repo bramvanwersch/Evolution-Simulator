@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,11 +16,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import gui.OptionData;
 import simulation.Environment;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 
 public class GUIBlankRuns extends JFrame {
 	private Timer timer;
@@ -33,12 +38,15 @@ public class GUIBlankRuns extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                    ex.printStackTrace();
+                }
+			
 					GUIBlankRuns frame = new GUIBlankRuns(10);
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+
 			}
 		});
 	}	
@@ -67,10 +75,6 @@ public class GUIBlankRuns extends JFrame {
 		btnLoops.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startLoopsHandler();
-
-	
-
-
 			}
 		});
 		
@@ -82,26 +86,67 @@ public class GUIBlankRuns extends JFrame {
 		f.pack();
 		f.setVisible(true);
 	}
-	
 	/**This is the error handler for the Jtextfield with the amount of runs one wants to do.
 	 * 	It then uses the tempBlankRun class to create the small runs
+	 * @throws  
 	 */
+	
 	private void startLoopsHandler() {
 		String str = loopAmount.getText();
-		if (str.chars().allMatch( Character::isLetter )) {
+		if (str.chars().allMatch(Character::isLetter)) {
 			JOptionPane.showMessageDialog(contentPane, "These are charcters", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (Integer.parseInt(str) > 10) {
-			JOptionPane.showMessageDialog(contentPane, "Too many runs will take a lot of time", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if (str.chars().allMatch( Character::isDigit ) && Integer.parseInt(str) < 10) {
+			JOptionPane.showMessageDialog(contentPane, "Too many runs will take a lot of time", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (str.chars().allMatch(Character::isDigit) && Integer.parseInt(str) < 10) {
 			int runs = Integer.parseInt(str);
-			OptionData optionData = makeOptionData();
-			for(int i = 0; i < runs; i++) {
-				BlankRun blankRun = new BlankRun(optionData);
-				blankRun.startTimer();
+			swingWorker(runs);
+		}
+	}
+	
+
+	private void swingWorker(int runs) {
+			SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+				@Override
+				protected Void doInBackground() throws Exception {
+					// TODO Auto-generated method stub
+					System.out.println("Print something");
+
+					for (int i = 0; i < runs; i++) {
+						BlankRunThread blankRunThread = new BlankRunThread();
+						blankRunThread.startTimer();
+						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
+
+						}
+						System.out.println("This motherfucking SwingTimer is fucking working");
+						publish(i);
+						
+					}
+					return null;
+				}
+
+				@Override
+				protected void done() {
+					// TODO Auto-generated method stub
+					System.out.println("Done");
+					
+				}
+
+				@Override
+				protected void process(List<Integer> chunks) {
+					// TODO Auto-generated method stub
+					int runsDone = chunks.get(chunks.size()-1);
+					runsDone +=1;
+					lblCounter.setText(Integer.toString(runsDone));
+				}
+				
 				
 
-			}
-		}
+			};
+
+			worker.execute();
+		
+
 	}
 	
 
@@ -123,32 +168,7 @@ public class GUIBlankRuns extends JFrame {
 	/* This creates an instance of optionData with all the values necessary to complete a run. Normally one would select these values in OptionMenu.java.
 	 * 
 	 */
-	private OptionData makeOptionData() {
-		OptionData optionData = new OptionData();
-		optionData.setFoodEnergy(100);
-		optionData.setFoodSize(5);
-		
-		optionData.addColorsList(new Color(66,66,66));
-		optionData.addEatSizeFactorsList(1);
-		optionData.addMaxAgesList(5);
-		optionData.addNamesList("Brams");
-		optionData.addNoIndividualsList(1);
-		optionData.addScentRangesList(10);
-		optionData.addSizesList(50);
-		optionData.addSpeedsList(10);
-		optionData.addTypeList("Herbivore");
-		
-		optionData.addColorsList(new Color(66,66,66));
-		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(8);
-		optionData.addNamesList("Wytzeus");
-		optionData.addNoIndividualsList(1);
-		optionData.addScentRangesList(10);
-		optionData.addSizesList(50);
-		optionData.addSpeedsList(10);
-		optionData.addTypeList("Carnivore");
-		return optionData;
-	}
+
 	public void updateCounter(Integer count) {
 		String strCount = Integer.toString(count);
 		this.lblCounter.setText(strCount);
