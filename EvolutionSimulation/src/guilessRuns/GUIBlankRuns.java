@@ -118,7 +118,7 @@ public class GUIBlankRuns extends JFrame {
 						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
 
 						}
-						System.out.println("This motherfucking SwingTimer is fucking working");
+						System.out.println("This motherfucking SwingTimer is fucing working");
 						publish(i);
 						
 					}
