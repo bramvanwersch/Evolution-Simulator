@@ -16,8 +16,6 @@ public class GameLoop implements ActionListener{
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private SidePanelGui sidePanel;
-	private PopulationData averageData;
-	private PopulationData popData[];
 
 	/**
 	 * Class for updating the main panel every 50 ms by invoking updating methods of species and saving data
@@ -32,14 +30,6 @@ public class GameLoop implements ActionListener{
 		this.environment = environment;
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
-		this.averageData = new PopulationData();
-		this.averageData.setReduce(true);
-		this.popData = new PopulationData[environment.getPopulations().size()];
-		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			this.popData[i] = new PopulationData();
-			//make sure data is reduced
-			this.popData[i].setReduce(true);
-		}
 		this.timeElapsed = 0;
 		environment.moveSpecies();
 	}
@@ -70,28 +60,12 @@ public class GameLoop implements ActionListener{
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
 	private void addAverageDataValues() {
-		averageData.setNrHerbivores(environment.getNrHerbivores());
-		averageData.setNrOmnivores(environment.getNrOmnivores());
-		averageData.setNrCarnivores(environment.getNrCarnivores());
-		double[][] averageStats = environment.getAveragePopulationStats();
-		averageData.setAvgSpeed(averageStats[0][0]);
-		averageData.setAvgSize(averageStats[1][0]);
-		averageData.setAvgAge(averageStats[2][0]);
-		averageData.setAvgScent(averageStats[3][0]);
-		averageData.setAvgEnergyCost(averageStats[4][0]);
-		averageData.setTime(timeElapsed/1000);
+		environment.saveAveragePopulationsStatsData(timeElapsed);
 	}
 	
 	private void addPopData() {
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			double[][] stats = environment.getPopulations().get(i).getStats();
-			popData[i].setAvgSpeed(stats[0][0]);
-			popData[i].setAvgSize(stats[1][0]);
-			popData[i].setAvgAge(stats[2][0]);
-			popData[i].setAvgScent(stats[3][0]);
-			popData[i].setAvgEnergyCost(stats[4][0]);
-			popData[i].setTime(timeElapsed/1000);
-			popData[i].setNrSpecies(environment.getPopulations().get(i).getNrSpecies());
+			environment.getPopulations().get(i).saveStatsData(timeElapsed);
 		}
 	}
 	
@@ -128,13 +102,6 @@ public class GameLoop implements ActionListener{
 		return false;
 	}
 
-	public PopulationData getAverageData() {
-		return this.averageData;
-	}
-	
-	public PopulationData[] getPopulationData() {
-		return this.popData;
-	}
 	
 	public int getTimeElapsed() {
 		return timeElapsed;
