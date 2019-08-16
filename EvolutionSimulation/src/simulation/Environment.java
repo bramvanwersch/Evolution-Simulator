@@ -24,6 +24,7 @@ public class Environment {
 		this.foodSize = options.getFoodSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
+		this.averagePopData.setReduce(true);
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
