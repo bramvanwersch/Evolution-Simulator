@@ -3,6 +3,7 @@ package guilessRuns;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,12 +16,16 @@ public class DataSaver {
 	private int runCounter;
 	private PopulationData soleSurvivor;
 	private Environment environment;
+	private Population population;
+	private String lineSeparator = System.getProperty("line.separator");
+	
 	
 	
 	public DataSaver(PopulationData soleSurvivor,Environment environment) {
 		runCounter = 0;
 		this.soleSurvivor = soleSurvivor; 
 		this.environment = environment;
+		this.population = environment.getMaxNrSpeciesPop();
 		
 	}
 	
@@ -30,32 +35,30 @@ public class DataSaver {
 		if (file.length() == 0) {
 			dataStringBuilder.append(makeHeader());
 		}else {
-			dataStringBuilder.append("\n");
+			dataStringBuilder.append(lineSeparator);
 		}
 		dataStringBuilder.append(makeString());
-		System.out.println("Inside the wrapper");
 		String dataString = dataStringBuilder.toString();
-		System.out.println(dataString);
 		writeToFile(dataString);
 	}
 	
 	private String makeHeader() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("AvgEnergyCost");
-		sb.append("AvgSize");
-		sb.append("AvgSpeed");
-		sb.append("AvgScent");
-		sb.append("NrSpec");
-		sb.append("EatingPref");
-		sb.append("DATETAG");
-		sb.append("Start/End");
-		sb.append("\n");
+		sb.append("AvgAge" +"\t");
+		sb.append("AvgEnergyCost"+"\t");
+		sb.append("AvgSize"+"\t");
+		sb.append("AvgSpeed"+"\t");
+		sb.append("AvgScent"+"\t");
+		sb.append("NrSpec"+"\t");
+		sb.append("EatingPref"+"\t");
+		sb.append("DATETAG"+"\t");
+		sb.append("Start/End"+"\t");
+		sb.append(lineSeparator);
 		return sb.toString();
 	}
 	
 	private ArrayList<String> getEatingPref(PopulationData soleSurvivor){
-		System.out.println("Value of environment");
-		System.out.println(environment.getNrFood());
+
 		Population pop =  environment.getMaxNrSpeciesPop();
 		String eatingPref = "Nan";
 		if(pop.getType().equals("Carnivore")){
@@ -88,7 +91,7 @@ public class DataSaver {
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
 		sb.append("\t"+ "START");
-		sb.append("\n");
+		sb.append(lineSeparator);
 		// last values
 		sb.append(Integer.toString(soleSurvivor.getAvgAge()[length]));
 		sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[length]));
@@ -99,31 +102,29 @@ public class DataSaver {
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
 		sb.append("\t"+ "END");
-		sb.append("\n");
+		sb.append(lineSeparator);
 		return sb.toString();
 	}
+	/*Writer function which takes the created string and writes it to file. It uses PrintWriter because that is suited for formatted files
+	 * 
+	 */
 	public void writeToFile(String dataString) {
-		FileWriter fileWriter = null;
+		PrintWriter printWriter = null;
 		try {
-			fileWriter = new FileWriter("DataDocument.txt", true);
-			fileWriter.write(dataString);
+			printWriter = new PrintWriter("DataDocument.txt");
+			printWriter.write(dataString);
 
 			System.out.println("File was written");
 		} catch (IOException e) {
 			System.out.println("File could not be found");
 			e.printStackTrace();
 		}finally {
-			try {
-				fileWriter.flush();
-				fileWriter.close();
-			} catch (IOException e) {
-				System.out.println("File was not saved");
-				e.printStackTrace();
-			}
+			printWriter.flush();
+			printWriter.close();
 			
 		}
 		
-		if(fileWriter==null) {
+		if(printWriter==null) {
 			System.out.println("no file");
 		}
 	}
