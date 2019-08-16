@@ -454,6 +454,10 @@ public class Environment {
 		}
 		return popDataArray;
 	}
+	
+	public PopulationData getAveragePopData() {
+		return this.averagePopData;
+	}
 
 	
 /*

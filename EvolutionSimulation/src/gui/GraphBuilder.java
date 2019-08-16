@@ -11,28 +11,40 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import simulation.Environment;
+import simulation.PopulationData;
+
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GraphBuilder extends Thread{
 	private JPanel sidePanel;
-	private JPanel graphPanel;
+	private GraphBuilder1 graphPanel;
+	private Environment environment;
 	public JRadioButton[] selectedPopulations;
 	public JRadioButton[] selectedAttributes;
+	private String[] populationNames;
+	private String[] attributeNames;
+	private boolean lookingAtGraph;
 	
-	public GraphBuilder(int[] xData, int[][][] yData, String[] populationNames, String[] attributeNames
+	public GraphBuilder(Environment environment, String[] populationNames, String[] attributeNames
 			,int width,int height,String[] axisNames, boolean dataPoints) {
+		this.environment = environment;
+		this.populationNames = populationNames;
+		this.attributeNames = attributeNames;
+		this.lookingAtGraph = true;
 		JFrame f = new JFrame("Graph");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		sidePanel = new JPanel();
@@ -42,20 +54,49 @@ public class GraphBuilder extends Thread{
 		selectedAttributes = new JRadioButton[attributeNames.length];
 		
 		//HARDCODED
-		createSidePanelWidgets(yData, populationNames, attributeNames);
-		graphPanel = new GraphBuilder1(xData,yData, selectedPopulations, selectedAttributes,
+		createSidePanelWidgets(populationNames, attributeNames);
+		graphPanel = new GraphBuilder1(getXData(),getYData(), selectedPopulations, selectedAttributes,
 				width,height,axisNames, dataPoints);
 		f.add(graphPanel, BorderLayout.WEST);
 		f.add(sidePanel, BorderLayout.EAST);
 		f.pack();
 		f.setVisible(true);
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				lookingAtGraph = false;
+			}
+		});
 	}
 	
 	public void run() {
-		
+		while(lookingAtGraph) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			graphPanel.setYData(getYData());
+			graphPanel.setXData(getXData());
+			graphPanel.repaint();
+		}
+	}
+	
+	private int[][][] getYData(){
+		int [][][] yDataArray = new int[environment.getAllPopData().length][][];
+		for (int j = 0; j < environment.getAllPopData().length; j++) {
+			PopulationData pd = environment.getAllPopData()[j];
+			pd.setDataDivisionFactor();
+			yDataArray[j] = pd.getDataArray();
+		}
+		return yDataArray;
+	}
+	
+	private int[] getXData() {
+		environment.getAveragePopData().setDataDivisionFactor();
+		return environment.getAveragePopData().getTime();
 	}
     
-    private void createSidePanelWidgets(int[][][] yData, String[] populationNames, String[] attributeNames){
+    private void createSidePanelWidgets(String[] populationNames, String[] attributeNames){
     	//Hardcoded
     	//spacing kind of bad solution.
     	JLabel populationsLbl = new JLabel("Populations:            ");
@@ -298,6 +339,14 @@ class GraphBuilder1 extends JPanel{
         g2d.translate(adjXCoord, adjYCoord);
     	g2d.drawString(text, 0,0);
     	g2d.setTransform(old);
+    }
+    
+    public void setYData(int[][][] data) {
+    	this.allYData = data;
+    }
+    
+    public void setXData(int[] data) {
+    	this.allXData = data;
     }
     
     private int getAxisFont() {

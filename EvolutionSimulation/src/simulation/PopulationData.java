@@ -3,12 +3,6 @@ package simulation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-/**
- * PopulationData class records one instance of population
- * @author wytze
- *
- */
-
 
 public class PopulationData {
 	private ArrayList<Double> avgSpeed;
@@ -74,12 +68,13 @@ public class PopulationData {
 		dataArray[3] = getAvgScent();
 		dataArray[4] = getAvgEnergyCost();
 		dataArray[5] = getNrSpecies();
+		System.out.println(dataDivisionFactor);
 		return dataArray;
 	}
 	
 	public void setDataDivisionFactor() {
 		int divisionFactor = 1;
-		int arrayLength = getTime().length;
+		int arrayLength = time.size();
 		while (arrayLength/divisionFactor > 50){
 			divisionFactor += 1;
 		}

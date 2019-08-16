@@ -41,7 +41,7 @@ public class Run {
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
 		f = new JFrame("Terrain");
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(panel, bd.CENTER);
 		f.add(sidePanel, bd.EAST);
 		
@@ -85,9 +85,6 @@ public class Run {
 		f.setVisible(true);
 	}
 	
-
-	
-	
 	public void startTimer() {
 		timer.start();
 	}
@@ -115,16 +112,8 @@ public class Run {
 			Population sp = environment.getPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
-		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};
-		//Array in the form of [populations[attributes[data points]]]
-		int [][][] yDataArray = new int[environment.getAllPopData().length][][];
-		for (int j = 0; j < environment.getAllPopData().length; j++) {
-			PopulationData pd = environment.getAllPopData()[j];
-			pd.setDataDivisionFactor();
-			yDataArray[j] = pd.getDataArray();
-		}
-		new GraphBuilder(environment.getAllPopData()[0].getTime(), yDataArray, populationNames, attributeNames,
-				1000, 800, new String [] {"Time", ""}, false);
+		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};		
+		new GraphBuilder(environment, populationNames, attributeNames,1000, 800, new String [] {"Time", ""}, false).start();
 	}
 
 }
