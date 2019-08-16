@@ -55,7 +55,8 @@ public class BlankGameLoop implements ActionListener {
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
 				PopulationData soleSurvivor = getSoleSurvivor();
-				DataSaver dataSaver = new DataSaver(soleSurvivor, environment);
+				Population population = environment.getMaxNrSpeciesPop();
+				DataSaver dataSaver = new DataSaver(soleSurvivor, population);
 				dataSaver.saveDataWrapper();
 				
 			}
