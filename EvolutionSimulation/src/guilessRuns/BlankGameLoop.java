@@ -56,18 +56,14 @@ public class BlankGameLoop implements ActionListener {
 			}
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
-				survivorAndDataHandler();
+				PopulationData soleSurvivor = getSoleSurvivor();
+				DataSaver dataSaver = new DataSaver(soleSurvivor, environment);
+				dataSaver.saveDataWrapper();
 				
 			}
 		}
 	}
-	private void survivorAndDataHandler() {
-		PopulationData soleSurvivor = getSoleSurvivor();
-		String header = makeHeader();
-		ArrayList<String> eatingPref = getEatingPref(soleSurvivor);
-		String dataString = makeString(soleSurvivor, header, eatingPref);
-		writeToFile(dataString);
-	}
+
 	
 	/**
 	 * Function that is evoked every second to record data points for every stat of the species and time.
@@ -118,87 +114,18 @@ public class BlankGameLoop implements ActionListener {
 		System.out.println(Integer.toString(soleSurvivor.getAvgSpeed()[0]));
 		return soleSurvivor;
 	}
-	private String makeHeader() {
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("AvgEnergyCost");
-		list.add("AvgSize");
-		list.add("AvgSpeed");
-		list.add("AvgScent");
-		list.add("NrSpec");
-		list.add("EatingPref");
-		StringBuilder sb = new StringBuilder();
-		for (String s : list) {
-			sb.append(s);
-			sb.append("\t");
-		}
-		sb.append("\n");
-		return sb.toString();
-	}
+
 	/* This obtains the "type" of the population(omnivore="O", herbivore="H" or carnivore="C") and returns a List of characters
 	 * of the length of the data
 	 * @ param PopulationData solesurvivor ; the sole survivor of the run.
 	 */
-	private ArrayList<String> getEatingPref(PopulationData soleSurvivor){
-		Population pop =  environment.getMaxNrSpeciesPop();
-		System.out.println(pop.getType());
-		int length = soleSurvivor.getAvgAge().length;
-		String eatingPref = "Nan";
-		if(pop.getType().equals("Carnivore")){
-			eatingPref = "C";
-		}else if (pop.getType().equals("Herbivore")) {
-			eatingPref = "H";
-		}else if (pop.getType().equals("Omnivore")) {
-			eatingPref = "O";
-		}
-		ArrayList<String> eatingPrefList = new ArrayList<String>(length);
-		for (int i = 0 ; i < length ; i++) {
-			eatingPrefList.add(eatingPref);
-		}
-		return eatingPrefList;
-	}
+
 	/* This formats the string to write into the file, it puts together: the type obtained from getEatingpref,
 	 * the header made with makeHeader and the data of the lone survivor obtained from populationData.
 	 * 
 	 */
-	private String makeString(PopulationData soleSurvivor, String header, ArrayList<String> eatingPrefList) {
-		StringBuilder sb = new StringBuilder();
-		int length = soleSurvivor.getAvgAge().length;	
-		String string = "";
-		sb.append(header);
-		for(int i = 0 ; i < length ; i++) {
-			sb.append(Integer.toString(soleSurvivor.getAvgAge()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[i]));
-			sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[i]));
-			sb.append("\t" + eatingPrefList.get(i));
-			sb.append("\n");
-		}
-		System.out.println("String made");
-		System.out.println(sb.toString());
-		return sb.toString();
-	}
-	
-	private void writeToFile(String string) {
-		FileWriter fileWriter = null;
-		try {
-			fileWriter = new FileWriter("DataDocument.txt",true);
-			fileWriter.write(string);
-		} catch (IOException e) {
-			System.out.println("File could not be found");
-			e.printStackTrace();
-		}finally {
-			try {
-				fileWriter.flush();
-				fileWriter.close();
-			} catch (IOException e) {
-				System.out.println("File was not saved");
-				e.printStackTrace();
-			}
-			
-		}
-	}
+
+
 	
 	
 	public Integer getDeadPopulation() {

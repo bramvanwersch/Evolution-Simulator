@@ -143,10 +143,7 @@ public class GUIBlankRuns extends JFrame {
 				
 
 			};
-
 			worker.execute();
-		
-
 	}
 	
 

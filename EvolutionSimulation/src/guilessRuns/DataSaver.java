@@ -1,113 +1,130 @@
-//package guilessRuns;
-//
-//import java.awt.Color;
-//import java.awt.EventQueue;
-//import java.awt.GridBagConstraints;
-//import java.awt.GridBagLayout;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.util.concurrent.TimeUnit;
-//
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
-//import javax.swing.border.EmptyBorder;
-//
-//import gui.SidePanelGui;
-//import gui.Trial_And_Error;
-//import simulation.PopulationData;
-//import gui.OptionData;
-//import gui.OptionMenu;
-//import gui.Run;
-//
-//
-//public class DataSaver {
-//	private int runCounter;
-//	
-//	public DataSaver() {
-//		runCounter = 0;
-//		try {
-//			createOptionData();
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		catch ( InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
-//	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					DataSaver data = new DataSaver(); 
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//	
-//	private void createOptionData() throws IOException, InterruptedException {
-//		OptionData tempoptions = new OptionData();
-//		tempoptions.setFoodEnergy(100);
-//		tempoptions.setFoodSize(5);
-//		
-//		tempoptions.addColorsList(new Color(66,66,66));
-//		tempoptions.addEatSizeFactorsList(1);
-//		tempoptions.addMaxAgesList(8);
-//		tempoptions.addNamesList("Brams");
-//		tempoptions.addNoIndividualsList(1);
-//		tempoptions.addScentRangesList(10);
-//		tempoptions.addSizesList(50);
-//		tempoptions.addSpeedsList(10);
-//		tempoptions.addTypeList("Carnivore");
-//		
-//		tempoptions.addColorsList(new Color(66,66,66));
-//		tempoptions.addEatSizeFactorsList(0);
-//		tempoptions.addMaxAgesList(4);
-//		tempoptions.addNamesList("Wytzeus");
-//		tempoptions.addNoIndividualsList(1);
-//		tempoptions.addScentRangesList(10);
-//		tempoptions.addSizesList(50);
-//		tempoptions.addSpeedsList(10);
-//		tempoptions.addTypeList("Omnivore");
-//		
-//		
-////		JOptionPane pane = new JOptionPane();
-//		Trial_And_Error frame = new Trial_And_Error();
-//		frame.setVisible(true);
-//		
-//		
-//		BlankRun run =  new BlankRun(tempoptions, 10);
-//	
-//		
-////		pane.showConfirmDialog(null, "heeyy");
-//		
-//		
-//		System.out.println(run.getBlankLoop().isSimulationFinished());
-//		boolean checker = false;
-//		while(!checker) {
-//			System.out.println(run.getBlankLoop().isSimulationFinished());
-//			checker = run.getBlankLoop().isSimulationFinished();
-//		}
-//				
-//		FileWriter fw = new FileWriter("D:\\Scripts\\EvolutionaryGame2\\EvolutionSimulation\\Data\\OptimizingParametersData.txt");
-//		PopulationData[] data = run.getBlankLoop().getData();
-//	
-//	
-//		for(int i = 0; i < data.length; i++) {
-//			System.out.println("Matrixprinter");
-//			System.out.println(data[i].getMatrixString());
-//		}
-//		
-//		
-//}
-//
-//}
+package guilessRuns;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import simulation.Environment;
+import simulation.Population;
+import simulation.PopulationData;
+
+public class DataSaver {
+	private int runCounter;
+	private PopulationData soleSurvivor;
+	private Environment environment;
+	
+	
+	public DataSaver(PopulationData soleSurvivor,Environment environment) {
+		runCounter = 0;
+		this.soleSurvivor = soleSurvivor; 
+		this.environment = environment;
+		
+	}
+	
+	public void saveDataWrapper() {
+		StringBuilder dataStringBuilder = new StringBuilder();
+		File file = new File("DataDocument.txt");
+		if (file.length() == 0) {
+			dataStringBuilder.append(makeHeader());
+		}else {
+			dataStringBuilder.append("\n");
+		}
+		dataStringBuilder.append(makeString());
+		System.out.println("Inside the wrapper");
+		String dataString = dataStringBuilder.toString();
+		System.out.println(dataString);
+		writeToFile(dataString);
+	}
+	
+	private String makeHeader() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("AvgEnergyCost");
+		sb.append("AvgSize");
+		sb.append("AvgSpeed");
+		sb.append("AvgScent");
+		sb.append("NrSpec");
+		sb.append("EatingPref");
+		sb.append("DATETAG");
+		sb.append("Start/End");
+		sb.append("\n");
+		return sb.toString();
+	}
+	
+	private ArrayList<String> getEatingPref(PopulationData soleSurvivor){
+		System.out.println("Value of environment");
+		System.out.println(environment.getNrFood());
+		Population pop =  environment.getMaxNrSpeciesPop();
+		String eatingPref = "Nan";
+		if(pop.getType().equals("Carnivore")){
+			eatingPref = "C";
+		}else if (pop.getType().equals("Herbivore")) {
+			eatingPref = "H";
+		}else if (pop.getType().equals("Omnivore")) {
+			eatingPref = "O";
+		}
+		ArrayList<String> eatingPrefList = new ArrayList<String>(2);
+		for (int i = 0 ; i < 2 ; i++) {
+			eatingPrefList.add(eatingPref);
+		}
+		return eatingPrefList;
+	}
+	
+	private String  makeString() {
+		ArrayList<String> eatingPrefList = getEatingPref(soleSurvivor);
+		StringBuilder sb = new StringBuilder();
+		int length = soleSurvivor.getAvgAge().length-1;	
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now(); 
+		// initial values
+		sb.append(Integer.toString(soleSurvivor.getAvgAge()[0]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[0]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[0]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[0]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[0]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[0]));
+		sb.append("\t" + eatingPrefList.get(0));
+		sb.append("\t" + now);
+		sb.append("\t"+ "START");
+		sb.append("\n");
+		// last values
+		sb.append(Integer.toString(soleSurvivor.getAvgAge()[length]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[length]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[length]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[length]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[length]));
+		sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[length]));
+		sb.append("\t" + eatingPrefList.get(0));
+		sb.append("\t" + now);
+		sb.append("\t"+ "END");
+		sb.append("\n");
+		return sb.toString();
+	}
+	public void writeToFile(String dataString) {
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter("DataDocument.txt", true);
+			fileWriter.write(dataString);
+
+			System.out.println("File was written");
+		} catch (IOException e) {
+			System.out.println("File could not be found");
+			e.printStackTrace();
+		}finally {
+			try {
+				fileWriter.flush();
+				fileWriter.close();
+			} catch (IOException e) {
+				System.out.println("File was not saved");
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if(fileWriter==null) {
+			System.out.println("no file");
+		}
+	}
+	}
