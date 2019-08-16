@@ -113,7 +113,8 @@ public class Run {
 			populationNames[i] = sp.getName();
 		}
 		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};		
-		new GraphBuilder(environment, populationNames, attributeNames,1000, 800, new String [] {"Time", ""}, false).start();
+		new GraphBuilder(environment, populationNames, attributeNames,
+				1000, 800, new String [] {"Time", ""}, false).start();
 	}
 
 }

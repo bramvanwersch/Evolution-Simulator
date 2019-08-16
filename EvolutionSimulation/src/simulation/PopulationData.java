@@ -68,7 +68,6 @@ public class PopulationData {
 		dataArray[3] = getAvgScent();
 		dataArray[4] = getAvgEnergyCost();
 		dataArray[5] = getNrSpecies();
-		System.out.println(dataDivisionFactor);
 		return dataArray;
 	}
 	
@@ -87,6 +86,14 @@ public class PopulationData {
 			if (i + dataDivisionFactor <= dataArray.size()) {
 				List<Double> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
 				averagedData.add(sum(values)/dataDivisionFactor);
+			}
+			else {
+				List<Double> values = new ArrayList<Double>();
+				for (int j = i; j < dataArray.size(); j++) {
+					values.add(dataArray.get(i));
+				}
+				averagedData.add(sum(values)/(double) values.size());
+				//just to make sure this only happens once. That should be the case anyway but...
 			}
 		}
 		return averagedData;
