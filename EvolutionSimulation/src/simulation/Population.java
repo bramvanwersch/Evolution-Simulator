@@ -12,6 +12,7 @@ public class Population {
 	private final double MUTATION_CHANCE = 0.005;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
+	private PopulationData popData;
 	private Color color;
 	private String type;
 	private PanGenome panGenome;
@@ -20,6 +21,8 @@ public class Population {
 	
 	public Population(Color color, String type, String name) {
 		this.speciesList = new ArrayList<Species>();
+		this.popData = new PopulationData();
+		this.popData.setReduce(true);
 		this.diedSpecies = 0;
 		this.color = color;
 		this.type = type;
@@ -128,10 +131,25 @@ public class Population {
 		return this.name;
 	}
 	
+	public PopulationData getPopData() {
+		return popData;
+	}
+	
 	/*
  * Methods for data class. These methods calculate max, min and average values for all species for a 
- * certain statistic. Probably is a better way of doing this.
+ * certain statistic.
  */
+	public void saveStatsData(int timeElapsed) {
+		double[][] stats = getStats();
+		popData.setAvgSpeed(stats[0][0]);
+		popData.setAvgSize(stats[1][0]);
+		popData.setAvgAge(stats[2][0]);
+		popData.setAvgScent(stats[3][0]);
+		popData.setAvgEnergyCost(stats[4][0]);
+		popData.setTime(timeElapsed/1000);
+		popData.setNrSpecies(getNrSpecies());
+	}
+	
 	public double[][] getStats() {
 		double[][] valArray = new double[5][getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {

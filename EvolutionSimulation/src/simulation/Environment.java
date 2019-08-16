@@ -14,6 +14,7 @@ public class Environment {
 	private ArrayList<Population> populations;
 	private ArrayList<Food> foodList;
 	private int[] popOrderSeed;
+	private PopulationData averagePopData;
 	
 
 	public Environment(OptionData options) {
@@ -22,6 +23,7 @@ public class Environment {
 		this.foodEnergy = options.getFoodEnergy();
 		this.foodSize = options.getFoodSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
+		this.averagePopData = new PopulationData();
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
@@ -434,6 +436,41 @@ public class Environment {
 		return livingPopulations;
 	}
 	
+	public Population getMaxNrSpeciesPop() {
+		Population maxPopulation = populations.get(0);
+		for (int i = 1; i < populations.size(); i++) {
+			if (populations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
+				maxPopulation = populations.get(i);
+			}
+		}
+		return maxPopulation;
+	}
+	
+	public PopulationData[] getAllPopData() {
+		PopulationData[] popDataArray = new PopulationData[populations.size()];
+		for (int i = 0; i < populations.size(); i++) {
+			popDataArray[i] = populations.get(i).getPopData();
+		}
+		return popDataArray;
+	}
+
+	
+/*
+ * Data saving functions	
+ */
+	public void saveAveragePopulationsStatsData(int timeElapsed) {
+		averagePopData.setNrHerbivores(getNrHerbivores());
+		averagePopData.setNrOmnivores(getNrOmnivores());
+		averagePopData.setNrCarnivores(getNrCarnivores());
+		double[][] averageStats = getAveragePopulationStats();
+		averagePopData.setAvgSpeed(averageStats[0][0]);
+		averagePopData.setAvgSize(averageStats[1][0]);
+		averagePopData.setAvgAge(averageStats[2][0]);
+		averagePopData.setAvgScent(averageStats[3][0]);
+		averagePopData.setAvgEnergyCost(averageStats[4][0]);
+		averagePopData.setTime(timeElapsed/1000);
+	}
+	
 	public double[][] getAveragePopulationStats() {
 		double[][] valArray = new double[5][getLivingPopulations().size()];
 		
@@ -473,15 +510,4 @@ public class Environment {
 		}
 		return minMax;
 	}
-	
-	public Population getMaxNrSpeciesPop() {
-		Population maxPopulation = populations.get(0);
-		for (int i = 1; i < populations.size(); i++) {
-			if (populations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
-				maxPopulation = populations.get(i);
-			}
-		}
-		return maxPopulation;
-	}
-
 }

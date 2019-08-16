@@ -20,19 +20,13 @@ public class BlankGameLoop implements ActionListener {
 	private int foodRegenTxt;
 	private int updateTime;
 	private Integer runCount;
-	private PopulationData popData[];
 	private boolean runFinished;
 	
 	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
-		this.popData = new PopulationData[environment.getPopulations().size()];
 		this.timeElapsed = 0;
 		this.updateTime = updateTime;
-		this.popData = new PopulationData[environment.getPopulations().size()];
-		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			this.popData[i] = new PopulationData();
-		}
 		environment.moveSpecies();
 
 		
@@ -69,14 +63,7 @@ public class BlankGameLoop implements ActionListener {
 	 */
 	private void addPopData() {
 		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			double[][] stats = environment.getPopulations().get(i).getStats();
-			popData[i].setAvgSpeed(stats[0][0]);
-			popData[i].setAvgSize(stats[1][0]);
-			popData[i].setAvgAge(stats[2][0]);
-			popData[i].setAvgScent(stats[3][0]);
-			popData[i].setAvgEnergyCost(stats[4][0]);
-			popData[i].setTime(timeElapsed/1000);
-			popData[i].setNrSpecies(environment.getPopulations().get(i).getNrSpecies());
+			environment.getPopulations().get(i).saveStatsData(timeElapsed);
 		}
 	}
 	
@@ -101,10 +88,11 @@ public class BlankGameLoop implements ActionListener {
 	private PopulationData getSoleSurvivor() {
 		int length = 0;
 		PopulationData soleSurvivor = null;
-		for(int i = 0; i < popData.length ; i++ ) {
-			length = popData[i].getNrSpecies().length;
-			if(popData[i].getNrSpecies()[length-1]!=0) {
-				soleSurvivor = popData[i];
+		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
+			PopulationData pd = environment.getAllPopData()[i];
+			length = pd.getNrSpecies().length;
+			if(pd.getNrSpecies()[length-1]!=0) {
+				soleSurvivor = pd;
 			}
 			}
 		return soleSurvivor;
@@ -135,9 +123,6 @@ public class BlankGameLoop implements ActionListener {
 		return countDeadPopulation;
 	}
 
-	public PopulationData[] getData() {
-		return popData;
-	}
 	public String getRunCountString() {
 		return runCount.toString();
 	}

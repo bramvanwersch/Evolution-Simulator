@@ -25,7 +25,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GraphBuilder{
+public class GraphBuilder extends Thread{
 	private JPanel sidePanel;
 	private JPanel graphPanel;
 	public JRadioButton[] selectedPopulations;
@@ -49,6 +49,10 @@ public class GraphBuilder{
 		f.add(sidePanel, BorderLayout.EAST);
 		f.pack();
 		f.setVisible(true);
+	}
+	
+	public void run() {
+		
 	}
     
     private void createSidePanelWidgets(int[][][] yData, String[] populationNames, String[] attributeNames){

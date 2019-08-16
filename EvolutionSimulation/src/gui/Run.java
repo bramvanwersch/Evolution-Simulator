@@ -1,4 +1,4 @@
-package gui;
+	package gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,21 +110,20 @@ public class Run {
 
 	private void drawGraph() {
 		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
-		String[] populationNames = new String[loop.getPopulationData().length];
+		String[] populationNames = new String[environment.getAllPopData().length];
 		for (int i = 0; i < environment.getPopulations().size(); i++) {
 			Population sp = environment.getPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
 		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};
 		//Array in the form of [populations[attributes[data points]]]
-		int [][][] yDataArray = new int[loop.getPopulationData().length][][];
-		for (int j = 0; j < loop.getPopulationData().length; j++) {
-			PopulationData pd = loop.getPopulationData()[j];
+		int [][][] yDataArray = new int[environment.getAllPopData().length][][];
+		for (int j = 0; j < environment.getAllPopData().length; j++) {
+			PopulationData pd = environment.getAllPopData()[j];
 			pd.setDataDivisionFactor();
 			yDataArray[j] = pd.getDataArray();
 		}
-		loop.getAverageData().setDataDivisionFactor();
-		new GraphBuilder(loop.getAverageData().getTime(), yDataArray, populationNames, attributeNames,
+		new GraphBuilder(environment.getAllPopData()[0].getTime(), yDataArray, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false);
 	}
 
