@@ -110,17 +110,13 @@ public class GUIBlankRuns extends JFrame {
 				@Override
 				protected Void doInBackground() throws Exception {
 					// TODO Auto-generated method stub
-					System.out.println("Print something");
-
 					for (int i = 0; i < runs; i++) {
 						BlankRunThread blankRunThread = new BlankRunThread();
 						blankRunThread.startTimer();
 						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
 
 						}
-						System.out.println("This motherfucking SwingTimer is fucing working");
 						publish(i);
-						
 					}
 					return null;
 				}

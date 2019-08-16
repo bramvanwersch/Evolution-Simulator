@@ -49,8 +49,6 @@ public class BlankGameLoop implements ActionListener {
 		environment.createFood(foodRegenTxt);
 		addPopData();
 		if (timeElapsed % 1000 == 0) {
-			System.out.println("Age step taken");
-			System.out.println(this.environment.getPopulations().size());
 			if (timeElapsed != 0) {
 				environment.addAge();
 			}
@@ -91,7 +89,6 @@ public class BlankGameLoop implements ActionListener {
 		Integer countDeadPopulation = getDeadPopulation();
 
 		if (countDeadPopulation>= 1) {
-			System.out.println("Timer stopped");
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			runFinished = true;
@@ -106,12 +103,9 @@ public class BlankGameLoop implements ActionListener {
 		for(int i = 0; i < popData.length ; i++ ) {
 			length = popData[i].getNrSpecies().length;
 			if(popData[i].getNrSpecies()[length-1]!=0) {
-				System.out.println(popData[i].getNrSpecies()[length-1]);
 				soleSurvivor = popData[i];
 			}
 			}
-		System.out.println("SoleSurvivor found");
-		System.out.println(Integer.toString(soleSurvivor.getAvgSpeed()[0]));
 		return soleSurvivor;
 	}
 

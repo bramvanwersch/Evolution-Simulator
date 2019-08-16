@@ -113,19 +113,12 @@ public class DataSaver {
 		try {
 			printWriter = new PrintWriter("DataDocument.txt");
 			printWriter.write(dataString);
-
-			System.out.println("File was written");
 		} catch (IOException e) {
-			System.out.println("File could not be found");
 			e.printStackTrace();
 		}finally {
 			printWriter.flush();
 			printWriter.close();
 			
-		}
-		
-		if(printWriter==null) {
-			System.out.println("no file");
 		}
 	}
 	}

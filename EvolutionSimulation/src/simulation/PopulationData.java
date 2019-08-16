@@ -191,7 +191,6 @@ public class PopulationData {
 	}
 	public String getEatingPref() {
 		String eatingPref = null;
-		System.out.println(this.nrCarnivores.toString());
 		if(this.nrCarnivores.toString()!="[]") {
 			eatingPref = "Carnivore";
 		} else if (this.nrHerbivores.toString()!="[]") {
@@ -220,7 +219,6 @@ public class PopulationData {
 		}
 		storage.append("\n");
 		String string = storage.toString();
-		System.out.println(string);
 		return string;
 	}
 
