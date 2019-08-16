@@ -48,10 +48,17 @@ public class BlankGameLoop implements ActionListener {
 			}
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
-				PopulationData soleSurvivor = getSoleSurvivor();
-				Population population = environment.getMaxNrSpeciesPop();
-				DataSaver dataSaver = new DataSaver(soleSurvivor, population);
-				dataSaver.saveDataWrapper();
+				PopulationData winnerData = getSoleSurvivor();
+				Population winnerPop = environment.getMaxNrSpeciesPop();
+				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
+				dataSaverWinner.saveWinner();
+				
+				PopulationData loserData = getSoleSurvivor();
+				Population loserPop = environment.getMinNrSpeciesPop();
+				System.out.println(loserData.toString());
+				System.out.println(loserPop.toString());
+				DataSaver dataSaverLoser = new DataSaver(loserData, loserPop);
+				dataSaverLoser.saveLoser();
 				
 			}
 		}
@@ -96,6 +103,18 @@ public class BlankGameLoop implements ActionListener {
 			}
 			}
 		return soleSurvivor;
+	}
+	private PopulationData getSoleLoser() {
+		int length = 0;
+		PopulationData soleLoser = null;
+		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
+			PopulationData pd = environment.getAllPopData()[i];
+			length = pd.getNrSpecies().length;
+			if(pd.getNrSpecies()[length-1]!=0) {
+				soleLoser = pd;
+			}
+			}
+		return soleLoser;
 	}
 
 	/* This obtains the "type" of the population(omnivore="O", herbivore="H" or carnivore="C") and returns a List of characters

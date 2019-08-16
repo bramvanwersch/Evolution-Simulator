@@ -13,22 +13,16 @@ import gui.OptionData;
 import simulation.Environment;
 import simulation.Population;
 
-public class BlankRunThread {
+public class BlankRun {
 	private Timer timer;
 	private Environment environment;
 	private BlankGameLoop blankLoop;
 	private OptionData optionData;
-	public BlankRunThread() {
+	public BlankRun() {
 		this.optionData = makeOptionData();;
 		environment = new Environment(optionData);
 		blankLoop = new BlankGameLoop(50, environment, 10);
 		timer = new Timer(10, blankLoop);
-	//	Population population = getSoleSurvivor();
-	//	double[] stats = population.getMaxAgeStats();
-	//	for (int i =0 ; i < stats.length; i++ ) {
-	//		System.out.println(stats[i]);
-	//	}
-		
 	}
 	
 	
@@ -84,10 +78,6 @@ public class BlankRunThread {
 		return optionData;
 	}
 	
-	
-//	private void writeSoleSurvivor(Population survivor) {
-//		FileWriter filewriter = new FileWriter("DataDocument.txt");
-//	}
 	
 }
 

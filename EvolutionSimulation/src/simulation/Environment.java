@@ -446,6 +446,15 @@ public class Environment {
 		}
 		return maxPopulation;
 	}
+	public Population getMinNrSpeciesPop() {
+		Population minPopulation = populations.get(0);
+		for (int i = 1; i < populations.size(); i++) {
+			if (populations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
+				minPopulation = populations.get(i);
+			}
+		}
+		return minPopulation;
+	}
 	
 	public PopulationData[] getAllPopData() {
 		PopulationData[] popDataArray = new PopulationData[populations.size()];

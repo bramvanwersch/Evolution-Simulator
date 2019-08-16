@@ -111,7 +111,7 @@ public class GUIBlankRuns extends JFrame {
 				protected Void doInBackground() throws Exception {
 					// TODO Auto-generated method stub
 					for (int i = 0; i < runs; i++) {
-						BlankRunThread blankRunThread = new BlankRunThread();
+						BlankRun blankRunThread = new BlankRun();
 						blankRunThread.startTimer();
 						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
 

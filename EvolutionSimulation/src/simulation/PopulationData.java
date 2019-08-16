@@ -195,30 +195,4 @@ public class PopulationData {
 		}
 		return eatingPref;
 	}
-	//This method makes a string matrix of all arrays in this list as columns
-	//
-	//
-	public String getMatrixString() {
-		StringBuilder storage = new StringBuilder();
-		int length = this.getAvgSpeed().length;
-
-		for(int i=0; i < length ; i++) {
-
-			String row = Double.toString(this.getAvgAge()[i])+"\t"+Double.toString(this.getAvgEnergyCost()[i])+"\t"+Double.toString(this.getAvgScent()[i])
-				+"\t"+Double.toString(this.getAvgSize()[i])+"\t"+Double.toString(this.getAvgSpeed()[i])
-				+"\t"+Double.toString(this.getNrCarnivores()[i])+"\t"+Double.toString(this.getNrHerbivores()[i])
-				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Double.toString(this.getNrSpecies()[i]);
-			
-			storage.append(row);
-			
-		}
-		storage.append("\n");
-		String string = storage.toString();
-		return string;
-	}
-
-	
-	
-
-
 }

@@ -18,28 +18,57 @@ public class DataSaver {
 	private Environment environment;
 	private Population population;
 	private String lineSeparator = System.getProperty("line.separator");
-	
+	private boolean winner;
 	
 	
 	public DataSaver(PopulationData soleSurvivor,Population population) {
 		runCounter = 0;
 		this.soleSurvivor = soleSurvivor; 
 		this.population = population;
-		
 	}
-	
-	public void saveDataWrapper() {
+	public void saveLoser()  {
 		StringBuilder dataStringBuilder = new StringBuilder();
-		File file = new File("DataDocument.txt");
-		if (file.length() == 0) {
+		String filename = "DataDocumentLoser.txt";
+		File file = new File (filename);
+		boolean append = false;
+		if (file.length()==0) {
 			dataStringBuilder.append(makeHeader());
 		}else {
-			dataStringBuilder.append(lineSeparator);
+			append =true;
 		}
 		dataStringBuilder.append(makeString());
 		String dataString = dataStringBuilder.toString();
-		writeToFile(dataString);
+		try {
+			writeToFile(dataString, filename, append);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	
+	public void saveWinner()  {
+		StringBuilder dataStringBuilder = new StringBuilder();
+		String filename = "DataDocumentWinner.txt";
+		File file = new File (filename);
+		boolean append = false;
+		if (file.length()==0) {
+			dataStringBuilder.append(makeHeader());
+		}else {
+			dataStringBuilder.append(lineSeparator);
+			append =true;
+		}
+		dataStringBuilder.append(makeString());
+		String dataString = dataStringBuilder.toString();
+		try {
+			writeToFile(dataString, filename, append);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
 	
 	private String makeHeader() {
 		StringBuilder sb = new StringBuilder();
@@ -107,16 +136,16 @@ public class DataSaver {
 	/*Writer function which takes the created string and writes it to file. It uses PrintWriter because that is suited for formatted files
 	 * 
 	 */
-	public void writeToFile(String dataString) {
-		PrintWriter printWriter = null;
+	public void writeToFile(String dataString, String filename, boolean append) throws IOException {
+		FileWriter FileWriter = null;
 		try {
-			printWriter = new PrintWriter("DataDocument.txt");
-			printWriter.write(dataString);
+			FileWriter = new FileWriter(filename, append);
+			FileWriter.write(dataString);
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.fillInStackTrace();
 		}finally {
-			printWriter.flush();
-			printWriter.close();
+			FileWriter.flush();
+			FileWriter.close();
 			
 		}
 	}
