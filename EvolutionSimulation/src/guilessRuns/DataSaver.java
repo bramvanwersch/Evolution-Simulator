@@ -21,11 +21,10 @@ public class DataSaver {
 	
 	
 	
-	public DataSaver(PopulationData soleSurvivor,Environment environment) {
+	public DataSaver(PopulationData soleSurvivor,Population population) {
 		runCounter = 0;
 		this.soleSurvivor = soleSurvivor; 
-		this.environment = environment;
-		this.population = environment.getMaxNrSpeciesPop();
+		this.population = population;
 		
 	}
 	
@@ -59,13 +58,13 @@ public class DataSaver {
 	
 	private ArrayList<String> getEatingPref(PopulationData soleSurvivor){
 
-		Population pop =  environment.getMaxNrSpeciesPop();
+		
 		String eatingPref = "Nan";
-		if(pop.getType().equals("Carnivore")){
+		if(population.getType().equals("Carnivore")){
 			eatingPref = "C";
-		}else if (pop.getType().equals("Herbivore")) {
+		}else if (population.getType().equals("Herbivore")) {
 			eatingPref = "H";
-		}else if (pop.getType().equals("Omnivore")) {
+		}else if (population.getType().equals("Omnivore")) {
 			eatingPref = "O";
 		}
 		ArrayList<String> eatingPrefList = new ArrayList<String>(2);
