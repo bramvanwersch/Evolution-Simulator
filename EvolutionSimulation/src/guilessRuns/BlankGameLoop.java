@@ -50,15 +50,15 @@ public class BlankGameLoop implements ActionListener {
 			if (checkIfSoleSurvivor(e)) {
 				
 				// The Thread goes so fast that if I don't wait for a second, the last value of populationData doesn't exist yet.
-				try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
 				PopulationData winnerData = getSoleSurvivor();
 				Population winnerPop = environment.getMaxNrSpeciesPop();
 				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
+				System.out.println("length of all popData");
+				System.out.println(environment.getAllPopData().length);
+				if(winnerData==null || winnerPop==null) {
+					System.out.println("non existing winner");
+				}
 				dataSaverWinner.saveWinner();
 
 				PopulationData loserData = getSoleSurvivor();

@@ -33,8 +33,7 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 			Timer timer = new Timer(10, blankGameLoop);
 			timer.start();
 			while (!blankGameLoop.getRunFinished()) {
-				System.out.println("Is the run finished?");
-				System.out.println(blankGameLoop.getRunFinished());
+				
 			}
 			publish(i);
 			System.out.println("One run finished");

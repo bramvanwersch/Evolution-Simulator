@@ -100,6 +100,7 @@ public class GUIBlankRuns extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		} else if (str.chars().allMatch(Character::isDigit) && Integer.parseInt(str) < 10) {
 			int runs = Integer.parseInt(str);
+			System.out.println("Blank Run made");
 			BlankRun blankRun = new BlankRun(runs, lblCounter);
 			blankRun.execute();
 		}

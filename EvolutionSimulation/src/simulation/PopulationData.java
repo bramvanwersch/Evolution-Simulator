@@ -208,6 +208,9 @@ public class PopulationData {
     public int[] getAvgEnergyCost() {
         return convertDoubles(getFirstOfTriples(this.energyCostStats));
     }
+    public int[][] getEnergyCostStats() {
+        return convertTripleDoubles(this.energyCostStats);
+    }
     
     public int[] getTime() {
         return convertDoubles(this.time);
