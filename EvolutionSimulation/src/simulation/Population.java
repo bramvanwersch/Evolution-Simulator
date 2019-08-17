@@ -9,7 +9,7 @@ import genome.Genome;
 import genome.PanGenome;
 
 public class Population {
-	private final double MUTATION_CHANCE = 0.005;
+	private final double MUTATION_CHANCE = 0.01;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
 	private PopulationData popData;
