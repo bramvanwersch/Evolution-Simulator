@@ -48,10 +48,13 @@ public class BlankGameLoop implements ActionListener {
 			}
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
+				System.out.println("SoleSurvivor found");
 				PopulationData winnerData = getSoleSurvivor();
 				Population winnerPop = environment.getMaxNrSpeciesPop();
+				System.out.println(winnerData.toString());
 				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
 				dataSaverWinner.saveWinner();
+				System.out.println("Winner data saved");
 				
 				PopulationData loserData = getSoleSurvivor();
 				Population loserPop = environment.getMinNrSpeciesPop();
@@ -59,6 +62,7 @@ public class BlankGameLoop implements ActionListener {
 				System.out.println(loserPop.toString());
 				DataSaver dataSaverLoser = new DataSaver(loserData, loserPop);
 				dataSaverLoser.saveLoser();
+				System.out.println("loserData saved");
 				
 			}
 		}
@@ -82,7 +86,7 @@ public class BlankGameLoop implements ActionListener {
 	 */
 	private boolean checkIfSoleSurvivor(ActionEvent e) {
 		Integer countDeadPopulation = getDeadPopulation();
-
+		System.out.println(countDeadPopulation);
 		if (countDeadPopulation>= 1) {
 			Timer t  = (Timer) e.getSource();
 			t.stop();
@@ -97,8 +101,8 @@ public class BlankGameLoop implements ActionListener {
 		PopulationData soleSurvivor = null;
 		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
 			PopulationData pd = environment.getAllPopData()[i];
-			length = pd.getNrSpecies().length;
-			if(pd.getNrSpecies()[length-1]!=0) {
+			length = pd.getNrSpecies().length-1;
+			if(pd.getNrSpecies()[length]!=0) {
 				soleSurvivor = pd;
 			}
 			}
@@ -109,8 +113,9 @@ public class BlankGameLoop implements ActionListener {
 		PopulationData soleLoser = null;
 		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
 			PopulationData pd = environment.getAllPopData()[i];
+			System.out.println(pd.getNrSpecies());
 			length = pd.getNrSpecies().length;
-			if(pd.getNrSpecies()[length-1]!=0) {
+			if(pd.getNrSpecies()[length-1]==0) {
 				soleLoser = pd;
 			}
 			}

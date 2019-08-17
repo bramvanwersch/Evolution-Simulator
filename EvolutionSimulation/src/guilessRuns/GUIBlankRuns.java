@@ -114,9 +114,11 @@ public class GUIBlankRuns extends JFrame {
 						BlankRun blankRunThread = new BlankRun();
 						blankRunThread.startTimer();
 						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
-
+							System.out.println("Is the run finished?");
+							System.out.println(blankRunThread.getBlankGameLoop().getRunFinished());
 						}
 						publish(i);
+						System.out.println("One run finished");
 					}
 					return null;
 				}

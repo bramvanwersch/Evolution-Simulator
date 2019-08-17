@@ -473,15 +473,15 @@ public class Environment {
  * Data saving functions	
  */
 	public void saveAveragePopulationsStatsData(int timeElapsed) {
+		double[][] averageStats = getAveragePopulationStats();
 		averagePopData.setNrHerbivores(getNrHerbivores());
 		averagePopData.setNrOmnivores(getNrOmnivores());
 		averagePopData.setNrCarnivores(getNrCarnivores());
-		double[][] averageStats = getAveragePopulationStats();
-		averagePopData.setAvgSpeed(averageStats[0][0]);
-		averagePopData.setAvgSize(averageStats[1][0]);
-		averagePopData.setAvgAge(averageStats[2][0]);
-		averagePopData.setAvgScent(averageStats[3][0]);
-		averagePopData.setAvgEnergyCost(averageStats[4][0]);
+		averagePopData.setSpeedStats(averageStats[0]);
+		averagePopData.setSizeStats(averageStats[1]);
+		averagePopData.setAgeStats(averageStats[2]);
+		averagePopData.setScentStats(averageStats[3]);
+		averagePopData.setEnergyCostStats(averageStats[4]);
 		averagePopData.setTime(timeElapsed/1000);
 	}
 	

@@ -14,16 +14,16 @@ import simulation.PopulationData;
 
 public class DataSaver {
 	private int runCounter;
-	private PopulationData soleSurvivor;
+	private PopulationData populationData;
 	private Environment environment;
 	private Population population;
 	private String lineSeparator = System.getProperty("line.separator");
 	private boolean winner;
 	
 	
-	public DataSaver(PopulationData soleSurvivor,Population population) {
+	public DataSaver(PopulationData populationData,Population population) {
 		runCounter = 0;
-		this.soleSurvivor = soleSurvivor; 
+		this.populationData = populationData; 
 		this.population = population;
 	}
 	public void saveLoser()  {
@@ -104,29 +104,29 @@ public class DataSaver {
 	}
 	
 	private String  makeString() {
-		ArrayList<String> eatingPrefList = getEatingPref(soleSurvivor);
+		ArrayList<String> eatingPrefList = getEatingPref(populationData);
 		StringBuilder sb = new StringBuilder();
-		int length = soleSurvivor.getAvgAge().length-1;	
+		int length = populationData.getAvgAge().length-1;	
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now(); 
 		// initial values
-		sb.append(Integer.toString(soleSurvivor.getAvgAge()[0]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[0]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[0]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[0]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[0]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[0]));
+		sb.append(Integer.toString(populationData.getAvgAge()[0]));
+		sb.append("\t" + Integer.toString(populationData.getAvgEnergyCost()[0]));
+		sb.append("\t" + Integer.toString(populationData.getAvgSize()[0]));
+		sb.append("\t" + Integer.toString(populationData.getAvgSpeed()[0]));
+		sb.append("\t" + Integer.toString(populationData.getAvgScent()[0]));
+		sb.append("\t" + Integer.toString(populationData.getNrSpecies()[0]));
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
 		sb.append("\t"+ "START");
 		sb.append(lineSeparator);
 		// last values
-		sb.append(Integer.toString(soleSurvivor.getAvgAge()[length]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgEnergyCost()[length]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSize()[length]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgSpeed()[length]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getAvgScent()[length]));
-		sb.append("\t" + Integer.toString(soleSurvivor.getNrSpecies()[length]));
+		sb.append(Integer.toString(populationData.getAvgAge()[length]));
+		sb.append("\t" + Integer.toString(populationData.getAvgEnergyCost()[length]));
+		sb.append("\t" + Integer.toString(populationData.getAvgSize()[length]));
+		sb.append("\t" + Integer.toString(populationData.getAvgSpeed()[length]));
+		sb.append("\t" + Integer.toString(populationData.getAvgScent()[length]));
+		sb.append("\t" + Integer.toString(populationData.getNrSpecies()[length]));
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
 		sb.append("\t"+ "END");

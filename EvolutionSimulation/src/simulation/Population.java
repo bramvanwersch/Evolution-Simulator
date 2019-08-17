@@ -141,15 +141,11 @@ public class Population {
  */
 	public void saveStatsData(int timeElapsed) {
 		double[][] stats = getStats();
-		for(int i =0; i< stats[0].length; i++) {
-			System.out.println(Double.toString(stats[0][i]));
-		}
-			
-		popData.setAvgSpeed(stats[0][0]);
-		popData.setAvgSize(stats[1][0]);
-		popData.setAvgAge(stats[2][0]);
-		popData.setAvgScent(stats[3][0]);
-		popData.setAvgEnergyCost(stats[4][0]);
+		popData.setSpeedStats(stats[0]);
+		popData.setSizeStats(stats[1]);
+		popData.setAgeStats(stats[2]);
+		popData.setScentStats(stats[3]);
+		popData.setEnergyCostStats(stats[4]);
 		popData.setTime(timeElapsed/1000);
 		popData.setNrSpecies(getNrSpecies());
 	}
