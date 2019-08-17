@@ -34,7 +34,7 @@ public class PopulationData {
         this.time = new ArrayList<Double>(100);
         this.nrSpecies = new ArrayList<Double>(100);
         this.reduce = false;
-        dataDivisionFactor = 1;
+        this.dataDivisionFactor = 1;
     }
     
     public int[][] convertTripleDoubles(ArrayList<Double[]> doubles){
@@ -46,8 +46,8 @@ public class PopulationData {
         Iterator<Double[]> iterator = doubles.iterator();
         for (int i = 0; i < ret.length; i++){
             
-            for(int i2= 0 ; i2 <ret[0].length ; i2++) {
-            	ret[i][i2] = (int) Math.round(doubles.get(i)[i2]);
+            for(int j= 0 ; j <ret[0].length ; j++) {
+            	ret[i][j] = (int) Math.round(doubles.get(i)[j]);
             }
         }
         return ret;
@@ -96,33 +96,32 @@ public class PopulationData {
         for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
             if (i + dataDivisionFactor <= dataArray.size()) {
                 List<Double[]> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
-                Double avgSum =  (double) 0;
-                Double minSum = (double) 0;
-                Double maxSum = (double) 0;
-                for (int i2=0; i < values.size(); i++) {
-                	avgSum += values.get(i2)[0];
-                	minSum += values.get(i2)[1];
-                	maxSum += values.get(i2)[2];
+                Double avgSum = 0.0;
+                Double minSum = 0.0;
+                Double maxSum = 0.0;
+                for (int j=0; i < values.size(); i++) {
+                	avgSum += values.get(j)[0];
+                	minSum += values.get(j)[1];
+                	maxSum += values.get(j)[2];
                 }
                 Double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
                 averagedData.add(averagedDataUnit);
             }
             else {
                 List<Double[]> values = new ArrayList<Double[]>();
-                for (int j = i; j < dataArray.size(); j++) {
+                for (int k = i; k < dataArray.size(); k++) {
                     values.add(dataArray.get(i));
                 }
-                Double avgSum =  (double) 0;
-                Double minSum = (double) 0;
-                Double maxSum = (double) 0;
-                for (int i2=0; i < values.size(); i++) {
-                	avgSum += values.get(i2)[0];
-                	minSum += values.get(i2)[1];
-                	maxSum += values.get(i2)[2];
+                Double avgSum =  0.0;
+                Double minSum = 0.0;
+                Double maxSum = 0.0;
+                for (int l=0; i < values.size(); i++) {
+                	avgSum += values.get(l)[0];
+                	minSum += values.get(l)[1];
+                	maxSum += values.get(l)[2];
                 }
                 Double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
                 averagedData.add(averagedDataUnit);
-                //just to make sure this only happens once. That should be the case anyway but...
             }
         }
         return averagedData;
@@ -144,7 +143,6 @@ public class PopulationData {
 		for(int i= 0; i < dataArray.size(); i++) {
 			firstOfTriple.add(dataArray.get(i)[0]);
 		}
-		System.out.println(firstOfTriple.size());
 		return firstOfTriple;
 	}
     
@@ -187,16 +185,12 @@ public class PopulationData {
 
 
     public int[] getAvgAge() {
-    	System.out.println("AvgAge");
-    	System.out.println(this.avgSpeed.size());
         return convertDoubles(getFirstOfTriples(this.avgAge));
     }
-
 
     public int[] getAvgScent() {
         return convertDoubles(getFirstOfTriples(this.avgScent));
     }
-
 
     public int[] getAvgEnergyCost() {
         return convertDoubles(getFirstOfTriples(this.avgEnergyCost));
@@ -265,9 +259,6 @@ public class PopulationData {
     public void setNrSpecies(double i) {
         this.nrSpecies.add(i);
     }
-
-
-
 
     public void setTime(double i) {
         this.time.add(i);
