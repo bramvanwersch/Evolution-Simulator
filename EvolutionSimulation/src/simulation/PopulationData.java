@@ -7,11 +7,11 @@ import java.util.List;
 
 
 public class PopulationData {
-    private ArrayList<double[]> avgSpeed;
-    private ArrayList<double[]> avgSize;
-    private ArrayList<double[]> avgAge;
-    private ArrayList<double[]> avgScent;
-    private ArrayList<double[]> avgEnergyCost;
+    private ArrayList<double[]> speedStats;
+    private ArrayList<double[]> sizeStats;
+    private ArrayList<double[]> ageStats;
+    private ArrayList<double[]> scentStats;
+    private ArrayList<double[]> energyCostStats;
     private ArrayList<Double> nrHerbivores;
     private ArrayList<Double> nrOmnivores;
     private ArrayList<Double> nrCarnivores;
@@ -23,11 +23,11 @@ public class PopulationData {
 
 
     public PopulationData() {
-        this.avgSpeed = new ArrayList<double[]>(100);
-        this.avgSize = new ArrayList<double[]>(100);
-        this.avgAge = new ArrayList<double[]>(100);
-        this.avgScent = new ArrayList<double[]>(100);
-        this.avgEnergyCost = new ArrayList<double[]>(100);
+        this.speedStats = new ArrayList<double[]>(100);
+        this.sizeStats = new ArrayList<double[]>(100);
+        this.ageStats = new ArrayList<double[]>(100);
+        this.scentStats = new ArrayList<double[]>(100);
+        this.energyCostStats = new ArrayList<double[]>(100);
         this.nrHerbivores = new ArrayList<Double>(100);
         this.nrOmnivores = new ArrayList<Double>(100);
         this.nrCarnivores = new ArrayList<Double>(100);
@@ -37,13 +37,13 @@ public class PopulationData {
         this.dataDivisionFactor = 1;
     }
     
-    public int[][] convertTripleDoubles(ArrayList<Double[]> doubles){
+    public int[][] convertTripleDoubles(ArrayList<double[]> doubles){
         //first reduce the data before converting to doubles
         if (this.reduce) {
             doubles = reduceTripleData(doubles);
         }
         int[][] ret = new int[doubles.size()][3];
-        Iterator<Double[]> iterator = doubles.iterator();
+        Iterator<double[]> iterator = doubles.iterator();
         for (int i = 0; i < ret.length; i++){
             
             for(int j= 0 ; j <ret[0].length ; j++) {
@@ -91,11 +91,11 @@ public class PopulationData {
      * 
      */
     
-    private ArrayList<Double[]> reduceTripleData(ArrayList<Double[]> dataArray) {
-        ArrayList<Double[]> averagedData = new ArrayList<Double[]>();
+    private ArrayList<double[]> reduceTripleData(ArrayList<double[]> dataArray) {
+        ArrayList<double[]> averagedData = new ArrayList<double[]>();
         for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
             if (i + dataDivisionFactor <= dataArray.size()) {
-                List<Double[]> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
+                List<double[]> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
                 Double avgSum = 0.0;
                 Double minSum = 0.0;
                 Double maxSum = 0.0;
@@ -104,11 +104,11 @@ public class PopulationData {
                 	minSum += values.get(j)[1];
                 	maxSum += values.get(j)[2];
                 }
-                Double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
+                double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
                 averagedData.add(averagedDataUnit);
             }
             else {
-                List<Double[]> values = new ArrayList<Double[]>();
+                List<double[]> values = new ArrayList<double[]>();
                 for (int k = i; k < dataArray.size(); k++) {
                     values.add(dataArray.get(i));
                 }
@@ -120,7 +120,7 @@ public class PopulationData {
                 	minSum += values.get(l)[1];
                 	maxSum += values.get(l)[2];
                 }
-                Double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
+                double[] averagedDataUnit = {avgSum/dataDivisionFactor, minSum/dataDivisionFactor, maxSum/dataDivisionFactor};
                 averagedData.add(averagedDataUnit);
             }
         }
@@ -175,25 +175,38 @@ public class PopulationData {
     }
     
     public int[] getAvgSpeed() {
-        return convertDoubles(getFirstOfTriples(this.avgSpeed));
+        return convertDoubles(getFirstOfTriples(this.speedStats));
     }
-
-
+    
+    public int[][] getSpeedStats(){
+    	return convertTripleDoubles(this.speedStats);
+    }
+    
     public int[] getAvgSize() {
-        return convertDoubles(getFirstOfTriples(this.avgSize));
+        return convertDoubles(getFirstOfTriples(this.sizeStats));
     }
-
-
+    
+    public int[][] getSizeStats(){
+    	return convertTripleDoubles(this.sizeStats);
+    }
+    
     public int[] getAvgAge() {
-        return convertDoubles(getFirstOfTriples(this.avgAge));
+        return convertDoubles(getFirstOfTriples(this.ageStats));
     }
-
+    
+    public int[][] getAgeStats(){
+    	return convertTripleDoubles(this.ageStats);
+    }
+    
     public int[] getAvgScent() {
-        return convertDoubles(getFirstOfTriples(this.avgScent));
+        return convertDoubles(getFirstOfTriples(this.scentStats));
+    }
+    public int[][] getScentStats(){
+    	return convertTripleDoubles(this.scentStats);
     }
 
     public int[] getAvgEnergyCost() {
-        return convertDoubles(getFirstOfTriples(this.avgEnergyCost));
+        return convertDoubles(getFirstOfTriples(this.energyCostStats));
     }
     
     public int[] getTime() {
@@ -218,27 +231,27 @@ public class PopulationData {
 
 
     public void setSpeedStats(double[] d) {
-        this.avgSpeed.add(d);
+        this.speedStats.add(d);
     }
 
 
     public void setSizeStats(double[] d) {
-        this.avgSize.add(d);
+        this.sizeStats.add(d);
     }
 
 
     public void setAgeStats(double[] d) {
-        this.avgAge.add(d);
+        this.ageStats.add(d);
     }
 
 
     public void setScentStats(double[] d) {
-        this.avgScent.add(d);
+        this.scentStats.add(d);
     }
 
 
     public void setEnergyCostStats(double[] d) {
-        this.avgEnergyCost.add(d);
+        this.energyCostStats.add(d);
     }
 
 
