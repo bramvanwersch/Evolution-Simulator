@@ -68,7 +68,6 @@ public class PopulationData {
 		dataArray[3] = getAvgScent();
 		dataArray[4] = getAvgEnergyCost();
 		dataArray[5] = getNrSpecies();
-		System.out.println(dataDivisionFactor);
 		return dataArray;
 	}
 	
@@ -87,6 +86,14 @@ public class PopulationData {
 			if (i + dataDivisionFactor <= dataArray.size()) {
 				List<Double> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
 				averagedData.add(sum(values)/dataDivisionFactor);
+			}
+			else {
+				List<Double> values = new ArrayList<Double>();
+				for (int j = i; j < dataArray.size(); j++) {
+					values.add(dataArray.get(i));
+				}
+				averagedData.add(sum(values)/(double) values.size());
+				//just to make sure this only happens once. That should be the case anyway but...
 			}
 		}
 		return averagedData;
@@ -195,4 +202,30 @@ public class PopulationData {
 		}
 		return eatingPref;
 	}
+	//This method makes a string matrix of all arrays in this list as columns
+	//
+	//
+	public String getMatrixString() {
+		StringBuilder storage = new StringBuilder();
+		int length = this.getAvgSpeed().length;
+
+		for(int i=0; i < length ; i++) {
+
+			String row = Double.toString(this.getAvgAge()[i])+"\t"+Double.toString(this.getAvgEnergyCost()[i])+"\t"+Double.toString(this.getAvgScent()[i])
+				+"\t"+Double.toString(this.getAvgSize()[i])+"\t"+Double.toString(this.getAvgSpeed()[i])
+				+"\t"+Double.toString(this.getNrCarnivores()[i])+"\t"+Double.toString(this.getNrHerbivores()[i])
+				+"\t"+Double.toString(this.getNrOmnivores()[i])+"\t"+Double.toString(this.getNrSpecies()[i]);
+			
+			storage.append(row);
+			
+		}
+		storage.append("\n");
+		String string = storage.toString();
+		return string;
+	}
+
+	
+	
+
+
 }

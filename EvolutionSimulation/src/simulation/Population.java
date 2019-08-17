@@ -141,6 +141,10 @@ public class Population {
  */
 	public void saveStatsData(int timeElapsed) {
 		double[][] stats = getStats();
+		for(int i =0; i< stats[0].length; i++) {
+			System.out.println(Double.toString(stats[0][i]));
+		}
+			
 		popData.setAvgSpeed(stats[0][0]);
 		popData.setAvgSize(stats[1][0]);
 		popData.setAvgAge(stats[2][0]);

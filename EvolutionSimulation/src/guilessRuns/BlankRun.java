@@ -58,7 +58,7 @@ public class BlankRun {
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(1);
-		optionData.addMaxAgesList(5);
+		optionData.addMaxAgesList(10);
 		optionData.addNamesList("Brams");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
@@ -68,13 +68,13 @@ public class BlankRun {
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(8);
+		optionData.addMaxAgesList(10);
 		optionData.addNamesList("Wytzeus");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
 		optionData.addSizesList(50);
 		optionData.addSpeedsList(10);
-		optionData.addTypeList("Carnivore");
+		optionData.addTypeList("Herbivore");
 		return optionData;
 	}
 	
