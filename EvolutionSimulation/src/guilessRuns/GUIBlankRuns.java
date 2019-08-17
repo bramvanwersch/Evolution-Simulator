@@ -100,49 +100,13 @@ public class GUIBlankRuns extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		} else if (str.chars().allMatch(Character::isDigit) && Integer.parseInt(str) < 10) {
 			int runs = Integer.parseInt(str);
-			swingWorker(runs);
+			BlankRun blankRun = new BlankRun(runs, lblCounter);
+			blankRun.execute();
 		}
 	}
 	
 
-	private void swingWorker(int runs) {
-			SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
-				@Override
-				protected Void doInBackground() throws Exception {
-					// TODO Auto-generated method stub
-					for (int i = 0; i < runs; i++) {
-						BlankRun blankRunThread = new BlankRun();
-						blankRunThread.startTimer();
-						while (!blankRunThread.getBlankGameLoop().getRunFinished()) {
-							System.out.println("Is the run finished?");
-							System.out.println(blankRunThread.getBlankGameLoop().getRunFinished());
-						}
-						publish(i);
-						System.out.println("One run finished");
-					}
-					return null;
-				}
 
-				@Override
-				protected void done() {
-					// TODO Auto-generated method stub
-					System.out.println("Done");
-					
-				}
-
-				@Override
-				protected void process(List<Integer> chunks) {
-					// TODO Auto-generated method stub
-					int runsDone = chunks.get(chunks.size()-1);
-					runsDone +=1;
-					lblCounter.setText(Integer.toString(runsDone));
-				}
-				
-				
-
-			};
-			worker.execute();
-	}
 	
 
 	

@@ -5,52 +5,56 @@ package guilessRuns;
 import java.awt.Color;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
 import gui.OptionData;
 import simulation.Environment;
 import simulation.Population;
 
-public class BlankRun {
-	private Timer timer;
-	private Environment environment;
-	private BlankGameLoop blankLoop;
-	private OptionData optionData;
-	public BlankRun() {
-		this.optionData = makeOptionData();;
-		environment = new Environment(optionData);
-		blankLoop = new BlankGameLoop(50, environment, 10);
-		timer = new Timer(10, blankLoop);
+public class BlankRun extends SwingWorker<Void, Integer> {
+	private int runs;
+	public JLabel lblCounter;
+	
+	public BlankRun(int runs, JLabel lblCounter) {
+		this.runs = runs;
+		this.lblCounter = lblCounter;
 	}
 	
-	
-
-
-
-	public BlankGameLoop getBlankGameLoop() {
-		return blankLoop;
-	}
-	
-	
-	
-	public void startTimer() {
-		timer.start();
-	}
-	public void stopTimer() {
-		timer.stop();
-	}
-	private Population getSoleSurvivor() {
-		ArrayList<Population> populations = environment.getPopulations();
-		Population rightPopulation = null;
-		for(int i =0; i<populations.size(); i++) {
-			if(populations.get(i).getNrSpecies()>0) {
-				rightPopulation = populations.get(i);
+	public Void doInBackground() {
+		for (int i = 0; i < runs; i++) {
+			OptionData optionData = makeOptionData();
+			Environment environment = new Environment(optionData);
+			BlankGameLoop blankGameLoop = new BlankGameLoop(50, environment, 10);
+			Timer timer = new Timer(10, blankGameLoop);
+			timer.start();
+			while (!blankGameLoop.getRunFinished()) {
+				System.out.println("Is the run finished?");
+				System.out.println(blankGameLoop.getRunFinished());
 			}
+			publish(i);
+			System.out.println("One run finished");
 		}
-		return rightPopulation;
+		return null;
+		
 	}
+	@Override
+	protected void process(List<Integer> chunks) {
+		// TODO Auto-generated method stub
+		int runsDone = chunks.get(chunks.size()-1);
+		runsDone +=1;
+		lblCounter.setText(Integer.toString(runsDone));
+	}
+
+
+
+	
+	
+
 	private OptionData makeOptionData() {
 		OptionData optionData = new OptionData();
 		optionData.setFoodEnergy(100);
