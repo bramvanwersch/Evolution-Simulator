@@ -281,7 +281,7 @@ public class OptionMenu extends JFrame {
 		gbc_lblName.gridy = 1;
 		panel_1.add(lblName, gbc_lblName);
 		
-		JTextField nameTxt = new JTextField();
+		JTextField nameTxt = new JTextField(getDefaultName());
 		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
 		gbc_nameTxt.anchor = GridBagConstraints.WEST;
 		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
@@ -413,7 +413,7 @@ public class OptionMenu extends JFrame {
 		newColorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JColorChooser chooser = new JColorChooser();
-				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.BLUE);
+				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.GREEN);
 				colorLabel.setBackground(speciesColor);
 			}
 		});
@@ -464,6 +464,10 @@ public class OptionMenu extends JFrame {
 			data.addColorsList(speciesColors.get(i).getBackground());
 			data.addEatSizeFactorsList((double) spinnerValues.get(i).get(5).getValue());
 		}
+	}
+	
+	private String getDefaultName() {
+		return "Pop. " + (speciesNames.size() +1);
 	}
 	
 }
