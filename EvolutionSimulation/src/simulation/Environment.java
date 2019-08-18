@@ -42,6 +42,7 @@ public class Environment {
 		moveSpecies();
 		eatFood();
 		
+		eatTimeCheck();
 		eatSpecies();
 		checkCanMultiply();
 		shuffleLists();
@@ -180,7 +181,7 @@ public class Environment {
 						Species s1 = getAllMeatEaters().get(i);
 						Species s2 = sp.getSpecies(j);
 						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {
-							if (s1.checkCanEat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+							if (s1.foodEaten(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
 								sp.removeSpecies(j);
 								if (i != 0) {
 									i--;
@@ -190,6 +191,12 @@ public class Environment {
 					}
 				}
 			}
+		}
+	}
+	
+	private void eatTimeCheck() {
+		for (Species s : getAllCarnivores()) {
+			s.eatTimeCheck();
 		}
 	}
 	
@@ -214,7 +221,6 @@ public class Environment {
 			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
-				s.addRepTime();
 				s.addAge();
 			}
 		}

@@ -48,4 +48,7 @@ public class Herbivore extends Species{
 	public int getRepTime() { 
 		return this.MINIMUM_REP_TIME;
 	}
+	
+	public void eatTimeCheck() {
+	}
 }
