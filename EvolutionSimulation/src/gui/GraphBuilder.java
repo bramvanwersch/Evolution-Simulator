@@ -30,20 +30,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GraphBuilder extends Thread{
+	private final Color[] attributeColors = new Color[] {new Color(0,105,0), new Color(191,61,255), new Color(255,0,0), 
+		 	 								new Color(21,235,231), new Color(13,49,208), new Color(11,243,24)};
 	private JPanel sidePanel;
 	private GraphBuilder1 graphPanel;
 	private Environment environment;
 	public JRadioButton[] selectedPopulations;
 	public JRadioButton[] selectedAttributes;
-	private String[] populationNames;
-	private String[] attributeNames;
 	private boolean lookingAtGraph;
 	
 	public GraphBuilder(Environment environment, String[] populationNames, String[] attributeNames
 			,int width,int height,String[] axisNames, boolean dataPoints) {
 		this.environment = environment;
-		this.populationNames = populationNames;
-		this.attributeNames = attributeNames;
 		this.lookingAtGraph = true;
 		JFrame f = new JFrame("Graph");
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,7 +54,7 @@ public class GraphBuilder extends Thread{
 		//HARDCODED
 		createSidePanelWidgets(populationNames, attributeNames);
 		graphPanel = new GraphBuilder1(getXData(),getYData(), selectedPopulations, selectedAttributes,
-				width,height,axisNames, dataPoints);
+				width,height,axisNames, dataPoints, attributeColors);
 		f.add(graphPanel, BorderLayout.WEST);
 		f.add(sidePanel, BorderLayout.EAST);
 		f.pack();
@@ -124,6 +122,7 @@ public class GraphBuilder extends Thread{
         	gbc.anchor = gbc.CENTER;
     		JRadioButton rd = new JRadioButton(attributeNames[j]);
     		rd.setSelected(true);
+    		rd.setForeground(attributeColors[j]);
     		gbc.gridy += 1;
     		sidePanel.add(rd, gbc);
     		selectedAttributes[j] = rd;
@@ -176,7 +175,7 @@ class GraphBuilder1 extends JPanel{
 
 
     public GraphBuilder1(int[] xData, int[][][] yData, JRadioButton[] selectedPopulations, JRadioButton[] selectedAttributes,
-    		int width,int height,String[] axisNames, boolean dataPoints) {
+    		int width,int height,String[] axisNames, boolean dataPoints, Color[] attributeColors) {
     	this.allXData =xData;
     	this.allYData = yData;
     	this.pHeigth = (int) height;
@@ -185,7 +184,7 @@ class GraphBuilder1 extends JPanel{
     	this.dataPoints = dataPoints;
     	this.selectedPopulations = selectedPopulations;
     	this.selectedAttributes = selectedAttributes;
-        colors = new Color[] {Color.RED, Color.BLUE,Color.YELLOW, Color.GRAY, Color.CYAN, Color.GREEN};
+        this.colors = attributeColors;
         strokes = new Stroke[] {new BasicStroke(3), 
         		new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0),
                 new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{4, 2, 8, 2}, 0),
