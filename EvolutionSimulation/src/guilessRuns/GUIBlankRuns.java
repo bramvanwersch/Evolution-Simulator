@@ -26,13 +26,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
-public class GUIBlankRuns extends JFrame {
+public class GUIBlankRuns {
 	private Timer timer;
 	private Environment environment;
 	private BlankGameLoop blankLoop;
-	private JPanel contentPane;
 	private JLabel lblCounter;
 	private JTextField loopAmount; 
+	private JPanel panel;
 	
 	
 	public static void main(String[] args) {
@@ -45,27 +45,24 @@ public class GUIBlankRuns extends JFrame {
                 }
 			
 					GUIBlankRuns frame = new GUIBlankRuns(10);
-					frame.setVisible(true);
 
 			}
 		});
 	}	
 	
-	public GUIBlankRuns( int updateTime) {
+	private GUIBlankRuns( int updateTime) {
 		createBlankGui();
 	}
 
-	public void createBlankGui() {
+	private void createBlankGui() {
 		JFrame f = new JFrame("Blank Run");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		f.setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		f.setBounds(0, 0, 450, 300);
+
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		
+		panel = new JPanel();
+		f.add(panel, BorderLayout.CENTER);
 		
 		lblCounter = new JLabel("0");
 		panel.add(lblCounter);
@@ -94,11 +91,8 @@ public class GUIBlankRuns extends JFrame {
 	private void startLoopsHandler() {
 		String str = loopAmount.getText();
 		if (str.chars().allMatch(Character::isLetter)) {
-			JOptionPane.showMessageDialog(contentPane, "These are charcters", "Error", JOptionPane.ERROR_MESSAGE);
-		} else if (Integer.parseInt(str) > 10) {
-			JOptionPane.showMessageDialog(contentPane, "Too many runs will take a lot of time", "Error",
-					JOptionPane.ERROR_MESSAGE);
-		} else if (str.chars().allMatch(Character::isDigit) && Integer.parseInt(str) < 10) {
+			JOptionPane.showMessageDialog(panel, "These are charcters", "Error", JOptionPane.ERROR_MESSAGE);
+		}  else if (str.chars().allMatch(Character::isDigit) ) {
 			int runs = Integer.parseInt(str);
 			System.out.println("Blank Run made");
 			BlankRun blankRun = new BlankRun(runs, lblCounter);
