@@ -7,6 +7,7 @@ public class Carnivore extends Species{
 	private final int FOOD_DIGEST_TIME = 1000;
 	boolean eating = false;
 	private int timeSinceEating;
+	private int prevSpeed;
 
 	//innitial constructor
 	public Carnivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
@@ -89,13 +90,14 @@ public class Carnivore extends Species{
 	public void eatTimeCheck() {
 		if (this.eating) {
 			if (this.timeSinceEating == 0) {
+				this.prevSpeed = getSpeed();
 				setSpeed(3);
 			}
 			this.timeSinceEating += 50;
 			if (this.timeSinceEating >= this.FOOD_DIGEST_TIME) {
 				this.eating = false;
 				this.timeSinceEating = 0;
-				setSpeed(getGenome().getGeneValue("speed"));
+				setSpeed(prevSpeed);
 			}
 		}
 	}
