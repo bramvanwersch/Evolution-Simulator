@@ -36,7 +36,9 @@ public class DataSaver {
 		}else {
 			append =true;
 		}
-		dataStringBuilder.append(makeString());
+		// give false to makeString so that not the last but the second last values are taken.... 
+		// Because every stat gets to zero if that species died
+		dataStringBuilder.append(makeString(false));
 		String dataString = dataStringBuilder.toString();
 		try {
 			writeToFile(dataString, filename, append);
@@ -58,7 +60,7 @@ public class DataSaver {
 			dataStringBuilder.append(lineSeparator);
 			append =true;
 		}
-		dataStringBuilder.append(makeString());
+		dataStringBuilder.append(makeString(true));
 		String dataString = dataStringBuilder.toString();
 		try {
 			writeToFile(dataString, filename, append);
@@ -73,10 +75,20 @@ public class DataSaver {
 	private String makeHeader() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("AvgAge" +"\t");
+		sb.append("MinAge" +"\t");
+		sb.append("MaxAge"+"\t");
 		sb.append("AvgEnergyCost"+"\t");
+		sb.append("MinEnergyCost" +"\t");
+		sb.append("MaxEnergyCost" +"\t");
 		sb.append("AvgSize"+"\t");
+		sb.append("MinSize" +"\t");
+		sb.append("MaxSize" +"\t");
 		sb.append("AvgSpeed"+"\t");
+		sb.append("MinSpeed" +"\t");
+		sb.append("MaxSpeed" +"\t");
 		sb.append("AvgScent"+"\t");
+		sb.append("MinScent" +"\t");
+		sb.append("MaxScent" +"\t");
 		sb.append("NrSpec"+"\t");
 		sb.append("EatingPref"+"\t");
 		sb.append("DATETAG"+"\t");
@@ -103,29 +115,54 @@ public class DataSaver {
 		return eatingPrefList;
 	}
 	
-	private String  makeString() {
+	private String  makeString(boolean winner) {
 		ArrayList<String> eatingPrefList = getEatingPref(populationData);
 		StringBuilder sb = new StringBuilder();
-		int length = populationData.getAvgAge().length-1;	
+		int length = 5;
+		if (winner==true) {
+			length = populationData.getAgeStats().length - 1;
+		}else  {
+			length = populationData.getAgeStats().length -2 ;
+		}
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now(); 
 		// initial values
-		sb.append(Integer.toString(populationData.getAvgAge()[0]));
-		sb.append("\t" + Integer.toString(populationData.getAvgEnergyCost()[0]));
-		sb.append("\t" + Integer.toString(populationData.getAvgSize()[0]));
-		sb.append("\t" + Integer.toString(populationData.getAvgSpeed()[0]));
-		sb.append("\t" + Integer.toString(populationData.getAvgScent()[0]));
+		sb.append(Integer.toString(populationData.getAgeStats()[0][0]));
+		sb.append("\t"+Integer.toString(populationData.getAgeStats()[0][1]));
+		sb.append("\t"+Integer.toString(populationData.getAgeStats()[0][2]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[0][0]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[0][1]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[0][2]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[0][0]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[0][1]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[0][2]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[0][0]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[0][1]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[0][2]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[0][0]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[0][1]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[0][2]));
 		sb.append("\t" + Integer.toString(populationData.getNrSpecies()[0]));
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
 		sb.append("\t"+ "START");
 		sb.append(lineSeparator);
 		// last values
-		sb.append(Integer.toString(populationData.getAvgAge()[length]));
-		sb.append("\t" + Integer.toString(populationData.getAvgEnergyCost()[length]));
-		sb.append("\t" + Integer.toString(populationData.getAvgSize()[length]));
-		sb.append("\t" + Integer.toString(populationData.getAvgSpeed()[length]));
-		sb.append("\t" + Integer.toString(populationData.getAvgScent()[length]));
+		sb.append(Integer.toString(populationData.getAgeStats()[length][0]));
+		sb.append("\t"+Integer.toString(populationData.getAgeStats()[length][1]));
+		sb.append("\t"+Integer.toString(populationData.getAgeStats()[length][2]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[length][0]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[length][1]));
+		sb.append("\t" + Integer.toString(populationData.getEnergyCostStats()[length][2]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[length][0]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[length][1]));
+		sb.append("\t" + Integer.toString(populationData.getSizeStats()[length][2]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[length][0]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[length][1]));
+		sb.append("\t" + Integer.toString(populationData.getSpeedStats()[length][2]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[length][0]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[length][1]));
+		sb.append("\t" + Integer.toString(populationData.getScentStats()[length][2]));
 		sb.append("\t" + Integer.toString(populationData.getNrSpecies()[length]));
 		sb.append("\t" + eatingPrefList.get(0));
 		sb.append("\t" + now);
