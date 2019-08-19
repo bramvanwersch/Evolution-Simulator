@@ -31,7 +31,7 @@ public class GameLoop implements ActionListener{
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
-		environment.moveSpecies();
+		sidePanel.updateLabels(getLabelTexts());
 	}
 	
 	/**
