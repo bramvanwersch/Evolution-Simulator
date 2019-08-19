@@ -18,13 +18,17 @@ import simulation.Population;
 public class Run {
 	private Timer timer;
 	private int UPDATE_TIME = 50;
+	private JFrame f;
+	private OptionData data;
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
 	private Environment environment;
 
 	public Run(OptionData data) {
-		environment = new Environment(data);
+		this.data = data;
+		environment = new Environment(this.data);
+		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,environment, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
@@ -37,10 +41,8 @@ public class Run {
 		//panel tot the side
 		sidePanel = new SidePanelGui(950, 300);
 		
-		JFrame f =  new JFrame();
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
-		f = new JFrame("Terrain");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(panel, bd.CENTER);
 		f.add(sidePanel, bd.EAST);
@@ -71,6 +73,14 @@ public class Run {
 		});
 		buttonPanel.add(btnRestart, BorderLayout.NORTH);
 		
+		JButton btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newGame();
+			}
+		});
+		buttonPanel.add(btnNew, BorderLayout.NORTH);
+		
 		JButton btnGraph = new JButton("Graph");
 		btnGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,13 +105,19 @@ public class Run {
 	
  
 	private void restartTimer() {
-		// TODO Auto-generated method stub
-		
+		timer.stop();
+		f.dispose();
+		environment = new Environment(this.data);
+		f = new JFrame("Terrain");
+		createGui();
+		loop = new GameLoop(panel,environment, 50, sidePanel);
+		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
 	private void newGame() {
-		// TODO Auto-generated method stub
-		
+		timer.stop();
+		f.dispose();
+		new OptionMenu();
 	}
 	
 

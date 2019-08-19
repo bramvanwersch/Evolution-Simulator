@@ -59,7 +59,6 @@ public class OptionMenu extends JFrame {
 			public void run() {
 				try {
 					OptionMenu frame = new OptionMenu();
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -78,6 +77,7 @@ public class OptionMenu extends JFrame {
 		speciesNames = new ArrayList<JTextField>();
 		data = new OptionData();
 		initGUI();
+		setVisible(true);
 	}
 	
 	private void initGUI() {
