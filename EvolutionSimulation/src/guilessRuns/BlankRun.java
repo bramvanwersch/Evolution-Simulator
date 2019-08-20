@@ -56,8 +56,8 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 
 	private OptionData makeOptionData() {
 		OptionData optionData = new OptionData();
-		optionData.setFoodEnergy(100);
-		optionData.setFoodSize(5);
+		optionData.setPlantEnergy(100);
+		optionData.setPlantSize(5);
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(1);

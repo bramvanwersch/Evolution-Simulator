@@ -9,19 +9,19 @@ import java.util.Random;
 import gui.OptionData;
 
 public class Ecosytem {
-	private int foodEnergy;
-	private int foodSize;
+	private int plantEnergy;
+	private int plantSize;
 	private ArrayList<Population> populations;
-	private ArrayList<Plant> foodList;
+	private ArrayList<Plant> plantList;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	
 
 	public Ecosytem(OptionData options) {
-		this.foodList = new ArrayList<Plant>();
+		this.plantList = new ArrayList<Plant>();
 		this.populations = new ArrayList<Population>();
-		this.foodEnergy = options.getFoodEnergy();
-		this.foodSize = options.getFoodSize();
+		this.plantEnergy = options.getPlantEnergy();
+		this.plantSize = options.getPlantSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
@@ -247,7 +247,7 @@ public class Ecosytem {
 		for (Population sp: populations ) {
 			sp.shuffleSpeciesList();
 		}
-		Collections.shuffle(foodList);
+		Collections.shuffle(plantList);
 		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 	}
 	
@@ -325,20 +325,20 @@ public class Ecosytem {
 // methods for food managing methods.
 	public void createFood(int nrFood) {
 		for (int i = 0; i < nrFood; i++) {
-			foodList.add(new Plant(foodEnergy, foodSize));
+			plantList.add(new Plant(plantEnergy, plantSize));
 		}	
 	}
 	
 	public int getNrFood() {
-		return foodList.size();
+		return plantList.size();
 	}
 	
 	public Plant getFood(int index) {
-		return foodList.get(index);
+		return plantList.get(index);
 	}
 	
 	public void removeFood(int index) {
-		foodList.remove(index);
+		plantList.remove(index);
 	}
 
 // methods for getting certain collections of species from populations.
