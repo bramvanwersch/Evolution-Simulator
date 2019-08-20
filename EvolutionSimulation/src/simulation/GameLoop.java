@@ -51,7 +51,7 @@ public class GameLoop implements ActionListener{
 		}
 		timeElapsed += 50;
 		environment.nextTimeStep();
-		environment.createFood(foodRegenTxt);
+		environment.createPlants(foodRegenTxt);
 		
 		panel.repaint();
 	}

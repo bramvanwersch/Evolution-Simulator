@@ -40,7 +40,7 @@ public class BlankGameLoop implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		timeElapsed += updateTime;
 		environment.nextTimeStep();
-		environment.createFood(foodRegenTxt);
+		environment.createPlants(foodRegenTxt);
 		addPopData();
 		if (timeElapsed % 1000 == 0) {
 			if (timeElapsed != 0) {

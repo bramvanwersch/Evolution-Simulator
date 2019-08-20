@@ -61,8 +61,8 @@ public class TerrainPanel extends JPanel{
 	
 	private void drawFood() {
 		g2d.setColor(Color.GREEN);
-		for (int i = 0; i < environment.getNrFood(); i++) {
-			Plant f = environment.getFood(i);
+		for (int i = 0; i < environment.getNrPlant(); i++) {
+			Plant f = environment.getPlant(i);
 			int xCoord = f.getxLoc() - f.getSize()/2;
 			int yCoord = f.getyLoc() - f.getSize()/2;
 			g2d.fillRect(xCoord, yCoord, f.getSize(), f.getSize());

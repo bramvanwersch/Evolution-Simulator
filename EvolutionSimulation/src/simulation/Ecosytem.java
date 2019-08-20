@@ -29,7 +29,7 @@ public class Ecosytem {
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
 		//TODO: Make sure that this has a proper feedback mechanism.
-		createFood(50);
+		createPlants(50);
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class Ecosytem {
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
-		eatFood();
+		eatPlants();
 		
 		eatTimeCheck();
 		eatSpecies();
@@ -156,13 +156,13 @@ public class Ecosytem {
 	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
 	 * case the food is consumed and the species gets energy
 	 */
-	public void eatFood() {
+	public void eatPlants() {
 		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
 			Species s = getAllPlantEaters().get(i);
-			for(int j = getNrFood() - 1; j >= 0; j--) {
-				Plant f = getFood(j);
+			for(int j = getNrPlant() - 1; j >= 0; j--) {
+				Plant f = getPlant(j);
 				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
-					removeFood(j);
+					removePlant(j);
 				}
 			}
 		}	
@@ -323,21 +323,21 @@ public class Ecosytem {
 	}
 
 // methods for food managing methods.
-	public void createFood(int nrFood) {
-		for (int i = 0; i < nrFood; i++) {
+	public void createPlants(int nrPLants) {
+		for (int i = 0; i < nrPLants; i++) {
 			plantList.add(new Plant(plantEnergy, plantSize));
 		}	
 	}
 	
-	public int getNrFood() {
+	public int getNrPlant() {
 		return plantList.size();
 	}
 	
-	public Plant getFood(int index) {
+	public Plant getPlant(int index) {
 		return plantList.get(index);
 	}
 	
-	public void removeFood(int index) {
+	public void removePlant(int index) {
 		plantList.remove(index);
 	}
 
