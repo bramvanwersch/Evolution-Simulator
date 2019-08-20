@@ -15,7 +15,13 @@ public class Environment {
 			double PoLevel = Math.random() * (maxPotassium - 0.75* maxPotassium) + 0.75* maxPotassium;
 			deposits[i] = new NutrientDeposit(NiLevel, PhLevel, PoLevel);
 		}
-	} 
+	}
+	
+
+	
+	public NutrientDeposit[] getDeposits() {
+		return deposits;
+	}
 	
 
 }

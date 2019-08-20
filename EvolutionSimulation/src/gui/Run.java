@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import environment.Environment;
 import gui.SidePanelGui;
 import gui.OptionData;
 import simulation.PopulationData;
@@ -23,20 +24,23 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
-	private Ecosytem environment;
+	private Ecosytem ecosystem;
+	private Environment environment;
 
 	public Run(OptionData data) {
 		this.data = data;
-		environment = new Ecosytem(this.data);
+		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
+		environment = new Environment(30, 50, 50, 50);
+		ecosystem = new Ecosytem(this.data, environment);
 		f = new JFrame("Terrain");
 		createGui();
-		loop = new GameLoop(panel,environment, 50, sidePanel);
+		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
 	private void createGui() {
 		//main panel
-		panel = new TerrainPanel(950,950, environment);
+		panel = new TerrainPanel(950,950, ecosystem);
 		
 		//panel tot the side
 		sidePanel = new SidePanelGui(950, 300);
@@ -107,10 +111,10 @@ public class Run {
 	private void restartTimer() {
 		timer.stop();
 		f.dispose();
-		environment = new Ecosytem(this.data);
+		ecosystem = new Ecosytem(this.data, environment);
 		f = new JFrame("Terrain");
 		createGui();
-		loop = new GameLoop(panel,environment, 50, sidePanel);
+		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
@@ -123,13 +127,13 @@ public class Run {
 
 	private void drawGraph() {
 		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
-		String[] populationNames = new String[environment.getAllPopData().length];
-		for (int i = 0; i < environment.getPopulations().size(); i++) {
-			Population sp = environment.getPopulations().get(i);
+		String[] populationNames = new String[ecosystem.getAllPopData().length];
+		for (int i = 0; i < ecosystem.getPopulations().size(); i++) {
+			Population sp = ecosystem.getPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
 		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};		
-		new GraphBuilder(environment, populationNames, attributeNames,
+		new GraphBuilder(ecosystem, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false).start();
 	}
 

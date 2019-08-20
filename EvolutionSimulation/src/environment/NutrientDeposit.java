@@ -12,7 +12,28 @@ public class NutrientDeposit {
 		Nitrogen = nitrogen;
 		Phosporus = phosporus;
 		Potassium = potassium;
-		x = (int) (Math.random() * WINDOW_SIZE);
-		y = (int) (Math.random() * WINDOW_SIZE);
+		x = (int) (Math.random() * (WINDOW_SIZE - 50) + 50);
+		y = (int) (Math.random() * (WINDOW_SIZE - 50) + 50);
 	}
+
+	public double getNitrogen() {
+		return Nitrogen;
+	}
+
+	public double getPhosporus() {
+		return Phosporus;
+	}
+
+	public double getPotassium() {
+		return Potassium;
+	}
+
+	public int getXPos() {
+		return x;
+	}
+
+	public int getYPos() {
+		return y;
+	}
+	
 }

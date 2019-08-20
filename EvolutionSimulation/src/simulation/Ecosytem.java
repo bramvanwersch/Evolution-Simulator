@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+import environment.Environment;
 import gui.OptionData;
 
 public class Ecosytem {
@@ -15,9 +16,9 @@ public class Ecosytem {
 	private ArrayList<Plant> plantList;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
-	
+	private Environment environment;
 
-	public Ecosytem(OptionData options) {
+	public Ecosytem(OptionData options, Environment environment) {
 		this.plantList = new ArrayList<Plant>();
 		this.populations = new ArrayList<Population>();
 		this.plantEnergy = options.getPlantEnergy();
@@ -25,6 +26,7 @@ public class Ecosytem {
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
+		this.environment = environment;
 		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
@@ -472,6 +474,10 @@ public class Ecosytem {
 	
 	public PopulationData getAveragePopData() {
 		return this.averagePopData;
+	}
+	
+	public Environment getEnvironment() {
+		return this.environment;
 	}
 
 	

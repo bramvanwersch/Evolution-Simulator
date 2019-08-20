@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
+import environment.Environment;
 import gui.OptionData;
 import simulation.Ecosytem;
 import simulation.Population;
@@ -28,8 +29,9 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 	public Void doInBackground() {
 		for (int i = 0; i < runs; i++) {
 			OptionData optionData = makeOptionData();
-			Ecosytem environment = new Ecosytem(optionData);
-			BlankGameLoop blankGameLoop = new BlankGameLoop(50, environment, 10);
+			Environment environment = new Environment(30, 50, 50, 50);
+			Ecosytem ecosystem = new Ecosytem(optionData, environment);
+			BlankGameLoop blankGameLoop = new BlankGameLoop(50, ecosystem, 10);
 			Timer timer = new Timer(10, blankGameLoop);
 			timer.start();
 			while (!blankGameLoop.getRunFinished()) {
