@@ -13,7 +13,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
 import gui.OptionData;
-import simulation.EcoSytem;
+import simulation.Ecosytem;
 import simulation.Population;
 
 public class BlankRun extends SwingWorker<Void, Integer> {
@@ -28,7 +28,7 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 	public Void doInBackground() {
 		for (int i = 0; i < runs; i++) {
 			OptionData optionData = makeOptionData();
-			EcoSytem environment = new EcoSytem(optionData);
+			Ecosytem environment = new Ecosytem(optionData);
 			BlankGameLoop blankGameLoop = new BlankGameLoop(50, environment, 10);
 			Timer timer = new Timer(10, blankGameLoop);
 			timer.start();

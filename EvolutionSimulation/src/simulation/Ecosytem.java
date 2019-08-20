@@ -8,7 +8,7 @@ import java.util.Random;
 
 import gui.OptionData;
 
-public class EcoSytem {
+public class Ecosytem {
 	private int foodEnergy;
 	private int foodSize;
 	private ArrayList<Population> populations;
@@ -17,7 +17,7 @@ public class EcoSytem {
 	private PopulationData averagePopData;
 	
 
-	public EcoSytem(OptionData options) {
+	public Ecosytem(OptionData options) {
 		this.foodList = new ArrayList<Plant>();
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();

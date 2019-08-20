@@ -10,16 +10,16 @@ import javax.swing.JPanel;
 import simulation.Plant;
 import simulation.Population;
 import simulation.Species;
-import simulation.EcoSytem;
+import simulation.Ecosytem;
 
 public class TerrainPanel extends JPanel{
 	private int heigth;
 	private int width;
 	private Graphics2D g2d;
-	private EcoSytem environment;
+	private Ecosytem environment;
 			
 	
-	public TerrainPanel(int heigth, int width, EcoSytem environment) {
+	public TerrainPanel(int heigth, int width, Ecosytem environment) {
 		this.heigth = heigth;
 		this.width = width;
 		this.environment = environment;
@@ -70,7 +70,7 @@ public class TerrainPanel extends JPanel{
 		g2d.setColor(Color.BLACK);
 	}
 	
-	public EcoSytem getEnvironment() {
+	public Ecosytem getEnvironment() {
 		return environment;
 	}
 }
