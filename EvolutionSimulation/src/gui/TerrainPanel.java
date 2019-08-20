@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import simulation.Food;
+import simulation.Plant;
 import simulation.Population;
 import simulation.Species;
 import simulation.Environment;
@@ -62,7 +62,7 @@ public class TerrainPanel extends JPanel{
 	private void drawFood() {
 		g2d.setColor(Color.GREEN);
 		for (int i = 0; i < environment.getNrFood(); i++) {
-			Food f = environment.getFood(i);
+			Plant f = environment.getFood(i);
 			int xCoord = f.getxLoc() - f.getSize()/2;
 			int yCoord = f.getyLoc() - f.getSize()/2;
 			g2d.fillRect(xCoord, yCoord, f.getSize(), f.getSize());

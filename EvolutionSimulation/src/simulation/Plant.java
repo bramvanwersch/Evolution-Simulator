@@ -1,13 +1,13 @@
 package simulation;
 
-public class Food{
+public class Plant{
 	private int WINDOW_SIZE = 950;
 	private int energy;
 	private int size = 10;
 	private int xLoc;
 	private int yLoc;
 	
-	public Food(int energy, int size) {
+	public Plant(int energy, int size) {
 		this.size = size;
 		this.energy = energy;
 		this.xLoc = (int) (Math.random() * (WINDOW_SIZE - this.size -5) + 0.5 * this.size);

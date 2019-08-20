@@ -12,13 +12,13 @@ public class Environment {
 	private int foodEnergy;
 	private int foodSize;
 	private ArrayList<Population> populations;
-	private ArrayList<Food> foodList;
+	private ArrayList<Plant> foodList;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	
 
 	public Environment(OptionData options) {
-		this.foodList = new ArrayList<Food>();
+		this.foodList = new ArrayList<Plant>();
 		this.populations = new ArrayList<Population>();
 		this.foodEnergy = options.getFoodEnergy();
 		this.foodSize = options.getFoodSize();
@@ -160,7 +160,7 @@ public class Environment {
 		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
 			Species s = getAllPlantEaters().get(i);
 			for(int j = getNrFood() - 1; j >= 0; j--) {
-				Food f = getFood(j);
+				Plant f = getFood(j);
 				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
 					removeFood(j);
 				}
@@ -325,7 +325,7 @@ public class Environment {
 // methods for food managing methods.
 	public void createFood(int nrFood) {
 		for (int i = 0; i < nrFood; i++) {
-			foodList.add(new Food(foodEnergy, foodSize));
+			foodList.add(new Plant(foodEnergy, foodSize));
 		}	
 	}
 	
@@ -333,7 +333,7 @@ public class Environment {
 		return foodList.size();
 	}
 	
-	public Food getFood(int index) {
+	public Plant getFood(int index) {
 		return foodList.get(index);
 	}
 	
