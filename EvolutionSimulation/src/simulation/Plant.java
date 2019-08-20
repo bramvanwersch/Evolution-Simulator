@@ -3,7 +3,7 @@ package simulation;
 public class Plant{
 	private int WINDOW_SIZE = 950;
 	private int energy;
-	private int size = 10;
+	private int size;
 	private int xLoc;
 	private int yLoc;
 	

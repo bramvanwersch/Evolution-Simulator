@@ -11,7 +11,7 @@ import javax.swing.Timer;
 import gui.SidePanelGui;
 import gui.OptionData;
 import simulation.PopulationData;
-import simulation.Environment;
+import simulation.EcoSytem;
 import simulation.GameLoop;
 import simulation.Population;
 
@@ -23,11 +23,11 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
-	private Environment environment;
+	private EcoSytem environment;
 
 	public Run(OptionData data) {
 		this.data = data;
-		environment = new Environment(this.data);
+		environment = new EcoSytem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,environment, 50, sidePanel);
@@ -107,7 +107,7 @@ public class Run {
 	private void restartTimer() {
 		timer.stop();
 		f.dispose();
-		environment = new Environment(this.data);
+		environment = new EcoSytem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,environment, 50, sidePanel);
