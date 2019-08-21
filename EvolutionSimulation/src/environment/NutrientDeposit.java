@@ -12,8 +12,8 @@ public class NutrientDeposit {
 		this.type = type;
 		this.value = Math.random() * (maxValue- 0.75* maxValue) + 0.75* maxValue;
 		this.radius = (int) (Math.random() * (75 - 50) + 50);
-		x = (int) (Math.random() * (WINDOW_SIZE - radius));
-		y = (int) (Math.random() * (WINDOW_SIZE - radius));
+		x = (int) (Math.random() * (WINDOW_SIZE - 2 * radius));
+		y = (int) (Math.random() * (WINDOW_SIZE - 2 * radius));
 	}
 
 	public int getXPos() {
