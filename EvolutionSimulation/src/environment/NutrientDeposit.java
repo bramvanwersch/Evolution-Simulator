@@ -2,38 +2,34 @@ package environment;
 
 public class NutrientDeposit {
 	private int WINDOW_SIZE = 950;
-	private double Nitrogen;
-	private double Phosporus;
-	private double Potassium;
+	private double diameter;
+	private String type;
 	private int x;
 	private int y;
+	private double value;
 	
-	public NutrientDeposit(double nitrogen, double phosporus, double potassium) {
-		Nitrogen = nitrogen;
-		Phosporus = phosporus;
-		Potassium = potassium;
-		x = (int) (Math.random() * (WINDOW_SIZE - 50) + 50);
-		y = (int) (Math.random() * (WINDOW_SIZE - 50) + 50);
+	public NutrientDeposit(String type, int maxValue) {
+		this.type = type;
+		this.value = Math.random() * (maxValue- 0.75* maxValue) + 0.75* maxValue;
+		diameter = Math.random() * (150 - 100) + 100;
+		x = (int) (Math.random() * (WINDOW_SIZE - diameter));
+		y = (int) (Math.random() * (WINDOW_SIZE - diameter));
 	}
 
-	public double getNitrogen() {
-		return Nitrogen;
-	}
-
-	public double getPhosporus() {
-		return Phosporus;
-	}
-
-	public double getPotassium() {
-		return Potassium;
+	public double getValue() {
+		return this.value;
 	}
 
 	public int getXPos() {
-		return x;
+		return this.x;
 	}
 
 	public int getYPos() {
-		return y;
+		return this.y;
+	}
+	
+	public int getSize() {
+		return (int) diameter;
 	}
 	
 }

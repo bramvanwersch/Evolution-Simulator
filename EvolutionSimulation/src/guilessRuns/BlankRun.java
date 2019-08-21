@@ -29,7 +29,7 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 	public Void doInBackground() {
 		for (int i = 0; i < runs; i++) {
 			OptionData optionData = makeOptionData();
-			Environment environment = new Environment(30, 50, 50, 50);
+			Environment environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 			Ecosytem ecosystem = new Ecosytem(optionData, environment);
 			BlankGameLoop blankGameLoop = new BlankGameLoop(50, ecosystem, 10);
 			Timer timer = new Timer(10, blankGameLoop);

@@ -1,27 +1,36 @@
 package environment;
 
 public class Environment {
-	private NutrientDeposit[] deposits;
+	private NutrientDeposit[] nitrogenDeposits;
+	private NutrientDeposit[] phosporusDeposits;
+	private NutrientDeposit[] potassiumDeposits;
 	
-	public Environment(int nrDeposits, int maxNitrogen, int maxPhosporus, int maxPotassium) {
-		deposits = new NutrientDeposit[nrDeposits];
-		createDeposits(nrDeposits, maxNitrogen, maxPhosporus, maxPotassium);
+	public Environment(int[] nitrogen, int[] phosporus, int[] potassium) {
+		nitrogenDeposits = createDeposits("nitrogen", nitrogen);
+		phosporusDeposits = createDeposits("phosporus", phosporus);
+		potassiumDeposits = createDeposits("potassium",potassium);
 	}
 
-	private void createDeposits(int nrDeposits, int maxNitrogen, int maxPhosporus, int maxPotassium) {
-		for (int i = 0; i < nrDeposits; i++) {
-			double NiLevel = Math.random() * (maxNitrogen - 0.75* maxNitrogen) + 0.75* maxNitrogen;
-			double PhLevel = Math.random() * (maxPhosporus - 0.75* maxPhosporus) + 0.75* maxPhosporus;
-			double PoLevel = Math.random() * (maxPotassium - 0.75* maxPotassium) + 0.75* maxPotassium;
-			deposits[i] = new NutrientDeposit(NiLevel, PhLevel, PoLevel);
+	private NutrientDeposit[] createDeposits(String type, int[] element) {
+		NutrientDeposit[] deposits = new NutrientDeposit[element[0]];
+		for (int i = 0; i < element[0]; i++) {
+			deposits[i] = new NutrientDeposit(type, element[1]);
 		}
-	}
-	
-
-	
-	public NutrientDeposit[] getDeposits() {
 		return deposits;
 	}
+
+	public NutrientDeposit[] getNitrogenDeposits() {
+		return nitrogenDeposits;
+	}
+
+	public NutrientDeposit[] getPhosporusDeposits() {
+		return phosporusDeposits;
+	}
+
+	public NutrientDeposit[] getPotassiumDeposits() {
+		return potassiumDeposits;
+	}
+	
 	
 
 }

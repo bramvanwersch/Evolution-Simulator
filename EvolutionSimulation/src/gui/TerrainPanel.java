@@ -40,13 +40,17 @@ public class TerrainPanel extends JPanel{
 	}
 
 	private void drawNutrientCircles() {
-		for (NutrientDeposit nd : ecosystem.getEnvironment().getDeposits()) {
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getNitrogenDeposits()){
 			g2d.setColor(new Color(206, 158, 32, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), (int) nd.getNitrogen(), (int) nd.getNitrogen());
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+		}
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getPhosporusDeposits()){
 			g2d.setColor(new Color(206, 60, 33, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), (int) nd.getPhosporus(), (int) nd.getPhosporus());
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+		}
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getPotassiumDeposits()){
 			g2d.setColor(new Color(255, 255, 0, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), (int) nd.getPotassium(), (int) nd.getPotassium());
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
 		}
 	}
 

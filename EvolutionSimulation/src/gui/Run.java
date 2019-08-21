@@ -30,7 +30,7 @@ public class Run {
 	public Run(OptionData data) {
 		this.data = data;
 		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
-		environment = new Environment(30, 50, 50, 50);
+		environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		ecosystem = new Ecosytem(this.data, environment);
 		f = new JFrame("Terrain");
 		createGui();
