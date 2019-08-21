@@ -31,6 +31,22 @@ public class Environment {
 		return potassiumDeposits;
 	}
 	
+	public double[] getNutrientValues(int xCoord, int yCoord) {
+		double[] nutrientValues = new double[] {0,0,0};
+		for (NutrientDeposit nd : nitrogenDeposits) {
+			//if outside radius returns 0
+			nutrientValues[0] += nd.getValueAtDistance(xCoord, yCoord);
+		}
+		for (NutrientDeposit nd : phosporusDeposits) {
+			//if outside radius returns 0
+			nutrientValues[1] += nd.getValueAtDistance(xCoord, yCoord);
+		}
+		for (NutrientDeposit nd : potassiumDeposits) {
+			//if outside radius returns 0
+			nutrientValues[2] += nd.getValueAtDistance(xCoord, yCoord);
+		}
+		return nutrientValues;
+	}
 	
 
 }
