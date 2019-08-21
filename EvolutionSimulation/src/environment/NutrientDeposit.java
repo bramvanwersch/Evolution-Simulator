@@ -25,7 +25,7 @@ public class NutrientDeposit {
 	}
 	
 	public int getSize() {
-		return this.radius;
+		return 2* this.radius;
 	}
 
 	public boolean checkArea(int xCoord, int yCoord) {
