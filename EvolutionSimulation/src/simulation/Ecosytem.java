@@ -27,7 +27,7 @@ public class Ecosytem {
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
 		this.environment = environment;
-		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
+		createAnimalPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
 		//TODO: Make sure that this has a proper feedback mechanism.
@@ -264,9 +264,9 @@ public class Ecosytem {
 		return ar;
 	}
 
-	private void createPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
+	private void createAnimalPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
-			Population p = new Population(colors[i], type[i], names[i]);
+			AnimalPopulation p = new AnimalPopulation(colors[i], type[i], names[i]);
 			populations.add(p);
 		}
 	}

@@ -12,7 +12,7 @@ public class Plant{
 		this.energy = energy;
 		this.xLoc = (int) (Math.random() * (WINDOW_SIZE - this.size -5) + 0.5 * this.size);
 		this.yLoc = (int) (Math.random() * (WINDOW_SIZE - this.size -5) + 0.5 * this.size);
-		}
+	}
 	
 	public int getEnergy() {
 		return energy;
