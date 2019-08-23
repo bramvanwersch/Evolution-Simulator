@@ -2,7 +2,7 @@ package simulation;
 
 import genome.Genome;
 
-public class Omnivore extends Species{
+public class Omnivore extends AnimalSpecies{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private int MINIMUM_REP_TIME = 5;
 
