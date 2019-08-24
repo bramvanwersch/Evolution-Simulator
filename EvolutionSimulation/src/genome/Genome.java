@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Genome implements DNAtoAA {
+public class Genome implements DNAtoAA, SubstitutionMatrix {
 	private Map<String, Gene> perfectGenes;
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
