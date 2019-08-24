@@ -14,8 +14,8 @@ public class OptionData {
 	private ArrayList<Integer> scentRanges;
 	private ArrayList<Color> colors;
 	private ArrayList<Double> eatSizeFactors;
-	private int foodSize;
-	private int foodEnergy;
+	private int plantSize;
+	private int plantEnergy;
 
 	public OptionData() {
 		this.types = new ArrayList<String>();
@@ -66,20 +66,20 @@ public class OptionData {
 		eatSizeFactors.add(val);
 	}
 	
-	public int getFoodSize() {
-		return foodSize;
+	public int getPlantSize() {
+		return plantSize;
 	}
 
-	public void setFoodSize(int foodSize) {
-		this.foodSize = foodSize;
+	public void setPlantSize(int foodSize) {
+		this.plantSize = foodSize;
 	}
 
-	public int getFoodEnergy() {
-		return foodEnergy;
+	public int getPlantEnergy() {
+		return plantEnergy;
 	}
 
-	public void setFoodEnergy(int foodEnergy) {
-		this.foodEnergy = foodEnergy;
+	public void setPlantEnergy(int foodEnergy) {
+		this.plantEnergy = foodEnergy;
 	}
 
 	public String[] getTypes() {

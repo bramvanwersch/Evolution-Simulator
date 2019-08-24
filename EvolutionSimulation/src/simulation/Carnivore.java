@@ -2,11 +2,12 @@ package simulation;
 
 import genome.Genome;
 
-public class Carnivore extends Species{
+public class Carnivore extends AnimalSpecies{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private final int FOOD_DIGEST_TIME = 1000;
 	boolean eating = false;
 	private int timeSinceEating;
+	private int prevSpeed;
 
 	//innitial constructor
 	public Carnivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
@@ -31,7 +32,7 @@ public class Carnivore extends Species{
 	 * @param sEnergy the energy of the eatable species
 	 * @return boolean that tells if the species can be eaten or not.
 	 */
-	public boolean checkCanEat(int x, int y, int sSize, int sEnergy) {
+	public boolean foodEaten(int x, int y, int sSize, int sEnergy) {
 		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
 				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
 			changeEnergy(sEnergy);
@@ -89,13 +90,14 @@ public class Carnivore extends Species{
 	public void eatTimeCheck() {
 		if (this.eating) {
 			if (this.timeSinceEating == 0) {
+				this.prevSpeed = getSpeed();
 				setSpeed(3);
 			}
 			this.timeSinceEating += 50;
 			if (this.timeSinceEating >= this.FOOD_DIGEST_TIME) {
 				this.eating = false;
 				this.timeSinceEating = 0;
-				setSpeed(getGenome().getGeneValue("speed"));
+				setSpeed(prevSpeed);
 			}
 		}
 	}
@@ -107,4 +109,5 @@ public class Carnivore extends Species{
 	public String[] getGeneNames() {
 		return this.geneNames;
 	}
+
 }

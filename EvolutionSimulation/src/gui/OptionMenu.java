@@ -40,8 +40,8 @@ import javax.swing.JColorChooser;
 public class OptionMenu extends JFrame {
 
 	private JPanel contentPane;
-	private JSpinner foodEnergySpinner;
-	private JSpinner foodSizeSpinner;
+	private JSpinner plantEnergySpinner;
+	private JSpinner plantSizeSpinner;
 	private JScrollPane scrollPane;
 	private JPanel scrollPanel;
 	private int numberOfSpecies;
@@ -59,7 +59,6 @@ public class OptionMenu extends JFrame {
 			public void run() {
 				try {
 					OptionMenu frame = new OptionMenu();
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -78,6 +77,7 @@ public class OptionMenu extends JFrame {
 		speciesNames = new ArrayList<JTextField>();
 		data = new OptionData();
 		initGUI();
+		setVisible(true);
 	}
 	
 	private void initGUI() {
@@ -112,54 +112,54 @@ public class OptionMenu extends JFrame {
 		gbl_environmentPanel.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		environmentPanel.setLayout(gbl_environmentPanel);
 		
-		GridBagConstraints gbc_foodPanel = new GridBagConstraints();
-		gbc_foodPanel.gridheight = 2;
-		gbc_foodPanel.gridwidth = 2;
-		gbc_foodPanel.insets = new Insets(20, 20, 5, 20);
-		gbc_foodPanel.fill = GridBagConstraints.BOTH;
-		gbc_foodPanel.gridx = 0;
-		gbc_foodPanel.gridy = 0;
-		JPanel foodPanel = new JPanel();
-		foodPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "Food properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
-		environmentPanel.add(foodPanel, gbc_foodPanel);
-		GridBagLayout gbl_foodPanel = new GridBagLayout();
-		foodPanel.setLayout(gbl_foodPanel);
+		GridBagConstraints gbc_plantPanel = new GridBagConstraints();
+		gbc_plantPanel.gridheight = 2;
+		gbc_plantPanel.gridwidth = 2;
+		gbc_plantPanel.insets = new Insets(20, 20, 5, 20);
+		gbc_plantPanel.fill = GridBagConstraints.BOTH;
+		gbc_plantPanel.gridx = 0;
+		gbc_plantPanel.gridy = 0;
+		JPanel plantPanel = new JPanel();
+		plantPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 3), "plant properties", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		environmentPanel.add(plantPanel, gbc_plantPanel);
+		GridBagLayout gbl_plantPanel = new GridBagLayout();
+		plantPanel.setLayout(gbl_plantPanel);
 		
-		GridBagConstraints gbc_lblFoodEnergy = new GridBagConstraints();
-		gbc_lblFoodEnergy.anchor = GridBagConstraints.WEST;
-		gbc_lblFoodEnergy.insets = new Insets(10, 5, 5, 5);
-		gbc_lblFoodEnergy.gridx = 0;
-		gbc_lblFoodEnergy.gridy = 0;
-		JLabel lblFoodEnergy = new JLabel("Food Energy(50-500):");
-		foodPanel.add(lblFoodEnergy, gbc_lblFoodEnergy);
-		lblFoodEnergy.setToolTipText("Energy each food item gives herbivores and omnivores.");
-		lblFoodEnergy.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblPlantEnergy = new GridBagConstraints();
+		gbc_lblPlantEnergy.anchor = GridBagConstraints.WEST;
+		gbc_lblPlantEnergy.insets = new Insets(10, 5, 5, 5);
+		gbc_lblPlantEnergy.gridx = 0;
+		gbc_lblPlantEnergy.gridy = 0;
+		JLabel lblPlantEnergy = new JLabel("plant Energy(50-500):");
+		plantPanel.add(lblPlantEnergy, gbc_lblPlantEnergy);
+		lblPlantEnergy.setToolTipText("Energy each plant item gives herbivores and omnivores.");
+		lblPlantEnergy.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		SpinnerNumberModel foodEnergyModel = new SpinnerNumberModel(100, 50, 500, 10);
-		foodEnergySpinner = new JSpinner(foodEnergyModel);
-		GridBagConstraints gbc_foodEnergyTxt = new GridBagConstraints();
-		gbc_foodEnergyTxt.insets = new Insets(10, 10, 5, 5);
-		gbc_foodEnergyTxt.gridx = 1;
-		gbc_foodEnergyTxt.gridy = 0;
-		foodPanel.add(foodEnergySpinner, gbc_foodEnergyTxt);
+		SpinnerNumberModel plantEnergyModel = new SpinnerNumberModel(100, 50, 500, 10);
+		plantEnergySpinner = new JSpinner(plantEnergyModel);
+		GridBagConstraints gbc_plantEnergyTxt = new GridBagConstraints();
+		gbc_plantEnergyTxt.insets = new Insets(10, 10, 5, 5);
+		gbc_plantEnergyTxt.gridx = 1;
+		gbc_plantEnergyTxt.gridy = 0;
+		plantPanel.add(plantEnergySpinner, gbc_plantEnergyTxt);
 		
-		GridBagConstraints gbc_lblFoodSize = new GridBagConstraints();
-		gbc_lblFoodSize.anchor = GridBagConstraints.WEST;
-		gbc_lblFoodSize.insets = new Insets(0, 5, 5, 5);
-		gbc_lblFoodSize.gridx = 0;
-		gbc_lblFoodSize.gridy = 1;
-		JLabel lblFoodSize = new JLabel("Food Size(1-100):");
-		foodPanel.add(lblFoodSize, gbc_lblFoodSize);
-		lblFoodSize.setToolTipText("Size of the food for herbivores and omnivores.");
-		lblFoodSize.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblPlantSize = new GridBagConstraints();
+		gbc_lblPlantSize.anchor = GridBagConstraints.WEST;
+		gbc_lblPlantSize.insets = new Insets(0, 5, 5, 5);
+		gbc_lblPlantSize.gridx = 0;
+		gbc_lblPlantSize.gridy = 1;
+		JLabel lblPlantSize = new JLabel("Plant Size(1-100):");
+		plantPanel.add(lblPlantSize, gbc_lblPlantSize);
+		lblPlantSize.setToolTipText("Size of the Plant for herbivores and omnivores.");
+		lblPlantSize.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		SpinnerNumberModel foodSizeModel = new SpinnerNumberModel(5, 1, 100, 1);
-		foodSizeSpinner = new JSpinner(foodSizeModel);
-		GridBagConstraints gbc_foodSizeTxt = new GridBagConstraints();
-		gbc_foodSizeTxt.insets = new Insets(0, 10, 5, 5);
-		gbc_foodSizeTxt.gridx = 1;
-		gbc_foodSizeTxt.gridy = 1;
-		foodPanel.add(foodSizeSpinner, gbc_foodSizeTxt);
+		SpinnerNumberModel plantSizeModel = new SpinnerNumberModel(5, 1, 100, 1);
+		plantSizeSpinner = new JSpinner(plantSizeModel);
+		GridBagConstraints gbc_plantSizeTxt = new GridBagConstraints();
+		gbc_plantSizeTxt.insets = new Insets(0, 10, 5, 5);
+		gbc_plantSizeTxt.gridx = 1;
+		gbc_plantSizeTxt.gridy = 1;
+		plantPanel.add(plantSizeSpinner, gbc_plantSizeTxt);
 	
 		GridBagConstraints gbc_terrainPanel = new GridBagConstraints();
 		gbc_terrainPanel.gridwidth = 2;
@@ -281,7 +281,7 @@ public class OptionMenu extends JFrame {
 		gbc_lblName.gridy = 1;
 		panel_1.add(lblName, gbc_lblName);
 		
-		JTextField nameTxt = new JTextField();
+		JTextField nameTxt = new JTextField(getDefaultName());
 		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
 		gbc_nameTxt.anchor = GridBagConstraints.WEST;
 		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
@@ -413,8 +413,10 @@ public class OptionMenu extends JFrame {
 		newColorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JColorChooser chooser = new JColorChooser();
-				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.BLUE);
-				colorLabel.setBackground(speciesColor);
+				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.GREEN);
+				if (speciesColor != null) {
+					colorLabel.setBackground(speciesColor);
+				}
 			}
 		});
 		GridBagConstraints gbc_newColorBtn = new GridBagConstraints();
@@ -426,7 +428,7 @@ public class OptionMenu extends JFrame {
 		panel_1.add(newColorBtn, gbc_newColorBtn);
 		
 		JLabel eatSizeFactorLabel = new JLabel("Eat size factor (0, 10):");
-		eatSizeFactorLabel.setToolTipText("<html>\r\nFactor that tells how mutch bigger a species has to be to be<br>\r\nable to eat its respective food. A value of 1 means that the<br>\r\nspecies has to be as big or bigger to be able to eat its food.<br>\r\n</html>\r\n");
+		eatSizeFactorLabel.setToolTipText("<html>\r\nFactor that tells how mutch bigger a species has to be to be<br>\r\nable to eat its respective plant. A value of 1 means that the<br>\r\nspecies has to be as big or bigger to be able to eat its plant.<br>\r\n</html>\r\n");
 		GridBagConstraints gbc_eatSizeFactorLbl = new GridBagConstraints();
 		gbc_eatSizeFactorLbl.anchor = GridBagConstraints.WEST;
 		gbc_eatSizeFactorLbl.insets = new Insets(5, 10, 5, 5);
@@ -451,8 +453,8 @@ public class OptionMenu extends JFrame {
 	}
 
 	public void saveData() {
-		data.setFoodEnergy((int) foodEnergySpinner.getValue());
-		data.setFoodSize((int) foodSizeSpinner.getValue());
+		data.setPlantEnergy((int) plantEnergySpinner.getValue());
+		data.setPlantSize((int) plantSizeSpinner.getValue());
 		for(int i = 0; i < speciesTypes.size(); i++) {
 			data.addTypeList((String) speciesTypes.get(i).getSelectedItem());
 			data.addNamesList(speciesNames.get(i).getText());
@@ -464,6 +466,10 @@ public class OptionMenu extends JFrame {
 			data.addColorsList(speciesColors.get(i).getBackground());
 			data.addEatSizeFactorsList((double) spinnerValues.get(i).get(5).getValue());
 		}
+	}
+	
+	private String getDefaultName() {
+		return "Pop. " + (speciesNames.size() +1);
 	}
 	
 }

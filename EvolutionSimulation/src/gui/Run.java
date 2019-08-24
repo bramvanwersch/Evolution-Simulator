@@ -8,39 +8,45 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import environment.Environment;
 import gui.SidePanelGui;
 import gui.OptionData;
 import simulation.PopulationData;
-import simulation.Environment;
+import simulation.Ecosytem;
 import simulation.GameLoop;
 import simulation.Population;
 
 public class Run {
 	private Timer timer;
 	private int UPDATE_TIME = 50;
+	private JFrame f;
+	private OptionData data;
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
+	private Ecosytem ecosystem;
 	private Environment environment;
 
 	public Run(OptionData data) {
-		environment = new Environment(data);
+		this.data = data;
+		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
+		environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
+		ecosystem = new Ecosytem(this.data, environment);
+		f = new JFrame("Terrain");
 		createGui();
-		loop = new GameLoop(panel,environment, 50, sidePanel);
+		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
 	private void createGui() {
 		//main panel
-		panel = new TerrainPanel(950,950, environment);
+		panel = new TerrainPanel(950,950, ecosystem);
 		
 		//panel tot the side
 		sidePanel = new SidePanelGui(950, 300);
 		
-		JFrame f =  new JFrame();
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
-		f = new JFrame("Terrain");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(panel, bd.CENTER);
 		f.add(sidePanel, bd.EAST);
@@ -71,6 +77,14 @@ public class Run {
 		});
 		buttonPanel.add(btnRestart, BorderLayout.NORTH);
 		
+		JButton btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newGame();
+			}
+		});
+		buttonPanel.add(btnNew, BorderLayout.NORTH);
+		
 		JButton btnGraph = new JButton("Graph");
 		btnGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,25 +109,31 @@ public class Run {
 	
  
 	private void restartTimer() {
-		// TODO Auto-generated method stub
-		
+		timer.stop();
+		f.dispose();
+		ecosystem = new Ecosytem(this.data, environment);
+		f = new JFrame("Terrain");
+		createGui();
+		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
+		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
 	private void newGame() {
-		// TODO Auto-generated method stub
-		
+		timer.stop();
+		f.dispose();
+		new OptionMenu();
 	}
 	
 
 	private void drawGraph() {
 		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
-		String[] populationNames = new String[environment.getAllPopData().length];
-		for (int i = 0; i < environment.getPopulations().size(); i++) {
-			Population sp = environment.getPopulations().get(i);
+		String[] populationNames = new String[ecosystem.getAllPopData().length];
+		for (int i = 0; i < ecosystem.getPopulations().size(); i++) {
+			Population sp = ecosystem.getPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
 		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};		
-		new GraphBuilder(environment, populationNames, attributeNames,
+		new GraphBuilder(ecosystem, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false).start();
 	}
 

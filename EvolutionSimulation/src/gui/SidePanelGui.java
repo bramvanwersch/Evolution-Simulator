@@ -73,7 +73,6 @@ public class SidePanelGui extends JPanel{
 
 		JLabel lblNrSpecies = new JLabel("Number of individuals:");
 		lblNrSpecies.setOpaque(true);
-		lblNrSpecies.setBackground(Color.GREEN);
 		GridBagConstraints gbc_lblNrSpecies = new GridBagConstraints();
 		gbc_lblNrSpecies.anchor = GridBagConstraints.WEST;
 		gbc_lblNrSpecies.insets = new Insets(5, 5, 5, 5);
@@ -92,7 +91,6 @@ public class SidePanelGui extends JPanel{
 		
 		JLabel lblAvgSpeed = new JLabel("Average speed:");
 		lblAvgSpeed.setOpaque(true);
-		lblAvgSpeed.setBackground(Color.RED);
 		GridBagConstraints gbc_lblAvgSpeed = new GridBagConstraints();
 		gbc_lblAvgSpeed.anchor = GridBagConstraints.WEST;
 		gbc_lblAvgSpeed.insets = new Insets(5, 5, 5, 5);
@@ -109,9 +107,8 @@ public class SidePanelGui extends JPanel{
 		gbc_lblAvgSpeedText.gridy = 2;
 		add(lblAvgSpeedText, gbc_lblAvgSpeedText);
 		
-		JLabel lblAvgSize = new JLabel("Average size:");
+		JLabel lblAvgSize = new JLabel("Average max size:");
 		lblAvgSize.setOpaque(true);
-		lblAvgSize.setBackground(Color.BLUE);
 		GridBagConstraints gbc_lblAvgSize = new GridBagConstraints();
 		gbc_lblAvgSize.anchor = GridBagConstraints.WEST;
 		gbc_lblAvgSize.insets = new Insets(5, 5, 5, 5);
@@ -130,7 +127,6 @@ public class SidePanelGui extends JPanel{
 		
 		JLabel lblAvgAge = new JLabel("Average max age:");
 		lblAvgAge.setOpaque(true);
-		lblAvgAge.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_lblAvgAge = new GridBagConstraints();
 		gbc_lblAvgAge.anchor = GridBagConstraints.WEST;
 		gbc_lblAvgAge.insets = new Insets(5, 5, 5, 5);
@@ -148,7 +144,6 @@ public class SidePanelGui extends JPanel{
 		
 		JLabel lblAvgScent = new JLabel("Average scent range:");
 		lblAvgScent.setOpaque(true);
-		lblAvgScent.setBackground(Color.GRAY);
 		GridBagConstraints gbc_lblAvgScent = new GridBagConstraints();
 		gbc_lblAvgScent.anchor = GridBagConstraints.WEST;
 		gbc_lblAvgScent.insets = new Insets(5, 5, 5, 5);
@@ -166,7 +161,6 @@ public class SidePanelGui extends JPanel{
 		
 		JLabel lblEnergyConsumption = new JLabel("Energy consumption:");
 		lblEnergyConsumption.setOpaque(true);
-		lblEnergyConsumption.setBackground(Color.CYAN);
 		GridBagConstraints gbc_lblEnergyConsumption = new GridBagConstraints();
 		gbc_lblEnergyConsumption.anchor = GridBagConstraints.WEST;
 		gbc_lblEnergyConsumption.insets = new Insets(5, 5, 5, 5);

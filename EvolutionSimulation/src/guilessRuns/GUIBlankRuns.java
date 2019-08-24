@@ -21,14 +21,14 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import gui.OptionData;
-import simulation.Environment;
+import simulation.Ecosytem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class GUIBlankRuns {
 	private Timer timer;
-	private Environment environment;
+	private Ecosytem environment;
 	private BlankGameLoop blankLoop;
 	private JLabel lblCounter;
 	private JTextField loopAmount; 

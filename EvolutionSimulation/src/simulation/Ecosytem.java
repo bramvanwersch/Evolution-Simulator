@@ -6,30 +6,32 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
+import environment.Environment;
 import gui.OptionData;
 
-public class Environment {
-	private int foodEnergy;
-	private int foodSize;
+public class Ecosytem {
+	private int plantEnergy;
+	private int plantSize;
 	private ArrayList<Population> populations;
-	private ArrayList<Food> foodList;
+	private ArrayList<Plant> plantList;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
-	
+	private Environment environment;
 
-	public Environment(OptionData options) {
-		this.foodList = new ArrayList<Food>();
+	public Ecosytem(OptionData options, Environment environment) {
+		this.plantList = new ArrayList<Plant>();
 		this.populations = new ArrayList<Population>();
-		this.foodEnergy = options.getFoodEnergy();
-		this.foodSize = options.getFoodSize();
+		this.plantEnergy = options.getPlantEnergy();
+		this.plantSize = options.getPlantSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
-		createPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
+		this.environment = environment;
+		createAnimalPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
 		//TODO: Make sure that this has a proper feedback mechanism.
-		createFood(50);
+		createPlants(50);
 	}
 	
 	/**
@@ -40,8 +42,9 @@ public class Environment {
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
-		eatFood();
+		eatPlants();
 		
+		eatTimeCheck();
 		eatSpecies();
 		checkCanMultiply();
 		shuffleLists();
@@ -155,13 +158,13 @@ public class Environment {
 	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
 	 * case the food is consumed and the species gets energy
 	 */
-	public void eatFood() {
+	public void eatPlants() {
 		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
 			Species s = getAllPlantEaters().get(i);
-			for(int j = getNrFood() - 1; j >= 0; j--) {
-				Food f = getFood(j);
+			for(int j = getNrPlant() - 1; j >= 0; j--) {
+				Plant f = getPlant(j);
 				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
-					removeFood(j);
+					removePlant(j);
 				}
 			}
 		}	
@@ -180,7 +183,7 @@ public class Environment {
 						Species s1 = getAllMeatEaters().get(i);
 						Species s2 = sp.getSpecies(j);
 						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {
-							if (s1.checkCanEat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+							if (s1.foodEaten(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
 								sp.removeSpecies(j);
 								if (i != 0) {
 									i--;
@@ -190,6 +193,12 @@ public class Environment {
 					}
 				}
 			}
+		}
+	}
+	
+	private void eatTimeCheck() {
+		for (Species s : getAllCarnivores()) {
+			s.eatTimeCheck();
 		}
 	}
 	
@@ -214,7 +223,6 @@ public class Environment {
 			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
-				s.addRepTime();
 				s.addAge();
 			}
 		}
@@ -241,7 +249,7 @@ public class Environment {
 		for (Population sp: populations ) {
 			sp.shuffleSpeciesList();
 		}
-		Collections.shuffle(foodList);
+		Collections.shuffle(plantList);
 		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 	}
 	
@@ -256,9 +264,9 @@ public class Environment {
 		return ar;
 	}
 
-	private void createPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
+	private void createAnimalPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
-			Population p = new Population(colors[i], type[i], names[i]);
+			AnimalPopulation p = new AnimalPopulation(colors[i], type[i], names[i]);
 			populations.add(p);
 		}
 	}
@@ -317,22 +325,22 @@ public class Environment {
 	}
 
 // methods for food managing methods.
-	public void createFood(int nrFood) {
-		for (int i = 0; i < nrFood; i++) {
-			foodList.add(new Food(foodEnergy, foodSize));
+	public void createPlants(int nrPLants) {
+		for (int i = 0; i < nrPLants; i++) {
+			plantList.add(new Plant(plantEnergy, plantSize));
 		}	
 	}
 	
-	public int getNrFood() {
-		return foodList.size();
+	public int getNrPlant() {
+		return plantList.size();
 	}
 	
-	public Food getFood(int index) {
-		return foodList.get(index);
+	public Plant getPlant(int index) {
+		return plantList.get(index);
 	}
 	
-	public void removeFood(int index) {
-		foodList.remove(index);
+	public void removePlant(int index) {
+		plantList.remove(index);
 	}
 
 // methods for getting certain collections of species from populations.
@@ -466,6 +474,10 @@ public class Environment {
 	
 	public PopulationData getAveragePopData() {
 		return this.averagePopData;
+	}
+	
+	public Environment getEnvironment() {
+		return this.environment;
 	}
 
 	

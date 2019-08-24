@@ -10,19 +10,19 @@ import javax.swing.Timer;
 
 import gui.SidePanelGui;
 import gui.TerrainPanel;
-import simulation.Environment;
+import simulation.Ecosytem;
 import simulation.Population;
 import simulation.PopulationData;
 
 public class BlankGameLoop implements ActionListener {
-	private Environment environment;
+	private Ecosytem environment;
 	private int timeElapsed;
 	private int foodRegenTxt;
 	private int updateTime;
 	private Integer runCount;
 	private boolean runFinished;
 	
-	public BlankGameLoop(int txtFoodRegen, Environment enviroment, int updateTime) {
+	public BlankGameLoop(int txtFoodRegen, Ecosytem enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
@@ -40,7 +40,7 @@ public class BlankGameLoop implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		timeElapsed += updateTime;
 		environment.nextTimeStep();
-		environment.createFood(foodRegenTxt);
+		environment.createPlants(foodRegenTxt);
 		addPopData();
 		if (timeElapsed % 1000 == 0) {
 			if (timeElapsed != 0) {

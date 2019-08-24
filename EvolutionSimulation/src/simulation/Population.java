@@ -8,7 +8,7 @@ import java.util.Collections;
 import genome.Genome;
 import genome.PanGenome;
 
-public class Population {
+public abstract class Population {
 	private final double MUTATION_CHANCE = 0.01;
 	private ArrayList<Species> speciesList;
 	private int diedSpecies;
@@ -28,7 +28,6 @@ public class Population {
 		this.type = type;
 		this.speciesData = "";
 		this.name = name;
-
 		this.panGenome = new PanGenome(this.type +"Data");
 	}
 	
@@ -44,47 +43,9 @@ public class Population {
 		return speciesList.get(index);
 	}
 	
-	public void checkCanMultiply() {
-		for (int i = 0; i < getNrSpecies(); i++) {
-			if (getSpecies(i).isCanMultiply()) {
-				multiplySpecies(i, true);
-			}
-		}
-	}
+	public abstract void checkCanMultiply();
 	
-	public void multiplySpecies(int index, boolean mutation) {
-		Species s = speciesList.get(index);
-		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
-		int energy = s.getEnergy();
-		if (mutation) {
-			genome.mutateGenome(MUTATION_CHANCE);
-			energy = s.halfEnergy();
-		}
-		genome.setGeneValues();
-		Species sCopy = null;
-		if (this.type.equals("Carnivore")) {
-			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
-						, s.getEatSizeFactor());
-			}
-		}
-		else if (this.type.equals("Herbivore")) {
-			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
-						, s.getEatSizeFactor());
-			}
-		}
-		else if (this.type.equals("Omnivore")) {
-			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + diedSpecies +1
-						, s.getEatSizeFactor());
-			}
-		}
-		if(sCopy != null) {
-			speciesList.add(sCopy);
-			addSpeciesData(sCopy, s.getNumber());
-		}
-	}
+	public abstract void multiplySpecies(int index, boolean mutation);
 
 	public void removeSpecies(int index) {	
 		speciesList.remove(index);
@@ -106,18 +67,7 @@ public class Population {
 	public String getType() {
 		return this.type;
 	}
-	public void addSpeciesData(Species s, int prevNumber) {
-		if (speciesData.isEmpty()) {
-			for (String key : s.getGenome().getPerfectGenes().keySet()) {
-				speciesData += "<"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
-			}
-		}
-		speciesData += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";
-		if (speciesData.length() > 100000) {
-			panGenome.writeSpeciesInfo(speciesData);
-			speciesData = " ";
-		}
-	}
+	public abstract void addSpeciesData(Species s, int prevNumber);
 
 	public void checkAliveSpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
@@ -127,13 +77,34 @@ public class Population {
 		}
 	}
 	
+	public ArrayList<Species> getSpeciesList() {
+		return this.speciesList;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public String getSpeciesData() {
+		return speciesData;
+	}
+	
+	public void setSpeciesData(String s) {
+		speciesData = s;
+	}
+	
+	public double getMutationChance() {
+		return MUTATION_CHANCE;
+	}
+	
+	public PanGenome getPanegenome() {
+		return panGenome;
 	}
 	
 	public PopulationData getPopData() {
 		return popData;
 	}
+
 	
 	/*
  * Methods for data class. These methods calculate max, min and average values for all species for a 

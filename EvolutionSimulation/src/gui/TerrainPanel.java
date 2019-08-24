@@ -7,22 +7,23 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import simulation.Food;
+import environment.NutrientDeposit;
+import simulation.Plant;
 import simulation.Population;
 import simulation.Species;
-import simulation.Environment;
+import simulation.Ecosytem;
 
 public class TerrainPanel extends JPanel{
 	private int heigth;
 	private int width;
 	private Graphics2D g2d;
-	private Environment environment;
+	private Ecosytem ecosystem;
 			
 	
-	public TerrainPanel(int heigth, int width, Environment environment) {
+	public TerrainPanel(int heigth, int width, Ecosytem ecosystem) {
 		this.heigth = heigth;
 		this.width = width;
-		this.environment = environment;
+		this.ecosystem = ecosystem;
 		this.setBackground(Color.WHITE);
 	}
 	
@@ -33,20 +34,36 @@ public class TerrainPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
+		drawNutrientCircles();
 		drawFood();
 		drawSpecies();
 	}
 
+	private void drawNutrientCircles() {
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getNitrogenDeposits()){
+			g2d.setColor(new Color(255, 0, 0, 50));
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+		}
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getPhosporusDeposits()){
+			g2d.setColor(new Color(0, 0, 255, 50));
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+		}
+		for (NutrientDeposit nd : ecosystem.getEnvironment().getPotassiumDeposits()){
+			g2d.setColor(new Color(255, 255, 0, 50));
+			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+		}
+	}
+
 	private void drawSpecies() {
-		for (Population sp : environment.getPopulations()) {
+		for (Population sp : ecosystem.getPopulations()) {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				int xCoord = s.getxLoc() - s.getSize()/2;
 				int yCoord = s.getyLoc() - s.getSize()/2;
 				g2d.setColor(sp.getColor());
 				g2d.fillOval(xCoord, yCoord, s.getSize(), s.getSize());
-				g2d.setColor(Color.BLACK);
 				//for drawing the enrgy
+				g2d.setColor(Color.BLACK);
 				drawCenteredString(s.getxLoc(), yCoord -5,String .format("%d(-%.0f)",s.getEnergy(), s.getEnergyConsumption()));
 				drawCenteredString(s.getxLoc(), s.getyLoc(),String.format("%s",sp.getName()));
 			}
@@ -61,8 +78,8 @@ public class TerrainPanel extends JPanel{
 	
 	private void drawFood() {
 		g2d.setColor(Color.GREEN);
-		for (int i = 0; i < environment.getNrFood(); i++) {
-			Food f = environment.getFood(i);
+		for (int i = 0; i < ecosystem.getNrPlant(); i++) {
+			Plant f = ecosystem.getPlant(i);
 			int xCoord = f.getxLoc() - f.getSize()/2;
 			int yCoord = f.getyLoc() - f.getSize()/2;
 			g2d.fillRect(xCoord, yCoord, f.getSize(), f.getSize());
@@ -70,8 +87,8 @@ public class TerrainPanel extends JPanel{
 		g2d.setColor(Color.BLACK);
 	}
 	
-	public Environment getEnvironment() {
-		return environment;
+	public Ecosytem getEnvironment() {
+		return ecosystem;
 	}
 }
 

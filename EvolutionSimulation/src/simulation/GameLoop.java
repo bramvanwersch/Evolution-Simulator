@@ -11,7 +11,7 @@ import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
-	private Environment environment;
+	private Ecosytem environment;
 	private TerrainPanel panel;
 	private int timeElapsed;
 	private int foodRegenTxt;
@@ -25,13 +25,13 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, Environment environment, int txtFoodRegen, SidePanelGui sidePanel) {
+	public GameLoop(TerrainPanel panel, Ecosytem environment, int txtFoodRegen, SidePanelGui sidePanel) {
 		this.sidePanel = sidePanel;
 		this.environment = environment;
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
-		environment.moveSpecies();
+		sidePanel.updateLabels(getLabelTexts());
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class GameLoop implements ActionListener{
 		}
 		timeElapsed += 50;
 		environment.nextTimeStep();
-		environment.createFood(foodRegenTxt);
+		environment.createPlants(foodRegenTxt);
 		
 		panel.repaint();
 	}
