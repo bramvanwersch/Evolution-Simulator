@@ -50,15 +50,12 @@ public class BlankGameLoop implements ActionListener {
 			if (checkIfSoleSurvivor(e)) {
 				
 				// The Thread goes so fast that if I don't wait for a second, the last value of populationData doesn't exist yet.
-				System.out.println("length of the environments popdata");
-				System.out.println(environment.getAllPopData().length);
+
 				PopulationData winnerData = getSoleSurvivor();
-				System.out.println("winner population data class");
-				System.out.println(winnerData.toString());
 				Population winnerPop = environment.getMaxNrSpeciesPop();
-				System.out.println("Winner population class");
-				System.out.println(environment.getMaxNrSpeciesPop());
 				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
+				System.out.println("length of all popData");
+				System.out.println(environment.getAllPopData().length);
 				if(winnerData==null || winnerPop==null) {
 					System.out.println("non existing winner");
 				}
@@ -106,9 +103,7 @@ public class BlankGameLoop implements ActionListener {
 		PopulationData soleSurvivor = null;
 		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
 			PopulationData pd = environment.getAllPopData()[i];
-			length = pd.getNrSpecies().length-3;
-			System.out.println("Nr species at end of run in population data");
-			System.out.println(pd.getNrSpecies()[length]);
+			length = pd.getNrSpecies().length-1;
 			if(pd.getNrSpecies()[length]!=0) {
 				soleSurvivor = pd;
 			}
@@ -120,7 +115,7 @@ public class BlankGameLoop implements ActionListener {
 		PopulationData soleLoser = null;
 		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
 			PopulationData pd = environment.getAllPopData()[i];
-			length = pd.getNrSpecies().length-3;
+			length = pd.getNrSpecies().length;
 			if(pd.getNrSpecies()[length-1]==0) {
 				soleLoser = pd;
 			}

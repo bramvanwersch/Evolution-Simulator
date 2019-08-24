@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Genome {
+public class Genome implements DNAtoAA {
 	private Map<String, Gene> perfectGenes;
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
@@ -19,7 +19,7 @@ public class Genome {
 	public Genome(String[] geneNames, int[] startingValues) {
 		perfectGenes = new HashMap<String, Gene>();
 		geneValues = new HashMap<String, Integer>();
-		dnaCon = new DNAtoAA().getDNAConversionMap();
+		dnaCon = getDNAConversionMap();
 		createPerfectGenes(geneNames,startingValues);
 		createDNACode();
 	}
@@ -28,7 +28,7 @@ public class Genome {
 		this.perfectGenes = perfGenes;
 		this.DNACode = DNAc;
 		geneValues = new HashMap<String, Integer>();
-		dnaCon = new DNAtoAA().getDNAConversionMap();
+		dnaCon = getDNAConversionMap();
 	}
 
 	public boolean isSpeciesSurvivable() {

@@ -33,7 +33,7 @@ public class GraphBuilder extends Thread{
 	private final Color[] attributeColors = new Color[] {new Color(0,105,0), new Color(191,61,255), new Color(255,0,0), 
 		 	 								new Color(21,235,231), new Color(13,49,208), new Color(11,243,24)};
 	private JPanel sidePanel;
-	private GraphBuilder1 graphPanel;
+	private GraphBuilderPanel graphPanel;
 	private Ecosytem environment;
 	public JRadioButton[] selectedPopulations;
 	public JRadioButton[] selectedAttributes;
@@ -53,7 +53,7 @@ public class GraphBuilder extends Thread{
 		
 		//HARDCODED
 		createSidePanelWidgets(populationNames, attributeNames);
-		graphPanel = new GraphBuilder1(getXData(),getYData(), selectedPopulations, selectedAttributes,
+		graphPanel = new GraphBuilderPanel(getXData(),getYData(), selectedPopulations, selectedAttributes,
 				width,height,axisNames, dataPoints, attributeColors);
 		f.add(graphPanel, BorderLayout.WEST);
 		f.add(sidePanel, BorderLayout.EAST);
@@ -139,7 +139,7 @@ public class GraphBuilder extends Thread{
     }
 }
 
-class GraphBuilder1 extends JPanel{
+class GraphBuilderPanel extends JPanel{
 	private int[] allXData;
 	private int[][][] allYData;
 	private int pHeigth;
@@ -174,7 +174,7 @@ class GraphBuilder1 extends JPanel{
 	private Stroke[] strokes;
 
 
-    public GraphBuilder1(int[] xData, int[][][] yData, JRadioButton[] selectedPopulations, JRadioButton[] selectedAttributes,
+    public GraphBuilderPanel(int[] xData, int[][][] yData, JRadioButton[] selectedPopulations, JRadioButton[] selectedAttributes,
     		int width,int height,String[] axisNames, boolean dataPoints, Color[] attributeColors) {
     	this.allXData =xData;
     	this.allYData = yData;

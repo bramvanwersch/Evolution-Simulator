@@ -61,22 +61,19 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 		optionData.setPlantEnergy(100);
 		optionData.setPlantSize(5);
 		
-		// GUILESS BLANKRUNS does not work with two Carnivores. for some weird reason both of them die and the number of species is gets to zero at the end
-		// of populatioData. Could loop through both populationdata's from end to start and see which one gets to zero first maybe....
-		// or at least try that
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(1);
-		optionData.addMaxAgesList(10);
+		optionData.addMaxAgesList(3);
 		optionData.addNamesList("Brams");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);
 		optionData.addSizesList(50);
 		optionData.addSpeedsList(10);
-		optionData.addTypeList("Herbivore");
+		optionData.addTypeList("Carnivore");
 		
 		optionData.addColorsList(new Color(66,66,66));
 		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(13);
+		optionData.addMaxAgesList(2);
 		optionData.addNamesList("Wytzeus");
 		optionData.addNoIndividualsList(1);
 		optionData.addScentRangesList(10);

@@ -120,7 +120,7 @@ public class DataSaver {
 		StringBuilder sb = new StringBuilder();
 		int length = 5;
 		if (winner==true) {
-			length = populationData.getAgeStats().length - 1;
+			length = populationData.getAgeStats().length - 2;
 		}else  {
 			length = populationData.getAgeStats().length -2 ;
 		}

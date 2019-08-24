@@ -3,11 +3,11 @@ package genome;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DNAtoAA {
-	private Map<String, String> dnaAA;
-	private String[] aaNames = {"A","R","N","D","C","Q","E","G","H","I",
+public interface DNAtoAA {
+	
+	public String[] aaNames = {"A","R","N","D","C","Q","E","G","H","I",
 					"L","K","M","F","P","S","T","W","Y","V","#"};
-	private String[][] dnaCodes = 
+	public String[][] dnaCodes = 
 			{{"GCT","GCC","GCA","GCG"},
 			{"CGT","CGC","CGA","CGG","AGA","AGG"},
 			{"AAT","AAC"},
@@ -30,21 +30,17 @@ public class DNAtoAA {
 			{"GTT","GTC","GTA","GTG"},
 			{"TAA","TGA","TAG"}};
 	
-	public DNAtoAA() {
-		dnaAA = new HashMap<String, String>();
-		createMap();
-	}
 
-	private void createMap() {
+	public default Map<String, String> getDNAConversionMap() {
+		Map<String, String> dnaAA = new HashMap<String, String>();
 		for (int i = 0; i < dnaCodes.length; i++) {
 			for (String dnaCodon : dnaCodes[i]) {
 				dnaAA.put(dnaCodon, aaNames[i]);
 			}
 		}
-	}
-	
-	public Map<String, String> getDNAConversionMap(){
 		return dnaAA;
 	}
+	
+
 
 }
