@@ -20,8 +20,9 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-import gui.OptionData;
-import simulation.Ecosytem;
+import gameobjects.Ecosytem;
+import user_input.OptionData;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 

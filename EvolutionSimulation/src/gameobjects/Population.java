@@ -1,4 +1,4 @@
-package simulation;
+package gameobjects;
 
 import java.awt.Color;
 import java.util.ArrayList;

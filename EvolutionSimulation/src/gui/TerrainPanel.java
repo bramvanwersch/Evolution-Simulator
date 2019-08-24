@@ -8,10 +8,10 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import environment.NutrientDeposit;
-import simulation.Plant;
-import simulation.Population;
-import simulation.Species;
-import simulation.Ecosytem;
+import gameobjects.Ecosytem;
+import gameobjects.Plant;
+import gameobjects.Population;
+import gameobjects.Species;
 
 public class TerrainPanel extends JPanel{
 	private int heigth;

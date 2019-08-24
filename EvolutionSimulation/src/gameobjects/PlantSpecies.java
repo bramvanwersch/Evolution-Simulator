@@ -1,15 +1,10 @@
-package simulation;
+package gameobjects;
 
 import genome.Genome;
 
-public class AnimalSpecies extends Species {
+public class PlantSpecies extends Species{
 
-	public AnimalSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		super(x, y, energy, genome, number, eatSizeFactor);
-		// TODO Auto-generated constructor stub
-	}
-
-	public AnimalSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
+	public PlantSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(size, speed, maxAge, scentRange, eatSizeFactor);
 		// TODO Auto-generated constructor stub
 	}
@@ -31,5 +26,6 @@ public class AnimalSpecies extends Species {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

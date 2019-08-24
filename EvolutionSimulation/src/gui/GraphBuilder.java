@@ -16,8 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import simulation.Ecosytem;
-import simulation.PopulationData;
+import gameobjects.Ecosytem;
+import gameobjects.PopulationData;
 
 import java.awt.RenderingHints;
 import java.awt.Stroke;

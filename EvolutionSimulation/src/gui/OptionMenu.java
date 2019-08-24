@@ -19,7 +19,8 @@ import java.awt.Toolkit;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import simulation.Population;
+import gameobjects.Population;
+import user_input.OptionData;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -49,7 +50,7 @@ public class OptionMenu extends JFrame {
 	private ArrayList<JLabel> speciesColors;
 	private ArrayList<JComboBox> speciesTypes;
 	private ArrayList<JTextField> speciesNames;
-	private ArrayList<JPanel> populations;
+	private ArrayList<JPanel> populationPanels;
 	private OptionData data;
 	
 	/**
@@ -76,7 +77,7 @@ public class OptionMenu extends JFrame {
 		speciesColors = new ArrayList<JLabel>();
 		speciesTypes = new ArrayList<JComboBox>();
 		speciesNames = new ArrayList<JTextField>();
-		populations = new ArrayList<JPanel>();
+		populationPanels = new ArrayList<JPanel>();
 		data = new OptionData();
 		initGUI();
 		setVisible(true);
@@ -228,8 +229,8 @@ public class OptionMenu extends JFrame {
 				gbc_panel.gridy = numberOfSpecies / 3 - 1;
 				gbc_panel.gridx = numberOfSpecies % 3;
 				System.out.println(numberOfSpecies);
-				scrollPanel.remove(populations.get(numberOfSpecies-1));
-				populations.remove(numberOfSpecies-1);
+				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
+				populationPanels.remove(numberOfSpecies-1);
 				numberOfSpecies -= 1;
 				scrollPane.setViewportView(scrollPanel);
 			}});
@@ -263,7 +264,7 @@ public class OptionMenu extends JFrame {
 			numberOfSpecies += 1;
 			JPanel panel = new JPanel();
 			panel = addPopulationLabel();
-			populations.add(panel);
+			populationPanels.add(panel);
 			scrollPanel.add(panel, gbc_panel);
 		}	
 		scrollPane.setViewportView(scrollPanel);

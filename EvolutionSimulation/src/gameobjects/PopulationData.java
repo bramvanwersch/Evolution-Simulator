@@ -1,4 +1,4 @@
-package simulation;
+package gameobjects;
 
 
 import java.util.ArrayList;

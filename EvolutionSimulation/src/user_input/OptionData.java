@@ -1,4 +1,4 @@
-package gui;
+package user_input;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package simulation;
+package gameobjects;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import javax.swing.Timer;
 
-import gui.OptionData;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 

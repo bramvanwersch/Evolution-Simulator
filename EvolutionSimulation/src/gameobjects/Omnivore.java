@@ -1,25 +1,25 @@
-package simulation;
+package gameobjects;
 
 import genome.Genome;
 
-public class Herbivore extends AnimalSpecies{
-	private String[] geneNames = {"size","speed","maxAge","scentRange"};//needs work
-	private final int MINIMUM_REP_TIME = 0;
-	
+public class Omnivore extends AnimalSpecies{
+	private String[] geneNames = {"size","speed","maxAge","scentRange"};
+	private int MINIMUM_REP_TIME = 5;
+
 	//innitial constructor
-	public Herbivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
-		super(size, speed, maxAge, scentRange, eatSizeFactor);
+	public Omnivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
+		super(size, speed, maxAge, scentRange , eatSizeFactor);
 	}
 	
 	//inheriting constructor
-	public Herbivore(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		super(x, y,energy, genome, number, eatSizeFactor);
+	public Omnivore(int x, int y,int energy, Genome genome, int number, double eatSizeFactor) {
+		super(x, y, energy, genome, number, eatSizeFactor);
 	}
-	
-	public boolean foodEaten(int x, int y, int fSize, int fEnergy) {
-		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * fSize > x
-				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * fSize > y) {
-			changeEnergy(fEnergy);
+
+	public boolean foodEaten(int x, int y, int sSize, int sEnergy) {
+		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
+				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
+			changeEnergy(sEnergy*0.3);
 			return true;
 		}
 		return false;

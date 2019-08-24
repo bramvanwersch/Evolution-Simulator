@@ -1,8 +1,8 @@
 package tests;
 
+import gameobjects.Herbivore;
+import gameobjects.Species;
 import junit.framework.TestCase;
-import simulation.Herbivore;
-import simulation.Species;
 
 public class SpeciesTest extends TestCase {
 

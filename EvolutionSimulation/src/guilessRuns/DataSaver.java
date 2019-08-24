@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import simulation.Ecosytem;
-import simulation.Population;
-import simulation.PopulationData;
+import gameobjects.Ecosytem;
+import gameobjects.Population;
+import gameobjects.PopulationData;
 
 public class DataSaver {
 	private int runCounter;

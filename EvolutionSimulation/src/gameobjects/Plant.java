@@ -1,4 +1,4 @@
-package simulation;
+package gameobjects;
 
 public class Plant{
 	private int WINDOW_SIZE = 950;

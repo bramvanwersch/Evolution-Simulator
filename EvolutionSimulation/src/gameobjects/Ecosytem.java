@@ -1,4 +1,4 @@
-package simulation;
+package gameobjects;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import environment.Environment;
-import gui.OptionData;
+import user_input.OptionData;
 
 public class Ecosytem {
 	private int plantEnergy;

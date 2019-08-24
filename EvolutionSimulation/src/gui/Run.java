@@ -9,12 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import environment.Environment;
+import gameobjects.Ecosytem;
+import gameobjects.GameLoop;
+import gameobjects.Population;
+import gameobjects.PopulationData;
 import gui.SidePanelGui;
-import gui.OptionData;
-import simulation.PopulationData;
-import simulation.Ecosytem;
-import simulation.GameLoop;
-import simulation.Population;
+import user_input.OptionData;
 
 public class Run {
 	private Timer timer;
