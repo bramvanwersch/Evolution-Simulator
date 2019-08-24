@@ -64,7 +64,7 @@ public class TerrainPanel extends JPanel{
 				g2d.fillOval(xCoord, yCoord, s.getSize(), s.getSize());
 				//for drawing the enrgy
 				g2d.setColor(Color.BLACK);
-				drawCenteredString(s.getxLoc(), yCoord -5,String .format("%d(-%.0f)",s.getEnergy(), s.getEnergyConsumption()));
+//				drawCenteredString(s.getxLoc(), yCoord -5,String .format("%d(-%.0f)",s.getEnergy(), s.getEnergyConsumption()));
 				drawCenteredString(s.getxLoc(), s.getyLoc(),String.format("%s",sp.getName()));
 			}
 		}
