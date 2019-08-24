@@ -49,6 +49,7 @@ public class OptionMenu extends JFrame {
 	private ArrayList<JLabel> speciesColors;
 	private ArrayList<JComboBox> speciesTypes;
 	private ArrayList<JTextField> speciesNames;
+	private ArrayList<JPanel> populations;
 	private OptionData data;
 	
 	/**
@@ -75,6 +76,7 @@ public class OptionMenu extends JFrame {
 		speciesColors = new ArrayList<JLabel>();
 		speciesTypes = new ArrayList<JComboBox>();
 		speciesNames = new ArrayList<JTextField>();
+		populations = new ArrayList<JPanel>();
 		data = new OptionData();
 		initGUI();
 		setVisible(true);
@@ -219,6 +221,24 @@ public class OptionMenu extends JFrame {
 		scrollPanel.add(btnMoreSpecies, gbc_button);
 		scrollPane.setViewportView(scrollPanel);
 		
+		JButton btnLessSpecies = new JButton("Less Species");
+		btnLessSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.gridy = numberOfSpecies / 3 - 1;
+				gbc_panel.gridx = numberOfSpecies % 3;
+				System.out.println(numberOfSpecies);
+				scrollPanel.remove(populations.get(numberOfSpecies-1));
+				populations.remove(numberOfSpecies-1);
+				numberOfSpecies -= 1;
+				scrollPane.setViewportView(scrollPanel);
+			}});
+		GridBagConstraints gbc_less_button = new GridBagConstraints();
+		gbc_button.gridy = 0;
+		gbc_button.gridx = 3;
+		scrollPanel.add(btnLessSpecies, gbc_less_button);
+		scrollPane.setViewportView(scrollPanel);
+		
 		JButton startGameButton = new JButton("Start game");
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -241,7 +261,10 @@ public class OptionMenu extends JFrame {
 			gbc_panel.gridy = numberOfSpecies / 3 + 1;
 			gbc_panel.gridx = numberOfSpecies % 3;
 			numberOfSpecies += 1;
-			scrollPanel.add(addPopulationLabel(), gbc_panel);
+			JPanel panel = new JPanel();
+			panel = addPopulationLabel();
+			populations.add(panel);
+			scrollPanel.add(panel, gbc_panel);
 		}	
 		scrollPane.setViewportView(scrollPanel);
 	}

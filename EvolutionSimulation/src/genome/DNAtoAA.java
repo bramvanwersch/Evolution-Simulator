@@ -3,6 +3,9 @@ package genome;
 import java.util.HashMap;
 import java.util.Map;
 
+/*This interface just returns a hashmap for turning dna triplets into amino acid's it is used by the Genome class.
+ * 
+ */
 public interface DNAtoAA {
 	
 	public String[] aaNames = {"A","R","N","D","C","Q","E","G","H","I",
