@@ -88,22 +88,22 @@ public class Ecosytem {
 				Species closestCarnivore = null;
 				Species closestHerbivore = null;
 				if (sp.getType().equals("Herbivore")){
-					closestCarnivore = checkHerbivoreScent(s);
-					if (closestCarnivore != null) {
-						s.scentMovement(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
-					}
-					else {
+//					closestCarnivore = checkHerbivoreScent(s);
+//					if (closestCarnivore != null) {
+//						s.scentMovement(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
+//					}
+//					else {
 						s.move();
-					}
+//					}
 				}
 				else if (sp.getType().equals("Carnivore")){
-					closestHerbivore = checkCarnivoreScent(s);
-					if (closestHerbivore != null) {
-						s.scentMovement(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
-					}
-					else {
+//					closestHerbivore = checkCarnivoreScent(s);
+//					if (closestHerbivore != null) {
+//						s.scentMovement(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
+//					}
+//					else {
 						s.move();
-					}
+//					}
 				}
 				else {
 					s.move();
@@ -112,47 +112,47 @@ public class Ecosytem {
 		}	
 	}
 	
-	/**
-	 * Function to check for the closest carnivore that is bigger then the herbivore so scent movement can
-	 * be used to move away from it. 
-	 * @param s1: the herbivore.
-	 * @return the closest carnivore or null if no carnivore is in range of the scent.
-	 */
-	public Species checkHerbivoreScent(Species s1) {
-		Species closestCarnivore = null;
-		double lowestC = s1.getScentRange();
-		for (int i = 0; i < getAllCarnivores().size(); i++) {
-			Species s2 = getAllCarnivores().get(i);
-			//getting slope of triangle using pythagoras.
-			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() > s1.getEatSizeFactor()* s1.getSize()) {
-				closestCarnivore = s2;
-				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
-			}
-		}
-		return closestCarnivore;
-	}
-	
-	/**
-	 * Function to check for the closest herbivore that is smaller then the carnivore so scent movement can
-	 * be used to move towards it. 
-	 * @param s1: the carnivore.
-	 * @return the closest herbivore or null if no herbivore is in range of the scent.
-	 */
-	public Species checkCarnivoreScent(Species s1) {
-		Species closestHerbivore = null;
-		double lowestC = s1.getScentRange();
-		for (int i = 0; i < getAllHerbivores().size(); i++) {
-			Species s2 = getAllHerbivores().get(i);
-			//getting slope of triangle using pythagoras.
-			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-					< lowestC && s2.getSize() < s1.getEatSizeFactor()* s1.getSize()) {
-				closestHerbivore = s2;
-				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
-			}
-		}
-		return closestHerbivore;
-	}
+//	/**
+//	 * Function to check for the closest carnivore that is bigger then the herbivore so scent movement can
+//	 * be used to move away from it. 
+//	 * @param s1: the herbivore.
+//	 * @return the closest carnivore or null if no carnivore is in range of the scent.
+//	 */
+//	public Species checkHerbivoreScent(Species s1) {
+//		Species closestCarnivore = null;
+//		double lowestC = s1.getScentRange();
+//		for (int i = 0; i < getAllCarnivores().size(); i++) {
+//			Species s2 = getAllCarnivores().get(i);
+//			//getting slope of triangle using pythagoras.
+//			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
+//					< lowestC && s2.getSize() > s1.getEatSizeFactor()* s1.getSize()) {
+//				closestCarnivore = s2;
+//				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
+//			}
+//		}
+//		return closestCarnivore;
+//	}
+//	
+//	/**
+//	 * Function to check for the closest herbivore that is smaller then the carnivore so scent movement can
+//	 * be used to move towards it. 
+//	 * @param s1: the carnivore.
+//	 * @return the closest herbivore or null if no herbivore is in range of the scent.
+//	 */
+//	public Species checkCarnivoreScent(Species s1) {
+//		Species closestHerbivore = null;
+//		double lowestC = s1.getScentRange();
+//		for (int i = 0; i < getAllHerbivores().size(); i++) {
+//			Species s2 = getAllHerbivores().get(i);
+//			//getting slope of triangle using pythagoras.
+//			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
+//					< lowestC && s2.getSize() < s1.getEatSizeFactor()* s1.getSize()) {
+//				closestHerbivore = s2;
+//				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
+//			}
+//		}
+//		return closestHerbivore;
+//	}
 	
 	/**
 	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
@@ -233,7 +233,7 @@ public class Ecosytem {
 			Population sp =  populations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
-				if (s.getAge() >= s.getMaxAge()) {
+				if (s.checkAge()) {
 					sp.removeSpecies(i);
 				}
 			}

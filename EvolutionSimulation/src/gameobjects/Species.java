@@ -5,80 +5,57 @@ import genome.Genome;
 public abstract class Species{
 	private final int ENERGY_DIVISION = 2;
 	private final int DEFAULT_ENERGY = 4000;
-	private int WINDOW_SIZE = 950;
-	private Genome genome;
+	public final int WINDOW_SIZE = 950;
 	private int no;
 	private int xLoc;
 	private int yLoc;
 	private int energy;
-	private double facingDirection;
 	private int age;
-	private double eatSizeFactor;
+
 	
 	//constructor for innitial species construction
-	public Species(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
-		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
-		this.genome.setGeneValues();
+	public Species(int size) {
 		this.energy = DEFAULT_ENERGY;
 		this.no = 0;
 		this.age = 1;
-		this.facingDirection = Math.random() * 2 * Math.PI;
-		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* size);
-		this.yLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* size);
-		this.eatSizeFactor = eatSizeFactor;
+	}
+	
+	public void setXYLoc() {
+		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
+		this.yLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
 	}
 	
 //Constructor for multiplying
-	public Species(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		this.genome = genome;
+	public Species(int x, int y, int energy, int number) {
 		//make species grow
 		this.energy = energy;
 		this.no = number;
 		this.age = 1;
-		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.xLoc = x;
 		this.yLoc = y;
-		this.eatSizeFactor = eatSizeFactor;
 	}
 	
-	public void move() {
-		if (getEnergy() > 0) {
-			double min = (getFacingDirection() - 0.25 * Math.PI);
-			double max = (getFacingDirection() + 0.25 * Math.PI);
-			setFacingDirection((Math.random() * (max - min)) + min);
-			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
-			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
-			changeEnergy(-1*getEnergyConsumption());
-		}
-	}
+	public abstract void move(); 
 	
-	private double inXBounds(double d) {
-		if (this.xLoc + d + 0.5 * getSize() > WINDOW_SIZE) {
-			facingDirection += 0.25 * Math.PI;
-			return 0;
-		}
-		else if (this.xLoc + d - 0.5 * getSize() < 0) {
-			facingDirection += 0.25 * Math.PI;
-			return 0;
-		}
-		else {
-			return d;
-		}
-	}
+	public abstract double inXBounds(double d);
 	
-	private double inYBounds(double d) {
-		if (this.yLoc + d + 0.5 * getSize() > WINDOW_SIZE) {
-			facingDirection += 0.25 * Math.PI;
-			return 0;
-		}
-		else if (this.yLoc + d - 0.5 * getSize() < 0) {
-			facingDirection += 0.25 * Math.PI;
-			return 0;
-		}
-		else {
-			return d;
-		}
-	}
+	public abstract double inYBounds(double d);
+	
+	public abstract Genome getGenome();
+	
+	public abstract double getEatSizeFactor();
+	
+	public abstract boolean checkAge();
+	
+	public abstract double[] getAttributeData();
+	
+	public abstract int getSize();
+
+	public abstract int getMaxAge();
+	
+	public abstract void eatTimeCheck();
+	
+	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
 	
 	public void changeXLoc(double d) {
 		d = inXBounds(d);
@@ -90,30 +67,17 @@ public abstract class Species{
 		this.yLoc += Math.round(d);
 	}
 	
-	protected void setFacingDirection(double fd) {
-		facingDirection = fd;
-	}
-	
-	public double getFacingDirection() {
-		return this.facingDirection;
-	}
-	
 	public int getxLoc() {
 		return xLoc;
 	}
 	
-
 	public int getyLoc() {
 		return yLoc;
 	}
+		
+//	public abstract void scentMovement(int x, int y);
 	
-	//abstract methods for inheriting classes
 	
-	public abstract void scentMovement(int x, int y);
-	
-	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
-	
-	public abstract void eatTimeCheck();
 
 	//energy methods
 	public boolean isCanMultiply() {
@@ -122,13 +86,6 @@ public abstract class Species{
 		}
 		return false;
 	}
-	
-	public double getEnergyConsumption() {
-		int r = getSize() / 2;
-		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
-	}
-	
 	
 	public int getEnergy() {
 		return this.energy;
@@ -149,55 +106,13 @@ public abstract class Species{
 	 * the organism is. The formula describing it looks like a michaels menten formula. But the start
 	 * value is set to 25 procent of the maximum value.
 	 */
-	public int getSize() {
-		return (int) (((getGenome().getGeneValue("size") - 0.5 * getGenome().getGeneValue("size")) * getAge()) /
-				(getAge() + 5) + 0.5 * getGenome().getGeneValue("size"));
-	}
-	
-	public double getEatSizeFactor() {
-		return this.eatSizeFactor;
-	}
-	
-	public int getScentRange() {
-		return this.genome.getGeneValue("scentRange") + getSize();
-	}
-	
-	public int getSpeed() {
-		return this.genome.getGeneValue("speed");
-	}
-	
-	public void setSpeed(int i) {
-		this.genome.setGeneValue("speed", i);
-	}
 	
 	public void addAge() {
 		this.age += 1;
 	}
 	
-	public int getMaxAge() {
-		return this.genome.getGeneValue("maxAge");
-	}
-
 	public int getAge() {
 		return this.age;
-	}
-	
-	public int getMaxSize() {
-		return this.genome.getGeneValue("size");
-	}
-
-	public Genome getGenome() {
-		return genome;
-	}
-	
-	public double[] getAttributeData() {
-		double[] attributeArray = new double[5];
-		attributeArray[0] = getSpeed();
-		attributeArray[1] = getMaxSize();
-		attributeArray[2] = getMaxAge();
-		attributeArray[3] = getScentRange() - getSize();
-		attributeArray[4] = getEnergyConsumption();
-		return attributeArray;
 	}
 		
 	public int getNumber() {
