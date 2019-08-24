@@ -6,7 +6,7 @@ import java.util.Map;
 /*This interface just returns a hashmap for turning dna triplets into amino acid's it is used by the Genome class.
  * 
  */
-public interface DNAtoAA {
+public class DNAtoAA {
 	
 	public String[] aaNames = {"A","R","N","D","C","Q","E","G","H","I",
 					"L","K","M","F","P","S","T","W","Y","V","#"};
@@ -34,7 +34,7 @@ public interface DNAtoAA {
 			{"TAA","TGA","TAG"}};
 	
 
-	public default Map<String, String> getDNAConversionMap() {
+	public Map<String, String> getDNAConversionMap() {
 		Map<String, String> dnaAA = new HashMap<String, String>();
 		for (int i = 0; i < dnaCodes.length; i++) {
 			for (String dnaCodon : dnaCodes[i]) {

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Genome implements DNAtoAA, SubstitutionMatrix {
+public class Genome implements SubstitutionMatrix {
 	private Map<String, Gene> perfectGenes;
 	private Map<String, Integer> geneValues;
 	private Map<String, String> dnaCon;
@@ -14,12 +14,12 @@ public class Genome implements DNAtoAA, SubstitutionMatrix {
 	private final int gapP = -4;
 	private final int endGapP = -1;
 	private final String[] nucleotides = {"A", "T", "G", "C"};
-	private double STARTING_CODON_COUNT = 300; 
+	private double STARTING_CODON_COUNT = 300;
 	
 	public Genome(String[] geneNames, int[] startingValues) {
 		perfectGenes = new HashMap<String, Gene>();
 		geneValues = new HashMap<String, Integer>();
-		dnaCon = getDNAConversionMap();
+		dnaCon = new DNAtoAA().getDNAConversionMap();
 		createPerfectGenes(geneNames,startingValues);
 		createDNACode();
 	}
@@ -28,7 +28,7 @@ public class Genome implements DNAtoAA, SubstitutionMatrix {
 		this.perfectGenes = perfGenes;
 		this.DNACode = DNAc;
 		geneValues = new HashMap<String, Integer>();
-		dnaCon = getDNAConversionMap();
+		dnaCon = new DNAtoAA().getDNAConversionMap();
 	}
 
 	public boolean isSpeciesSurvivable() {
