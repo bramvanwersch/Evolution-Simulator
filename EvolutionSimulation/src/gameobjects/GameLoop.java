@@ -10,7 +10,7 @@ import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
-	private Ecosytem environment;
+	private Ecosytem ecosystem;
 	private TerrainPanel panel;
 	private int timeElapsed;
 	private int foodRegenTxt;
@@ -24,9 +24,9 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, Ecosytem environment, int txtFoodRegen, SidePanelGui sidePanel) {
+	public GameLoop(TerrainPanel panel, Ecosytem ecosystem, int txtFoodRegen, SidePanelGui sidePanel) {
 		this.sidePanel = sidePanel;
-		this.environment = environment;
+		this.ecosystem = ecosystem;
 		this.panel = panel;
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
@@ -42,15 +42,15 @@ public class GameLoop implements ActionListener{
 			addAverageDataValues();
 			addPopData();
 			if (timeElapsed != 0) {
-				environment.addAge();
+				ecosystem.addAge();
 			}
 			if (!checkIfAllDead(e)) {
 				sidePanel.updateLabels(getLabelTexts());
 			}
 		}
 		timeElapsed += 50;
-		environment.nextTimeStep();
-		environment.createPlants(foodRegenTxt);
+		ecosystem.nextTimeStep();
+		ecosystem.createPlants(foodRegenTxt);
 		
 		panel.repaint();
 	}
@@ -59,12 +59,12 @@ public class GameLoop implements ActionListener{
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
 	private void addAverageDataValues() {
-		environment.saveAveragePopulationsStatsData(timeElapsed);
+		ecosystem.saveAveragePopulationsStatsData(timeElapsed);
 	}
 	
 	private void addPopData() {
-		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			environment.getPopulations().get(i).saveStatsData(timeElapsed);
+		for (int i = 0; i < ecosystem.getPopulations().size(); i ++) {
+			ecosystem.getPopulations().get(i).saveStatsData(timeElapsed);
 		}
 	}
 	
@@ -75,8 +75,8 @@ public class GameLoop implements ActionListener{
 	 */
 	private String[] getLabelTexts() {
 		String [] lblTexts = new String [7];
-		double[][] averageStats = environment.getAveragePopulationStats();
-		lblTexts[0] = String.format("%d|%d|%d (%d)",environment.getNrHerbivores(),environment.getNrOmnivores(), environment.getNrCarnivores(), environment.getAllDeadSpecies());
+		double[][] averageStats = ecosystem.getAveragePopulationStats();
+		lblTexts[0] = String.format("%d|%d|%d (%d)",ecosystem.getNrHerbivores(),ecosystem.getNrOmnivores(), ecosystem.getNrCarnivores(), ecosystem.getAllDeadSpecies());
 		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", averageStats[0][0], averageStats[0][1], averageStats[0][2]);
 		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", averageStats[1][0], averageStats[1][1], averageStats[1][2]);
 		lblTexts[3] = String.format("%.2f (%.0f - %.0f)", averageStats[2][0], averageStats[2][1], averageStats[2][2]);
@@ -93,7 +93,7 @@ public class GameLoop implements ActionListener{
 	 * @return boolean telling if the game should be continued or stopped.
 	 */
 	private boolean checkIfAllDead(ActionEvent e) {
-		if (this.environment.getNrSpecies() == 0) {
+		if (this.ecosystem.getNrSpecies() == 0) {
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			return true;
