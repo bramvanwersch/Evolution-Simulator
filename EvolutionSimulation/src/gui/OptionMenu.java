@@ -213,7 +213,10 @@ public class OptionMenu extends JFrame {
 				gbc_panel.gridy = numberOfSpecies / 3 + 1;
 				gbc_panel.gridx = numberOfSpecies % 3;
 				numberOfSpecies += 1;
-				scrollPanel.add(addPopulationLabel(), gbc_panel);
+				JPanel panel = new JPanel();
+				panel = addPopulationLabel();
+				populationPanels.add(panel);
+				scrollPanel.add(panel, gbc_panel);
 				scrollPane.setViewportView(scrollPanel);
 			}});
 		GridBagConstraints gbc_button = new GridBagConstraints();
@@ -222,22 +225,22 @@ public class OptionMenu extends JFrame {
 		scrollPanel.add(btnMoreSpecies, gbc_button);
 		scrollPane.setViewportView(scrollPanel);
 		
-//		JButton btnLessSpecies = new JButton("Less Species");
-//		btnLessSpecies.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				GridBagConstraints gbc_panel = new GridBagConstraints();
-//				gbc_panel.gridy = numberOfSpecies / 3 - 1;
-//				gbc_panel.gridx = numberOfSpecies % 3;
-//				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
-//				populationPanels.remove(numberOfSpecies-1);
-//				numberOfSpecies -= 1;
-//				scrollPane.setViewportView(scrollPanel);
-//			}});
-//		GridBagConstraints gbc_less_button = new GridBagConstraints();
-//		gbc_button.gridy = 0;
-//		gbc_button.gridx = 3;
-//		scrollPanel.add(btnLessSpecies, gbc_less_button);
-//		scrollPane.setViewportView(scrollPanel);
+		JButton btnLessSpecies = new JButton("Less Species");
+		btnLessSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GridBagConstraints gbc_panel = new GridBagConstraints();
+				gbc_panel.gridy = numberOfSpecies / 3 - 1;
+				gbc_panel.gridx = numberOfSpecies % 3;
+				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
+				populationPanels.remove(numberOfSpecies-1);
+				numberOfSpecies -= 1;
+				scrollPane.setViewportView(scrollPanel);
+			}});
+		GridBagConstraints gbc_less_button = new GridBagConstraints();
+		gbc_button.gridy = 0;
+		gbc_button.gridx = 3;
+		scrollPanel.add(btnLessSpecies, gbc_less_button);
+		scrollPane.setViewportView(scrollPanel);
 		
 		JButton startGameButton = new JButton("Start game");
 		startGameButton.addActionListener(new ActionListener() {
