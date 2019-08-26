@@ -19,13 +19,13 @@ public class PlantPopulation extends Population{
 
 
 	@Override
-	public void checkCanMultiply() {
+	public void multiplySpecies() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void multiplySpecies(int index, boolean mutation) {
+	public void copySpecies(int index, boolean mutation) {
 		// TODO Auto-generated method stub
 		
 	}

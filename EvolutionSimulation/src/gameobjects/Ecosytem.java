@@ -209,7 +209,7 @@ public class Ecosytem {
 	public void checkCanMultiply() {
 		for (int loc : popOrderSeed) {
 			Population sp =  populations.get(loc);
-			sp.checkCanMultiply();
+			sp.multiplySpecies();
 		}
 	}
 	
@@ -297,7 +297,7 @@ public class Ecosytem {
 					}
 				}
 				if (s == null){
-					p.multiplySpecies(p.getNrSpecies()-1, false);
+					p.copySpecies(p.getNrSpecies()-1, false);
 				}
 				else if (!checkSpeciesPlacement(s)) {
 					j--;

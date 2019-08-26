@@ -18,16 +18,16 @@ public class AnimalPopulation extends Population {
 	}
 
 	@Override
-	public void checkCanMultiply() {
+	public void multiplySpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
 			if (getSpecies(i).isCanMultiply()) {
-				multiplySpecies(i, true);
+				copySpecies(i, true);
 			}
 		}
 	}
 
 	@Override
-	public void multiplySpecies(int index, boolean mutation) {
+	public void copySpecies(int index, boolean mutation) {
 		Species s = getSpeciesList().get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		int energy = s.getEnergy();

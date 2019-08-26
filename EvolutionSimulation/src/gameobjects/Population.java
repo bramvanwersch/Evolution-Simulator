@@ -45,9 +45,9 @@ public abstract class Population {
 		return speciesList.get(index);
 	}
 	
-	public abstract void checkCanMultiply();
+	public abstract void multiplySpecies();
 	
-	public abstract void multiplySpecies(int index, boolean mutation);
+	public abstract void copySpecies(int index, boolean mutation);
 
 	public void removeSpecies(int index) {	
 		speciesList.remove(index);
