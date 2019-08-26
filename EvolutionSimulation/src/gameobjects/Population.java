@@ -31,6 +31,8 @@ public abstract class Population {
 		this.panGenome = new PanGenome(this.type +"Data");
 	}
 	
+	public abstract void nextTimePoint();
+	
 	public void addSpecies(Species s) {
 		this.speciesList.add(s);
 	}

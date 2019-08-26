@@ -10,6 +10,13 @@ public class PlantPopulation extends Population{
 		super(color, type, name);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void nextTimePoint() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	@Override
 	public void checkCanMultiply() {
@@ -43,5 +50,4 @@ public class PlantPopulation extends Population{
 	public void removePlant(int index) {
 		plantList.remove(index);
 	}
-
 }

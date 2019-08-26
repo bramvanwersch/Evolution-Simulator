@@ -35,6 +35,8 @@ public abstract class Species{
 		this.yLoc = y;
 	}
 	
+	public abstract void nextTimePoint();
+	
 	public abstract void move(); 
 	
 	public abstract double inXBounds(double d);

@@ -76,4 +76,10 @@ public class PlantSpecies extends Species{
 		return null;
 	}
 
+	@Override
+	public void nextTimePoint() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

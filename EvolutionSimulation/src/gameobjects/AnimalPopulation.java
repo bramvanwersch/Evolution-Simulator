@@ -10,6 +10,12 @@ public class AnimalPopulation extends Population {
 		super(color, type, name);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public void nextTimePoint() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void checkCanMultiply() {
@@ -71,5 +77,4 @@ public class AnimalPopulation extends Population {
 			setSpeciesData(" ");
 		}
 	}
-
 }

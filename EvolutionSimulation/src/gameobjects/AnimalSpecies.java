@@ -140,5 +140,11 @@ public abstract class AnimalSpecies extends Species {
 			return d;
 		}
 	}
+	
+	@Override
+	public void nextTimePoint() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
