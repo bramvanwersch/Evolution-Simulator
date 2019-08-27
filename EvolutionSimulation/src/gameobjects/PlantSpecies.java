@@ -21,13 +21,7 @@ public class PlantSpecies extends Species{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public boolean checkAge() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub

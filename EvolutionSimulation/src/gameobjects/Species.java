@@ -17,7 +17,7 @@ public abstract class Species{
 	public Species(int size) {
 		this.energy = DEFAULT_ENERGY;
 		this.no = 0;
-		this.age = 1;
+		this.age = 0;
 	}
 	
 	public void setXYLoc() {
@@ -30,7 +30,7 @@ public abstract class Species{
 		//make species grow
 		this.energy = energy;
 		this.no = number;
-		this.age = 1;
+		this.age = 0;
 		this.xLoc = x;
 		this.yLoc = y;
 	}
@@ -47,8 +47,6 @@ public abstract class Species{
 	
 	public abstract double getEatSizeFactor();
 	
-	public abstract boolean checkAge();
-	
 	public abstract double[] getAttributeData();
 	
 	public abstract int getSize();
@@ -58,6 +56,13 @@ public abstract class Species{
 	public abstract void eatTimeCheck();
 	
 	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
+	
+	public boolean toOld() {
+		if (getAge() >= getMaxAge()) {
+			return true;
+		}
+		return false;
+	}
 	
 	public void changeXLoc(double d) {
 		d = inXBounds(d);
@@ -79,6 +84,9 @@ public abstract class Species{
 	
 	public boolean isAlive() {
 		if (this.energy <= 0) {
+			return false;
+		}
+		else if (getAge() >= getMaxAge()) {
 			return false;
 		}
 		return true;

@@ -43,7 +43,6 @@ public class Ecosytem {
 			Population sp =  populations.get(loc);
 			sp.nextTimePoint();
 		}
-		checkAge();
 		moveSpecies();
 		eatPlants();
 		
@@ -216,18 +215,6 @@ public class Ecosytem {
 			for (int i = 0; i < sp.getNrSpecies(); i++) {
 				Species s = sp.getSpecies(i);
 				s.addAge();
-			}
-		}
-	}
-	
-	public void checkAge() {
-		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
-				if (s.checkAge()) {
-					sp.removeSpecies(i);
-				}
 			}
 		}
 	}

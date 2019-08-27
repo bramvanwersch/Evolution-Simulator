@@ -32,14 +32,6 @@ public abstract class AnimalSpecies extends Species {
 	public abstract void eatTimeCheck();
 
 	@Override
-	public boolean checkAge() {
-		if (getAge() >= getMaxAge()) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public void move() {
 		if (getEnergy() > 0) {
 			double min = (getFacingDirection() - 0.25 * Math.PI);
