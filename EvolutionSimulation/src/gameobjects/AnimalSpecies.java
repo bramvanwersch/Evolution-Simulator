@@ -24,6 +24,11 @@ public abstract class AnimalSpecies extends Species {
 		this.eatSizeFactor = eatSizeFactor;
 		setXYLoc();
 		}
+	
+	@Override
+	public void nextTimePoint() {
+		move();
+	}
 
 	@Override
 	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
@@ -131,12 +136,6 @@ public abstract class AnimalSpecies extends Species {
 		else {
 			return d;
 		}
-	}
-	
-	@Override
-	public void nextTimePoint() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -13,6 +13,9 @@ public class AnimalPopulation extends Population {
 	
 	@Override
 	public void nextTimePoint() {
+		for (int i = 0; i < getNrSpecies(); i++) {
+			getSpecies(i).nextTimePoint();
+		}
 		multiplySpecies();
 		checkAliveSpecies();
 	}

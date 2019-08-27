@@ -43,7 +43,6 @@ public class Ecosytem {
 			Population sp =  populations.get(loc);
 			sp.nextTimePoint();
 		}
-		moveSpecies();
 		eatPlants();
 		
 		eatTimeCheck();
@@ -67,41 +66,6 @@ public class Ecosytem {
 		return shufflePopOrderSeed(numberArray);
 	}
 
-	/**
-	 * Function for moving all the species. First is checked if a species is in range of the scent of another species if this is the case
-	 * scentmovement is used to move. Otherwise normal movement will be used to move.
-	 */
-	public void moveSpecies() {
-		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
-				Species closestCarnivore = null;
-				Species closestHerbivore = null;
-				if (sp.getType().equals("Herbivore")){
-//					closestCarnivore = checkHerbivoreScent(s);
-//					if (closestCarnivore != null) {
-//						s.scentMovement(closestCarnivore.getxLoc(), closestCarnivore.getyLoc());
-//					}
-//					else {
-						s.move();
-//					}
-				}
-				else if (sp.getType().equals("Carnivore")){
-//					closestHerbivore = checkCarnivoreScent(s);
-//					if (closestHerbivore != null) {
-//						s.scentMovement(closestHerbivore.getxLoc(), closestHerbivore.getyLoc());
-//					}
-//					else {
-						s.move();
-//					}
-				}
-				else {
-					s.move();
-				}
-			}
-		}	
-	}
 	
 //	/**
 //	 * Function to check for the closest carnivore that is bigger then the herbivore so scent movement can
