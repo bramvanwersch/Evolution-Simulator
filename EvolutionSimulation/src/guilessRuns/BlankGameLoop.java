@@ -27,10 +27,6 @@ public class BlankGameLoop implements ActionListener {
 		this.foodRegenTxt = txtFoodRegen;
 		this.timeElapsed = 0;
 		this.updateTime = updateTime;
-		environment.moveSpecies();
-
-		
-		
 	}
 	
 	/**
