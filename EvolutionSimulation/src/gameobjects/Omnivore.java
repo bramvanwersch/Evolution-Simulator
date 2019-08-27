@@ -49,6 +49,6 @@ public class Omnivore extends AnimalSpecies{
 		return this.MINIMUM_REP_TIME;
 	}
 	
-	public void eatTimeCheck() {
+	public void extendedNextTimePoint() {
 	}
 }

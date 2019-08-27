@@ -16,8 +16,7 @@ public class PlantSpecies extends Species{
 		return false;
 	}
 
-	@Override
-	public void eatTimeCheck() {
+	public void extendedNextTimePoint() {
 		// TODO Auto-generated method stub
 		
 	}

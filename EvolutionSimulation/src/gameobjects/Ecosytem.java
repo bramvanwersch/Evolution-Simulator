@@ -45,7 +45,6 @@ public class Ecosytem {
 		}
 		eatPlants();
 		
-		eatTimeCheck();
 		eatSpecies();
 		shuffleLists();
 	}
@@ -149,12 +148,6 @@ public class Ecosytem {
 		}
 	}
 	
-	private void eatTimeCheck() {
-		for (Species s : getAllCarnivores()) {
-			s.eatTimeCheck();
-		}
-	}
-	
 	/**
 	 * Function that invokes a function for every population that checks if species are eligible for 
 	 * multiplication
@@ -165,16 +158,6 @@ public class Ecosytem {
 			sp.multiplySpecies();
 		}
 	}
-	
-//	public void addAge() {
-//		for (int loc : popOrderSeed) {
-//			Population sp =  populations.get(loc);
-//			for (int i = 0; i < sp.getNrSpecies(); i++) {
-//				Species s = sp.getSpecies(i);
-//				s.addAge();
-//			}
-//		}
-//	}
 	
 	/**
 	 * Function that shuffles the species and food list making sure that checks that are biased by list order

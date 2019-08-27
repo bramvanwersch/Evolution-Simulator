@@ -52,9 +52,7 @@ public abstract class Species{
 	public abstract int getSize();
 
 	public abstract int getMaxAge();
-	
-	public abstract void eatTimeCheck();
-	
+		
 	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
 	
 	public boolean toOld() {

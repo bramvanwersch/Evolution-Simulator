@@ -29,13 +29,13 @@ public abstract class AnimalSpecies extends Species {
 	public void nextTimePoint() {
 		move();
 		addAge();
+		extendedNextTimePoint();
 	}
 
 	@Override
 	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
 
-	@Override
-	public abstract void eatTimeCheck();
+	public abstract void extendedNextTimePoint();
 
 	@Override
 	public void move() {

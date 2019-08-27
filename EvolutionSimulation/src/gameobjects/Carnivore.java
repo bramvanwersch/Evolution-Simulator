@@ -20,6 +20,11 @@ public class Carnivore extends AnimalSpecies{
 		super(x, y, energy, genome, number, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
+	
+	public void extendedNextTimePoint() {
+		eatTimeCheck();
+	}
+
 
 	/**
 	 * Function that will check if a eatable species is completely in the bounding box of the carnivore.
@@ -72,7 +77,7 @@ public class Carnivore extends AnimalSpecies{
 	 * drop to a lower value.
 	 */
 	public void move() {
-		eatTimeCheck();
+		extendedNextTimePoint();
 		if (getEnergy() > 0) {
 			double min = (getFacingDirection() - 0.25 * Math.PI);
 			double max = (getFacingDirection() + 0.25 * Math.PI);
@@ -87,7 +92,7 @@ public class Carnivore extends AnimalSpecies{
 	 * Function for checking if the carnivore has recently eaten. Setting the speed lower after eating and 
 	 * returning it back if enough time has passed.
 	 */
-	public void eatTimeCheck() {
+	private void eatTimeCheck() {
 		if (this.eating) {
 			if (this.timeSinceEating == 0) {
 				this.prevSpeed = getSpeed();
