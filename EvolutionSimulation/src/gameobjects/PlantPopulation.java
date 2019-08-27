@@ -13,7 +13,7 @@ public class PlantPopulation extends Population{
 	
 	@Override
 	public void nextTimePoint() {
-		
+		checkAliveSpecies();
 	}
 
 

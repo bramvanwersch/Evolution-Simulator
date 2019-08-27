@@ -43,7 +43,6 @@ public class Ecosytem {
 			Population sp =  populations.get(loc);
 			sp.nextTimePoint();
 		}
-		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
 		eatPlants();
@@ -69,16 +68,6 @@ public class Ecosytem {
 		return shufflePopOrderSeed(numberArray);
 	}
 
-	/**
-	 * Function for invoking the checkAliveSpecies for every species in a population.
-	 */
-	public void checkAliveSpecies() {
-		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
-			sp.checkAliveSpecies();
-		}
-	}
-	
 	/**
 	 * Function for moving all the species. First is checked if a species is in range of the scent of another species if this is the case
 	 * scentmovement is used to move. Otherwise normal movement will be used to move.

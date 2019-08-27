@@ -76,6 +76,13 @@ public abstract class Species{
 	public int getyLoc() {
 		return yLoc;
 	}
+	
+	public boolean isAlive() {
+		if (this.energy <= 0) {
+			return false;
+		}
+		return true;
+	}
 		
 //	public abstract void scentMovement(int x, int y);
 	

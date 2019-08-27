@@ -73,7 +73,7 @@ public abstract class Population {
 
 	public void checkAliveSpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
-			if (getSpecies(i).getEnergy() <= 0) {
+			if (getSpecies(i).isAlive()) {
 				removeSpecies(i);
 			}
 		}

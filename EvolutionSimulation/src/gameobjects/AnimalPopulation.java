@@ -14,6 +14,7 @@ public class AnimalPopulation extends Population {
 	@Override
 	public void nextTimePoint() {
 		multiplySpecies();
+		checkAliveSpecies();
 	}
 
 	@Override
