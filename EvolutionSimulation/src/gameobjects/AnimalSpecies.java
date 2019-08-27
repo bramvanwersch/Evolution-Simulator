@@ -28,6 +28,7 @@ public abstract class AnimalSpecies extends Species {
 	@Override
 	public void nextTimePoint() {
 		move();
+		addAge();
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public abstract class AnimalSpecies extends Species {
 
 	@Override
 	public int getSize() {
-		return (int) (((getGenome().getGeneValue("size") - 0.5 * getGenome().getGeneValue("size")) * getAge()) /
+		return (int) (((getGenome().getGeneValue("size") - 0.5 * getGenome().getGeneValue("size")) * (getAge())) /
 				(getAge() + 5) + 0.5 * getGenome().getGeneValue("size"));
 	}
 

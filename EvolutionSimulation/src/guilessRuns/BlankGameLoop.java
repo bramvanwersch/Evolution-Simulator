@@ -39,9 +39,6 @@ public class BlankGameLoop implements ActionListener {
 		environment.createPlants(foodRegenTxt);
 		addPopData();
 		if (timeElapsed % 1000 == 0) {
-			if (timeElapsed != 0) {
-				environment.addAge();
-			}
 			addPopData();
 			if (checkIfSoleSurvivor(e)) {
 				

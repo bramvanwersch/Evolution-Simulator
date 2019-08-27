@@ -50,13 +50,11 @@ public class Ecosytem {
 		shuffleLists();
 	}
 	
-// methods that need checking every frame.
-
 	/**
 	 * Method that creates an array that is the lenght of the popultion list that helps rendomize the selection of
 	 * populations by functions This has to be done this way to make sure populations are chosen at random but are not 
 	 * actualy shuffled which leads to problems in the data collection.
-	 * @return
+	 * @return an array of numbers that the length of the number of populations
 	 */
 	private int[] createPopOrderSeed(int numberOfPopulations) {
 		int[] numberArray = new int[numberOfPopulations];
@@ -168,20 +166,15 @@ public class Ecosytem {
 		}
 	}
 	
-	/**
-	 * Function for checking is species are older then theire max age. If this is the case the species will
-	 * die and be removed. Otherwise the age of the species is increased.
-	 * Note: this method is only invoked once every second.
-	 */
-	public void addAge() {
-		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
-				s.addAge();
-			}
-		}
-	}
+//	public void addAge() {
+//		for (int loc : popOrderSeed) {
+//			Population sp =  populations.get(loc);
+//			for (int i = 0; i < sp.getNrSpecies(); i++) {
+//				Species s = sp.getSpecies(i);
+//				s.addAge();
+//			}
+//		}
+//	}
 	
 	/**
 	 * Function that shuffles the species and food list making sure that checks that are biased by list order

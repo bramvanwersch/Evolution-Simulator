@@ -41,9 +41,6 @@ public class GameLoop implements ActionListener{
 		if (timeElapsed % 1000 == 0) {
 			addAverageDataValues();
 			addPopData();
-			if (timeElapsed != 0) {
-				ecosystem.addAge();
-			}
 			if (!checkIfAllDead(e)) {
 				sidePanel.updateLabels(getLabelTexts());
 			}
