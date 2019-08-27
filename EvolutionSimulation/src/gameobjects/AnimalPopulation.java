@@ -13,21 +13,27 @@ public class AnimalPopulation extends Population {
 	
 	@Override
 	public void nextTimePoint() {
-		// TODO Auto-generated method stub
-		
+		multiplySpecies();
 	}
 
 	@Override
+	//for checking if a species can multiply and multiply if allowed.
 	public void multiplySpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
 			if (getSpecies(i).isCanMultiply()) {
-				copySpecies(i, true);
+				createOffspring(i, true);
 			}
 		}
 	}
-
+	
 	@Override
-	public void copySpecies(int index, boolean mutation) {
+	//for strictly cloning a species
+	public void cloneSpecies(int index) {
+		createOffspring(index, false);
+		
+	}
+
+	private void createOffspring(int index, boolean mutation) {
 		Species s = getSpeciesList().get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		int energy = s.getEnergy();

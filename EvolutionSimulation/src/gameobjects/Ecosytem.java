@@ -38,7 +38,11 @@ public class Ecosytem {
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
 	public void nextTimeStep() {
-
+		
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
+			sp.nextTimePoint();
+		}
 		checkAliveSpecies();
 		checkAge();
 		moveSpecies();
@@ -46,7 +50,6 @@ public class Ecosytem {
 		
 		eatTimeCheck();
 		eatSpecies();
-		checkCanMultiply();
 		shuffleLists();
 	}
 	
@@ -291,13 +294,11 @@ public class Ecosytem {
 					}
 				}
 				else if(p.getType().equals("Omnivore")) {
-					if (p.getNrSpecies() == 0) {
-						s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
-						p.addSpeciesData(s, -1);
-					}
+					s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
+					p.addSpeciesData(s, -1);
 				}
 				if (s == null){
-					p.copySpecies(p.getNrSpecies()-1, false);
+					p.cloneSpecies(p.getNrSpecies()-1);
 				}
 				else if (!checkSpeciesPlacement(s)) {
 					j--;

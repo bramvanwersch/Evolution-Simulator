@@ -13,19 +13,12 @@ public class PlantPopulation extends Population{
 	
 	@Override
 	public void nextTimePoint() {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void multiplySpecies() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void copySpecies(int index, boolean mutation) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -49,5 +42,11 @@ public class PlantPopulation extends Population{
 	}
 	public void removePlant(int index) {
 		plantList.remove(index);
+	}
+
+	@Override
+	public void cloneSpecies(int index) {
+		// TODO Auto-generated method stub
+		
 	}
 }

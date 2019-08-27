@@ -47,8 +47,8 @@ public abstract class Population {
 	
 	public abstract void multiplySpecies();
 	
-	public abstract void copySpecies(int index, boolean mutation);
-
+	public abstract void cloneSpecies(int index);
+	
 	public void removeSpecies(int index) {	
 		speciesList.remove(index);
 		diedSpecies += 1;
