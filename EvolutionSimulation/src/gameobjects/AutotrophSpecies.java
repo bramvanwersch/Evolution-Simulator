@@ -18,8 +18,7 @@ public class AutotrophSpecies extends Species{
 		addAge();				
 	}
 
-	@Override
-	public boolean eat(int x, int y, int sSize, int sEnergy) {
+	public boolean eat() {
 		// TODO Auto-generated method stub
 		return false;
 	}

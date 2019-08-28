@@ -123,7 +123,7 @@ public class Ecosytem {
 	
 	public void hetrotrophEating() {
 		for (int loc : popOrderSeed) {
-			Population sp =  hetrotrophPopulations.get(loc);
+			HetrotrophPopulation sp =  hetrotrophPopulations.get(loc);
 			String type = sp.getType();
 			if (type.equals("Herbivore")) {
 				for (Population p : getPopulations()) {
@@ -156,10 +156,10 @@ public class Ecosytem {
 	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
 	 * the case the herbivore will be removed.
 	 */
-	public void eatSpecies(Population predator, Population prey) {
+	public void eatSpecies(HetrotrophPopulation predator, Population prey) {
 		for(int i = 0; i < predator.getNrSpecies(); i++) {
 			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
-				Species s1 = predator.getSpecies(i);
+				HetrotrophSpecies s1 = predator.getSpecies(i);
 				Species s2 = prey.getSpecies(j);
 				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
 					prey.removeSpecies(j);

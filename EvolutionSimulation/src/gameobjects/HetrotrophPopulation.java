@@ -35,7 +35,7 @@ public class HetrotrophPopulation extends Population {
 	}
 	
 	@Override
-	public Species getSpecies(int index) {
+	public HetrotrophSpecies getSpecies(int index) {
 		return speciesList.get(index);
 	}
 	

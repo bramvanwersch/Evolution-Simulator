@@ -47,9 +47,7 @@ public abstract class Species{
 	public abstract int getSize();
 
 	public abstract int getMaxAge();
-		
-	public abstract boolean eat(int x, int y, int sSize, int sEnergy);
-	
+			
 	public void changeXLoc(double d) {
 		d = inXBounds(d);
 		this.xLoc += Math.round(d);

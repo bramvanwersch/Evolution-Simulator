@@ -30,7 +30,7 @@ public class AutotrophPopulation extends Population{
 	}
 	
 	@Override
-	public Species getSpecies(int index) {
+	public AutotrophSpecies getSpecies(int index) {
 		return speciesList.get(index);
 	}
 	
