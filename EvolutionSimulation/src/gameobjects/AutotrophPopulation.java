@@ -4,11 +4,22 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class AutotrophPopulation extends Population{
-	private ArrayList<Plant> plantList;
 
 	public AutotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
-		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	protected void createOffspring(int index, boolean mutate) {
+		Species s = getSpeciesList().get(index);
+		Species sCopy = null;
+		if (getType().equals("Plant")) {
+			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
+		}
+		if(sCopy != null) {
+			getSpeciesList().add(sCopy);
+			addSpeciesData(sCopy, s.getNumber());
+		}
 	}
 	
 	@Override
@@ -16,31 +27,8 @@ public class AutotrophPopulation extends Population{
 		checkAliveSpecies();
 	}
 
-
-	@Override
-	public void multiplySpecies() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void addSpeciesData(Species s, int prevNumber) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public int getNrPlant() {
-		return plantList.size();
-	}
-	public Plant getPlant(int index) {
-		return plantList.get(index);
-	}
-	public void removePlant(int index) {
-		plantList.remove(index);
-	}
-
-	@Override
-	public void cloneSpecies(int index) {
 		// TODO Auto-generated method stub
 		
 	}

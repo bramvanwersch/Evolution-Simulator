@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class SidePanelGui extends JPanel{
-	private final int FOOD_REGENERATION_RATE = 50;
 	public JTextField txtNumberFood;
 	private JLabel lblNrSpeciesText;
 	private JLabel lblTime;

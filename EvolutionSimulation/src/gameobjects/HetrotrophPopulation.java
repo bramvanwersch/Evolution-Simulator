@@ -8,7 +8,6 @@ public class HetrotrophPopulation extends Population {
 
 	public HetrotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -19,25 +18,9 @@ public class HetrotrophPopulation extends Population {
 		multiplySpecies();
 		checkAliveSpecies();
 	}
-
-	@Override
-	//for checking if a species can multiply and multiply if allowed.
-	public void multiplySpecies() {
-		for (int i = 0; i < getNrSpecies(); i++) {
-			if (getSpecies(i).isCanMultiply()) {
-				createOffspring(i, true);
-			}
-		}
-	}
 	
 	@Override
-	//for strictly cloning a species
-	public void cloneSpecies(int index) {
-		createOffspring(index, false);
-		
-	}
-
-	private void createOffspring(int index, boolean mutation) {
+	public void createOffspring(int index, boolean mutation) {
 		Species s = getSpeciesList().get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		int energy = s.getEnergy();

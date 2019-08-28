@@ -45,9 +45,21 @@ public abstract class Population {
 		return speciesList.get(index);
 	}
 	
-	public abstract void multiplySpecies();
+	public void multiplySpecies() {
+		for (int i = 0; i < getNrSpecies(); i++) {
+			if (getSpecies(i).isCanMultiply()) {
+				createOffspring(i, true);
+			}
+		}
+	}
 	
-	public abstract void cloneSpecies(int index);
+	protected abstract void createOffspring(int i, boolean b);
+
+	//for strictly cloning a species
+	public void cloneSpecies(int index) {
+		createOffspring(index, false);
+		
+	}
 	
 	public void removeSpecies(int index) {	
 		speciesList.remove(index);

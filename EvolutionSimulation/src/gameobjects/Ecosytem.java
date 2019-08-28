@@ -29,7 +29,7 @@ public class Ecosytem {
 		createHetrotrophPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		//Still hardcoded needs addition of poption panel data.
 		createAutotrophPopulations(1, Color.GREEN, "Plant");
-		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
+		createHetrotrophSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
 	}
 
@@ -41,9 +41,7 @@ public class Ecosytem {
 		for (int loc : popOrderSeed) {
 			Population sp =  getPopulations().get(loc);
 			sp.nextTimePoint();
-		}
-		eatPlants();
-		
+		}		
 		hetrotrophEating();
 		autotrophEating();
 		shuffleLists();
@@ -106,21 +104,21 @@ public class Ecosytem {
 //		return closestHerbivore;
 //	}
 	
-	/**
-	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
-	 * case the food is consumed and the species gets energy
-	 */
-	public void eatPlants() {
-		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
-			Species s = getAllPlantEaters().get(i);
-			for(int j = getNrPlant() - 1; j >= 0; j--) {
-				Plant f = getPlant(j);
-				if (s.eat(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
-					removePlant(j);
-				}
-			}
-		}	
-	}
+//	/**
+//	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
+//	 * case the food is consumed and the species gets energy
+//	 */
+//	public void eatPlants() {
+//		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
+//			Species s = getAllPlantEaters().get(i);
+//			for(int j = getNrPlant() - 1; j >= 0; j--) {
+//				Plant f = getPlant(j);
+//				if (s.eat(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
+//					removePlant(j);
+//				}
+//			}
+//		}	
+//	}
 	
 	public void hetrotrophEating() {
 		for (int loc : popOrderSeed) {
@@ -203,18 +201,9 @@ public class Ecosytem {
 			hetrotrophPopulations.add(p);
 		}
 	}
-	
-	
-	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
-		for (int i = 0; i < nrPopulations; i++) {
-			AutotrophPopulation p = new AutotrophPopulation(color, type, "default name");
-		}
-
-	}
-
 
 //methods for innitialy creating species that are specified.
-	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
+	public void createHetrotrophSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
 			, double[] eatSizeFactor) {
 		for (int i = 0; i <hetrotrophPopulations.size(); i++) {
 			Population p = hetrotrophPopulations.get(i);
@@ -241,6 +230,33 @@ public class Ecosytem {
 				}
 				else if (!checkSpeciesPlacement(s)) {
 					j--;
+				}
+				else{
+					p.addSpecies(s);
+				}
+			}
+		}
+	}
+	
+	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
+		for (int i = 0; i < nrPopulations; i++) {
+			AutotrophPopulation p = new AutotrophPopulation(color, type, "default name");
+			autoTrophPopulations.add(p);
+		}
+	}
+
+	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
+		for (int i = 0; i < autoTrophPopulations.size(); i++) {
+			Population p = autoTrophPopulations.get(i);
+			for (int j = 0; j < nrSpecies; j++) {
+				Species s = null;
+				if (p.getType().equals("Plant")) {
+					if (p.getNrSpecies() == 0) {
+						s = new Plant(size, maxAge, energy);
+					}
+				}
+				if (s == null){
+					p.cloneSpecies(p.getNrSpecies()-1);
 				}
 				else{
 					p.addSpecies(s);
