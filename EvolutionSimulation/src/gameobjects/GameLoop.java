@@ -57,8 +57,8 @@ public class GameLoop implements ActionListener{
 	}
 	
 	private void addPopData() {
-		for (int i = 0; i < ecosystem.getPopulations().size(); i ++) {
-			ecosystem.getPopulations().get(i).saveStatsData(timeElapsed);
+		for (int i = 0; i < ecosystem.getHetrotrophPopulations().size(); i ++) {
+			ecosystem.getHetrotrophPopulations().get(i).saveStatsData(timeElapsed);
 		}
 	}
 	

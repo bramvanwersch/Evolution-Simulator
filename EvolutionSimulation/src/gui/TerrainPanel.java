@@ -35,7 +35,6 @@ public class TerrainPanel extends JPanel{
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
 		drawNutrientCircles();
-		drawFood();
 		drawSpecies();
 	}
 
@@ -74,17 +73,6 @@ public class TerrainPanel extends JPanel{
     	int adjXCoord = xCoord - g2d.getFontMetrics().stringWidth(text)/ 2;
     	int adjYCoord = yCoord + g2d.getFontMetrics().getHeight()/3;
     	g2d.drawString(text, adjXCoord, adjYCoord);
-	}
-	
-	private void drawFood() {
-		g2d.setColor(Color.GREEN);
-		for (int i = 0; i < ecosystem.getNrPlant(); i++) {
-			Plant f = ecosystem.getPlant(i);
-			int xCoord = f.getxLoc() - f.getSize()/2;
-			int yCoord = f.getyLoc() - f.getSize()/2;
-			g2d.fillRect(xCoord, yCoord, f.getSize(), f.getSize());
-		}
-		g2d.setColor(Color.BLACK);
 	}
 	
 	public Ecosytem getEnvironment() {

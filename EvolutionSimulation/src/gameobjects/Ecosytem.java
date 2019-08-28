@@ -31,6 +31,7 @@ public class Ecosytem {
 		createAutotrophPopulations(1, Color.GREEN, "Plant");
 		createHetrotrophSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
+		createAutotrophSpecies(50, options.getPlantSize(), 50, options.getPlantEnergy());
 	}
 
 	/**
@@ -177,7 +178,7 @@ public class Ecosytem {
 	 * are looped trough in a random order but dont change order
 	 */
 	public void shuffleLists() {
-		for (Population sp: hetrotrophPopulations ) {
+		for (Population sp: getPopulations()) {
 			sp.shuffleSpeciesList();
 		}
 		Collections.shuffle(plantList);
@@ -240,7 +241,7 @@ public class Ecosytem {
 	
 	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
 		for (int i = 0; i < nrPopulations; i++) {
-			AutotrophPopulation p = new AutotrophPopulation(color, type, "default name");
+			AutotrophPopulation p = new AutotrophPopulation(color, type, "");
 			autoTrophPopulations.add(p);
 		}
 	}
@@ -277,38 +278,6 @@ public class Ecosytem {
 			}
 		}
 		return true;
-	}
-
-	public int getNrPlant() {
-		return plantList.size();
-	}
-	
-	public Plant getPlant(int index) {
-		return plantList.get(index);
-	}
-	
-	public void removePlant(int index) {
-		plantList.remove(index);
-	}
-
-// methods for getting certain collections of species from populations.
-	private ArrayList<Species> getAllSpecies() {
-		ArrayList<Species> specList = getAllCarnivores();
-		specList.addAll(getAllOmnivores());
-		specList.addAll(getAllHerbivores());
-		return specList;
-	}
-	
-	private ArrayList<Species> getAllMeatEaters() {
-		ArrayList<Species> meatList = getAllCarnivores();
-		meatList.addAll(getAllOmnivores());
-		return meatList;
-	}
-	
-	private ArrayList<Species> getAllPlantEaters() {
-		ArrayList<Species> greenList = getAllHerbivores();
-		greenList.addAll(getAllOmnivores());
-		return greenList;
 	}
 	
 	private ArrayList<Species> getAllCarnivores() {
@@ -385,6 +354,12 @@ public class Ecosytem {
 		allPops.addAll(autoTrophPopulations);
 		return allPops;
 	}
+	
+	public ArrayList<Population> getHetrotrophPopulations() {
+		ArrayList<Population> hetroPops = new ArrayList<Population>();
+		hetroPops.addAll(hetrotrophPopulations);
+		return hetroPops;
+	}	
 	
 	private ArrayList<Population> getLivingPopulations() {
 		ArrayList<Population> livingPopulations = new ArrayList<Population>();

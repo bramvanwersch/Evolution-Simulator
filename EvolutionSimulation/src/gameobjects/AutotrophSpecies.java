@@ -3,10 +3,19 @@ package gameobjects;
 import genome.Genome;
 
 public class AutotrophSpecies extends Species{
+	private int maxAge;
+	private int size;
 
 	public AutotrophSpecies(int size, int maxAge, int startEnergy) {
 		super(startEnergy);
 		setXYLoc();
+		this.maxAge = maxAge;
+		this.size = size;
+	}
+	
+	@Override
+	public void nextTimePoint() {
+		addAge();				
 	}
 
 	@Override
@@ -15,45 +24,20 @@ public class AutotrophSpecies extends Species{
 		return false;
 	}
 
-	public void extendedNextTimePoint() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public int getMaxAge() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.maxAge;
 	}
 
 	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.size;
 	}
 
 	@Override
 	public double[] getAttributeData() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public double inXBounds(double d) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double inYBounds(double d) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -66,12 +50,6 @@ public class AutotrophSpecies extends Species{
 	public Genome getGenome() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void nextTimePoint() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

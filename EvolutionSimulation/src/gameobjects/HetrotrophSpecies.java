@@ -57,8 +57,7 @@ public abstract class HetrotrophSpecies extends Species {
 
 	public abstract void extendedNextTimePoint();
 
-	@Override
-	public void move() {
+	private void move() {
 		if (getEnergy() > 0) {
 			double min = (getFacingDirection() - 0.25 * Math.PI);
 			double max = (getFacingDirection() + 0.25 * Math.PI);

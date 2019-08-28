@@ -38,12 +38,6 @@ public abstract class Species{
 	
 	public abstract void nextTimePoint();
 	
-	public abstract void move(); 
-	
-	public abstract double inXBounds(double d);
-	
-	public abstract double inYBounds(double d);
-	
 	public abstract Genome getGenome();
 	
 	public abstract double getEatSizeFactor();
@@ -64,6 +58,30 @@ public abstract class Species{
 	public void changeYLoc(double d) {
 		d = inYBounds(d);
 		this.yLoc += Math.round(d);
+	}
+	
+	public double inXBounds(double d) {
+		if (getxLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
+			return 0;
+		}
+		else if (getxLoc() + d - 0.5 * getSize() < 0) {
+			return 0;
+		}
+		else {
+			return d;
+		}
+	}
+
+	public double inYBounds(double d) {
+		if (getyLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
+			return 0;
+		}
+		else if (getyLoc() + d - 0.5 * getSize() < 0) {
+			return 0;
+		}
+		else {
+			return d;
+		}
 	}
 	
 	public int getxLoc() {
