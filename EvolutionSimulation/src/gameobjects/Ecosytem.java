@@ -206,7 +206,7 @@ public class Ecosytem {
 
 	private void createAnimalPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
-			AnimalPopulation p = new AnimalPopulation(colors[i], type[i], names[i]);
+			HetrotrophPopulaiton p = new HetrotrophPopulaiton(colors[i], type[i], names[i]);
 			populations.add(p);
 		}
 	}

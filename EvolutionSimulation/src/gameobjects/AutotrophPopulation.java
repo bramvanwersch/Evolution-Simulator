@@ -3,10 +3,10 @@ package gameobjects;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class PlantPopulation extends Population{
+public class AutotrophPopulation extends Population{
 	private ArrayList<Plant> plantList;
 
-	public PlantPopulation(Color color, String type, String name) {
+	public AutotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
 		// TODO Auto-generated constructor stub
 	}

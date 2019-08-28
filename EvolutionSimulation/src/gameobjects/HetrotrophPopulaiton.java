@@ -4,9 +4,9 @@ import java.awt.Color;
 
 import genome.Genome;
 
-public class AnimalPopulation extends Population {
+public class HetrotrophPopulaiton extends Population {
 
-	public AnimalPopulation(Color color, String type, String name) {
+	public HetrotrophPopulaiton(Color color, String type, String name) {
 		super(color, type, name);
 		// TODO Auto-generated constructor stub
 	}
