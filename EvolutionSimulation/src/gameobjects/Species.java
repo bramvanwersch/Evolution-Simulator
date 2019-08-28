@@ -4,7 +4,7 @@ import genome.Genome;
 
 public abstract class Species{
 	private final int ENERGY_DIVISION = 2;
-	private final int DEFAULT_ENERGY = 4000;
+	private int startingEnergy;
 	public final int WINDOW_SIZE = 950;
 	private int no;
 	private int xLoc;
@@ -14,8 +14,9 @@ public abstract class Species{
 
 	
 	//constructor for innitial species construction
-	public Species(int size) {
-		this.energy = DEFAULT_ENERGY;
+	public Species(int startEnergy) {
+		this.energy = startEnergy;
+		this.startingEnergy = startEnergy;
 		this.no = 0;
 		this.age = 0;
 	}
@@ -85,11 +86,9 @@ public abstract class Species{
 		
 //	public abstract void scentMovement(int x, int y);
 	
-	
-
 	//energy methods
 	public boolean isCanMultiply() {
-		if (this.energy/2 > DEFAULT_ENERGY) {
+		if (this.energy/2 > startingEnergy) {
 			return true;
 		}
 		return false;

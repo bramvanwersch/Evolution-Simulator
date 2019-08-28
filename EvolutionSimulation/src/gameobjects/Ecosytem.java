@@ -10,8 +10,6 @@ import environment.Environment;
 import user_input.OptionData;
 
 public class Ecosytem {
-	private int plantEnergy;
-	private int plantSize;
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
 	//temporary until moved
 	private ArrayList<Plant> plantList;
@@ -24,19 +22,17 @@ public class Ecosytem {
 		this.plantList = new ArrayList<Plant>();
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autoTrophPopulations = new ArrayList<AutotrophPopulation>(); 
-		this.plantEnergy = options.getPlantEnergy();
-		this.plantSize = options.getPlantSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
 		this.environment = environment;
 		createHetrotrophPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
+		//Still hardcoded needs addition of poption panel data.
+		createAutotrophPopulations(1, Color.GREEN, "Plant");
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
-		//TODO: Make sure that this has a proper feedback mechanism.
-		createPlants(50);
 	}
-	
+
 	/**
 	 * Container function for invoking methods that need to be updated every frame for each species in a population
 	 */
@@ -207,6 +203,15 @@ public class Ecosytem {
 			hetrotrophPopulations.add(p);
 		}
 	}
+	
+	
+	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
+		for (int i = 0; i < nrPopulations; i++) {
+			AutotrophPopulation p = new AutotrophPopulation(color, type, "default name");
+		}
+
+	}
+
 
 //methods for innitialy creating species that are specified.
 	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
@@ -258,13 +263,6 @@ public class Ecosytem {
 		return true;
 	}
 
-// methods for food managing methods.
-	public void createPlants(int nrPLants) {
-		for (int i = 0; i < nrPLants; i++) {
-			plantList.add(new Plant(plantEnergy, plantSize));
-		}	
-	}
-	
 	public int getNrPlant() {
 		return plantList.size();
 	}

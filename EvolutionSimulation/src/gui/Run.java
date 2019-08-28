@@ -34,7 +34,7 @@ public class Run {
 		ecosystem = new Ecosytem(this.data, environment);
 		f = new JFrame("Terrain");
 		createGui();
-		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
+		loop = new GameLoop(panel,ecosystem, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
@@ -114,7 +114,7 @@ public class Run {
 		ecosystem = new Ecosytem(this.data, environment);
 		f = new JFrame("Terrain");
 		createGui();
-		loop = new GameLoop(panel,ecosystem, 50, sidePanel);
+		loop = new GameLoop(panel,ecosystem, sidePanel);
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	

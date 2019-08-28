@@ -31,7 +31,7 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 			OptionData optionData = makeOptionData();
 			Environment environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 			Ecosytem ecosystem = new Ecosytem(optionData, environment);
-			BlankGameLoop blankGameLoop = new BlankGameLoop(50, ecosystem, 10);
+			BlankGameLoop blankGameLoop = new BlankGameLoop(ecosystem, 10);
 			Timer timer = new Timer(10, blankGameLoop);
 			timer.start();
 			while (!blankGameLoop.getRunFinished()) {

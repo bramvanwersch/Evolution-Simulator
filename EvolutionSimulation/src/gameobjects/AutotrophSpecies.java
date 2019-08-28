@@ -4,10 +4,9 @@ import genome.Genome;
 
 public class AutotrophSpecies extends Species{
 
-	public AutotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
-		super(size);
+	public AutotrophSpecies(int size, int maxAge, int startEnergy) {
+		super(startEnergy);
 		setXYLoc();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

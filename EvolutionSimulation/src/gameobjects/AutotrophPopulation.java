@@ -28,12 +28,7 @@ public class AutotrophPopulation extends Population{
 		// TODO Auto-generated method stub
 		
 	}
-	public void addPlants(int nrPlants, int plantEnergy, int plantSize) {
-		for (int i =0 ; i < nrPlants; i++) {
-			System.out.println("plants added to a single population");
-			plantList.add(new Plant(plantEnergy, plantSize));
-		}
-	}
+	
 	public int getNrPlant() {
 		return plantList.size();
 	}

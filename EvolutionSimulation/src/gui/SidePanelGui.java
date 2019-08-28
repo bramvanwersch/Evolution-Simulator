@@ -211,25 +211,25 @@ public class SidePanelGui extends JPanel{
 		gbc_lblTime.gridy = 8;
 		add(lblTime, gbc_lblTime);
 		
-		JLabel lblNrFood = new JLabel("Regen of food:");
-		GridBagConstraints gbc_lblNrFood = new GridBagConstraints();
-		gbc_lblNrFood.anchor = GridBagConstraints.WEST;
-		gbc_lblNrFood.insets = new Insets(5, 5, 5, 5);
-		gbc_lblNrFood.gridx = 1;
-		gbc_lblNrFood.gridy = 9;
-		add(lblNrFood, gbc_lblNrFood);
-		
-		txtNumberFood = new JTextField();
-		txtNumberFood.setText(FOOD_REGENERATION_RATE + "");
-		GridBagConstraints gbc_txtNumberFood = new GridBagConstraints();
-		gbc_txtNumberFood.anchor = GridBagConstraints.WEST;
-		gbc_txtNumberFood.weightx = 1.0;
-		gbc_txtNumberFood.insets = new Insets(0, 0, 5, 0);
-		gbc_txtNumberFood.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNumberFood.gridx = 2;
-		gbc_txtNumberFood.gridy = 9;
-		add(txtNumberFood, gbc_txtNumberFood);
-		txtNumberFood.setColumns(10);
+//		JLabel lblNrFood = new JLabel("Regen of food:");
+//		GridBagConstraints gbc_lblNrFood = new GridBagConstraints();
+//		gbc_lblNrFood.anchor = GridBagConstraints.WEST;
+//		gbc_lblNrFood.insets = new Insets(5, 5, 5, 5);
+//		gbc_lblNrFood.gridx = 1;
+//		gbc_lblNrFood.gridy = 9;
+//		add(lblNrFood, gbc_lblNrFood);
+//		
+//		txtNumberFood = new JTextField();
+//		txtNumberFood.setText(FOOD_REGENERATION_RATE + "");
+//		GridBagConstraints gbc_txtNumberFood = new GridBagConstraints();
+//		gbc_txtNumberFood.anchor = GridBagConstraints.WEST;
+//		gbc_txtNumberFood.weightx = 1.0;
+//		gbc_txtNumberFood.insets = new Insets(0, 0, 5, 0);
+//		gbc_txtNumberFood.fill = GridBagConstraints.HORIZONTAL;
+//		gbc_txtNumberFood.gridx = 2;
+//		gbc_txtNumberFood.gridy = 9;
+//		add(txtNumberFood, gbc_txtNumberFood);
+//		txtNumberFood.setColumns(10);
 	}
 	
 
