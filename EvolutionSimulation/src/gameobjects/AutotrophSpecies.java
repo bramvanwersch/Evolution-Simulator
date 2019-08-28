@@ -18,8 +18,7 @@ public class AutotrophSpecies extends Species{
 		addAge();				
 	}
 
-	public boolean eat() {
-		// TODO Auto-generated method stub
+	public boolean eat(double[] nutrientValues) {
 		return false;
 	}
 

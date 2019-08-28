@@ -11,11 +11,14 @@ public class AutotrophPopulation extends Population{
 	public AutotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
 		this.speciesList = new ArrayList<AutotrophSpecies>();
-
 	}
 	
 	@Override
 	public void nextTimePoint() {
+		for (int i = 0; i < getNrSpecies(); i++) {
+			getSpecies(i).nextTimePoint();
+		}
+		multiplySpecies();
 		checkAliveSpecies();
 	}
 

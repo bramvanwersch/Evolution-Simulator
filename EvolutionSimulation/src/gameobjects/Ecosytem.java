@@ -12,14 +12,12 @@ import user_input.OptionData;
 public class Ecosytem {
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
 	//temporary until moved
-	private ArrayList<Plant> plantList;
 	private ArrayList<AutotrophPopulation> autoTrophPopulations;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	private Environment environment;
 
 	public Ecosytem(OptionData options, Environment environment) {
-		this.plantList = new ArrayList<Plant>();
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autoTrophPopulations = new ArrayList<AutotrophPopulation>(); 
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
@@ -181,7 +179,6 @@ public class Ecosytem {
 		for (Population sp: getPopulations()) {
 			sp.shuffleSpeciesList();
 		}
-		Collections.shuffle(plantList);
 		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 	}
 	
