@@ -15,15 +15,6 @@ public class Omnivore extends HetrotrophSpecies{
 	public Omnivore(int x, int y,int energy, Genome genome, int number, double eatSizeFactor) {
 		super(x, y, energy, genome, number, eatSizeFactor);
 	}
-
-	public boolean eat(int x, int y, int sSize, int sEnergy) {
-		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
-				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
-			changeEnergy(sEnergy*0.3);
-			return true;
-		}
-		return false;
-	}
 	
 	public void scentMovement(int ix, int iy) {
 		double y  = (double) iy;

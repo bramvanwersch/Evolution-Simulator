@@ -31,9 +31,29 @@ public abstract class HetrotrophSpecies extends Species {
 		addAge();
 		extendedNextTimePoint();
 	}
-
-	@Override
-	public abstract boolean eat(int x, int y, int sSize, int sEnergy);
+	
+	/**
+	 * Function that will check if a eatable species is completely in the bounding box of the carnivore.
+	 * If this is the case true is returned and the energy is added to the energy of the carnivore. This means
+	 * that the species got eaten and will be removed from the game.
+	 * @param x the x coordinate of the eatable species
+	 * @param y the y coordinate of the eatable species
+	 * @param size the sSize the size of the eatable species
+	 * @param sEnergy the energy of the eatable species
+	 * @return boolean that tells if the species is eaten or not.
+	 */
+	public boolean eat(int x, int y, int sSize, int sEnergy) {
+		if (getSize() * getEatSizeFactor() > sSize) {
+			if (getxLoc() - 0.5 * getSize() * getEatSizeFactor() <= x - 0.5 * sSize && 
+					getxLoc() + 0.5 * getSize() * getEatSizeFactor() >= x + 0.5 * sSize && 
+					getyLoc() - 0.5 * getSize() * getEatSizeFactor() <= y - 0.5 * sSize && 
+					getyLoc() + 0.5 * getSize() * getEatSizeFactor() >= y + 0.5 * sSize) {
+				changeEnergy(sEnergy);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public abstract void extendedNextTimePoint();
 

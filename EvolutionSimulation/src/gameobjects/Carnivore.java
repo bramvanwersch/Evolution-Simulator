@@ -35,14 +35,19 @@ public class Carnivore extends HetrotrophSpecies{
 	 * @param y the y coordinate of the eatable species
 	 * @param size the sSize the size of the eatable species
 	 * @param sEnergy the energy of the eatable species
-	 * @return boolean that tells if the species can be eaten or not.
+	 * @return boolean that tells if the species is eaten or not.
 	 */
+	@Override
 	public boolean eat(int x, int y, int sSize, int sEnergy) {
-		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
-				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
-			changeEnergy(sEnergy);
-			this.eating = true;
-			return true;
+		if (getSize() * getEatSizeFactor() > sSize) {
+			if (getxLoc() - 0.5 * getSize() * getEatSizeFactor() <= x - 0.5 * sSize && 
+					getxLoc() + 0.5 * getSize() * getEatSizeFactor() >= x + 0.5 * sSize && 
+					getyLoc() - 0.5 * getSize() * getEatSizeFactor() <= y - 0.5 * sSize && 
+					getyLoc() + 0.5 * getSize() * getEatSizeFactor() >= y + 0.5 * sSize) {
+				changeEnergy(sEnergy);
+				this.eating = true;
+				return true;
+			}
 		}
 		return false;
 	}
