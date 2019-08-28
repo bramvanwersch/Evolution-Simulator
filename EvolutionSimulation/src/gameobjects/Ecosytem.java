@@ -49,6 +49,7 @@ public class Ecosytem {
 		eatPlants();
 		
 		hetrotrophEating();
+		autotrophEating();
 		shuffleLists();
 	}
 	
@@ -125,22 +126,6 @@ public class Ecosytem {
 		}	
 	}
 	
-	/**
-	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
-	 * the case the herbivore will be removed.
-	 */
-	public void eatSpecies(Population predator, Population prey) {
-		for(int i = 0; i < predator.getNrSpecies(); i++) {
-			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
-				Species s1 = predator.getSpecies(i);
-				Species s2 = prey.getSpecies(j);
-				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
-					prey.removeSpecies(j);
-				}
-			}
-		}
-	}
-	
 	public void hetrotrophEating() {
 		for (int loc : popOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
@@ -173,14 +158,23 @@ public class Ecosytem {
 	}
 	
 	/**
-	 * Function that invokes a function for every population that checks if species are eligible for 
-	 * multiplication
+	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
+	 * the case the herbivore will be removed.
 	 */
-	public void checkCanMultiply() {
-		for (int loc : popOrderSeed) {
-			Population sp =  hetrotrophPopulations.get(loc);
-			sp.multiplySpecies();
+	public void eatSpecies(Population predator, Population prey) {
+		for(int i = 0; i < predator.getNrSpecies(); i++) {
+			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
+				Species s1 = predator.getSpecies(i);
+				Species s2 = prey.getSpecies(j);
+				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+					prey.removeSpecies(j);
+				}
+			}
 		}
+	}
+	
+	public void autotrophEating() {
+		//TODO: implement method
 	}
 	
 	/**
@@ -251,8 +245,7 @@ public class Ecosytem {
 	}
 	
 	private boolean checkSpeciesPlacement(Species spec) {
-		for (int loc : popOrderSeed) {
-			Population sp =  hetrotrophPopulations.get(loc);
+		for (Population sp : getPopulations()) {
 			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
 				Species s = sp.getSpecies(i);
 				//check if the central point of the species just created is witin another species or not. if so move it.
@@ -424,7 +417,6 @@ public class Ecosytem {
 		return this.environment;
 	}
 
-	
 /*
  * Data saving functions	
  */
