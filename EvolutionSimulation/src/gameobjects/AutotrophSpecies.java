@@ -2,9 +2,9 @@ package gameobjects;
 
 import genome.Genome;
 
-public class PlantSpecies extends Species{
+public class AutotrophSpecies extends Species{
 
-	public PlantSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
+	public AutotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(size);
 		setXYLoc();
 		// TODO Auto-generated constructor stub

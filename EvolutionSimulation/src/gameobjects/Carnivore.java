@@ -2,7 +2,7 @@ package gameobjects;
 
 import genome.Genome;
 
-public class Carnivore extends AnimalSpecies{
+public class Carnivore extends HetrotrophSpecies{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private final int FOOD_DIGEST_TIME = 1000;
 	boolean eating = false;

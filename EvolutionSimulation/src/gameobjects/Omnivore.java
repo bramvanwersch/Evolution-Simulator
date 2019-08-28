@@ -2,7 +2,7 @@ package gameobjects;
 
 import genome.Genome;
 
-public class Omnivore extends AnimalSpecies{
+public class Omnivore extends HetrotrophSpecies{
 	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private int MINIMUM_REP_TIME = 5;
 

@@ -2,13 +2,13 @@ package gameobjects;
 
 import genome.Genome;
 
-public abstract class AnimalSpecies extends Species {
+public abstract class HetrotrophSpecies extends Species {
 	private Genome genome;
 	private double facingDirection;
 	private double eatSizeFactor;
 
 
-	public AnimalSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
+	public HetrotrophSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
 		super(x, y, energy, number);
 		this.genome = genome;
 		this.eatSizeFactor = eatSizeFactor;
@@ -16,7 +16,7 @@ public abstract class AnimalSpecies extends Species {
 
 		}
 
-	public AnimalSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
+	public HetrotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(size);
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
 		this.genome.setGeneValues();
