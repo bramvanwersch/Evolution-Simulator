@@ -37,7 +37,7 @@ public class Carnivore extends AnimalSpecies{
 	 * @param sEnergy the energy of the eatable species
 	 * @return boolean that tells if the species can be eaten or not.
 	 */
-	public boolean foodEaten(int x, int y, int sSize, int sEnergy) {
+	public boolean eat(int x, int y, int sSize, int sEnergy) {
 		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
 				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
 			changeEnergy(sEnergy);

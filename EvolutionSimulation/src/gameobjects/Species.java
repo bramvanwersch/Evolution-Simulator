@@ -53,14 +53,7 @@ public abstract class Species{
 
 	public abstract int getMaxAge();
 		
-	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
-	
-	public boolean toOld() {
-		if (getAge() >= getMaxAge()) {
-			return true;
-		}
-		return false;
-	}
+	public abstract boolean eat(int x, int y, int sSize, int sEnergy);
 	
 	public void changeXLoc(double d) {
 		d = inXBounds(d);

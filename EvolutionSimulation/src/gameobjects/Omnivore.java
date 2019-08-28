@@ -16,7 +16,7 @@ public class Omnivore extends AnimalSpecies{
 		super(x, y, energy, genome, number, eatSizeFactor);
 	}
 
-	public boolean foodEaten(int x, int y, int sSize, int sEnergy) {
+	public boolean eat(int x, int y, int sSize, int sEnergy) {
 		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * sSize > x 
 				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * sSize > y) {
 			changeEnergy(sEnergy*0.3);

@@ -115,7 +115,7 @@ public class Ecosytem {
 			Species s = getAllPlantEaters().get(i);
 			for(int j = getNrPlant() - 1; j >= 0; j--) {
 				Plant f = getPlant(j);
-				if (s.foodEaten(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
+				if (s.eat(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
 					removePlant(j);
 				}
 			}
@@ -134,8 +134,8 @@ public class Ecosytem {
 					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
 						Species s1 = getAllMeatEaters().get(i);
 						Species s2 = sp.getSpecies(j);
-						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {
-							if (s1.foodEaten(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {	
+							if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
 								sp.removeSpecies(j);
 								if (i != 0) {
 									i--;
@@ -144,6 +144,27 @@ public class Ecosytem {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	public void eatSpecies2() {
+		for (int loc : popOrderSeed) {
+			Population sp =  populations.get(loc);
+			String type = sp.getType();
+			if (type.equals("Plant")) {
+			}
+			else if (type.equals("Herbivore")) {
+				
+			}
+			else if (type.equals("Carnivore")) {
+							
+			}
+			else if (type.equals("Omnivore")) {
+				
+			}
+			else if (type.equals("Plant")) {
+			
 			}
 		}
 	}

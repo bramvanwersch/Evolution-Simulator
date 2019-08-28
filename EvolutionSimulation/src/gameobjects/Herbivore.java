@@ -16,7 +16,7 @@ public class Herbivore extends AnimalSpecies{
 		super(x, y,energy, genome, number, eatSizeFactor);
 	}
 	
-	public boolean foodEaten(int x, int y, int fSize, int fEnergy) {
+	public boolean eat(int x, int y, int fSize, int fEnergy) {
 		if (getxLoc() - 0.5 * getSize() < x && getxLoc() + 0.5 * getSize() - 0.5 * fSize > x
 				&& getyLoc() - 0.5 * getSize()  < y && getyLoc() + 0.5 * getSize() - 0.5 * fSize > y) {
 			changeEnergy(fEnergy);

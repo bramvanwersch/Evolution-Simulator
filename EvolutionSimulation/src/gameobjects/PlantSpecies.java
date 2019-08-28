@@ -11,7 +11,7 @@ public class PlantSpecies extends Species{
 	}
 
 	@Override
-	public boolean foodEaten(int x, int y, int sSize, int sEnergy) {
+	public boolean eat(int x, int y, int sSize, int sEnergy) {
 		// TODO Auto-generated method stub
 		return false;
 	}

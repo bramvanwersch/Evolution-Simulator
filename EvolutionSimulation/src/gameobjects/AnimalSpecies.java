@@ -33,7 +33,7 @@ public abstract class AnimalSpecies extends Species {
 	}
 
 	@Override
-	public abstract boolean foodEaten(int x, int y, int sSize, int sEnergy);
+	public abstract boolean eat(int x, int y, int sSize, int sEnergy);
 
 	public abstract void extendedNextTimePoint();
 
