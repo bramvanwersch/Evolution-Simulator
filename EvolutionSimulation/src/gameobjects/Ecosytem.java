@@ -30,7 +30,7 @@ public class Ecosytem {
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
 		this.environment = environment;
-		createAnimalPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
+		createHetrotrophPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		createSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
 		//TODO: Make sure that this has a proper feedback mechanism.
@@ -43,12 +43,12 @@ public class Ecosytem {
 	public void nextTimeStep() {
 		
 		for (int loc : popOrderSeed) {
-			Population sp =  hetrotrophPopulations.get(loc);
+			Population sp =  getPopulations().get(loc);
 			sp.nextTimePoint();
 		}
 		eatPlants();
 		
-		eatSpecies();
+		hetrotrophEating();
 		shuffleLists();
 	}
 	
@@ -129,45 +129,45 @@ public class Ecosytem {
 	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
 	 * the case the herbivore will be removed.
 	 */
-	public void eatSpecies() {
-		for(int i = 0; i < getAllCarnivores().size() + getAllOmnivores().size(); i++) {
-			for (int loc : popOrderSeed) {
-				Population sp =  hetrotrophPopulations.get(loc);
-				if (sp.getType().equals("Herbivore")) {
-					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
-						Species s1 = getAllMeatEaters().get(i);
-						Species s2 = sp.getSpecies(j);
-						if (s1.getSize() > s2.getSize() * s1.getEatSizeFactor()) {	
-							if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
-								sp.removeSpecies(j);
-								if (i != 0) {
-									i--;
-								}
-							}
-						}
-					}
+	public void eatSpecies(Population predator, Population prey) {
+		for(int i = 0; i < predator.getNrSpecies(); i++) {
+			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
+				Species s1 = predator.getSpecies(i);
+				Species s2 = prey.getSpecies(j);
+				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+					prey.removeSpecies(j);
 				}
 			}
 		}
 	}
 	
-	public void eatSpecies2() {
+	public void hetrotrophEating() {
 		for (int loc : popOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
 			String type = sp.getType();
-			if (type.equals("Plant")) {
-			}
-			else if (type.equals("Herbivore")) {
-				
+			if (type.equals("Herbivore")) {
+				for (Population p : getPopulations()) {
+					if (p.getType().equals("Plant")) {
+						eatSpecies(sp, p);
+					}
+				}
 			}
 			else if (type.equals("Carnivore")) {
-							
+				for (Population p : getPopulations()) {
+					if (p.getType().equals("Herbivore")) {
+						eatSpecies(sp, p);
+					}
+				}
 			}
 			else if (type.equals("Omnivore")) {
-				
-			}
-			else if (type.equals("Plant")) {
-			
+				for (Population p : getPopulations()) {
+					if (p.getType().equals("Herbivore")) {
+						eatSpecies(sp, p);
+					}
+					else if (p.getType().equals("Plant")) {
+						eatSpecies(sp, p);
+					}
+				}
 			}
 		}
 	}
@@ -207,7 +207,7 @@ public class Ecosytem {
 		return ar;
 	}
 
-	private void createAnimalPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
+	private void createHetrotrophPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
 			HetrotrophPopulation p = new HetrotrophPopulation(colors[i], type[i], names[i]);
 			hetrotrophPopulations.add(p);
