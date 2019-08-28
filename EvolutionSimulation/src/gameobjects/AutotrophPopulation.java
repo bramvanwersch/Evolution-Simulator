@@ -2,29 +2,60 @@ package gameobjects;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AutotrophPopulation extends Population{
+	private ArrayList<AutotrophSpecies> speciesList;
+
 
 	public AutotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
-	}
-	
-	@Override
-	protected void createOffspring(int index, boolean mutate) {
-		Species s = getSpeciesList().get(index);
-		Species sCopy = null;
-		if (getType().equals("Plant")) {
-			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
-		}
-		if(sCopy != null) {
-			getSpeciesList().add(sCopy);
-			addSpeciesData(sCopy, s.getNumber());
-		}
+		this.speciesList = new ArrayList<AutotrophSpecies>();
+
 	}
 	
 	@Override
 	public void nextTimePoint() {
 		checkAliveSpecies();
+	}
+
+	
+	public void addSpecies(AutotrophSpecies s) {
+		this.speciesList.add(s);
+	}
+	
+	@Override
+	public int getNrSpecies() {
+		return speciesList.size();
+	}
+	
+	@Override
+	public Species getSpecies(int index) {
+		return speciesList.get(index);
+	}
+	
+	@Override
+	public void removeSpecies(int index) {	
+		speciesList.remove(index);
+		addDiedSpiecies();
+	}
+	
+	@Override
+	public void shuffleSpeciesList() {
+		Collections.shuffle(speciesList);
+	}
+		
+	@Override
+	protected void createOffspring(int index, boolean mutate) {
+		Species s = speciesList.get(index);
+		AutotrophSpecies sCopy = null;
+		if (getType().equals("Plant")) {
+			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
+		}
+		if(sCopy != null) {
+			speciesList.add(sCopy);
+			addSpeciesData(sCopy, s.getNumber());
+		}
 	}
 
 	@Override

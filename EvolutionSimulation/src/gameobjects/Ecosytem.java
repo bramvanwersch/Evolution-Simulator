@@ -207,9 +207,9 @@ public class Ecosytem {
 	public void createHetrotrophSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
 			, double[] eatSizeFactor) {
 		for (int i = 0; i <hetrotrophPopulations.size(); i++) {
-			Population p = hetrotrophPopulations.get(i);
+			HetrotrophPopulation p = hetrotrophPopulations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
-				Species s = null;
+				HetrotrophSpecies s = null;
 				if (p.getType().equals("Carnivore")) {
 					if (p.getNrSpecies() == 0) {
 						s = new Carnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
@@ -248,9 +248,9 @@ public class Ecosytem {
 
 	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
 		for (int i = 0; i < autoTrophPopulations.size(); i++) {
-			Population p = autoTrophPopulations.get(i);
+			AutotrophPopulation p = autoTrophPopulations.get(i);
 			for (int j = 0; j < nrSpecies; j++) {
-				Species s = null;
+				AutotrophSpecies s = null;
 				if (p.getType().equals("Plant")) {
 					if (p.getNrSpecies() == 0) {
 						s = new Plant(size, maxAge, energy);

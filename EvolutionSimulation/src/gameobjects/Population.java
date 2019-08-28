@@ -10,7 +10,6 @@ import genome.PanGenome;
 
 public abstract class Population {
 	private final double MUTATION_CHANCE = 0.01;
-	private ArrayList<Species> speciesList;
 	private int diedSpecies;
 	private PopulationData popData;
 	private Color color;
@@ -20,7 +19,6 @@ public abstract class Population {
 	private String name;
 	
 	public Population(Color color, String type, String name) {
-		this.speciesList = new ArrayList<Species>();
 		this.popData = new PopulationData();
 		this.popData.setReduce(true);
 		this.diedSpecies = 0;
@@ -33,18 +31,6 @@ public abstract class Population {
 	
 	public abstract void nextTimePoint();
 	
-	public void addSpecies(Species s) {
-		this.speciesList.add(s);
-	}
-	
-	public int getNrSpecies() {
-		return speciesList.size();
-	}
-	
-	public Species getSpecies(int index) {
-		return speciesList.get(index);
-	}
-	
 	public void multiplySpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
 			if (getSpecies(i).isCanMultiply()) {
@@ -53,25 +39,26 @@ public abstract class Population {
 		}
 	}
 	
+	public abstract Species getSpecies(int i);
+
+	public abstract int getNrSpecies();
+	
+	public abstract void shuffleSpeciesList();
+
+	public abstract void removeSpecies(int index);
+
 	protected abstract void createOffspring(int i, boolean b);
 
-	//for strictly cloning a species
 	public void cloneSpecies(int index) {
 		createOffspring(index, false);
-		
-	}
-	
-	public void removeSpecies(int index) {	
-		speciesList.remove(index);
-		diedSpecies += 1;
 	}
 	
 	public int getDiedSpecies() {
 		return diedSpecies;
 	}
-
-	public void shuffleSpeciesList() {
-		Collections.shuffle(speciesList);
+	
+	public void addDiedSpiecies() {
+		this.diedSpecies += 1;
 	}
 
 	public Color getColor() {
@@ -89,11 +76,6 @@ public abstract class Population {
 				removeSpecies(i);
 			}
 		}
-	}
-	
-	
-	public ArrayList<Species> getSpeciesList() {
-		return this.speciesList;
 	}
 	
 	public String getName() {
@@ -119,7 +101,6 @@ public abstract class Population {
 	public PopulationData getPopData() {
 		return popData;
 	}
-
 	
 	/*
  * Methods for data class. These methods calculate max, min and average values for all species for a 
@@ -139,7 +120,7 @@ public abstract class Population {
 	public double[][] getStats() {
 		double[][] valArray = new double[5][getNrSpecies()];
 		for (int i = 0; i < getNrSpecies(); i++) {
-			double[] attributes = speciesList.get(i).getAttributeData();
+			double[] attributes = getSpecies(i).getAttributeData();
 			for (int j = 0; j < attributes.length; j++) {
 				valArray[j][i] = attributes[j];
 			}
