@@ -12,15 +12,18 @@ import user_input.OptionData;
 public class Ecosytem {
 	private int plantEnergy;
 	private int plantSize;
-	private ArrayList<Population> populations;
+	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
+	//temporary until moved
 	private ArrayList<Plant> plantList;
+	private ArrayList<AutotrophPopulation> autoTrophPopulations;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	private Environment environment;
 
 	public Ecosytem(OptionData options, Environment environment) {
 		this.plantList = new ArrayList<Plant>();
-		this.populations = new ArrayList<Population>();
+		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
+		this.autoTrophPopulations = new ArrayList<AutotrophPopulation>(); 
 		this.plantEnergy = options.getPlantEnergy();
 		this.plantSize = options.getPlantSize();
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
@@ -40,7 +43,7 @@ public class Ecosytem {
 	public void nextTimeStep() {
 		
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			sp.nextTimePoint();
 		}
 		eatPlants();
@@ -129,7 +132,7 @@ public class Ecosytem {
 	public void eatSpecies() {
 		for(int i = 0; i < getAllCarnivores().size() + getAllOmnivores().size(); i++) {
 			for (int loc : popOrderSeed) {
-				Population sp =  populations.get(loc);
+				Population sp =  hetrotrophPopulations.get(loc);
 				if (sp.getType().equals("Herbivore")) {
 					for(int j = sp.getNrSpecies() - 1; j >= 0; j--){
 						Species s1 = getAllMeatEaters().get(i);
@@ -150,7 +153,7 @@ public class Ecosytem {
 	
 	public void eatSpecies2() {
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			String type = sp.getType();
 			if (type.equals("Plant")) {
 			}
@@ -175,7 +178,7 @@ public class Ecosytem {
 	 */
 	public void checkCanMultiply() {
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			sp.multiplySpecies();
 		}
 	}
@@ -186,7 +189,7 @@ public class Ecosytem {
 	 * are looped trough in a random order but dont change order
 	 */
 	public void shuffleLists() {
-		for (Population sp: populations ) {
+		for (Population sp: hetrotrophPopulations ) {
 			sp.shuffleSpeciesList();
 		}
 		Collections.shuffle(plantList);
@@ -206,16 +209,16 @@ public class Ecosytem {
 
 	private void createAnimalPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
 		for (int i = 0; i < nrPopulations; i++) {
-			HetrotrophPopulaiton p = new HetrotrophPopulaiton(colors[i], type[i], names[i]);
-			populations.add(p);
+			HetrotrophPopulation p = new HetrotrophPopulation(colors[i], type[i], names[i]);
+			hetrotrophPopulations.add(p);
 		}
 	}
 
 //methods for innitialy creating species that are specified.
 	public void createSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
 			, double[] eatSizeFactor) {
-		for (int i = 0; i <populations.size(); i++) {
-			Population p = populations.get(i);
+		for (int i = 0; i <hetrotrophPopulations.size(); i++) {
+			Population p = hetrotrophPopulations.get(i);
 			for (int j = 0; j < nrSpecies[i]; j++) {
 				Species s = null;
 				if (p.getType().equals("Carnivore")) {
@@ -249,7 +252,7 @@ public class Ecosytem {
 	
 	private boolean checkSpeciesPlacement(Species spec) {
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
 				Species s = sp.getSpecies(i);
 				//check if the central point of the species just created is witin another species or not. if so move it.
@@ -304,7 +307,7 @@ public class Ecosytem {
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Carnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -317,7 +320,7 @@ public class Ecosytem {
 	private ArrayList<Species> getAllOmnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Omnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -330,7 +333,7 @@ public class Ecosytem {
 	private ArrayList<Species> getAllHerbivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
 		for (int loc : popOrderSeed) {
-			Population sp =  populations.get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Herbivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
 					specList.add(sp.getSpecies(i));
@@ -355,7 +358,7 @@ public class Ecosytem {
 
 	public int getNrSpecies() {
 		int count = 0;
-		for (Population sp: populations ) {
+		for (Population sp: hetrotrophPopulations ) {
 			count += sp.getNrSpecies();
 		}
 		return count;
@@ -363,19 +366,22 @@ public class Ecosytem {
 	
 	public int getAllDeadSpecies() {
 		int count = 0;
-		for (Population sp: populations ) {
+		for (Population sp: hetrotrophPopulations ) {
 			count += sp.getDiedSpecies();
 		}
 		return count;
 	}
 	
 	public ArrayList<Population> getPopulations() {
-		return populations;
+		ArrayList<Population> allPops = new ArrayList<Population>();
+		allPops.addAll(hetrotrophPopulations);
+		allPops.addAll(autoTrophPopulations);
+		return allPops;
 	}
 	
 	private ArrayList<Population> getLivingPopulations() {
 		ArrayList<Population> livingPopulations = new ArrayList<Population>();
-		for (Population sp: populations) {
+		for (Population sp: hetrotrophPopulations) {
 			if (sp.getNrSpecies() > 0) {
 				livingPopulations.add(sp);
 			}
@@ -384,28 +390,28 @@ public class Ecosytem {
 	}
 	
 	public Population getMaxNrSpeciesPop() {
-		Population maxPopulation = populations.get(0);
-		for (int i = 1; i < populations.size(); i++) {
-			if (populations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
-				maxPopulation = populations.get(i);
+		Population maxPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
+				maxPopulation = hetrotrophPopulations.get(i);
 			}
 		}
 		return maxPopulation;
 	}
 	public Population getMinNrSpeciesPop() {
-		Population minPopulation = populations.get(0);
-		for (int i = 1; i < populations.size(); i++) {
-			if (populations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
-				minPopulation = populations.get(i);
+		Population minPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
+				minPopulation = hetrotrophPopulations.get(i);
 			}
 		}
 		return minPopulation;
 	}
 	
 	public PopulationData[] getAllPopData() {
-		PopulationData[] popDataArray = new PopulationData[populations.size()];
-		for (int i = 0; i < populations.size(); i++) {
-			popDataArray[i] = populations.get(i).getPopData();
+		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
+		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
+			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
 		}
 		return popDataArray;
 	}
