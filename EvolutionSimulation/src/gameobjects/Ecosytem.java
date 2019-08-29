@@ -17,7 +17,8 @@ public class Ecosytem {
 	private PopulationData averagePopData;
 	private Environment environment;
 
-	public Ecosytem(OptionData options, Environment environment) {
+	public Ecosytem(OptionData options) {
+		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autoTrophPopulations = new ArrayList<AutotrophPopulation>(); 
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);

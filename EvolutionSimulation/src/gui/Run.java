@@ -30,8 +30,7 @@ public class Run {
 	public Run(OptionData data) {
 		this.data = data;
 		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
-		environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
-		ecosystem = new Ecosytem(this.data, environment);
+		ecosystem = new Ecosytem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,ecosystem, sidePanel);
@@ -111,7 +110,7 @@ public class Run {
 	private void restartTimer() {
 		timer.stop();
 		f.dispose();
-		ecosystem = new Ecosytem(this.data, environment);
+		ecosystem = new Ecosytem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,ecosystem, sidePanel);
