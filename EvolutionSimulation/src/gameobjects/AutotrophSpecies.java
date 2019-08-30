@@ -3,7 +3,7 @@ package gameobjects;
 import genome.Genome;
 
 public class AutotrophSpecies extends Species{
-	private final int MAX_ENERGY_GAIN = 20;
+	private final int MAX_ENERGY_GAIN = 50;
 	//value at wich the growth efficincy of hte species goes down
 	private final int MINIMAL_NUTRIENT_NEEDED = 20;
 	private int maxAge;

@@ -127,8 +127,8 @@ public class Run {
 	private void drawGraph() {
 		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
 		String[] populationNames = new String[ecosystem.getAllPopData().length];
-		for (int i = 0; i < ecosystem.getPopulations().size(); i++) {
-			Population sp = ecosystem.getPopulations().get(i);
+		for (int i = 0; i < ecosystem.getHetrotrophPopulations().size(); i++) {
+			Population sp = ecosystem.getHetrotrophPopulations().get(i);
 			populationNames[i] = sp.getName();
 		}
 		String[] attributeNames = new String[] {"speed", "size", "max age", "scent", "energy", "Nr species"};		

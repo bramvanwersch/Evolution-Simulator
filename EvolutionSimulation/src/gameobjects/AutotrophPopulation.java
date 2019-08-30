@@ -58,10 +58,20 @@ public class AutotrophPopulation extends Population{
 		if (getType().equals("Plant")) {
 			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
 		}
-		if(sCopy != null) {
+		if(sCopy != null && !isOverlapping(sCopy)) {
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}
+	}
+	
+	private boolean isOverlapping(Species spec) {
+		for (Species s: speciesList) {
+			if (s.getxLoc() - 2 * s.getSize() < spec.getxLoc() && s.getxLoc() + 2 *s.getSize() > spec.getxLoc() &&
+				s.getyLoc() - 2 * s.getSize() < spec.getyLoc() && s.getyLoc() + 2 * s.getSize() > spec.getyLoc()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
