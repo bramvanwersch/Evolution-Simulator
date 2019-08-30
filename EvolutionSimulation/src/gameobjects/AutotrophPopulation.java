@@ -51,6 +51,9 @@ public class AutotrophPopulation extends Population{
 	@Override
 	protected void createOffspring(int index, boolean mutate) {
 		Species s = speciesList.get(index);
+		if (mutate) {
+			s.halfEnergy();
+		}
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant")) {
 			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());

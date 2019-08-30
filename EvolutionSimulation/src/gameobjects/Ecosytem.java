@@ -12,7 +12,7 @@ import user_input.OptionData;
 public class Ecosytem {
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
 	//temporary until moved
-	private ArrayList<AutotrophPopulation> autoTrophPopulations;
+	private ArrayList<AutotrophPopulation> autotrophPopulations;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	private Environment environment;
@@ -20,17 +20,16 @@ public class Ecosytem {
 	public Ecosytem(OptionData options) {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
-		this.autoTrophPopulations = new ArrayList<AutotrophPopulation>(); 
+		this.autotrophPopulations = new ArrayList<AutotrophPopulation>(); 
 		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
-		this.environment = environment;
 		createHetrotrophPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
 		//Still hardcoded needs addition of poption panel data.
 		createAutotrophPopulations(1, Color.GREEN, "Plant");
 		createHetrotrophSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
 				options.getScentRanges(), options.getEatSizeFactors());
-		createAutotrophSpecies(50, options.getPlantSize(), 50, options.getPlantEnergy());
+		createAutotrophSpecies(100, options.getPlantSize(), 50, options.getPlantEnergy());
 	}
 
 	/**
@@ -39,9 +38,12 @@ public class Ecosytem {
 	public void nextTimeStep() {
 		
 		for (int loc : popOrderSeed) {
-			Population sp =  getPopulations().get(loc);
+			Population sp =  hetrotrophPopulations.get(loc);
 			sp.nextTimePoint();
-		}		
+		}
+		for (Population p : autotrophPopulations) {
+			p.nextTimePoint();
+		}
 		hetrotrophEating();
 		autotrophEating();
 		shuffleLists();
@@ -168,7 +170,13 @@ public class Ecosytem {
 	}
 	
 	public void autotrophEating() {
-		//TODO: implement method
+		for (AutotrophPopulation p : autotrophPopulations) {
+			for(int j = 0; j < p.getNrSpecies(); j++){
+				AutotrophSpecies s = p.getSpecies(j);
+				s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
+			}
+				
+		}
 	}
 	
 	/**
@@ -240,13 +248,13 @@ public class Ecosytem {
 	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
 		for (int i = 0; i < nrPopulations; i++) {
 			AutotrophPopulation p = new AutotrophPopulation(color, type, "");
-			autoTrophPopulations.add(p);
+			autotrophPopulations.add(p);
 		}
 	}
 
 	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
-		for (int i = 0; i < autoTrophPopulations.size(); i++) {
-			AutotrophPopulation p = autoTrophPopulations.get(i);
+		for (int i = 0; i < autotrophPopulations.size(); i++) {
+			AutotrophPopulation p = autotrophPopulations.get(i);
 			for (int j = 0; j < nrSpecies; j++) {
 				AutotrophSpecies s = null;
 				if (p.getType().equals("Plant")) {
@@ -349,7 +357,7 @@ public class Ecosytem {
 	public ArrayList<Population> getPopulations() {
 		ArrayList<Population> allPops = new ArrayList<Population>();
 		allPops.addAll(hetrotrophPopulations);
-		allPops.addAll(autoTrophPopulations);
+		allPops.addAll(autotrophPopulations);
 		return allPops;
 	}
 	

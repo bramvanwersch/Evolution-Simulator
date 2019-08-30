@@ -27,9 +27,10 @@ public abstract class Species{
 	}
 	
 //Constructor for multiplying
-	public Species(int x, int y, int energy, int number) {
+	public Species(int x, int y, int energy, int number, int startEnergy) {
 		//make species grow
 		this.energy = energy;
+		this.startingEnergy = startEnergy;
 		this.no = number;
 		this.age = 0;
 		this.xLoc = x;
@@ -56,6 +57,13 @@ public abstract class Species{
 	public void changeYLoc(double d) {
 		d = inYBounds(d);
 		this.yLoc += Math.round(d);
+	}
+	
+	public boolean isCanMultiply() {
+		if (this.energy/2 > this.startingEnergy) {
+			return true;
+		}
+		return false;
 	}
 	
 	public double inXBounds(double d) {
@@ -103,12 +111,6 @@ public abstract class Species{
 //	public abstract void scentMovement(int x, int y);
 	
 	//energy methods
-	public boolean isCanMultiply() {
-		if (this.energy/2 > startingEnergy) {
-			return true;
-		}
-		return false;
-	}
 	
 	public int getEnergy() {
 		return this.energy;
@@ -118,9 +120,8 @@ public abstract class Species{
 		this.energy += energyConsumption;
 	}
 	
-	public int halfEnergy() {
-		energy = energy/ENERGY_DIVISION;
-		return energy;
+	public void halfEnergy() {
+		this.energy = energy/ENERGY_DIVISION;
 	}
 	
 //Methods for the attributes

@@ -12,9 +12,11 @@ public class Environment {
 	}
 
 	private NutrientDeposit[] createDeposits(String type, int[] element) {
-		NutrientDeposit[] deposits = new NutrientDeposit[element[0]];
-		for (int i = 0; i < element[0]; i++) {
-			deposits[i] = new NutrientDeposit(type, element[1]);
+		int numberOfDeposits = element[0];
+		int maxValue = element[1];
+		NutrientDeposit[] deposits = new NutrientDeposit[numberOfDeposits];
+		for (int i = 0; i < numberOfDeposits; i++) {
+			deposits[i] = new NutrientDeposit(type, maxValue);
 		}
 		return deposits;
 	}

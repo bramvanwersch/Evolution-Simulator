@@ -9,7 +9,7 @@ public abstract class HetrotrophSpecies extends Species {
 
 
 	public HetrotrophSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		super(x, y, energy, number);
+		super(x, y, energy, number, 4000);
 		this.genome = genome;
 		this.eatSizeFactor = eatSizeFactor;
 		this.facingDirection = Math.random() * 2 * Math.PI;

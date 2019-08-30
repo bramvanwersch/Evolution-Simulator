@@ -57,25 +57,25 @@ public class HetrotrophPopulation extends Population {
 		int energy = s.getEnergy();
 		if (mutation) {
 			genome.mutateGenome(getMutationChance());
-			energy = s.halfEnergy();
+			s.halfEnergy();
 		}
 		genome.setGeneValues();
 		HetrotrophSpecies sCopy = null;
 		if (getType().equals("Carnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + getDiedSpecies() +1
+				sCopy = new Carnivore(s.getxLoc(), s.getyLoc(), s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
 						, s.getEatSizeFactor());
 			}
 		}
 		else if (getType().equals("Herbivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + getDiedSpecies() +1
+				sCopy = new Herbivore(s.getxLoc(), s.getyLoc(), s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
 						, s.getEatSizeFactor());
 			}
 		}
 		else if (getType().equals("Omnivore")) {
 			if (genome.isSpeciesSurvivable()) {
-				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(),energy, genome, speciesList.size() + getDiedSpecies() +1
+				sCopy = new Omnivore(s.getxLoc(), s.getyLoc(), s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
 						, s.getEatSizeFactor());
 			}
 		}
