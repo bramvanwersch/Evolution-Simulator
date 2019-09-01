@@ -51,11 +51,11 @@ public class HetrotrophPopulation extends Population {
 	}
 	
 	@Override
-	public void createOffspring(int index, boolean mutation) {
+	public void createOffspring(int index, boolean mutate) {
 		Species s = speciesList.get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		int energy = s.getEnergy();
-		if (mutation) {
+		if (mutate) {
 			genome.mutateGenome(getMutationChance());
 			s.halfEnergy();
 		}
@@ -80,6 +80,9 @@ public class HetrotrophPopulation extends Population {
 			}
 		}
 		if(sCopy != null) {
+			if (!mutate) {
+				sCopy.setXYLoc();
+			}
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}

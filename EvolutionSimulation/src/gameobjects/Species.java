@@ -21,20 +21,35 @@ public abstract class Species{
 		this.age = 0;
 	}
 	
-	public void setXYLoc() {
-		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
-		this.yLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
-	}
-	
 //Constructor for multiplying
-	public Species(int x, int y, int energy, int number, int startEnergy) {
+	public Species(int energy, int number, int startEnergy) {
 		//make species grow
 		this.energy = energy;
 		this.startingEnergy = startEnergy;
 		this.no = number;
 		this.age = 0;
-		this.xLoc = x;
-		this.yLoc = y;
+	}
+	
+	public void setXYLoc() {
+		this.xLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
+		this.yLoc = (int) (Math.random()*(WINDOW_SIZE - getSize()) + 0.5* getSize());
+	}
+	
+	public void setXYLoc(int x, int y) {
+		int xDist = x + (int) (Math.random() * 100 -50);
+		if (inXBounds(xDist)) {
+			this.xLoc  = xDist;
+		}
+		else {
+			this.xLoc = x;
+		}
+		int yDist = y + (int) (Math.random() * 100 -50);
+		if (inYBounds(yDist)) {
+			this.yLoc  = yDist;
+		}
+		else {
+			this.yLoc = y;
+		}
 	}
 	
 	public abstract void nextTimePoint();

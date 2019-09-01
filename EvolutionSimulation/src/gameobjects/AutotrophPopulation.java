@@ -56,9 +56,12 @@ public class AutotrophPopulation extends Population{
 		}
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant")) {
-			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
+			sCopy = new Plant(s.getxLoc(), s.getyLoc(), s.getSize(), s.getMaxAge(), s.getEnergy());
 		}
-		if(sCopy != null ) {//&& !isOverlapping(sCopy)) {
+		if(sCopy != null && !isOverlapping(sCopy)) {
+			if (!mutate) {
+				sCopy.setXYLoc();
+			}
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}
