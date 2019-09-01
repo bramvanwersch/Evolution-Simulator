@@ -91,17 +91,17 @@ public class HetrotrophPopulation extends Population {
 
 	@Override
 	public void addSpeciesData(Species s, int prevNumber) {
-		String data = getSpeciesData();
-		if (getSpeciesData().isEmpty()) {
-			for (String key : s.getGenome().getPerfectGenes().keySet()) {
-				data += "<"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
-			}
-		}
-		data += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";
-		setSpeciesData(data);
-		if (getSpeciesData().length() > 100000) {
-			getPanegenome().writeSpeciesInfo(getSpeciesData());
-			setSpeciesData(" ");
-		}
+//		String data = getSpeciesData();
+//		if (getSpeciesData().isEmpty()) {
+//			for (String key : s.getGenome().getPerfectGenes().keySet()) {
+//				data += "<"+ key + "\n"+s.getGenome().DnaToAa(s.getGenome().getPerfectGenes().get(key).getSequence())+"\n";
+//			}
+//		}
+//		data += ">" +s.getNumber() +"<--"+ prevNumber + "\n" +s.getGenome().DnaToAa(s.getGenome().getDNACode())+"\n";
+//		setSpeciesData(data);
+//		if (getSpeciesData().length() > 100000) {
+//			getPanegenome().writeSpeciesInfo(getSpeciesData());
+//			setSpeciesData(" ");
+//		}
 	}
 }
