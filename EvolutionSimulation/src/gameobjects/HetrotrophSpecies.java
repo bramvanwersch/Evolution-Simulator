@@ -129,33 +129,32 @@ public abstract class HetrotrophSpecies extends Species {
 	}
 
 	@Override
-	public double inXBounds(double d) {
-		if (getxLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
+	public boolean inXBounds(double d) {
+		if (getxLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
 			facingDirection += 0.25 * Math.PI;
-			return 0;
+			return false;
 		}
-		else if (getxLoc() + d - 0.5 * getSize() < 0) {
+		else if (getxLoc() + d - 0.5 * getSize() <= 0) {
 			facingDirection += 0.25 * Math.PI;
-			return 0;
+			return false;
 		}
 		else {
-			return d;
+			return true;
 		}
 	}
 
 	@Override
-	public double inYBounds(double d) {
-		if (getyLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
+	public boolean inYBounds(double d) {
+		if (getyLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
 			facingDirection += 0.25 * Math.PI;
-			return 0;
+			return false;
 		}
-		else if (getyLoc() + d - 0.5 * getSize() < 0) {
+		else if (getyLoc() + d - 0.5 * getSize() <= 0) {
 			facingDirection += 0.25 * Math.PI;
-			return 0;
+			return false;
 		}
 		else {
-			return d;
+			return true;
 		}
 	}
-
 }

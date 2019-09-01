@@ -50,13 +50,15 @@ public abstract class Species{
 	public abstract int getMaxAge();
 			
 	public void changeXLoc(double d) {
-		d = inXBounds(d);
-		this.xLoc += Math.round(d);
+		if (inXBounds(d)) {
+			this.xLoc += Math.round(d);
+		}
 	}
 
 	public void changeYLoc(double d) {
-		d = inYBounds(d);
-		this.yLoc += Math.round(d);
+		if (inYBounds(d)) {
+			this.yLoc += Math.round(d);
+		}
 	}
 	
 	public boolean isCanMultiply() {
@@ -66,27 +68,27 @@ public abstract class Species{
 		return false;
 	}
 	
-	public double inXBounds(double d) {
-		if (getxLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
-			return 0;
+	public boolean inXBounds(double d) {
+		if (getxLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
+			return false;
 		}
-		else if (getxLoc() + d - 0.5 * getSize() < 0) {
-			return 0;
+		else if (getxLoc() + d - 0.5 * getSize() <= 0) {
+			return false;
 		}
 		else {
-			return d;
+			return true;
 		}
 	}
 
-	public double inYBounds(double d) {
-		if (getyLoc() + d + 0.5 * getSize() > WINDOW_SIZE) {
-			return 0;
+	public boolean inYBounds(double d) {
+		if (getyLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
+			return false;
 		}
-		else if (getyLoc() + d - 0.5 * getSize() < 0) {
-			return 0;
+		else if (getyLoc() + d - 0.5 * getSize() <= 0) {
+			return false;
 		}
 		else {
-			return d;
+			return true;
 		}
 	}
 	
