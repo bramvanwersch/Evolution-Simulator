@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import gameobjects.Ecosytem;
-import gameobjects.Population;
-import gameobjects.PopulationData;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
+import populations.Population;
+import populations.PopulationData;
 
 public class BlankGameLoop implements ActionListener {
 	private Ecosytem environment;

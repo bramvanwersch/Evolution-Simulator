@@ -1,4 +1,4 @@
-package gameobjects;
+package species;
 
 public class Plant extends AutotrophSpecies{
 	

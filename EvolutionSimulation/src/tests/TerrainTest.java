@@ -1,8 +1,8 @@
 package tests;
 
 import gameobjects.Ecosytem;
-import gameobjects.Species;
 import junit.framework.TestCase;
+import species.Species;
 
 public class TerrainTest extends TestCase {
 	

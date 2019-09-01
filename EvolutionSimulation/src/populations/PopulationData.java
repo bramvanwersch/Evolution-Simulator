@@ -1,4 +1,4 @@
-package gameobjects;
+package populations;
 
 
 import java.util.ArrayList;

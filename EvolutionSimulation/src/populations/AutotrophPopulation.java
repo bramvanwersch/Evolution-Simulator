@@ -1,8 +1,12 @@
-package gameobjects;
+package populations;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import species.AutotrophSpecies;
+import species.Plant;
+import species.Species;
 
 public class AutotrophPopulation extends Population{
 	private ArrayList<AutotrophSpecies> speciesList;

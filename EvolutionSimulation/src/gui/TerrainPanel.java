@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 import environment.NutrientDeposit;
 import gameobjects.Ecosytem;
-import gameobjects.Plant;
-import gameobjects.Population;
-import gameobjects.Species;
+import populations.Population;
+import species.Plant;
+import species.Species;
 
 public class TerrainPanel extends JPanel{
 	private int heigth;

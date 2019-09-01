@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gameobjects.Ecosytem;
-import gameobjects.Population;
-import gameobjects.PopulationData;
+import populations.Population;
+import populations.PopulationData;
 
 public class DataSaver {
 	private int runCounter;

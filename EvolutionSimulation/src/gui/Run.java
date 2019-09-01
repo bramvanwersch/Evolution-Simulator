@@ -11,9 +11,9 @@ import javax.swing.Timer;
 import environment.Environment;
 import gameobjects.Ecosytem;
 import gameobjects.GameLoop;
-import gameobjects.Population;
-import gameobjects.PopulationData;
 import gui.SidePanelGui;
+import populations.Population;
+import populations.PopulationData;
 import user_input.OptionData;
 
 public class Run {

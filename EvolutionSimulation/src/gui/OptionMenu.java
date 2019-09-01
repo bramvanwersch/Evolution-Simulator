@@ -19,7 +19,7 @@ import java.awt.Toolkit;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import gameobjects.Population;
+import populations.Population;
 import user_input.OptionData;
 
 import javax.swing.border.LineBorder;

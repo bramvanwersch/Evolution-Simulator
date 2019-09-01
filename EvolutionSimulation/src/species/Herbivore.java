@@ -1,19 +1,19 @@
-package gameobjects;
+package species;
 
 import genome.Genome;
 
-public class Omnivore extends HetrotrophSpecies{
-	private String[] geneNames = {"size","speed","maxAge","scentRange"};
-	private int MINIMUM_REP_TIME = 5;
-
+public class Herbivore extends HetrotrophSpecies{
+	private String[] geneNames = {"size","speed","maxAge","scentRange"};//needs work
+	private final int MINIMUM_REP_TIME = 0;
+	
 	//innitial constructor
-	public Omnivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
-		super(size, speed, maxAge, scentRange , eatSizeFactor);
+	public Herbivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
+		super(size, speed, maxAge, scentRange, eatSizeFactor);
 	}
 	
 	//inheriting constructor
-	public Omnivore(int x, int y,int energy, Genome genome, int number, double eatSizeFactor) {
-		super(x, y, energy, genome, number, eatSizeFactor);
+	public Herbivore(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
+		super(x, y,energy, genome, number, eatSizeFactor);
 	}
 	
 	public void scentMovement(int ix, int iy) {

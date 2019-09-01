@@ -14,7 +14,7 @@ import javax.swing.Timer;
 
 import environment.Environment;
 import gameobjects.Ecosytem;
-import gameobjects.Population;
+import populations.Population;
 import user_input.OptionData;
 
 public class BlankRun extends SwingWorker<Void, Integer> {

@@ -1,10 +1,15 @@
-package gameobjects;
+package populations;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import genome.Genome;
+import species.Carnivore;
+import species.Herbivore;
+import species.HetrotrophSpecies;
+import species.Omnivore;
+import species.Species;
 
 public class HetrotrophPopulation extends Population {
 	private ArrayList<HetrotrophSpecies> speciesList;

@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import gameobjects.Species;
+import species.Species;
 
 //function for making a text file for genome and genes.
 public class PanGenome {

@@ -1,4 +1,4 @@
-package gameobjects;
+package populations;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import genome.Genome;
 import genome.PanGenome;
+import species.Species;
 
 public abstract class Population {
 	private final double MUTATION_CHANCE = 0.01;
