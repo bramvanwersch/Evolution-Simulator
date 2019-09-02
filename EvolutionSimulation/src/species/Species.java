@@ -57,9 +57,7 @@ public abstract class Species{
 	public abstract void nextTimePoint();
 	
 	public abstract Genome getGenome();
-	
-	public abstract double getEatSizeFactor();
-	
+		
 	public abstract double[] getAttributeData();
 	
 	public abstract int getSize();
