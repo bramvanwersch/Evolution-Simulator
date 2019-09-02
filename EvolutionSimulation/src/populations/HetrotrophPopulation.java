@@ -60,7 +60,7 @@ public class HetrotrophPopulation extends Population {
 		HetrotrophSpecies s = speciesList.get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		genome.mutateGenome(getMutationChance());
-		s.halfEnergy();
+		s.divideEnergy();
 		genome.setGeneValues();
 		int[] xyLoc = s.getOfsetXYLoc();
 		HetrotrophSpecies sCopy = null;

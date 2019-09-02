@@ -55,7 +55,7 @@ public class AutotrophPopulation extends Population{
 	@Override
 	protected void createOffspring(int index) {
 		Species s = speciesList.get(index);
-		s.halfEnergy();
+		s.divideEnergy();
 		int[] xyLoc = s.getOfsetXYLoc();
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant") && !isOverlapping(xyLoc[0], xyLoc[1])) {
