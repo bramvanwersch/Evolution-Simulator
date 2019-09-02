@@ -244,7 +244,7 @@ public class Ecosytem {
 					p.addSpeciesData(s, -1);
 				}
 				if (s == null){
-					p.cloneSpecies(p.getNrSpecies()-1);
+					p.cloneOffspring(p.getNrSpecies()-1);
 				}
 				else if (!checkSpeciesPlacement(s)) {
 					j--;
@@ -274,7 +274,7 @@ public class Ecosytem {
 					}
 				}
 				if (s == null){
-					p.cloneSpecies(p.getNrSpecies()-1);
+					p.cloneOffspring(p.getNrSpecies()-1);
 				}
 				else{
 					p.addSpecies(s);

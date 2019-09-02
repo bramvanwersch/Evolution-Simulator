@@ -56,14 +56,43 @@ public class HetrotrophPopulation extends Population {
 	}
 	
 	@Override
-	public void createOffspring(int index, boolean mutate) {
+	public void createOffspring(int index) {
 		Species s = speciesList.get(index);
 		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
-		int energy = s.getEnergy();
-		if (mutate) {
-			genome.mutateGenome(getMutationChance());
-			s.halfEnergy();
+		genome.mutateGenome(getMutationChance());
+		s.halfEnergy();
+		genome.setGeneValues();
+		int[] xyLoc = s.getOfsetXYLoc();
+		HetrotrophSpecies sCopy = null;
+		if (getType().equals("Carnivore")) {
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Carnivore(xyLoc[0], xyLoc[1], s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
+						, s.getEatSizeFactor());
+			}
 		}
+		else if (getType().equals("Herbivore")) {
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Herbivore(xyLoc[0], xyLoc[1], s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
+						, s.getEatSizeFactor());
+			}
+		}
+		else if (getType().equals("Omnivore")) {
+			if (genome.isSpeciesSurvivable()) {
+				sCopy = new Omnivore(xyLoc[0], xyLoc[1], s.getEnergy(), genome, speciesList.size() + getDiedSpecies() +1
+						, s.getEatSizeFactor());
+			}
+		}
+		if(sCopy != null) {
+			speciesList.add(sCopy);
+			addSpeciesData(sCopy, s.getNumber());
+		}
+		
+	}
+	
+	@Override
+	public void cloneOffspring(int index) {
+		Species s = speciesList.get(index);
+		Genome genome = new Genome(s.getGenome().getPerfectGenes(), s.getGenome().getDNACode());
 		genome.setGeneValues();
 		HetrotrophSpecies sCopy = null;
 		if (getType().equals("Carnivore")) {
@@ -85,9 +114,7 @@ public class HetrotrophPopulation extends Population {
 			}
 		}
 		if(sCopy != null) {
-			if (!mutate) {
-				sCopy.setXYLoc();
-			}
+			sCopy.setXYLoc();
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}

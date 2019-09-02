@@ -53,28 +53,37 @@ public class AutotrophPopulation extends Population{
 	}
 		
 	@Override
-	protected void createOffspring(int index, boolean mutate) {
+	protected void createOffspring(int index) {
 		Species s = speciesList.get(index);
-		if (mutate) {
-			s.halfEnergy();
-		}
+		s.halfEnergy();
+		int[] xyLoc = s.getOfsetXYLoc();
 		AutotrophSpecies sCopy = null;
-		if (getType().equals("Plant")) {
-			sCopy = new Plant(s.getxLoc(), s.getyLoc(), s.getSize(), s.getMaxAge(), s.getEnergy());
+		if (getType().equals("Plant") && !isOverlapping(xyLoc[0], xyLoc[1])) {
+			sCopy = new Plant(xyLoc[0], xyLoc[1], s.getSize(), s.getMaxAge(), s.getEnergy());
 		}
-		if(sCopy != null && !isOverlapping(sCopy)) {
-			if (!mutate) {
-				sCopy.setXYLoc();
-			}
+		if(sCopy != null) {
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}
 	}
 	
-	private boolean isOverlapping(Species spec) {
+	public void cloneOffspring(int index) {
+		Species s = speciesList.get(index);
+		AutotrophSpecies sCopy = null;
+		if (getType().equals("Plant")) {
+			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
+		}
+		if(sCopy != null) {
+			sCopy.setXYLoc();
+			speciesList.add(sCopy);
+			addSpeciesData(sCopy, s.getNumber());
+		}
+	}
+	
+	public boolean isOverlapping(int x, int y) {
 		for (Species s: speciesList) {
-			if (s.getxLoc() - 2 * s.getSize() < spec.getxLoc() && s.getxLoc() + 2 *s.getSize() > spec.getxLoc() &&
-				s.getyLoc() - 2 * s.getSize() < spec.getyLoc() && s.getyLoc() + 2 * s.getSize() > spec.getyLoc()) {
+			if ((s.getxLoc() - 2 * s.getSize() < x && s.getxLoc() + 2 * s.getSize() > x) &&
+				(s.getyLoc() - 2 * s.getSize() < y && s.getyLoc() + 2 * s.getSize() > y)) {
 				return true;
 			}
 		}

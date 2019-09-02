@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 import populations.AutotrophPopulation;
 import species.AutotrophSpecies;
 
-public class AutotrophPopulationTest extends TestCase {
+public class TestAutotrophPopulation extends TestCase {
 	
 	public void testIsOverlappingPositive() {
 		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "a nanme");

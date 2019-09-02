@@ -35,7 +35,7 @@ public abstract class Population {
 	public void multiplySpecies() {
 		for (int i = 0; i < getNrSpecies(); i++) {
 			if (getSpecies(i).isCanMultiply()) {
-				createOffspring(i, true);
+				createOffspring(i);
 			}
 		}
 	}
@@ -48,11 +48,9 @@ public abstract class Population {
 
 	public abstract void removeSpecies(int index);
 
-	protected abstract void createOffspring(int i, boolean b);
+	protected abstract void createOffspring(int index);
 
-	public void cloneSpecies(int index) {
-		createOffspring(index, false);
-	}
+	protected abstract void cloneOffspring(int index); 
 	
 	public int getDiedSpecies() {
 		return diedSpecies;

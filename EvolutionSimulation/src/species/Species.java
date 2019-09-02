@@ -36,20 +36,22 @@ public abstract class Species{
 	}
 	
 	public void setXYLoc(int x, int y) {
-		int xDist = x + (int) (Math.random() * 100 -50);
+		this.xLoc = x;
+		this.yLoc = y;
+	}
+	
+	public int[] getOfsetXYLoc() {
+		int xDist = (int) (Math.random() * 100 -50);
+		int yDist = (int) (Math.random() * 100 -50);
+		int adjX = this.xLoc;
+		int adjY = this.yLoc;
 		if (inXBounds(xDist)) {
-			this.xLoc  = xDist;
+			adjX += xDist;
 		}
-		else {
-			this.xLoc = x;
-		}
-		int yDist = y + (int) (Math.random() * 100 -50);
 		if (inYBounds(yDist)) {
-			this.yLoc  = yDist;
+			adjY += yDist;
 		}
-		else {
-			this.yLoc = y;
-		}
+		return new int[] {adjX, adjY};
 	}
 	
 	public abstract void nextTimePoint();
@@ -84,10 +86,10 @@ public abstract class Species{
 	}
 	
 	public boolean inXBounds(double d) {
-		if (getxLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
+		if (this.xLoc + d + 0.5 * getSize() >= WINDOW_SIZE) {
 			return false;
 		}
-		else if (getxLoc() + d - 0.5 * getSize() <= 0) {
+		else if (this.xLoc + d - 0.5 * getSize() <= 0) {
 			return false;
 		}
 		else {
@@ -96,10 +98,10 @@ public abstract class Species{
 	}
 
 	public boolean inYBounds(double d) {
-		if (getyLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
+		if (this.yLoc + d + 0.5 * getSize() >= WINDOW_SIZE) {
 			return false;
 		}
-		else if (getyLoc() + d - 0.5 * getSize() <= 0) {
+		else if (this.yLoc + d - 0.5 * getSize() <= 0) {
 			return false;
 		}
 		else {
