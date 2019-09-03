@@ -14,7 +14,7 @@ import genome.Genome;
  * @param yLoc y location the species is on inbetween 0 and WINDOW_SIZE
  * @param energy int representing the amount of energy a species currently has
  * @param age int representing the age of a species in mili seconds.
- * @author Bram
+ * @author Bram van Wersch
  *
  */
 public abstract class Species{

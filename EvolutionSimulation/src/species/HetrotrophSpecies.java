@@ -1,22 +1,25 @@
 package species;
-
 import genome.Genome;
 
+/**
+ * Abstract class for containing methods of all hetrotrophspecies.
+ * @author Bram van Wersch
+ *
+ */
 public abstract class HetrotrophSpecies extends Species {
 	private Genome genome;
 	private double facingDirection;
 	private double eatSizeFactor;
 
-
-	public HetrotrophSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		super(energy, number, 20000);
-		this.genome = genome;
-		this.eatSizeFactor = eatSizeFactor;
-		this.facingDirection = Math.random() * 2 * Math.PI;
-		setXYLoc(x, y);
-
-		}
-
+	/**
+	 * Constructor for cloning hetrotrophspecies.
+	 * @param size the maximum size of the hetrotrophspecies
+	 * @param speed the speed of the hetrotrophspecies
+	 * @param maxAge the maximum age of hetrotrophspecies
+	 * @param scentRange the range at witch the hetrotrophspecies can sense other species
+	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+	 * another species.
+	 * */
 	public HetrotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(20000);
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
@@ -24,8 +27,29 @@ public abstract class HetrotrophSpecies extends Species {
 		this.facingDirection = Math.random() * 2 * Math.PI;
 		this.eatSizeFactor = eatSizeFactor;
 		setXYLoc();
-		}
+	}
 	
+	/**
+	 * Constructor for multyplying hetrotroph species
+	 * @param x the coordinate in pixels of the x location of the hetrotrophspecies
+	 * @param y the coordinate in pixels of the y location of the hetrotrophspecies
+	 * @param energy the amount of energy for the hetrotrophspecies to start with
+	 * @param genome the genome of the hetrotrophspecies
+	 * @param number representing the order of creation of the species
+	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+	 * another species.
+	 */
+	public HetrotrophSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
+		super(energy, number, 20000);
+		this.genome = genome;
+		this.eatSizeFactor = eatSizeFactor;
+		this.facingDirection = Math.random() * 2 * Math.PI;
+		setXYLoc(x, y);
+	}
+
+	/**
+	 * For eveoking methods that need an update every game update. 
+	 */
 	@Override
 	public void nextTimePoint() {
 		move();
@@ -56,8 +80,17 @@ public abstract class HetrotrophSpecies extends Species {
 		return false;
 	}
 
+	/**
+	 * Extension of nextTimePoint(). This method is a method for specific hetrotrophspecies for
+	 * evoking certain methods only they need evoked every time point.
+	 */
 	public abstract void extendedNextTimePoint();
 
+	/**
+	 * Moves the species acoording to theire speed. The speed is the distance moved in pixels. A random 
+	 * direction within 0.5 pi radians (quarter of a circel) from the original facingDirection is chosen
+	 * for the species to move towards. Also the energy is reduced accordingly.
+	 */
 	private void move() {
 		if (getEnergy() > 0) {
 			double min = (getFacingDirection() - 0.25 * Math.PI);
@@ -69,55 +102,107 @@ public abstract class HetrotrophSpecies extends Species {
 		}		
 	}
 	
+	/**
+	 * Changes the facing direction to a given value. This can be any double
+	 * @param fd double of the facing direction
+	 */
 	protected void setFacingDirection(double fd) {
 		facingDirection = fd;
 	}
 	
+	/**
+	 * Formula for calculating the energy consumption of the hetrotrophspecies. The area of the sphere of
+	 * the species occupies to the power of 1.4 creates an exponential increase in energy consumption
+	 * limiting the size of the species. The rest of the factors are linear in theire effect and they depend 
+	 * linearly on the value of the given statistic.
+	 * @return
+	 */
 	public double getEnergyConsumption() {
 		int r = getSize() / 2;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
-		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * (getScentRange() - getSize()) + getAge();
+		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * getScentRange() + getAge();
 	}
 	
+	/**
+	 * Returns the current facing direction of a species. The sin() and cos() of the facing direction 
+	 * determine the movement on the x and y axis respectively.
+	 * @return
+	 */
 	public double getFacingDirection() {
 		return this.facingDirection;
 	}
-
+	
+	/**
+	 * Returns the max age as determined by the genome of the hetrotrophspecies
+	 */
 	@Override
 	public int getMaxAge() {
 		return this.genome.getGeneValue("maxAge");
 	}
 	
+	/**
+	 * Returns the max size as determined by the genome of the hetrotrophspecies
+	 */
 	public int getMaxSize() {
 		return this.genome.getGeneValue("size");
 	}
 	
+	/**
+	 * Returns the saved eatSizeFactor for a hetrotropspecies
+	 * @return
+	 */
 	public double getEatSizeFactor() {
 		return this.eatSizeFactor;
 	}
 	
+	/**
+	 * Returns the scent range as determined by the genome of the hetrotrophspecies
+	 */
 	public int getScentRange() {
 		return this.genome.getGeneValue("scentRange") + getSize();
 	}
 	
+	/**
+	 * Returns the speed as determined by the genome of the hetrotrophspecies
+	 */
 	public int getSpeed() {
 		return this.genome.getGeneValue("speed");
 	}
 	
+	/**
+	 * Allows for changing the speed of a species by changing its genome value.
+	 * TODO: this function is dangerous and not desireable
+	 * @param i speed to be set.
+	 */
 	public void setSpeed(int i) {
 		this.genome.setGeneValue("speed", i);
 	}
 
+	/**
+	 * Returns the genome of the species
+	 * @return a instance of the genome class as saved by a hetrotrophspecies.
+	 */
 	public Genome getGenome() {
 		return genome;
 	}
 
+	/**
+	 * Returns the current size of the species. This depends on its age. The species grows from half its size
+	 * to its max size over the half of its lifetime. If that point is reached it keeps its max size
+	 */
 	@Override
 	public int getSize() {
-		return (int) (((getGenome().getGeneValue("size") - 0.5 * getGenome().getGeneValue("size")) * (getAge())) /
-				(getAge() + 5) + 0.5 * getGenome().getGeneValue("size"));
+		double smallerFactor = (getAge() * 2.0) / getMaxAge();
+		if (smallerFactor <= 0.5) {
+			return (int) ((0.5 + smallerFactor) * getMaxSize());
+		}
+		return getMaxSize();
 	}
 
+	/**
+	 * Returns data for the current value of each attribute
+	 * TODO: needs to be dynamic and simply loop trough the genes in the genome
+	 */
 	@Override
 	public double[] getAttributeData() {
 		double[] attributeArray = new double[5];
@@ -129,6 +214,10 @@ public abstract class HetrotrophSpecies extends Species {
 		return attributeArray;
 	}
 
+	/**
+	 * @see Species.inXBounds() This function adds a change in facing direction to make sure hetrotrophspecies 
+	 * dont get stuk at one place.
+	 */
 	@Override
 	public boolean inXBounds(double d) {
 		if (getxLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
@@ -144,6 +233,10 @@ public abstract class HetrotrophSpecies extends Species {
 		}
 	}
 
+	/**
+	 * @see Species.inYBounds() This function adds a change in facing direction to make sure hetrotrophspecies 
+	 * dont get stuk at one place.
+	 */
 	@Override
 	public boolean inYBounds(double d) {
 		if (getyLoc() + d + 0.5 * getSize() >= WINDOW_SIZE) {
