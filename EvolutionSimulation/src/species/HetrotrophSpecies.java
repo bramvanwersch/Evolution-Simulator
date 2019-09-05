@@ -1,4 +1,6 @@
 package species;
+import java.math.BigDecimal;
+
 import genome.Genome;
 
 /**
@@ -60,7 +62,10 @@ public abstract class HetrotrophSpecies extends Species {
 	/**
 	 * Function that will check if a eatable species is completely in the bounding box of the carnivore.
 	 * If this is the case true is returned and the energy is added to the energy of the carnivore. This means
-	 * that the species got eaten and will be removed from the game.
+	 * that the species got eaten and will be removed from the game. The comparissons are always rounded down to 
+	 * the nearest number.
+	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
+	 * the exact same inputs by a pixel.
 	 * @param x the x coordinate of the eatable species
 	 * @param y the y coordinate of the eatable species
 	 * @param size the sSize the size of the eatable species
@@ -68,11 +73,11 @@ public abstract class HetrotrophSpecies extends Species {
 	 * @return boolean that tells if the species is eaten or not.
 	 */
 	public boolean eat(int x, int y, int sSize, int sEnergy) {
-		if (getSize() * getEatSizeFactor() > sSize) {
+		if (getSize() * getEatSizeFactor() >= sSize) {
 			if (getxLoc() - 0.5 * getSize() * getEatSizeFactor() <= x - 0.5 * sSize && 
-					getxLoc() + 0.5 * getSize() * getEatSizeFactor() >= x + 0.5 * sSize && 
-					getyLoc() - 0.5 * getSize() * getEatSizeFactor() <= y - 0.5 * sSize && 
-					getyLoc() + 0.5 * getSize() * getEatSizeFactor() >= y + 0.5 * sSize) {
+					getxLoc() + Math.round(0.5 * getSize() * getEatSizeFactor()) >= x + Math.round(0.5 * sSize) && 
+					getyLoc() - Math.round(0.5 * getSize() * getEatSizeFactor()) <= y - Math.round(0.5 * sSize) && 
+					getyLoc() + Math.round(0.5 * getSize() * getEatSizeFactor()) >= y + Math.round(0.5 * sSize)) {
 				changeEnergy(sEnergy);
 				return true;
 			}
@@ -90,15 +95,17 @@ public abstract class HetrotrophSpecies extends Species {
 	 * Moves the species acoording to theire speed. The speed is the distance moved in pixels. A random 
 	 * direction within 0.5 pi radians (quarter of a circel) from the original facingDirection is chosen
 	 * for the species to move towards. Also the energy is reduced accordingly.
+	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
+	 * the exact same inputs by a pixel.
 	 */
-	private void move() {
+	public void move() {
 		if (getEnergy() > 0) {
+			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
+			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
+			changeEnergy(-1 * getEnergyConsumption());
 			double min = (getFacingDirection() - 0.25 * Math.PI);
 			double max = (getFacingDirection() + 0.25 * Math.PI);
 			setFacingDirection((Math.random() * (max - min)) + min);
-			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
-			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
-			changeEnergy(-1*getEnergyConsumption());
 		}		
 	}
 	
@@ -106,7 +113,7 @@ public abstract class HetrotrophSpecies extends Species {
 	 * Changes the facing direction to a given value. This can be any double
 	 * @param fd double of the facing direction
 	 */
-	protected void setFacingDirection(double fd) {
+	public void setFacingDirection(double fd) {
 		facingDirection = fd;
 	}
 	
@@ -189,6 +196,8 @@ public abstract class HetrotrophSpecies extends Species {
 	/**
 	 * Returns the current size of the species. This depends on its age. The species grows from half its size
 	 * to its max size over the half of its lifetime. If that point is reached it keeps its max size
+	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
+	 * the exact same inputs by a pixel.
 	 */
 	@Override
 	public int getSize() {
