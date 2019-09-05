@@ -16,6 +16,7 @@ public class Genome implements SubstitutionMatrix {
 	private final String[] nucleotides = {"A", "T", "G", "C"};
 	private double STARTING_CODON_COUNT = 300;
 	
+	//initial constructor
 	public Genome(String[] geneNames, int[] startingValues) {
 		perfectGenes = new HashMap<String, Gene>();
 		geneValues = new HashMap<String, Integer>();
@@ -24,6 +25,7 @@ public class Genome implements SubstitutionMatrix {
 		createDNACode();
 	}
 	
+	//inheriting constructor
 	public Genome(Map<String,Gene> perfGenes, String DNAc) {
 		this.perfectGenes = perfGenes;
 		this.DNACode = DNAc;
@@ -48,8 +50,11 @@ public class Genome implements SubstitutionMatrix {
 			String name = nameScore[0];
 //			System.out.println("Name:"+ name+"  ORF:"+ ORF);
 			double score = Double.parseDouble(nameScore[1]);
+			System.out.println((score / perfectGenes.get(name).getMaxScore()));
 			if (name != null) {
-				double value = (score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue();
+				int value = (int) ((score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue());
+//				System.out.println("recorded score for " + name + " score: " + (int) ((score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue()));
+				System.out.println(value);
 				if (geneValues.containsKey(name) && value >= 0) {
 					value += geneValues.get(name);
 				}
@@ -85,7 +90,7 @@ public class Genome implements SubstitutionMatrix {
 		return ORFs.toArray(new String [ORFs.size()]);
 	}
 	
-	private String[] getGeneNameScore(String dnaSeq) {
+	public String[] getGeneNameScore(String dnaSeq) {
 		String[] geneNameScore = new String[] {null, "0"};
 		int highestScore = 0;
 		String aaSeq = DnaToAa(dnaSeq);
@@ -274,21 +279,23 @@ public class Genome implements SubstitutionMatrix {
 	 * perfect genes.
 	 * @return an array of starter genes.
 	 */
-	private String[] createStarterGenes() {
+	public String[] createStarterGenes() {
 		String[] starterGenes = new String[perfectGenes.keySet().size()];
 		int count = 0;
 		for (String key : perfectGenes.keySet()) {
 			Gene optimalGene = perfectGenes.get(key);
 			String optimalGenSeq  = optimalGene.getSequence();
 			String newGenSeq = mutate(optimalGenSeq, 0.5, true);
+			int value  = optimalGene.getValue();
 			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
 			double optimalGenScore = optimalGene.getMaxScore();
 			//randomly generate a gene that is 26% to 24% as efficient as the optimal gene.
-			while (newGenScore >= 0.26 * optimalGenScore || newGenScore <= 0.24 * optimalGenScore) {
+//			while (newGenScore >= 0.26 * optimalGenScore || newGenScore <= 0.24 * optimalGenScore) {
+//			System.out.println((int) ((newGenScore / optimalGenScore) * value) + "  " + value);
+			while ((int) ((newGenScore / optimalGenScore) * value) != (int) (0.25 * value)) {
 				optimalGenSeq  = optimalGene.getSequence();
 				newGenSeq = mutate(optimalGenSeq, 0.5, true);
 				newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
-//				System.out.println(newGenScore + "  " + optimalGenScore);
 			}
 			starterGenes[count] = newGenSeq;
 			count ++;
