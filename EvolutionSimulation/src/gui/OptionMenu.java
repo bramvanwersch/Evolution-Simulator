@@ -391,7 +391,7 @@ public class OptionMenu extends JFrame {
 		gbc_maxAgeLabel.gridy = 0;
 		panel_1.add(maxAgeLabel, gbc_maxAgeLabel);
 		
-		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(50, 1, 500, 1);
+		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(20, 1, 500, 1);
 		JSpinner maxAgeSpinner = new JSpinner(maxAgeModel);
 		GridBagConstraints gbc_maxAgeSpinner = new GridBagConstraints();
 		gbc_maxAgeSpinner.anchor = GridBagConstraints.WEST;
