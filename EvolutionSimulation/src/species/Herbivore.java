@@ -3,19 +3,40 @@ package species;
 import genome.Genome;
 
 public class Herbivore extends HetrotrophSpecies{
-	private String[] geneNames = {"size","speed","maxAge","scentRange"};//needs work
-	private final int MINIMUM_REP_TIME = 0;
 	
-	//innitial constructor
+	/**
+	 * Constructor for cloning herbivores
+	 * @param size the maximum size of the hetrotrophspecies
+	 * @param speed the speed of the hetrotrophspecies
+	 * @param maxAge the maximum age of hetrotrophspecies
+	 * @param scentRange the range at witch the hetrotrophspecies can sense other species
+	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+	 * another species.
+	 */	
 	public Herbivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(size, speed, maxAge, scentRange, eatSizeFactor);
 	}
-	
-	//inheriting constructor
+	 
+		/**
+		 * Constructor for multyplying herbivores
+		 * @param x the coordinate in pixels of the x location of the hetrotrophspecies
+		 * @param y the coordinate in pixels of the y location of the hetrotrophspecies
+		 * @param energy the amount of energy for the hetrotrophspecies to start with
+		 * @param genome the genome of the hetrotrophspecies
+		 * @param number representing the order of creation of the species
+		 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+		 * another species.
+		 */	
 	public Herbivore(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
 		super(x, y,energy, genome, number, eatSizeFactor);
 	}
 	
+	/**
+	 * Needs proper implementation
+	 * TODO: needs fixing of the chase mechanic
+	 * @param ix
+	 * @param iy
+	 */
 	public void scentMovement(int ix, int iy) {
 		double y  = (double) iy;
 		double x = (double) ix;
@@ -32,14 +53,9 @@ public class Herbivore extends HetrotrophSpecies{
 		}	
 	}
 	
-	public String[] getGeneNames() {
-		return this.geneNames;
-	}
-	
-	public int getRepTime() { 
-		return this.MINIMUM_REP_TIME;
-	}
-	
+	/**
+	 * for inheriting the abstract method
+	 */
 	public void extendedNextTimePoint() {
 	}
 }
