@@ -42,24 +42,26 @@ public class Genome implements SubstitutionMatrix {
 		return true;
 	}
 	
+	/**
+	 * Sets the gene values when called by finding all ORFs and scanning what perfect gene they have the best score
+	 * for that is above 0. Then accumulating the value for one attribute and saving that for that attribute.
+	 */
 	public void setGeneValues() {
 		String[] ORFs = getORFs();
 		String[] nameScore;
 		for (String ORF : ORFs) {
 			nameScore = getGeneNameScore(ORF);
 			String name = nameScore[0];
-//			System.out.println("Name:"+ name+"  ORF:"+ ORF);
 			double score = Double.parseDouble(nameScore[1]);
 			if (name != null) {
-				int value = (int) ((score / (double) (perfectGenes.get(name).getMaxScore())) * perfectGenes.get(name).getValue());
-//				System.out.println("recorded score for " + name + " score: " + (int) ((score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue()));
+				int value = (int) ((score / (double) (perfectGenes.get(name).getMaxScore())) *
+							perfectGenes.get(name).getValue());
 				if (geneValues.containsKey(name) && value >= 0) {
 					value += geneValues.get(name);
 				}
 				geneValues.put(name, (int) value);
 			}
 		}
-//		System.out.println("\n\n");
 	}
 	
 	/**
@@ -88,6 +90,14 @@ public class Genome implements SubstitutionMatrix {
 		return ORFs.toArray(new String [ORFs.size()]);
 	}
 	
+	/**
+	 * Expensive function that allignes a dnaCode with each perfect gene to determine the score
+	 * between them and to determine the highest scoring match above 0 to asses the amount the gene 
+	 * influences the attribute.
+	 * @param dnaSeq of the ORF that was found
+	 * @return the name of the attribute and the score of that attribute. If no allignment was found that was
+	 * good enough returns {null,0}
+	 */
 	public String[] getGeneNameScore(String dnaSeq) {
 		String[] geneNameScore = new String[] {null, "0"};
 		int highestScore = 0;
@@ -105,7 +115,8 @@ public class Genome implements SubstitutionMatrix {
 	}
 
 	/**
-	 * Function that alligns 2 amino acid sequences using a BLOSSUM62 matrix and returns a score.
+	 * Function that alligns 2 amino acid sequences using a BLOSSUM62 matrix and returns a score. It removes the stop codons
+	 * because the matrix has no value for them. This is an expensive function when run multiple times in succesion.
 	 * @param seq1; first amino acid sequence
 	 * @param seq2; second amino acid sequence
 	 * @return; a score for the allignment. The maximum score is obtained by alligning an amino acid sequence with itself.
@@ -190,22 +201,48 @@ public class Genome implements SubstitutionMatrix {
 		return newSeq;
 	}
 	
-	public int getGeneValue(String geneName) {
-		return geneValues.get(geneName);
+	/**
+	 * Returns the score for a certain attribute as saved by the genome
+	 * @param attributeName is the name of the attribute for which the value was requested
+	 * @return value of the attribute
+	 */
+	public int getAttributeValue(String attributeName) {
+		return geneValues.get(attributeName);
 	}
 	
-	public void setGeneValue(String stat, int val) {
-		geneValues.put(stat, val);
+	/**
+	 * Allows to change a value in the genome 
+	 * TODO: is a bad type of function should not be allowed and a different strategy has to be employed
+	 * @param attribute
+	 * @param val
+	 */
+	public void setGeneValue(String attribute, int val) {
+		geneValues.put(attribute, val);
 	}
 	
+	/**
+	 * Returns the map of perfect genes. This is here for inheriting the genome class to make sure that
+	 * these genes do not have toe be recalculated.
+	 * @return map containing Gene instances of perfect genes.
+	 */
 	public Map<String,Gene> getPerfectGenes(){
 		return this.perfectGenes;
 	}
 	
+	/**
+	 * Returns the DNA code of the genome for inheriting the genome.
+	 * @return A long string of nucleotides
+	 */
 	public String getDNACode() {
 		return this.DNACode;
 	}
 	
+	/**
+	 * Mutates the current genome of the species by a certain chance. This function is manly here to protect
+	 * the mutate function and to make the proces more straight forward
+	 * @param mutateChance a fraction that tells how likely a mutation is to occur. A fraction of 0.1 means that 
+	 * 10% of the bases will be mutated.
+	 */
 	public void mutateGenome(double mutateChance) {
 		DNACode = mutate(DNACode, mutateChance, false);
 	}
@@ -324,25 +361,6 @@ public class Genome implements SubstitutionMatrix {
 		Arrays.sort(locList);
 		return locList;
 	}
-	
-//	/**
-//	 * Function that will give a array of nucleotides that are different from the nucleotide that is being mutated.
-//	 * @param nucleotide; nucleotide that is being mutated
-//	 * @return; an array containing 3 nucleotides that are not the nucleotide given as parameter.
-//	 */
-//	private String[] availableNucleotides(String nucleotide) {
-//	    String[] returnArray = new String[3];
-//		String [] nucleotides = {"A","T","C","G"};
-//		int count = 0;
-//	    for (int i = 0; i < nucleotides.length; i++) {
-//	    	if (!nucleotides[i].equals(nucleotide)) {
-//	    		returnArray[count] = nucleotides[i];
-//	    		count++;
-//	    	}
-//	    }
-//	    return returnArray;
-//
-//	}
 	
 	/**
 	 * Function that removes any stop codons that where generated by mutating a sequence only used for innitial starter gene creation.

@@ -61,7 +61,7 @@ public class GenomeTest extends TestCase {
 		for (int i = 0; i < 10; i ++) {
 			Genome g = new Genome(new String[] {"gen1"}, new int[] {10});
 			g.setGeneValues();
-			assertEquals(10, g.getGeneValue("gen1"));
+			assertEquals(10, g.getAttributeValue("gen1"));
 		}
 	}
 	
