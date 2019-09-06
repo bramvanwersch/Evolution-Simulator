@@ -247,7 +247,7 @@ public abstract class Population {
 		double[][] finalArray = new double[5][];
 		for (int k = 0; k < finalArray.length; k++) {
 			double[] attribute = valArray[k];	
-			int[] minMax = calcMinMax(attribute);
+			double[] minMax = calcMinMax(attribute);
 			finalArray[k] = new double[]{calcAvgAttribute(attribute), minMax[0], minMax[1]};
 		}
 		return finalArray;
@@ -272,19 +272,19 @@ public abstract class Population {
 	/**
 	 * Filter out the minimum and maximum value out of an array of doubles
 	 * @param attrArray is the array of douvles that has to be averaged
-	 * @return
+	 * @return an array of 2 doubles first min then maximum
 	 */
-	private int[] calcMinMax(double[] attrArray) {
+	public double[] calcMinMax(double[] attrArray) {
 		if (attrArray.length == 0) {
-			return new int [] {0,0};
+			return new double [] {0,0};
 		}
-		int[] minMax = {(int) attrArray[0],(int) attrArray[0]};
-		for(int i = 0; i < getNrSpecies(); i++){
+		double[] minMax = {attrArray[0], attrArray[0]};
+		for(int i = 0; i < attrArray.length; i++){
 			if (attrArray[i] < minMax[0]) {
-				minMax[0] = (int)attrArray[i];
+				minMax[0] = attrArray[i];
 			}
 			else if (attrArray[i] > minMax[1]) {
-				minMax[1] = (int)attrArray[i];
+				minMax[1] = attrArray[i];
 			}
 		}
 		return minMax;
