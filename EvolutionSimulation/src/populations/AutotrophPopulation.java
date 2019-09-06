@@ -53,7 +53,7 @@ public class AutotrophPopulation extends Population{
 	}
 		
 	@Override
-	protected void createOffspring(int index) {
+	public void createOffspring(int index) {
 		Species s = speciesList.get(index);
 		s.divideEnergy();
 		int[] xyLoc = s.getOfsetXYLoc();
