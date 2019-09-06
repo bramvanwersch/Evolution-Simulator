@@ -285,7 +285,7 @@ public class Genome implements SubstitutionMatrix {
 			String optimalGenSeq  = optimalGene.getSequence();
 			String newGenSeq = mutate(optimalGenSeq, 0.5, true);
 			int value  = optimalGene.getValue();
-			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
+			double newGenScore = sequenceAlligner(DnaToAa(optimalGenSeq), DnaToAa(newGenSeq));
 			double optimalGenScore = optimalGene.getMaxScore();
 			//randomly generetate a gene that has the score that is equal to 1/4th of the max score
 			while ((int) ((newGenScore / optimalGenScore) * value) != (int) (0.25 * value)) {
