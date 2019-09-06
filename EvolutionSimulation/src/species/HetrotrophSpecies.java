@@ -144,14 +144,14 @@ public abstract class HetrotrophSpecies extends Species {
 	 */
 	@Override
 	public int getMaxAge() {
-		return this.genome.getGeneValue("maxAge");
+		return this.genome.getAttributeValue("maxAge");
 	}
 	
 	/**
 	 * Returns the max size as determined by the genome of the hetrotrophspecies
 	 */
 	public int getMaxSize() {
-		return this.genome.getGeneValue("size");
+		return this.genome.getAttributeValue("size");
 	}
 	
 	/**
@@ -166,14 +166,14 @@ public abstract class HetrotrophSpecies extends Species {
 	 * Returns the scent range as determined by the genome of the hetrotrophspecies
 	 */
 	public int getScentRange() {
-		return this.genome.getGeneValue("scentRange") + getSize();
+		return this.genome.getAttributeValue("scentRange") + getSize();
 	}
 	
 	/**
 	 * Returns the speed as determined by the genome of the hetrotrophspecies
 	 */
 	public int getSpeed() {
-		return this.genome.getGeneValue("speed");
+		return this.genome.getAttributeValue("speed");
 	}
 	
 	/**
