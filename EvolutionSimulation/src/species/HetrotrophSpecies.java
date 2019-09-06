@@ -21,7 +21,7 @@ public abstract class HetrotrophSpecies extends Species {
 	 * @param scentRange the range at witch the hetrotrophspecies can sense other species
 	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
 	 * another species.
-	 * */
+	 */
 	public HetrotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(20000);
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
