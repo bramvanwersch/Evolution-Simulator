@@ -33,15 +33,17 @@ public class TestCarnivore extends TestCase {
 		assertTrue(s.getEating());
 	}
 	
-//	public void testEatTimeCheckAfterTime() {
-//		Carnivore s =  new Carnivore(12, 10, 10, 10, 1.0);
-//		s.setXYLoc(100, 100);
-//		s.eat(100, 100, 1, 2000);
-//		for (int i = 0; i < 222; i ++) {
-//			s.addAge();
-//		}
-//		s.extendedNextTimePoint();
-//		assertFalse(s.getEating());
-//	}
+	public void testEatTimeCheckAfterTime() {
+		Carnivore s =  new Carnivore(12, 10, 10, 10, 1.0);
+		s.setXYLoc(100, 100);
+		s.eat(100, 100, 1, 2000);
+		//after one second they go back to normal speed.
+		for (int i = 0; i < 19; i ++) {
+			s.extendedNextTimePoint();
+		}
+		assertTrue(s.getEating());
+		s.extendedNextTimePoint();
+		assertFalse(s.getEating());
+	}
 
 }

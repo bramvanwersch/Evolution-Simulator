@@ -114,6 +114,9 @@ public class Carnivore extends HetrotrophSpecies{
 		}
 	}
 	
+	/**
+	 * Returns the eating boolean that tells if a species has recently eaten.
+	 */
 	public boolean getEating() {
 		return this.eating;
 	}
