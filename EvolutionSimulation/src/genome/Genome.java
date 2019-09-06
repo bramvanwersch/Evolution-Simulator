@@ -50,11 +50,9 @@ public class Genome implements SubstitutionMatrix {
 			String name = nameScore[0];
 //			System.out.println("Name:"+ name+"  ORF:"+ ORF);
 			double score = Double.parseDouble(nameScore[1]);
-			System.out.println((score / perfectGenes.get(name).getMaxScore()));
 			if (name != null) {
-				int value = (int) ((score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue());
+				int value = (int) ((score / (double) (perfectGenes.get(name).getMaxScore())) * perfectGenes.get(name).getValue());
 //				System.out.println("recorded score for " + name + " score: " + (int) ((score / perfectGenes.get(name).getMaxScore()) * perfectGenes.get(name).getValue()));
-				System.out.println(value);
 				if (geneValues.containsKey(name) && value >= 0) {
 					value += geneValues.get(name);
 				}
@@ -74,10 +72,6 @@ public class Genome implements SubstitutionMatrix {
 		boolean inGene = false;
 		for (int i = 0; i < DNACode.length(); i+=3) {
 			String codon = DNACode.substring(i, i +3);
-			if (codon.equals("ATG")) {
-				gene += codon;
-				inGene = true;
-			}
 			if (inGene) {
 				gene += codon;
 				if (codon.equals("TAA") || codon.equals("TGA") || codon.equals("TAG")) {
@@ -85,6 +79,10 @@ public class Genome implements SubstitutionMatrix {
 					gene = "";
 					inGene = false;
 				}
+			}
+			else if (codon.equals("ATG")) {
+				gene += codon;
+				inGene = true;
 			}
 		}
 		return ORFs.toArray(new String [ORFs.size()]);
@@ -251,7 +249,7 @@ public class Genome implements SubstitutionMatrix {
 	
 	/**
 	 * Creates a DNA code that is the specified amount of codons (STARTING_CODON_COUNT) long plus the generated starter genes.
-	 * These are places at random after a certain codon to assure that they are in the first reading frame.
+	 * These are placed at random after a certain codon to assure that they are in the first reading frame.
 	 */
 	private void createDNACode() {
 		String[] starterGenes = createStarterGenes();
@@ -289,9 +287,7 @@ public class Genome implements SubstitutionMatrix {
 			int value  = optimalGene.getValue();
 			double newGenScore = sequenceAlligner(optimalGenSeq, newGenSeq);
 			double optimalGenScore = optimalGene.getMaxScore();
-			//randomly generate a gene that is 26% to 24% as efficient as the optimal gene.
-//			while (newGenScore >= 0.26 * optimalGenScore || newGenScore <= 0.24 * optimalGenScore) {
-//			System.out.println((int) ((newGenScore / optimalGenScore) * value) + "  " + value);
+			//randomly generetate a gene that has the score that is equal to 1/4th of the max score
 			while ((int) ((newGenScore / optimalGenScore) * value) != (int) (0.25 * value)) {
 				optimalGenSeq  = optimalGene.getSequence();
 				newGenSeq = mutate(optimalGenSeq, 0.5, true);
