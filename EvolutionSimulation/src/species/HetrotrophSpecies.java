@@ -64,8 +64,6 @@ public abstract class HetrotrophSpecies extends Species {
 	 * If this is the case true is returned and the energy is added to the energy of the carnivore. This means
 	 * that the species got eaten and will be removed from the game. The comparissons are always rounded down to 
 	 * the nearest number.
-	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
-	 * the exact same inputs by a pixel.
 	 * @param x the x coordinate of the eatable species
 	 * @param y the y coordinate of the eatable species
 	 * @param size the sSize the size of the eatable species
@@ -95,8 +93,6 @@ public abstract class HetrotrophSpecies extends Species {
 	 * Moves the species acoording to theire speed. The speed is the distance moved in pixels. A random 
 	 * direction within 0.5 pi radians (quarter of a circel) from the original facingDirection is chosen
 	 * for the species to move towards. Also the energy is reduced accordingly.
-	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
-	 * the exact same inputs by a pixel.
 	 */
 	public void move() {
 		if (getEnergy() > 0) {
@@ -196,12 +192,10 @@ public abstract class HetrotrophSpecies extends Species {
 	/**
 	 * Returns the current size of the species. This depends on its age. The species grows from half its size
 	 * to its max size over the half of its lifetime. If that point is reached it keeps its max size
-	 * TODO: needs to work with exact numbers. Because of the ways doubles work this number can differ with
-	 * the exact same inputs by a pixel.
 	 */
 	@Override
 	public int getSize() {
-		double smallerFactor = (getAge() * 2.0) / getMaxAge();
+		double smallerFactor = ((double) getAge() ) / getMaxAge();
 		if (smallerFactor <= 0.5) {
 			return (int) ((0.5 + smallerFactor) * getMaxSize());
 		}
