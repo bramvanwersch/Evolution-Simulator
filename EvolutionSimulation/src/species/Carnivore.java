@@ -3,28 +3,46 @@ package species;
 import genome.Genome;
 
 public class Carnivore extends HetrotrophSpecies{
-	private String[] geneNames = {"size","speed","maxAge","scentRange"};
 	private final int FOOD_DIGEST_TIME = 1000;
 	boolean eating = false;
 	private int timeSinceEating;
 	private int prevSpeed;
 
-	//innitial constructor
+	/**
+	 * Constructor for cloning carnivores.
+	 * @param size the maximum size of the hetrotrophspecies
+	 * @param speed the speed of the hetrotrophspecies
+	 * @param maxAge the maximum age of hetrotrophspecies
+	 * @param scentRange the range at witch the hetrotrophspecies can sense other species
+	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+	 * another species.
+	 * */
 	public Carnivore(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
 		super(size, speed, maxAge, scentRange, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
 	
-	//inheriting constructor
+	/**
+	 * Constructor for multyplying carnivores
+	 * @param x the coordinate in pixels of the x location of the hetrotrophspecies
+	 * @param y the coordinate in pixels of the y location of the hetrotrophspecies
+	 * @param energy the amount of energy for the hetrotrophspecies to start with
+	 * @param genome the genome of the hetrotrophspecies
+	 * @param number representing the order of creation of the species
+	 * @param eatSizeFactor double that tells how mutch smaller the species can be and still eat
+	 * another species.
+	 */
 	public Carnivore(int x, int y,int energy, Genome genome, int number, double eatSizeFactor) {
 		super(x, y, energy, genome, number, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
 	
+	/**
+	 * For evoking methods specific for carnivores only that need to be checked every time point.
+	 */
 	public void extendedNextTimePoint() {
 		eatTimeCheck();
 	}
-
 
 	/**
 	 * Function that will check if a eatable species is completely in the bounding box of the carnivore.
@@ -39,11 +57,11 @@ public class Carnivore extends HetrotrophSpecies{
 	 */
 	@Override
 	public boolean eat(int x, int y, int sSize, int sEnergy) {
-		if (getSize() * getEatSizeFactor() > sSize) {
+		if (getSize() * getEatSizeFactor() >= sSize) {
 			if (getxLoc() - 0.5 * getSize() * getEatSizeFactor() <= x - 0.5 * sSize && 
-					getxLoc() + 0.5 * getSize() * getEatSizeFactor() >= x + 0.5 * sSize && 
-					getyLoc() - 0.5 * getSize() * getEatSizeFactor() <= y - 0.5 * sSize && 
-					getyLoc() + 0.5 * getSize() * getEatSizeFactor() >= y + 0.5 * sSize) {
+					getxLoc() + Math.round(0.5 * getSize() * getEatSizeFactor()) >= x + Math.round(0.5 * sSize) && 
+					getyLoc() - Math.round(0.5 * getSize() * getEatSizeFactor()) <= y - Math.round(0.5 * sSize) && 
+					getyLoc() + Math.round(0.5 * getSize() * getEatSizeFactor()) >= y + Math.round(0.5 * sSize)) {
 				changeEnergy(sEnergy);
 				this.eating = true;
 				return true;
@@ -57,6 +75,7 @@ public class Carnivore extends HetrotrophSpecies{
 	 * carnivore. If the species has recently eaten the normal move behaviour will be invoked.
 	 * @param ix integer representing the x coordinate of the herbivore
 	 * @param iy integer representing the y coordinate of the herbivore
+	 * TODO: Unused at the moment and the chase mechanic feels broken.
 	 */
 	public void scentMovement(int ix, int iy) {
 		double y  = (double) iy;
@@ -75,24 +94,7 @@ public class Carnivore extends HetrotrophSpecies{
 			move();
 		}
 	}
-	
-	/**
-	 * Function for moving the carnivore. This function overwrites the species function to allow for a check to
-	 * see if the carnivore has eaten recently. If this is the case the speed of the carnivore will temporarily
-	 * drop to a lower value.
-	 */
-	public void move() {
-		extendedNextTimePoint();
-		if (getEnergy() > 0) {
-			double min = (getFacingDirection() - 0.25 * Math.PI);
-			double max = (getFacingDirection() + 0.25 * Math.PI);
-			setFacingDirection((Math.random() * (max - min)) + min);
-			changeXLoc(Math.sin(getFacingDirection()) * getSpeed());
-			changeYLoc((-1 * Math.cos(getFacingDirection()) * getSpeed()));
-			changeEnergy(-1*getEnergyConsumption());			
-		}
-	}
-	
+
 	/**
 	 * Function for checking if the carnivore has recently eaten. Setting the speed lower after eating and 
 	 * returning it back if enough time has passed.
@@ -112,12 +114,7 @@ public class Carnivore extends HetrotrophSpecies{
 		}
 	}
 	
-	/**
-	 * This has to be implemented yet
-	 * @return
-	 */
-	public String[] getGeneNames() {
-		return this.geneNames;
+	public boolean getEating() {
+		return this.eating;
 	}
-
 }
