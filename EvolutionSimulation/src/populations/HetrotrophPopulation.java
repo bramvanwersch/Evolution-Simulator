@@ -11,10 +11,20 @@ import species.HetrotrophSpecies;
 import species.Omnivore;
 import species.Species;
 
+/**
+ * Class that holds specific methods that need to happen on all 
+ * hetrotropspecies or concern the manipulation of the list of species.
+ * @author Bram van Wersch
+ */
 public class HetrotrophPopulation extends Population {
 	private ArrayList<HetrotrophSpecies> speciesList;
 
-
+	/**
+	 * 
+	 * @param color
+	 * @param type
+	 * @param name
+	 */
 	public HetrotrophPopulation(Color color, String type, String name) {
 		super(color, type, name);
 		this.speciesList = new ArrayList<HetrotrophSpecies>();
@@ -28,7 +38,6 @@ public class HetrotrophPopulation extends Population {
 		multiplySpecies();
 		checkAliveSpecies();
 	}
-	
 	
 	public void addSpecies(HetrotrophSpecies s) {
 		this.speciesList.add(s);
