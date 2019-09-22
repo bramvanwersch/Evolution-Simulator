@@ -15,6 +15,9 @@ import species.Species;
  * Class that holds specific methods that need to happen on all 
  * hetrotropspecies or concern the manipulation of the list of species.
  * @author Bram van Wersch
+ * @note this class is very similar to the HetrotrophSpecies class
+ * this is because both classes do very similar things buyt need to
+ * save differnt kinds of species
  */
 public class HetrotrophPopulation extends Population {
 	//List of all species that can grow or shrink depending on survival of 
