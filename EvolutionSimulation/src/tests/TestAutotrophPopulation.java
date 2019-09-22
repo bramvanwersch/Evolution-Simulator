@@ -5,7 +5,11 @@ import java.awt.Color;
 
 import junit.framework.TestCase;
 import populations.AutotrophPopulation;
+import populations.HetrotrophPopulation;
 import species.AutotrophSpecies;
+import species.Herbivore;
+import species.HetrotrophSpecies;
+import species.Plant;
 
 public class TestAutotrophPopulation extends TestCase {
 	
@@ -35,6 +39,27 @@ public class TestAutotrophPopulation extends TestCase {
 		//just outside
 		assertEquals(false, p.isOverlapping(80, 100));
 		assertEquals(false, p.isOverlapping(100, 80));
+	}
+	//function cannot be tested because there is a chance the species is not created when it is created
+	//inside the original species.
+//	public void testCreateOffspring() {
+//		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "some name");
+//		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000);
+//		p.addSpecies(h);
+//		p.createOffspring(0);
+//		assertEquals(2, p.getNrSpecies());
+//	}
+	
+	public void testCloneOffspring() {
+		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "some name");
+		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000);
+		p.addSpecies(h);
+		p.cloneOffspring(0);
+		AutotrophSpecies sp1 = p.getSpecies(0);
+		AutotrophSpecies sp2 = p.getSpecies(1);
+		
+		assertEquals(sp1.getMaxAge(), sp2.getMaxAge());
+		assertEquals(sp1.getSize(), sp2.getSize());
 	}
 
 }

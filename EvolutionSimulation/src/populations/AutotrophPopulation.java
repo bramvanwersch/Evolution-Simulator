@@ -48,7 +48,7 @@ public class AutotrophPopulation extends Population{
 
 	/**
 	 * Adds a species to the end of the speciesList
-	 * @param s is the instance of a hetrotrophspecies to be added to the list.
+	 * @param s is the instance of a autotrophspecies to be added to the list.
 	 */
 	public void addSpecies(AutotrophSpecies s) {
 		this.speciesList.add(s);
