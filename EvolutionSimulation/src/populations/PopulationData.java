@@ -159,9 +159,8 @@ public class PopulationData {
 			doubles = reduceAvgData(doubles);
 		}
 	    int[] ret = new int[doubles.size()];
-	    Iterator<Double> iterator = doubles.iterator();
-	    for (int i = 0; i < ret.length; i++){
-	        ret[i] = iterator.next().intValue();
+	    for (int i = 0; i < doubles.size(); i++){
+	        ret[i] = (int) Math.round(doubles.get(i));
 	    }
 	    return ret;
 	}
