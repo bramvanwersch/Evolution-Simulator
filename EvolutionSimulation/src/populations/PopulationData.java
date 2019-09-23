@@ -124,26 +124,23 @@ public class PopulationData {
      * data point
      * @return AMOUNT_OF_DATA_POINTS or less data points for the average maximum and minimum data of each data point.
      */
-    private ArrayList<double[]> reduceAllData(ArrayList<double[]> dataArray) {
+    public ArrayList<double[]> reduceAllData(ArrayList<double[]> dataArray) {
         ArrayList<double[]> averagedData = new ArrayList<double[]>();
+        List<double[]> values;
         for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
             if (i + dataDivisionFactor <= dataArray.size()) {
-                List<double[]> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
-                double[] avgValues = allSum(values);
-                double[] averagedDataUnit = {avgValues[0]/dataDivisionFactor, avgValues[1]/dataDivisionFactor,
-                		avgValues[2]/dataDivisionFactor};
-                averagedData.add(averagedDataUnit);
+                values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
             }
             else {
-                List<double[]> values = new ArrayList<double[]>();
+                values = new ArrayList<double[]>();
                 for (int k = i; k < dataArray.size(); k++) {
                     values.add(dataArray.get(i));
                 }
-                double[] avgValues = allSum(values);
-                double[] averagedDataUnit = {avgValues[0]/dataDivisionFactor, avgValues[1]/dataDivisionFactor,
-                		avgValues[2]/dataDivisionFactor};
-                averagedData.add(averagedDataUnit);
             }
+            double[] avgValues = allSum(values);
+            double[] averagedDataUnit = {avgValues[0]/dataDivisionFactor, avgValues[1]/dataDivisionFactor,
+            		avgValues[2]/dataDivisionFactor};
+            averagedData.add(averagedDataUnit); 
         }
         return averagedData;
     }
