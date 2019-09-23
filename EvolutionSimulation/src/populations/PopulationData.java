@@ -108,9 +108,9 @@ public class PopulationData {
         if (this.reduce) {
             doubles = reduceAllData(doubles);
         }
-        int[][] returnArray = new int[doubles.size()][];
-        for (int i = 0; i < returnArray.length; i++){
-            for(int j = 0 ; j < returnArray[0].length; j++) {
+        int[][] returnArray = new int[doubles.size()][3];
+        for (int i = 0; i < doubles.size(); i++){
+            for(int j = 0 ; j < returnArray[i].length; j++) {
             	returnArray[i][j] = (int) Math.round(doubles.get(i)[j]);
             }
         }
