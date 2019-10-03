@@ -29,14 +29,36 @@ public class TestPopulationData extends TestCase {
 		for (int j = 0; j < res.size(); j++) {
 			assertEquals(Arrays.toString(res.get(j)), Arrays.toString(a.get(j)));
 		}
-
 	}
 	
 	public void testReduceAllDataReduced() {
 		PopulationData p = new PopulationData();
 		ArrayList<double[]> a = new ArrayList<double[]>();
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 120; i++) {
 			a.add(new double[] {2.0, 1.0, 3.0});
 		}
+		ArrayList<double[]> res = new ArrayList<double[]>();
+		for (int i = 0; i < 40; i++) {
+			res.add(new double[] {2.0, 1.0, 3.0});
+		}
+		a = p.reduceAllData(a);
+		for (int j = 0; j < res.size(); j++) {
+			assertEquals(Arrays.toString(res.get(j)), Arrays.toString(a.get(j)));
+		}
 	}
+	
+	public void testDoubleListToIntArray() {
+		PopulationData p = new PopulationData();
+		ArrayList<Double> a = new ArrayList<Double>();
+		a.add(1.0);
+		a.add(2.0);
+		a.add(5.0);
+		int[] res = new int[] {1, 2, 5};
+		assertEquals(Arrays.toString(res), Arrays.toString(p.doubleListToIntArray(a)));
+	}
+	
+	public void testGetAverageValues() {
+		
+	}
+	
 }

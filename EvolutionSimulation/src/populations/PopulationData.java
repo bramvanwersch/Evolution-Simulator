@@ -166,9 +166,9 @@ public class PopulationData {
 	 * Returns the first value of the triplet of data that is saved for each data point.
 	 * Each data point is saved as a average, min, max.
 	 * @param dataArray
-	 * @return
+	 * @return an array of the first values of each double list.
 	 */
-	private ArrayList<Double> getAverageValues(ArrayList<double[]> dataArray){
+	public ArrayList<Double> getAverageValues(ArrayList<double[]> dataArray){
 		ArrayList<Double> avgValue = new ArrayList<Double>(dataArray.size());
 		for(int i= 0; i < dataArray.size(); i++) {
 			avgValue.add(dataArray.get(i)[0]);
