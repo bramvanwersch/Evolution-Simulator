@@ -230,6 +230,11 @@ public class PopulationData {
         return avgReturn;
     }
     
+    /*
+     * Functions for adding the average values and the maximum minimum and average 
+     * values.
+     */
+    
     public int[] getAvgSpeed() {
         return doubleListToIntArray(getAverageValues(this.speedStats));
     }
@@ -289,6 +294,12 @@ public class PopulationData {
     public int[] getNrSpecies() {
         return doubleListToIntArray(this.nrSpecies);
     }
+    
+    /*
+     * Functions for adding a value to the end of the list of a certain stat
+     * or for adding an array of doubles that includes minimum maximum and average
+     * values. 
+     */
 
     public void setSpeedStats(double[] d) {
         this.speedStats.add(d);
@@ -333,16 +344,4 @@ public class PopulationData {
     public void setReduce(boolean b) {
         this.reduce = b;
     }
-//    public String getEatingPref() {
-//        String eatingPref = null;
-//        if(this.nrCarnivores.toString()!="[]") {
-//            eatingPref = "Carnivore";
-//        } else if (this.nrHerbivores.toString()!="[]") {
-//            eatingPref = "Herbivore";
-//        } else if (this.nrOmnivores.toString()!="[]") {
-//            eatingPref = "Omnivore";
-//        }
-//        return eatingPref;
-//    }
-
 }
