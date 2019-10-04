@@ -21,6 +21,7 @@ import javax.swing.border.TitledBorder;
 
 import populations.Population;
 import user_input.OptionData;
+import user_input.PopulationSettings;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -482,15 +483,12 @@ public class OptionMenu extends JFrame {
 		data.setPlantEnergy((int) plantEnergySpinner.getValue());
 		data.setPlantSize((int) plantSizeSpinner.getValue());
 		for(int i = 0; i < speciesTypes.size(); i++) {
-			data.addTypeList((String) speciesTypes.get(i).getSelectedItem());
-			data.addNamesList(speciesNames.get(i).getText());
-			data.addNoIndividualsList((int) spinnerValues.get(i).get(0).getValue());
-			data.addSizesList((int) spinnerValues.get(i).get(1).getValue());
-			data.addSpeedsList((int) spinnerValues.get(i).get(2).getValue());
-			data.addMaxAgesList((int) spinnerValues.get(i).get(3).getValue());
-			data.addScentRangesList((int) spinnerValues.get(i).get(4).getValue());
-			data.addColorsList(speciesColors.get(i).getBackground());
-			data.addEatSizeFactorsList((double) spinnerValues.get(i).get(5).getValue());
+			PopulationSettings p = new PopulationSettings((String) speciesTypes.get(i).getSelectedItem(),
+					speciesNames.get(i).getText(), (int) spinnerValues.get(i).get(0).getValue(), 
+					(int) spinnerValues.get(i).get(1).getValue(), (int) spinnerValues.get(i).get(2).getValue(),
+					(int) spinnerValues.get(i).get(3).getValue(), (int) spinnerValues.get(i).get(4).getValue(),
+					speciesColors.get(i).getBackground(), (double) spinnerValues.get(i).get(5).getValue());
+			data.addPopulationSetting(p);
 		}
 	}
 	
