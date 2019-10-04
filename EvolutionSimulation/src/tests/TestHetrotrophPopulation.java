@@ -6,11 +6,16 @@ import junit.framework.TestCase;
 import populations.HetrotrophPopulation;
 import species.Herbivore;
 import species.HetrotrophSpecies;
+import user_input.PopulationSettings;
 
 public class TestHetrotrophPopulation extends TestCase {
+	
+	public PopulationSettings createOptionSettings() {
+		return new PopulationSettings("Herbivore", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
+	}
 
 	public void testCreateOffspring() {
-		HetrotrophPopulation p = new HetrotrophPopulation(Color.GREEN, "Herbivore", "some name");
+		HetrotrophPopulation p = new HetrotrophPopulation(createOptionSettings());
 		HetrotrophSpecies h = new Herbivore(10, 10, 10, 10, 1.0);
 		p.addSpecies(h);
 		//If a species with a unsurvivable genome is created try again. This test is kind of bullshigt
@@ -22,7 +27,7 @@ public class TestHetrotrophPopulation extends TestCase {
 	}
 	
 	public void testCloneOffspring() {
-		HetrotrophPopulation p = new HetrotrophPopulation(Color.GREEN, "Herbivore", "some name");
+		HetrotrophPopulation p = new HetrotrophPopulation(createOptionSettings());
 		HetrotrophSpecies h = new Herbivore(10, 10, 10, 10, 1.0);
 		p.addSpecies(h);
 		p.cloneOffspring(0);
