@@ -9,14 +9,17 @@ import species.HetrotrophSpecies;
 
 public class TestHetrotrophPopulation extends TestCase {
 
-	//Broken if species cant be placed does not work correctly
-//	public void testCreateOffspring() {
-//		HetrotrophPopulation p = new HetrotrophPopulation(Color.GREEN, "Herbivore", "some name");
-//		HetrotrophSpecies h = new Herbivore(10, 10, 10, 10, 1.0);
-//		p.addSpecies(h);
-//		p.createOffspring(0);
-//		assertEquals(2, p.getNrSpecies());
-//	}
+	public void testCreateOffspring() {
+		HetrotrophPopulation p = new HetrotrophPopulation(Color.GREEN, "Herbivore", "some name");
+		HetrotrophSpecies h = new Herbivore(10, 10, 10, 10, 1.0);
+		p.addSpecies(h);
+		//If a species with a unsurvivable genome is created try again. This test is kind of bullshigt
+		//atm but at least tests the fact only one species is created.
+		while (p.getNrSpecies() < 2) {
+			p.createOffspring(0);
+		}
+		assertEquals(2, p.getNrSpecies());
+	}
 	
 	public void testCloneOffspring() {
 		HetrotrophPopulation p = new HetrotrophPopulation(Color.GREEN, "Herbivore", "some name");

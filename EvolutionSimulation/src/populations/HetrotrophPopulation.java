@@ -132,7 +132,6 @@ public class HetrotrophPopulation extends Population {
 			speciesList.add(sCopy);
 			addSpeciesData(sCopy, s.getNumber());
 		}
-		
 	}
 	
 	/**
