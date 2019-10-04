@@ -6,7 +6,7 @@ import genome.DNAtoAA;
 import genome.Genome;
 import junit.framework.TestCase;
 
-public class GenomeTest extends TestCase {
+public class TestGenome extends TestCase {
 	
 	public void testSequenceAllignment() {
 		Genome g = new Genome(new String[] {"gen1"}, new int[] {8});
