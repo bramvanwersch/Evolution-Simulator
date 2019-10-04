@@ -21,16 +21,32 @@ public class AutotrophPopulation extends Population{
 	//List of all species that can grow or shrink depending on survival of 
 	//the species
 	private ArrayList<AutotrophSpecies> speciesList;
+	private final int ENERGY = 100;
 
 	/**
 	 * Constructor that creates the list of species that each population holds.
-	 * @param color of the species as can be seen in the terrainPanel
-	 * @param type of species for interactions within the ecosystem
-	 * @param name as given by the player of the game to the species.
 	 */
 	public AutotrophPopulation(PopulationSettings options) {
 		super(options);
 		this.speciesList = new ArrayList<AutotrophSpecies>();
+		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), ENERGY);
+	}
+	
+	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
+		for (int j = 0; j < nrSpecies; j++) {
+			AutotrophSpecies s = null;
+			if (getNrSpecies() == 0) {
+				if (getType().equals("Plant")) {
+						s = new Plant(size, maxAge, energy);
+				}
+			}
+			if (s == null){
+				cloneOffspring(getNrSpecies()-1);
+			}
+			else{
+				addSpecies(s);
+			}
+		}
 	}
 	
 	/**

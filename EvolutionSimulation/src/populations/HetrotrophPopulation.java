@@ -31,7 +31,7 @@ public class HetrotrophPopulation extends Population {
 	public HetrotrophPopulation(PopulationSettings options) {
 		super(options);
 		this.speciesList = new ArrayList<HetrotrophSpecies>();
-		createHetrotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getSpeed(),
+		createStarterSpecies(options.getNoIndividuals(), options.getSize(), options.getSpeed(),
 				options.getMaxAge(), options.getScentRange(), options.getEatSizeFactor());
 	}
 	
@@ -45,7 +45,7 @@ public class HetrotrophPopulation extends Population {
 	 * @param scentRange of the starter species
 	 * @param eatSizeFactor of the starter species
 	 */
-	public void createHetrotrophSpecies(int nrSpecies, int size, int speed, int maxAge, int scentRange
+	public void createStarterSpecies(int nrSpecies, int size, int speed, int maxAge, int scentRange
 			, double eatSizeFactor) {
 		for (int j = 0; j < nrSpecies; j++) {
 			HetrotrophSpecies s = null;

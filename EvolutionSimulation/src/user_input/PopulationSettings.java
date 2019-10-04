@@ -64,7 +64,7 @@ public class PopulationSettings {
 	}
 	
 	public String getPopulationType() {
-		if (type == "Plant") {
+		if (type.equals("Plant")) {
 			return "Autotroph";
 		}
 		else {

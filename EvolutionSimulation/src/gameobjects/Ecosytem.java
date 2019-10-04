@@ -19,6 +19,7 @@ import species.Omnivore;
 import species.Plant;
 import species.Species;
 import user_input.OptionData;
+import user_input.PopulationSettings;
 
 /**
  * Class that holds the dependencies between populations and their environment.
@@ -48,7 +49,6 @@ public class Ecosytem {
 		createHetrotrophPopulations(options);
 		//Still hardcoded needs addition of poption panel data.
 		createAutotrophPopulations(options);
-		createAutotrophSpecies(100, options.getPlantSize(), 50, options.getPlantEnergy());
 	}
 
 	/**
@@ -237,41 +237,24 @@ public class Ecosytem {
 				autotrophPopulations.add(p);
 			}
 		}
-	}
-
-	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
-		for (int i = 0; i < autotrophPopulations.size(); i++) {
-			AutotrophPopulation p = autotrophPopulations.get(i);
-			for (int j = 0; j < nrSpecies; j++) {
-				AutotrophSpecies s = null;
-				if (p.getType().equals("Plant")) {
-					if (p.getNrSpecies() == 0) {
-						s = new Plant(size, maxAge, energy);
-					}
-				}
-				if (s == null){
-					p.cloneOffspring(p.getNrSpecies()-1);
-				}
-				else{
-					p.addSpecies(s);
-				}
-			}
-		}
+		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
+		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,50,1, Color.GREEN, 1.0));
+		autotrophPopulations.add(p);
 	}
 	
-	private boolean checkSpeciesPlacement(Species spec) {
-		for (Population sp : getPopulations()) {
-			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
-				Species s = sp.getSpecies(i);
-				//check if the central point of the species just created is witin another species or not. if so move it.
-				if (s.getxLoc() - s.getSize() < spec.getxLoc() && s.getxLoc() +s.getSize() > spec.getxLoc() &&
-					s.getyLoc() - s.getSize() < spec.getyLoc() && s.getyLoc() +s.getSize() > spec.getyLoc()) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+//	private boolean checkSpeciesPlacement(Species spec) {
+//		for (Population sp : getPopulations()) {
+//			for (int i = 0; i < sp.getNrSpecies(); i++ ) {
+//				Species s = sp.getSpecies(i);
+//				//check if the central point of the species just created is witin another species or not. if so move it.
+//				if (s.getxLoc() - s.getSize() < spec.getxLoc() && s.getxLoc() +s.getSize() > spec.getxLoc() &&
+//					s.getyLoc() - s.getSize() < spec.getyLoc() && s.getyLoc() +s.getSize() > spec.getyLoc()) {
+//					return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
