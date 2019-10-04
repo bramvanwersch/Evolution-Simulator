@@ -16,6 +16,7 @@ import environment.Environment;
 import gameobjects.Ecosytem;
 import populations.Population;
 import user_input.OptionData;
+import user_input.PopulationSettings;
 
 public class BlankRun extends SwingWorker<Void, Integer> {
 	private int runs;
@@ -60,25 +61,11 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 		optionData.setPlantEnergy(100);
 		optionData.setPlantSize(5);
 		
-		optionData.addColorsList(new Color(66,66,66));
-		optionData.addEatSizeFactorsList(1);
-		optionData.addMaxAgesList(3);
-		optionData.addNamesList("Brams");
-		optionData.addNoIndividualsList(1);
-		optionData.addScentRangesList(10);
-		optionData.addSizesList(50);
-		optionData.addSpeedsList(10);
-		optionData.addTypeList("Carnivore");
-		
-		optionData.addColorsList(new Color(66,66,66));
-		optionData.addEatSizeFactorsList(0);
-		optionData.addMaxAgesList(2);
-		optionData.addNamesList("Wytzeus");
-		optionData.addNoIndividualsList(1);
-		optionData.addScentRangesList(10);
-		optionData.addSizesList(50);
-		optionData.addSpeedsList(10);
-		optionData.addTypeList("Carnivore");
+		PopulationSettings p1 = new PopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
+		PopulationSettings p2 = new PopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
+
+		optionData.addPopulationSettings(p1);
+		optionData.addPopulationSettings(p2);
 		return optionData;
 	}
 	
