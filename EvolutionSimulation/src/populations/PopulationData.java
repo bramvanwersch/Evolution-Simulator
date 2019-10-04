@@ -23,7 +23,7 @@ public class PopulationData {
     private ArrayList<Double> nrCarnivores;
     private ArrayList<Double> time;
     private ArrayList<Double> nrSpecies;
-    private double dataDivisionFactor;
+    private int dataDivisionFactor;
     private boolean reduce;
     private String type;
 
@@ -91,7 +91,7 @@ public class PopulationData {
      */
     public void setDataDivisionFactor() {
         int divisionFactor = 1;
-        int arrayLength = time.size();
+        double arrayLength = time.size();
         while (arrayLength/divisionFactor > AMOUNT_OF_DATA_POINTS){
             divisionFactor += 1;
         }
@@ -181,7 +181,7 @@ public class PopulationData {
 	 * @param dataArray an array of doubles
 	 * @return an array of doubles that is not longer then 50.
 	 */
-	private ArrayList<Double> reduceAvgData(ArrayList<Double> dataArray) {
+	public ArrayList<Double> reduceAvgData(ArrayList<Double> dataArray) {
 		ArrayList<Double> averagedData = new ArrayList<Double>();
 		for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
 			if (i + dataDivisionFactor <= dataArray.size()) {
@@ -204,7 +204,7 @@ public class PopulationData {
 	 * @param values is a list of doubles 
 	 * @return a double that represents the sum of the list of doubles.
 	 */
-    private double sum(List<Double> values) {
+    public double sum(List<Double> values) {
         double sum = 0;
         for (double val : values) {
             sum += val;
@@ -220,8 +220,8 @@ public class PopulationData {
      * @param values arraylist of arrays of doubles
      * @return double array that contains the average of each place in the array.
      */
-    private double[] allSum(List<double[]> values) {
-    	double[] avgReturn = new double[3];
+    public double[] allSum(List<double[]> values) {
+    	double[] avgReturn = new double[values.get(0).length];
         for (int i = 0; i < values.size(); i++) {
         	for (int j = 0; j < values.get(i).length; j++) {
         		avgReturn[j] += values.get(i)[j];
@@ -343,5 +343,9 @@ public class PopulationData {
     
     public void setReduce(boolean b) {
         this.reduce = b;
+    }
+    
+    public int getDataDivisionFactor() {
+    	return this.dataDivisionFactor;
     }
 }
