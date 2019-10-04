@@ -20,14 +20,24 @@ import species.Plant;
 import species.Species;
 import user_input.OptionData;
 
+/**
+ * Class that holds the dependencies between populations and their environment.
+ * It facilitates interactions between populations and there respective species.
+ * Also facilitates changes in the environment depending on the species.
+ * @author Bram van Wersch
+ */
 public class Ecosytem {
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
-	//temporary until moved
 	private ArrayList<AutotrophPopulation> autotrophPopulations;
 	private int[] popOrderSeed;
 	private PopulationData averagePopData;
 	private Environment environment;
 
+	/**
+	 * Constructor for the environment innitialises all the different populations
+	 * and creates them aswell as the species in them
+	 * @param options
+	 */
 	public Ecosytem(OptionData options) {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
