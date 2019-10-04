@@ -14,8 +14,16 @@ public class OptionData {
 		this.populationSettingList = new ArrayList<PopulationSettings>();
 	}
 	
-	public void addPopulationSetting(PopulationSettings p) {
+	public void addPopulationSettings(PopulationSettings p) {
 		populationSettingList.add(p);
+	}
+	
+	public int getPopulationSettingSize() {
+		return this.populationSettingList.size();
+	}
+	
+	public PopulationSettings getPopulationSettings(int index) {
+		return populationSettingList.get(index);
 	}
 	
 	public int getPlantSize() {

@@ -10,6 +10,7 @@ import species.Herbivore;
 import species.HetrotrophSpecies;
 import species.Omnivore;
 import species.Species;
+import user_input.PopulationSettings;
 
 /**
  * Class that holds specific methods that need to happen on all 
@@ -26,13 +27,49 @@ public class HetrotrophPopulation extends Population {
 
 	/**
 	 * Constructor that creates the list of species that each population holds.
-	 * @param color of the species as can be seen in the terrainPanel
-	 * @param type of species for interactions within the ecosystem
-	 * @param name as given by the player of the game to the species.
 	 */
-	public HetrotrophPopulation(Color color, String type, String name) {
-		super(color, type, name);
+	public HetrotrophPopulation(PopulationSettings options) {
+		super(options);
 		this.speciesList = new ArrayList<HetrotrophSpecies>();
+		createHetrotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getSpeed(),
+				options.getMaxAge(), options.getScentRange(), options.getEatSizeFactor());
+	}
+	
+	/**
+	 * For innitialisation of the starter species of the population. Ensuring that they are
+	 * all the same and in a similar starting place
+	 * @param nrSpecies to create
+	 * @param size of the starter species
+	 * @param speed of the starter species
+	 * @param maxAge of the starter species
+	 * @param scentRange of the starter species
+	 * @param eatSizeFactor of the starter species
+	 */
+	public void createHetrotrophSpecies(int nrSpecies, int size, int speed, int maxAge, int scentRange
+			, double eatSizeFactor) {
+		for (int j = 0; j < nrSpecies; j++) {
+			HetrotrophSpecies s = null;
+			if (getNrSpecies() == 0) {
+				if (getType().equals("Carnivore")) {
+					s = new Carnivore(size, speed, maxAge, scentRange, eatSizeFactor);
+					addSpeciesData(s, -1);
+				}
+				else if (getType().equals("Herbivore")) {
+					s = new Herbivore(size, speed, maxAge, scentRange, eatSizeFactor);
+					addSpeciesData(s, -1);
+				}
+				else if(getType().equals("Omnivore")) {
+					s = new Omnivore(size, speed, maxAge, scentRange, eatSizeFactor);
+					addSpeciesData(s, -1);
+				}
+			}
+			if (s == null){
+				cloneOffspring(getNrSpecies()-1);
+			}
+			else{
+				addSpecies(s);
+			}
+		}
 	}
 	
 	/**

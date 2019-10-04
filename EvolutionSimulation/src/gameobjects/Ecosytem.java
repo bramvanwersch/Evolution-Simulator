@@ -42,14 +42,12 @@ public class Ecosytem {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>(); 
-		this.popOrderSeed = createPopOrderSeed(options.getNoIndividuals().length);
+		this.popOrderSeed = createPopOrderSeed(options.getPopulationSettingSize());
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
-		createHetrotrophPopulations(options.getNoIndividuals().length, options.getColors(), options.getTypes(), options.getNames());
+		createHetrotrophPopulations(options);
 		//Still hardcoded needs addition of poption panel data.
-		createAutotrophPopulations(1, Color.GREEN, "Plant");
-		createHetrotrophSpecies(options.getNoIndividuals(), options.getSizes(), options.getSpeeds(), options.getMaxAges(), 
-				options.getScentRanges(), options.getEatSizeFactors());
+		createAutotrophPopulations(options);
 		createAutotrophSpecies(100, options.getPlantSize(), 50, options.getPlantEnergy());
 	}
 
@@ -223,53 +221,21 @@ public class Ecosytem {
 		return ar;
 	}
 
-	private void createHetrotrophPopulations(int nrPopulations, Color[] colors, String[] type, String[] names) {
-		for (int i = 0; i < nrPopulations; i++) {
-			HetrotrophPopulation p = new HetrotrophPopulation(colors[i], type[i], names[i]);
-			hetrotrophPopulations.add(p);
-		}
-	}
-
-//methods for innitialy creating species that are specified.
-	public void createHetrotrophSpecies(int[] nrSpecies, int[] size, int[] speed, int[] maxAge, int[] scentRange
-			, double[] eatSizeFactor) {
-		for (int i = 0; i <hetrotrophPopulations.size(); i++) {
-			HetrotrophPopulation p = hetrotrophPopulations.get(i);
-			for (int j = 0; j < nrSpecies[i]; j++) {
-				HetrotrophSpecies s = null;
-				if (p.getType().equals("Carnivore")) {
-					if (p.getNrSpecies() == 0) {
-						s = new Carnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
-						p.addSpeciesData(s, -1);
-					}
-				}
-				else if (p.getType().equals("Herbivore")) {
-					if (p.getNrSpecies() == 0) {
-						s = new Herbivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
-						p.addSpeciesData(s, -1);
-					}
-				}
-				else if(p.getType().equals("Omnivore")) {
-					s = new Omnivore(size[i], speed[i], maxAge[i], scentRange[i], eatSizeFactor[i]);
-					p.addSpeciesData(s, -1);
-				}
-				if (s == null){
-					p.cloneOffspring(p.getNrSpecies()-1);
-				}
-				else if (!checkSpeciesPlacement(s)) {
-					j--;
-				}
-				else{
-					p.addSpecies(s);
-				}
+	private void createHetrotrophPopulations(OptionData options) {
+		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
+			if (options.getPopulationSettings(i).getPopulationType().equals("Hetrotroph")) {
+				HetrotrophPopulation p = new HetrotrophPopulation(options.getPopulationSettings(i));
+				hetrotrophPopulations.add(p);
 			}
 		}
 	}
-	
-	private void createAutotrophPopulations(int nrPopulations, Color color, String type) {
-		for (int i = 0; i < nrPopulations; i++) {
-			AutotrophPopulation p = new AutotrophPopulation(color, type, "");
-			autotrophPopulations.add(p);
+
+	private void createAutotrophPopulations(OptionData options) {
+		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
+			if (options.getPopulationSettings(i).getPopulationType().equals("Autotroph")) {
+				AutotrophPopulation p = new AutotrophPopulation(options.getPopulationSettings(i));
+				autotrophPopulations.add(p);
+			}
 		}
 	}
 

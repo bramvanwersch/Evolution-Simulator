@@ -27,7 +27,7 @@ public class PopulationSettings {
 		this.eatSizeFactor = eatSizeFactor;
 	}
 	
-	public String getNames() {
+	public String getName() {
 		return this.name;
 	}
 
@@ -61,5 +61,14 @@ public class PopulationSettings {
 	
 	public String getType() {
 		return this.type;
+	}
+	
+	public String getPopulationType() {
+		if (type == "Plant") {
+			return "Autotroph";
+		}
+		else {
+			return "Hetrotroph";
+		}
 	}
 }

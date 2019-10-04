@@ -7,6 +7,7 @@ import java.util.Collections;
 import species.AutotrophSpecies;
 import species.Plant;
 import species.Species;
+import user_input.PopulationSettings;
 
 /**
  * Class that holds specific methods that need to happen on all 
@@ -27,8 +28,8 @@ public class AutotrophPopulation extends Population{
 	 * @param type of species for interactions within the ecosystem
 	 * @param name as given by the player of the game to the species.
 	 */
-	public AutotrophPopulation(Color color, String type, String name) {
-		super(color, type, name);
+	public AutotrophPopulation(PopulationSettings options) {
+		super(options);
 		this.speciesList = new ArrayList<AutotrophSpecies>();
 	}
 	

@@ -8,6 +8,7 @@ import java.util.Collections;
 import genome.Genome;
 import genome.PanGenome;
 import species.Species;
+import user_input.PopulationSettings;
 
 /**
  * Class that holds the basic methods for each population. These methods
@@ -33,18 +34,15 @@ public abstract class Population {
 	
 	/**
 	 * Constructor that innitialises some data structures and sets some values
-	 * @param color of the species as can be seen in the terrainPanel
-	 * @param type of species for interactions within the ecosystem
-	 * @param name as given by the player of the game to the species.
 	 */
-	public Population(Color color, String type, String name) {
+	public Population(PopulationSettings options) {
 		this.popData = new PopulationData();
 		this.popData.setReduce(true);
 		this.diedSpecies = 0;
-		this.color = color;
-		this.type = type;
+		this.color = options.getColor();
+		this.type = options.getType();
 		this.speciesData = "";
-		this.name = name;
+		this.name = options.getName();
 		this.panGenome = new PanGenome(this.type +"Data");
 	}
 	

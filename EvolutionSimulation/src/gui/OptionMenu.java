@@ -488,7 +488,7 @@ public class OptionMenu extends JFrame {
 					(int) spinnerValues.get(i).get(1).getValue(), (int) spinnerValues.get(i).get(2).getValue(),
 					(int) spinnerValues.get(i).get(3).getValue(), (int) spinnerValues.get(i).get(4).getValue(),
 					speciesColors.get(i).getBackground(), (double) spinnerValues.get(i).get(5).getValue());
-			data.addPopulationSetting(p);
+			data.addPopulationSettings(p);
 		}
 	}
 	
