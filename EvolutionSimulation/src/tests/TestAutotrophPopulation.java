@@ -10,11 +10,16 @@ import species.AutotrophSpecies;
 import species.Herbivore;
 import species.HetrotrophSpecies;
 import species.Plant;
+import user_input.PopulationSettings;
 
 public class TestAutotrophPopulation extends TestCase {
 	
+	public PopulationSettings createOptionSettings() {
+		return new PopulationSettings("Plant", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
+	}
+	
 	public void testIsOverlappingPositive() {
-		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "a nanme");
+		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
 		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000);
 		p.addSpecies(s);
 		p.getSpecies(0).setXYLoc(10, 10);
@@ -28,7 +33,7 @@ public class TestAutotrophPopulation extends TestCase {
 	}
 	
 	public void testIsOverlappingNegative() {
-		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "a nanme");
+		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
 		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000);
 		p.addSpecies(s);
 		p.getSpecies(0).setXYLoc(100, 100);
@@ -40,18 +45,9 @@ public class TestAutotrophPopulation extends TestCase {
 		assertEquals(false, p.isOverlapping(80, 100));
 		assertEquals(false, p.isOverlapping(100, 80));
 	}
-	//function cannot be tested because there is a chance the species is not created when it is created
-	//inside the original species.
-//	public void testCreateOffspring() {
-//		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "some name");
-//		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000);
-//		p.addSpecies(h);
-//		p.createOffspring(0);
-//		assertEquals(2, p.getNrSpecies());
-//	}
 	
 	public void testCloneOffspring() {
-		AutotrophPopulation p = new AutotrophPopulation(Color.GREEN, "Plant", "some name");
+		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
 		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000);
 		p.addSpecies(h);
 		p.cloneOffspring(0);

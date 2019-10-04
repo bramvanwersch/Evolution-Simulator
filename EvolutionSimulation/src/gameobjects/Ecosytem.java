@@ -47,7 +47,7 @@ public class Ecosytem {
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
 		createHetrotrophPopulations(options);
-		//Still hardcoded needs addition of poption panel data.
+		//Still hardcoded needs addition of option panel data.
 		createAutotrophPopulations(options);
 	}
 
