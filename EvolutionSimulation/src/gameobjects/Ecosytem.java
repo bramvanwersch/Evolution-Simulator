@@ -36,13 +36,13 @@ public class Ecosytem {
 
 	/**
 	 * Constructor for the environment innitialises all the different populations
-	 * and creates them aswell as the species in them
-	 * @param options
+	 * @param options class instance of OptionData that holds all the preferences 
+	 * concerning the options that where chosen.
 	 */
 	public Ecosytem(OptionData options) {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
-		this.autotrophPopulations = new ArrayList<AutotrophPopulation>(); 
+		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
 		this.popOrderSeed = createPopOrderSeed(options.getPopulationSettingSize());
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
@@ -81,28 +81,7 @@ public class Ecosytem {
 		}
 		return shufflePopOrderSeed(numberArray);
 	}
-
 	
-//	/**
-//	 * Function to check for the closest carnivore that is bigger then the herbivore so scent movement can
-//	 * be used to move away from it. 
-//	 * @param s1: the herbivore.
-//	 * @return the closest carnivore or null if no carnivore is in range of the scent.
-//	 */
-//	public Species checkHerbivoreScent(Species s1) {
-//		Species closestCarnivore = null;
-//		double lowestC = s1.getScentRange();
-//		for (int i = 0; i < getAllCarnivores().size(); i++) {
-//			Species s2 = getAllCarnivores().get(i);
-//			//getting slope of triangle using pythagoras.
-//			if (Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)) 
-//					< lowestC && s2.getSize() > s1.getEatSizeFactor()* s1.getSize()) {
-//				closestCarnivore = s2;
-//				lowestC = Math.sqrt(Math.pow(s1.getxLoc() - s2.getxLoc(), 2) + Math.pow(s1.getyLoc() - s2.getyLoc(), 2)); 
-//			}
-//		}
-//		return closestCarnivore;
-//	}
 //	
 //	/**
 //	 * Function to check for the closest herbivore that is smaller then the carnivore so scent movement can
@@ -123,22 +102,6 @@ public class Ecosytem {
 //			}
 //		}
 //		return closestHerbivore;
-//	}
-	
-//	/**
-//	 * Function for plant eaters to check if there bounding box is on top of a food object. If this is the 
-//	 * case the food is consumed and the species gets energy
-//	 */
-//	public void eatPlants() {
-//		for (int i = 0; i < getAllHerbivores().size() + getAllOmnivores().size(); i++) {
-//			Species s = getAllPlantEaters().get(i);
-//			for(int j = getNrPlant() - 1; j >= 0; j--) {
-//				Plant f = getPlant(j);
-//				if (s.eat(f.getxLoc(), f.getyLoc(), f.getSize(), f.getEnergy())) {
-//					removePlant(j);
-//				}
-//			}
-//		}	
 //	}
 	
 	public void hetrotrophEating() {
@@ -231,6 +194,7 @@ public class Ecosytem {
 	}
 
 	private void createAutotrophPopulations(OptionData options) {
+		//loop that needs to be implemented when settings work.
 		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
 			if (options.getPopulationSettings(i).getPopulationType().equals("Autotroph")) {
 				AutotrophPopulation p = new AutotrophPopulation(options.getPopulationSettings(i));
