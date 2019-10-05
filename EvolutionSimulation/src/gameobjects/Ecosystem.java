@@ -73,12 +73,12 @@ public class Ecosystem {
 	 * at random but is not actualy shuffled to ensure that data collection is consistent
 	 * @return an array of numbers that the length of the number of populations
 	 */
-	private int[] createPopOrderSeed(int numberOfPopulations) {
+	public int[] createPopOrderSeed(int numberOfPopulations) {
 		int[] numberArray = new int[numberOfPopulations];
 		for (int i = 0; i < numberOfPopulations; i++ ) {
 			numberArray[i] = i;
 		}
-		return shufflePopOrderSeed(numberArray);
+		return numberArray;
 	}
 	
 	/**
@@ -205,18 +205,18 @@ public class Ecosystem {
 		for (Population sp: getPopulations()) {
 			sp.shuffleSpeciesList();
 		}
-		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
+		this.popOrderSeed = shufflePopOrderSeed();
 	}
 	
 	/**
 	 * Creates a randomly shuffled array.
-	 * @param ar is the array that needs to be shuffled.
 	 * @return an integer array that contains as much numbers as populations. 
 	 * This is to ensure that populations are looped trough at random but the 
 	 * data collection stays logical.
 	 */
-	private int[] shufflePopOrderSeed(int[] ar) {
+	private int[] shufflePopOrderSeed() {
 		Random rnd = new Random();
+		int[] ar = this.popOrderSeed;
 		for (int i = ar.length - 1; i > 0; i--){
 			int index = rnd.nextInt(i + 1);
 			int a = ar[index];
