@@ -46,9 +46,8 @@ public class Ecosytem {
 		this.popOrderSeed = createPopOrderSeed(options.getPopulationSettingSize());
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
-		createHetrotrophPopulations(options);
-		//Still hardcoded needs addition of option panel data.
-		createAutotrophPopulations(options);
+		//Still hardcoded parts needs addition of option panel data.
+		createPopulations(options);
 	}
 
 	/**
@@ -69,9 +68,9 @@ public class Ecosytem {
 	}
 	
 	/**
-	 * Method that creates an array that is the lenght of the popultion list that helps rendomize the selection of
-	 * populations by functions This has to be done this way to make sure populations are chosen at random but are not 
-	 * actualy shuffled which leads to problems in the data collection.
+	 * Method that creates an array that is the lenght of the popultion list that helps randomize the selection of
+	 * populations by functions This has to be done this way to make sure the list of populations can be navigated
+	 * at random but is not actualy shuffled to ensure that data collection is consistent
 	 * @return an array of numbers that the length of the number of populations
 	 */
 	private int[] createPopOrderSeed(int numberOfPopulations) {
@@ -82,7 +81,29 @@ public class Ecosytem {
 		return shufflePopOrderSeed(numberArray);
 	}
 	
-//	
+	/**
+	 * Creates a population for every population that was requested to be 
+	 * created by the given options
+	 * @param options class instance that contains the options of individual
+	 * populations aswell as global options.
+	 * TODO make sure that the hardcoded part is regulated by options.
+	 */
+	private void createPopulations(OptionData options) {
+		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
+			if (options.getPopulationSettings(i).getPopulationType().equals("Hetrotroph")) {
+				HetrotrophPopulation p = new HetrotrophPopulation(options.getPopulationSettings(i));
+				hetrotrophPopulations.add(p);
+			}
+			else if (options.getPopulationSettings(i).getPopulationType().equals("Autotroph")) {
+				AutotrophPopulation p = new AutotrophPopulation(options.getPopulationSettings(i));
+				autotrophPopulations.add(p);
+			}
+		}
+		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
+		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,50,1, Color.GREEN, 1.0));
+		autotrophPopulations.add(p);
+	}
+
 //	/**
 //	 * Function to check for the closest herbivore that is smaller then the carnivore so scent movement can
 //	 * be used to move towards it. 
@@ -104,6 +125,10 @@ public class Ecosytem {
 //		return closestHerbivore;
 //	}
 	
+	/**
+	 * Regulates the eating behaviour of hetrotroph species. It executes a
+	 * check for every possible candidate.
+	 */
 	public void hetrotrophEating() {
 		for (int loc : popOrderSeed) {
 			HetrotrophPopulation sp =  hetrotrophPopulations.get(loc);
@@ -136,8 +161,14 @@ public class Ecosytem {
 	}
 	
 	/**
-	 * Function for meat eaters to figure out if theire bounding box is on top of a herbivore. If this is
-	 * the case the herbivore will be removed.
+	 * Takes two populations and compares individual species against each other
+	 * using the eat methods of individual species.
+	 * TODO this would preferable be within a species or population class but is
+	 * difficult because of other species need to be known. Also this function 
+	 * does 2 things. It does the check AND the removal.
+	 * @param predator is an instance of HetrotrophPopulation that holds all 
+	 * species
+	 * @param prey is an instance of Population that holds all potential prey
 	 */
 	public void eatSpecies(HetrotrophPopulation predator, Population prey) {
 		for(int i = 0; i < predator.getNrSpecies(); i++) {
@@ -151,6 +182,10 @@ public class Ecosytem {
 		}
 	}
 	
+	/**
+	 * Regulates the eating of autotrophSpecies because it is drastically 
+	 * different from that of hetrotrophspecies.
+	 */
 	public void autotrophEating() {
 		for (AutotrophPopulation p : autotrophPopulations) {
 			for(int j = 0; j < p.getNrSpecies(); j++){
@@ -163,8 +198,8 @@ public class Ecosytem {
 	
 	/**
 	 * Function that shuffles the species and food list making sure that checks that are biased by list order
-	 * are less biased. Besided that a seed that is a list of integer locations is shuffled making sure the popultions
-	 * are looped trough in a random order but dont change order
+	 * are less biased. Besided that a seed that is a list of integer locations is shuffled making sure the 
+	 * populations are looped trough in a random order but dont change order
 	 */
 	public void shuffleLists() {
 		for (Population sp: getPopulations()) {
@@ -173,6 +208,13 @@ public class Ecosytem {
 		this.popOrderSeed = shufflePopOrderSeed(popOrderSeed);
 	}
 	
+	/**
+	 * Creates a randomly shuffled array.
+	 * @param ar is the array that needs to be shuffled.
+	 * @return an integer array that contains as much numbers as populations. 
+	 * This is to ensure that populations are looped trough at random but the 
+	 * data collection stays logical.
+	 */
 	private int[] shufflePopOrderSeed(int[] ar) {
 		Random rnd = new Random();
 		for (int i = ar.length - 1; i > 0; i--){
@@ -182,28 +224,6 @@ public class Ecosytem {
 			ar[i] = a;
 		}
 		return ar;
-	}
-
-	private void createHetrotrophPopulations(OptionData options) {
-		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
-			if (options.getPopulationSettings(i).getPopulationType().equals("Hetrotroph")) {
-				HetrotrophPopulation p = new HetrotrophPopulation(options.getPopulationSettings(i));
-				hetrotrophPopulations.add(p);
-			}
-		}
-	}
-
-	private void createAutotrophPopulations(OptionData options) {
-		//loop that needs to be implemented when settings work.
-		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
-			if (options.getPopulationSettings(i).getPopulationType().equals("Autotroph")) {
-				AutotrophPopulation p = new AutotrophPopulation(options.getPopulationSettings(i));
-				autotrophPopulations.add(p);
-			}
-		}
-		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
-		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,50,1, Color.GREEN, 1.0));
-		autotrophPopulations.add(p);
 	}
 	
 //	private boolean checkSpeciesPlacement(Species spec) {
@@ -219,6 +239,12 @@ public class Ecosytem {
 //		}
 //		return true;
 //	}
+	
+	/*
+	 * Functions for returning lists of specific Hetrotroph species. These
+	 * methods are private to make sure that they are not used to manipulate
+	 * species
+	 */
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
@@ -259,7 +285,9 @@ public class Ecosytem {
 		return specList;
 	}
 
-// metthods for getting any amount of species
+/*
+ * Methods for counting differnt hetrotroph species. Dead or alive.
+ */
 	public int getNrHerbivores() {
 		return getAllHerbivores().size();
 	}
@@ -311,33 +339,6 @@ public class Ecosytem {
 		return livingPopulations;
 	}
 	
-	public Population getMaxNrSpeciesPop() {
-		Population maxPopulation = hetrotrophPopulations.get(0);
-		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
-			if (hetrotrophPopulations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
-				maxPopulation = hetrotrophPopulations.get(i);
-			}
-		}
-		return maxPopulation;
-	}
-	public Population getMinNrSpeciesPop() {
-		Population minPopulation = hetrotrophPopulations.get(0);
-		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
-			if (hetrotrophPopulations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
-				minPopulation = hetrotrophPopulations.get(i);
-			}
-		}
-		return minPopulation;
-	}
-	
-	public PopulationData[] getAllPopData() {
-		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
-		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
-			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
-		}
-		return popDataArray;
-	}
-	
 	public PopulationData getAveragePopData() {
 		return this.averagePopData;
 	}
@@ -378,6 +379,34 @@ public class Ecosytem {
 			finalArray[k] = new double[]{calcAvgAttribute(attribute), minMax[0], minMax[1]};
 		}
 		return finalArray;
+	}
+	
+	
+	public Population getMaxNrSpeciesPop() {
+		Population maxPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
+				maxPopulation = hetrotrophPopulations.get(i);
+			}
+		}
+		return maxPopulation;
+	}
+	public Population getMinNrSpeciesPop() {
+		Population minPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
+				minPopulation = hetrotrophPopulations.get(i);
+			}
+		}
+		return minPopulation;
+	}
+	
+	public PopulationData[] getAllPopData() {
+		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
+		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
+			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
+		}
+		return popDataArray;
 	}
 	
 
