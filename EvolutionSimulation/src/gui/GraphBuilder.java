@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import populations.PopulationData;
 
 import java.awt.RenderingHints;
@@ -34,12 +34,12 @@ public class GraphBuilder extends Thread{
 		 	 								new Color(21,235,231), new Color(13,49,208), new Color(11,243,24)};
 	private JPanel sidePanel;
 	private GraphBuilderPanel graphPanel;
-	private Ecosytem environment;
+	private Ecosystem environment;
 	public JRadioButton[] selectedPopulations;
 	public JRadioButton[] selectedAttributes;
 	private boolean lookingAtGraph;
 	
-	public GraphBuilder(Ecosytem environment, String[] populationNames, String[] attributeNames
+	public GraphBuilder(Ecosystem environment, String[] populationNames, String[] attributeNames
 			,int width,int height,String[] axisNames, boolean dataPoints) {
 		this.environment = environment;
 		this.lookingAtGraph = true;

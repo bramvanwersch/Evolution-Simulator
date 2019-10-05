@@ -27,7 +27,7 @@ import user_input.PopulationSettings;
  * Also facilitates changes in the environment depending on the species.
  * @author Bram van Wersch
  */
-public class Ecosytem {
+public class Ecosystem {
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
 	private ArrayList<AutotrophPopulation> autotrophPopulations;
 	private int[] popOrderSeed;
@@ -39,7 +39,7 @@ public class Ecosytem {
 	 * @param options class instance of OptionData that holds all the preferences 
 	 * concerning the options that where chosen.
 	 */
-	public Ecosytem(OptionData options) {
+	public Ecosystem(OptionData options) {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
@@ -240,11 +240,11 @@ public class Ecosytem {
 //		return true;
 //	}
 	
-	/*
-	 * Functions for returning lists of specific Hetrotroph species. These
-	 * methods are private to make sure that they are not used to manipulate
-	 * species
-	 */
+/*
+ * Functions for returning lists of specific Hetrotroph species. These
+ * methods are private to make sure that they are not used to manipulate
+ * species
+ */
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();

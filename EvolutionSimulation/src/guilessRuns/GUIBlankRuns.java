@@ -20,7 +20,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import user_input.OptionData;
 
 import javax.swing.UIManager;
@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUIBlankRuns extends JFrame {
 	private Timer timer;
-	private Ecosytem environment;
+	private Ecosystem environment;
 	private BlankGameLoop blankLoop;
 	private JPanel contentPane;
 	private JLabel lblCounter;

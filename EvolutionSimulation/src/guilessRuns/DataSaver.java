@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import populations.Population;
 import populations.PopulationData;
 
 public class DataSaver {
 	private int runCounter;
 	private PopulationData populationData;
-	private Ecosytem environment;
+	private Ecosystem environment;
 	private Population population;
 	private String lineSeparator = System.getProperty("line.separator");
 	private boolean winner;

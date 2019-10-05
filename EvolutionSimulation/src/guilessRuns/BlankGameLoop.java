@@ -8,20 +8,20 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 import populations.Population;
 import populations.PopulationData;
 
 public class BlankGameLoop implements ActionListener {
-	private Ecosytem environment;
+	private Ecosystem environment;
 	private int timeElapsed;
 	private int updateTime;
 	private Integer runCount;
 	private boolean runFinished;
 	
-	public BlankGameLoop(Ecosytem enviroment, int updateTime) {
+	public BlankGameLoop(Ecosystem enviroment, int updateTime) {
 		this.environment = enviroment;
 		this.timeElapsed = 0;
 		this.updateTime = updateTime;

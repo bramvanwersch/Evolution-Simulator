@@ -10,7 +10,7 @@ import gui.SidePanelGui;
 import gui.TerrainPanel;
 
 public class GameLoop implements ActionListener{
-	private Ecosytem ecosystem;
+	private Ecosystem ecosystem;
 	private TerrainPanel panel;
 	private int timeElapsed;
 	private SidePanelGui sidePanel;
@@ -23,7 +23,7 @@ public class GameLoop implements ActionListener{
 	 * @param dataObj: data class object that stores values every second.
 	 * @param mainFrame: Container for panel and place where information is displayed about the stats of species
 	 */
-	public GameLoop(TerrainPanel panel, Ecosytem ecosystem, SidePanelGui sidePanel) {
+	public GameLoop(TerrainPanel panel, Ecosystem ecosystem, SidePanelGui sidePanel) {
 		this.sidePanel = sidePanel;
 		this.ecosystem = ecosystem;
 		this.panel = panel;

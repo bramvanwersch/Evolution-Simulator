@@ -13,7 +13,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
 import environment.Environment;
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import populations.Population;
 import user_input.OptionData;
 import user_input.PopulationSettings;
@@ -30,7 +30,7 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 	public Void doInBackground() {
 		for (int i = 0; i < runs; i++) {
 			OptionData optionData = makeOptionData();
-			Ecosytem ecosystem = new Ecosytem(optionData);
+			Ecosystem ecosystem = new Ecosystem(optionData);
 			BlankGameLoop blankGameLoop = new BlankGameLoop(ecosystem, 10);
 			Timer timer = new Timer(10, blankGameLoop);
 			timer.start();

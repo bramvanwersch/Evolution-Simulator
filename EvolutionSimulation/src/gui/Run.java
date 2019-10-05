@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import environment.Environment;
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import gameobjects.GameLoop;
 import gui.SidePanelGui;
 import populations.Population;
@@ -24,13 +24,13 @@ public class Run {
 	private SidePanelGui sidePanel;
 	private TerrainPanel panel;
 	private GameLoop loop;
-	private Ecosytem ecosystem;
+	private Ecosystem ecosystem;
 	private Environment environment;
 
 	public Run(OptionData data) {
 		this.data = data;
 		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
-		ecosystem = new Ecosytem(this.data);
+		ecosystem = new Ecosystem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,ecosystem, sidePanel);
@@ -110,7 +110,7 @@ public class Run {
 	private void restartTimer() {
 		timer.stop();
 		f.dispose();
-		ecosystem = new Ecosytem(this.data);
+		ecosystem = new Ecosystem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
 		loop = new GameLoop(panel,ecosystem, sidePanel);

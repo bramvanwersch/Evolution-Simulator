@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import environment.NutrientDeposit;
-import gameobjects.Ecosytem;
+import gameobjects.Ecosystem;
 import populations.Population;
 import species.Plant;
 import species.Species;
@@ -17,10 +17,10 @@ public class TerrainPanel extends JPanel{
 	private int heigth;
 	private int width;
 	private Graphics2D g2d;
-	private Ecosytem ecosystem;
+	private Ecosystem ecosystem;
 			
 	
-	public TerrainPanel(int heigth, int width, Ecosytem ecosystem) {
+	public TerrainPanel(int heigth, int width, Ecosystem ecosystem) {
 		this.heigth = heigth;
 		this.width = width;
 		this.ecosystem = ecosystem;
@@ -75,7 +75,7 @@ public class TerrainPanel extends JPanel{
     	g2d.drawString(text, adjXCoord, adjYCoord);
 	}
 	
-	public Ecosytem getEnvironment() {
+	public Ecosystem getEnvironment() {
 		return ecosystem;
 	}
 }
