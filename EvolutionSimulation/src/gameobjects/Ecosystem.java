@@ -311,7 +311,7 @@ public class Ecosystem {
 		return getAllOmnivores().size();
 	}
 
-	public int getNrSpecies() {
+	public int getNrHetrotrophSpecies() {
 		int count = 0;
 		for (Population sp: hetrotrophPopulations ) {
 			count += sp.getNrSpecies();

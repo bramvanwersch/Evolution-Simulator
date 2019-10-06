@@ -87,7 +87,7 @@ public class GameLoop implements ActionListener{
 	 * @return boolean telling if the game should be continued or stopped.
 	 */
 	private boolean checkIfAllDead(ActionEvent e) {
-		if (this.ecosystem.getNrSpecies() == 0) {
+		if (this.ecosystem.getNrHetrotrophSpecies() == 0) {
 			Timer t  = (Timer) e.getSource();
 			t.stop();
 			return true;
