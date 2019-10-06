@@ -330,7 +330,7 @@ public class Ecosystem {
 	/**
 	 * Returns the size of hetro and autotroph populations in total taken
 	 * together.
-	 * @return an integer returning the size of all populations together.
+	 * @return an integer that is the size of all populations together.
 	 */
 	public int getNrPopulations() {
 		return hetrotrophPopulations.size() + autotrophPopulations.size();
@@ -350,11 +350,24 @@ public class Ecosystem {
 		return allPops.get(index);
 	}
 	
-	public ArrayList<Population> getHetrotrophPopulations() {
-		ArrayList<Population> hetroPops = new ArrayList<Population>();
-		hetroPops.addAll(hetrotrophPopulations);
-		return hetroPops;
-	}	
+	/**
+	 * Returns the size of hetrotroph populations.
+	 * @return an integer that is the size of all hetrotroph populations
+	 */
+	public int getNrHetrotrophPopulations() {
+		return this.hetrotrophPopulations.size();
+	}
+	
+	/**
+	 * Method for getting a specific hetrotrophpopulation from a list. 
+	 * This construct is here to make sure the full lists of 
+	 * hetrotrophpopulations are not just passed around.
+	 * @param index of the population to return 
+	 * @return a population at the given index.
+	 */
+	public HetrotrophPopulation getHetrotrophPopulation(int index) {
+		return this.hetrotrophPopulations.get(index);
+	}
 	
 	private ArrayList<Population> getLivingPopulations() {
 		ArrayList<Population> livingPopulations = new ArrayList<Population>();
