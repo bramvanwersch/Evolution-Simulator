@@ -319,7 +319,7 @@ public class Ecosystem {
 		return count;
 	}
 	
-	public int getAllDeadHetrotrophSpecies() {
+	public int getNrDeadHetrotrophSpecies() {
 		int count = 0;
 		for (Population sp: hetrotrophPopulations ) {
 			count += sp.getDiedSpecies();

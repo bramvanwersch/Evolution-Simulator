@@ -70,7 +70,7 @@ public class GameLoop implements ActionListener{
 	private String[] getLabelTexts() {
 		String [] lblTexts = new String [7];
 		double[][] averageStats = ecosystem.getAveragePopulationStats();
-		lblTexts[0] = String.format("%d|%d|%d (%d)",ecosystem.getNrHerbivores(),ecosystem.getNrOmnivores(), ecosystem.getNrCarnivores(), ecosystem.getAllDeadHetrotrophSpecies());
+		lblTexts[0] = String.format("%d|%d|%d (%d)",ecosystem.getNrHerbivores(),ecosystem.getNrOmnivores(), ecosystem.getNrCarnivores(), ecosystem.getNrDeadHetrotrophSpecies());
 		lblTexts[1] = String.format("%.2f (%.0f - %.0f)", averageStats[0][0], averageStats[0][1], averageStats[0][2]);
 		lblTexts[2] = String.format("%.2f (%.0f - %.0f)", averageStats[1][0], averageStats[1][1], averageStats[1][2]);
 		lblTexts[3] = String.format("%.2f (%.0f - %.0f)", averageStats[2][0], averageStats[2][1], averageStats[2][2]);
