@@ -54,7 +54,7 @@ public class TerrainPanel extends JPanel{
 	}
 
 	private void drawSpecies() {
-		for (int i = 0; i < ecosystem.getPopulationsSize(); i++) {
+		for (int i = 0; i < ecosystem.getNrPopulations(); i++) {
 			Population sp = ecosystem.getPopulation(i);
 			for (int j = 0; j < sp.getNrSpecies(); j++) {
 				Species s = sp.getSpecies(j);

@@ -138,7 +138,7 @@ public class Ecosystem {
 			HetrotrophPopulation sp =  hetrotrophPopulations.get(loc);
 			String type = sp.getType();
 			if (type.equals("Herbivore")) {
-				for (int i = 0; i < getPopulationsSize(); i++) {
+				for (int i = 0; i < getNrPopulations(); i++) {
 					Population p = getPopulation(i);
 					if (p.getType().equals("Plant")) {
 						eatSpecies(sp, p);
@@ -146,7 +146,7 @@ public class Ecosystem {
 				}
 			}
 			else if (type.equals("Carnivore")) {
-				for (int i = 0; i < getPopulationsSize(); i++) {
+				for (int i = 0; i < getNrPopulations(); i++) {
 					Population p = getPopulation(i);
 					if (p.getType().equals("Herbivore")) {
 						eatSpecies(sp, p);
@@ -154,7 +154,7 @@ public class Ecosystem {
 				}
 			}
 			else if (type.equals("Omnivore")) {
-				for (int i = 0; i < getPopulationsSize(); i++) {
+				for (int i = 0; i < getNrPopulations(); i++) {
 					Population p = getPopulation(i);
 					if (p.getType().equals("Herbivore")) {
 						eatSpecies(sp, p);
@@ -210,7 +210,7 @@ public class Ecosystem {
 	 * populations are looped trough in a random order but dont change order
 	 */
 	private void shuffleLists() {
-		for (int i = 0; i < getPopulationsSize(); i++) {
+		for (int i = 0; i < getNrPopulations(); i++) {
 			Population sp = getPopulation(i);
 			sp.shuffleSpeciesList();
 		}
@@ -332,7 +332,7 @@ public class Ecosystem {
 	 * together.
 	 * @return an integer returning the size of all populations together.
 	 */
-	public int getPopulationsSize() {
+	public int getNrPopulations() {
 		return hetrotrophPopulations.size() + autotrophPopulations.size();
 	}
 	
