@@ -54,9 +54,10 @@ public class TerrainPanel extends JPanel{
 	}
 
 	private void drawSpecies() {
-		for (Population sp : ecosystem.getPopulations()) {
-			for (int i = 0; i < sp.getNrSpecies(); i++) {
-				Species s = sp.getSpecies(i);
+		for (int i = 0; i < ecosystem.getPopulationsSize(); i++) {
+			Population sp = ecosystem.getPopulation(i);
+			for (int j = 0; j < sp.getNrSpecies(); j++) {
+				Species s = sp.getSpecies(j);
 				int xCoord = s.getxLoc() - s.getSize()/2;
 				int yCoord = s.getyLoc() - s.getSize()/2;
 				g2d.setColor(sp.getColor());

@@ -66,8 +66,8 @@ public class BlankGameLoop implements ActionListener {
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
 	private void addPopData() {
-		for (int i = 0; i < environment.getPopulations().size(); i ++) {
-			environment.getPopulations().get(i).saveStatsData(timeElapsed);
+		for (int i = 0; i < environment.getPopulationsSize(); i ++) {
+			environment.getPopulation(i).saveStatsData(timeElapsed);
 		}
 	}
 	
@@ -128,9 +128,9 @@ public class BlankGameLoop implements ActionListener {
 	
 	public Integer getDeadPopulation() {
 		Integer countDeadPopulation = 0;
-		ArrayList<Population> pops = this.environment.getPopulations();
-		for(int i = 0; i < pops.size() ; i++ ) {
-			if(pops.get(i).getNrSpecies()==0) {
+		for (int i = 0; i < environment.getPopulationsSize(); i++) {
+			Population pops = environment.getPopulation(i);
+			if(pops.getNrSpecies()==0) {
 				countDeadPopulation += 1;
 			}
 		}

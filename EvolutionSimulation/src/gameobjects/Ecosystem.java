@@ -30,7 +30,8 @@ import user_input.PopulationSettings;
 public class Ecosystem {
 	private ArrayList<HetrotrophPopulation> hetrotrophPopulations;
 	private ArrayList<AutotrophPopulation> autotrophPopulations;
-	private int[] popOrderSeed;
+	private int[] hetPopOrderSeed;
+	private int[] autPopOrderSeed;
 	private PopulationData averagePopData;
 	private Environment environment;
 
@@ -43,11 +44,13 @@ public class Ecosystem {
 		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
-		this.popOrderSeed = createPopOrderSeed(options.getPopulationSettingSize());
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
 		//Still hardcoded parts needs addition of option panel data.
 		createPopulations(options);
+		this.hetPopOrderSeed = createPopOrderSeed(hetrotrophPopulations.size());
+		this.autPopOrderSeed = createPopOrderSeed(autotrophPopulations.size());
+
 	}
 
 	/**
@@ -55,12 +58,13 @@ public class Ecosystem {
 	 */
 	public void nextTimeStep() {
 		
-		for (int loc : popOrderSeed) {
+		for (int loc : hetPopOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
 			sp.nextTimePoint();
 		}
-		for (Population p : autotrophPopulations) {
-			p.nextTimePoint();
+		for (int loc : autPopOrderSeed) {
+			Population sp = autotrophPopulations.get(loc);
+			sp.nextTimePoint();
 		}
 		hetrotrophEating();
 		autotrophEating();
@@ -129,26 +133,29 @@ public class Ecosystem {
 	 * Regulates the eating behaviour of hetrotroph species. It executes a
 	 * check for every possible candidate.
 	 */
-	public void hetrotrophEating() {
-		for (int loc : popOrderSeed) {
+	private void hetrotrophEating() {
+		for (int loc : hetPopOrderSeed) {
 			HetrotrophPopulation sp =  hetrotrophPopulations.get(loc);
 			String type = sp.getType();
 			if (type.equals("Herbivore")) {
-				for (Population p : getPopulations()) {
+				for (int i = 0; i < getPopulationsSize(); i++) {
+					Population p = getPopulation(i);
 					if (p.getType().equals("Plant")) {
 						eatSpecies(sp, p);
 					}
 				}
 			}
 			else if (type.equals("Carnivore")) {
-				for (Population p : getPopulations()) {
+				for (int i = 0; i < getPopulationsSize(); i++) {
+					Population p = getPopulation(i);
 					if (p.getType().equals("Herbivore")) {
 						eatSpecies(sp, p);
 					}
 				}
 			}
 			else if (type.equals("Omnivore")) {
-				for (Population p : getPopulations()) {
+				for (int i = 0; i < getPopulationsSize(); i++) {
+					Population p = getPopulation(i);
 					if (p.getType().equals("Herbivore")) {
 						eatSpecies(sp, p);
 					}
@@ -170,7 +177,7 @@ public class Ecosystem {
 	 * species
 	 * @param prey is an instance of Population that holds all potential prey
 	 */
-	public void eatSpecies(HetrotrophPopulation predator, Population prey) {
+	private void eatSpecies(HetrotrophPopulation predator, Population prey) {
 		for(int i = 0; i < predator.getNrSpecies(); i++) {
 			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
 				HetrotrophSpecies s1 = predator.getSpecies(i);
@@ -186,8 +193,9 @@ public class Ecosystem {
 	 * Regulates the eating of autotrophSpecies because it is drastically 
 	 * different from that of hetrotrophspecies.
 	 */
-	public void autotrophEating() {
-		for (AutotrophPopulation p : autotrophPopulations) {
+	private void autotrophEating() {
+		for (int loc : autPopOrderSeed) {
+			AutotrophPopulation p = autotrophPopulations.get(loc);
 			for(int j = 0; j < p.getNrSpecies(); j++){
 				AutotrophSpecies s = p.getSpecies(j);
 				s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
@@ -201,22 +209,25 @@ public class Ecosystem {
 	 * are less biased. Besided that a seed that is a list of integer locations is shuffled making sure the 
 	 * populations are looped trough in a random order but dont change order
 	 */
-	public void shuffleLists() {
-		for (Population sp: getPopulations()) {
+	private void shuffleLists() {
+		for (int i = 0; i < getPopulationsSize(); i++) {
+			Population sp = getPopulation(i);
 			sp.shuffleSpeciesList();
 		}
-		this.popOrderSeed = shufflePopOrderSeed();
+		this.hetPopOrderSeed = shufflePopOrderSeed(hetPopOrderSeed);
+		this.autPopOrderSeed = shufflePopOrderSeed(autPopOrderSeed);
 	}
 	
 	/**
-	 * Creates a randomly shuffled array.
+	 * Creates a randomly shuffled array. By swapping each position in the array
+	 * with a random position of the array (can be the same position).
+	 * @ar the array that needs to be shuffled
 	 * @return an integer array that contains as much numbers as populations. 
 	 * This is to ensure that populations are looped trough at random but the 
 	 * data collection stays logical.
 	 */
-	private int[] shufflePopOrderSeed() {
+	private int[] shufflePopOrderSeed(int[] ar) {
 		Random rnd = new Random();
-		int[] ar = this.popOrderSeed;
 		for (int i = ar.length - 1; i > 0; i--){
 			int index = rnd.nextInt(i + 1);
 			int a = ar[index];
@@ -248,7 +259,7 @@ public class Ecosystem {
 	
 	private ArrayList<Species> getAllCarnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (int loc : popOrderSeed) {
+		for (int loc : hetPopOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Carnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
@@ -261,7 +272,7 @@ public class Ecosystem {
 	
 	private ArrayList<Species> getAllOmnivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (int loc : popOrderSeed) {
+		for (int loc : hetPopOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Omnivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
@@ -274,7 +285,7 @@ public class Ecosystem {
 	
 	private ArrayList<Species> getAllHerbivores() {
 		ArrayList<Species> specList = new ArrayList<Species>();
-		for (int loc : popOrderSeed) {
+		for (int loc : hetPopOrderSeed) {
 			Population sp =  hetrotrophPopulations.get(loc);
 			if (sp.getType().equals("Herbivore")) {
 				for (int i = 0; i < sp.getNrSpecies(); i++) {
@@ -316,11 +327,27 @@ public class Ecosystem {
 		return count;
 	}
 	
-	public ArrayList<Population> getPopulations() {
+	/**
+	 * Returns the size of hetro and autotroph populations in total taken
+	 * together.
+	 * @return an integer returning the size of all populations together.
+	 */
+	public int getPopulationsSize() {
+		return hetrotrophPopulations.size() + autotrophPopulations.size();
+	}
+	
+	/**
+	 * Method for getting a specific population from a list. This construct
+	 * is here to make sure the full lists of populations are not just passed 
+	 * around
+	 * @param index of the population to return 
+	 * @return a population at the given index.
+	 */
+	public Population getPopulation(int index) {
 		ArrayList<Population> allPops = new ArrayList<Population>();
 		allPops.addAll(hetrotrophPopulations);
 		allPops.addAll(autotrophPopulations);
-		return allPops;
+		return allPops.get(index);
 	}
 	
 	public ArrayList<Population> getHetrotrophPopulations() {
