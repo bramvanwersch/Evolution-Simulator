@@ -2,13 +2,17 @@ package gameobjects;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import javax.swing.Timer;
 
 import gui.SidePanelGui;
 import gui.TerrainPanel;
 
+/**
+ * Class that regulates the updates. It inherits from ActionListener
+ * so it an be used in a SwingTimer class to act as updater
+ * @author Bram van Wersch
+ */
 public class GameLoop implements ActionListener{
 	private Ecosystem ecosystem;
 	private TerrainPanel panel;
@@ -50,12 +54,18 @@ public class GameLoop implements ActionListener{
 	}
 	
 	/**
-	 * Function that is evoked every second to record data points for every stat of the species and time.
+	 * Function that is triggered every second for saving the average data of
+	 * all the data saved by the PopulationData classes of individual 
+	 * populations.
 	 */
 	private void addAverageDataValues() {
 		ecosystem.saveAveragePopulationsStatsData(timeElapsed);
 	}
 	
+	/**
+	 * A function that is triggered every second for saving a data point for
+	 * the PopulationData class of each population.
+	 */
 	private void addPopData() {
 		for (int i = 0; i < ecosystem.getNrHetrotrophPopulations(); i ++) {
 			ecosystem.getHetrotrophPopulation(i).saveStatsData(timeElapsed);
@@ -95,7 +105,11 @@ public class GameLoop implements ActionListener{
 		return false;
 	}
 
-	
+	/**
+	 * Function that returns the time that has elapsed since strating the game
+	 * in mili seconds
+	 * @return integer that is the time elapsed in mili seconds.
+	 */
 	public int getTimeElapsed() {
 		return timeElapsed;
 	}
