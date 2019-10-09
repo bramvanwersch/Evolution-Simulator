@@ -412,10 +412,11 @@ public class Ecosystem {
 				valArray[j][i] = attributes[j][0];
 			}
 		}
+		System.out.println(Arrays.deepToString(valArray));
 		double[][] finalArray = new double[5][];
 		for (int k = 0; k < finalArray.length; k++) {
 			double[] attribute = valArray[k];	
-			int[] minMax = calcMinMax(attribute);
+			double[] minMax = calcMinMax(attribute);
 			finalArray[k] = new double[]{calcAvgAttribute(attribute), minMax[0], minMax[1]};
 		}
 		return finalArray;
@@ -450,7 +451,7 @@ public class Ecosystem {
 	}
 	
 
-	public double calcAvgAttribute(double[] attrArray) {
+	private double calcAvgAttribute(double[] attrArray) {
 		double total = 0;
 		for(double arr : attrArray){
 			total += arr;
@@ -458,14 +459,14 @@ public class Ecosystem {
 		return total/new Double(attrArray.length);
 	}
 	
-	private int[] calcMinMax(double[] attrArray) {
-		int[] minMax = {(int) attrArray[0],(int) attrArray[0]};
+	private double[] calcMinMax(double[] attrArray) {
+		double[] minMax = {attrArray[0], attrArray[0]};
 		for(int i = 0; i < attrArray.length; i++){
 			if (attrArray[i] < minMax[0]) {
-				minMax[0] = (int)attrArray[i];
+				minMax[0] = attrArray[i];
 			}
 			else if (attrArray[i] > minMax[1]) {
-				minMax[1] = (int)attrArray[i];
+				minMax[1] = attrArray[i];
 			}
 		}
 		return minMax;
