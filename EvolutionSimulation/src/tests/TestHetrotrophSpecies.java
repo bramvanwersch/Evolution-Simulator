@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import species.Herbivore;
 import species.HetrotrophSpecies;
 
-public class TestHetrotrophSepcies extends TestCase {
+public class TestHetrotrophSpecies extends TestCase {
 
 	
 	public void testEatSize() {
@@ -83,6 +83,10 @@ public class TestHetrotrophSepcies extends TestCase {
 		assertEquals(12, s.getSize());
 	}
 	
+	public void testGetAttributeData() {
+		assertEquals(true, false);
+	}
+
 	public void testInXBounds() {
 		HetrotrophSpecies s =  new Herbivore(12, 10, 20, 10, 1.0);
 		s.setXYLoc(940, 940);

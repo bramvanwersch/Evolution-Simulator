@@ -25,5 +25,9 @@ public class TestPopulation extends TestCase {
 		double[] attrArray = new double[] {2.0, 5.0, 10.0, 0.0};
 		assertEquals(Arrays.toString(new double[] {0.0, 10.0}), Arrays.toString(p.calcMinMax(attrArray)));
 	}
+	
+	public void testGetStats() {
+		assertEquals(true, false);
+	}
 
 }

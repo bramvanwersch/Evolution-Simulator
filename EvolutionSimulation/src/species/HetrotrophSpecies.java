@@ -121,7 +121,7 @@ public abstract class HetrotrophSpecies extends Species {
 	 * @return
 	 */
 	public double getEnergyConsumption() {
-		int r = getSize() / 2;
+		double r = getSize() / 2.0;
 		double contentSurface = (1.33* Math.PI * Math.pow(r, 3)) /(4 * Math.PI * Math.pow(r, 2));
 		return (Math.pow(1.4, contentSurface) - 1) + 0.5 * getSpeed() + 0.125 * getScentRange() + getAge();
 	}
@@ -166,9 +166,12 @@ public abstract class HetrotrophSpecies extends Species {
 	}
 	
 	/**
-	 * Returns the speed as determined by the genome of the hetrotrophspecies
+	 * Returns the speed as determined by the genome of the hetrotrophspecies.
+	 * If the speed value is calclulated to be 0 it is set to 1. This is a
+	 * fairly rare case and is just done to prevent weird behaviour.
 	 */
 	public int getSpeed() {
+		if (this.genome.getAttributeValue("speed") == 0) return 1;
 		return this.genome.getAttributeValue("speed");
 	}
 	
@@ -190,13 +193,17 @@ public abstract class HetrotrophSpecies extends Species {
 	}
 
 	/**
-	 * Returns the current size of the species. This depends on its age. The species grows from half its size
-	 * to its max size over the half of its lifetime. If that point is reached it keeps its max size
+	 * Returns the current size of the species. This depends on its age. 
+	 * The species grows from half its size to its max size over the half
+	 * of its lifetime. If that point is reached it keeps its max size
+	 * If the Size value is calclulated to be 0 it is set to 1. This is a
+	 * fairly rare case and is just done to prevent weird behaviour.
 	 */
 	@Override
 	public int getSize() {
 		double smallerFactor = ((double) getAge() ) / getMaxAge();
 		if (smallerFactor <= 0.5) {
+			if ((int) ((0.5 + smallerFactor) * getMaxSize()) == 0) return 1;
 			return (int) ((0.5 + smallerFactor) * getMaxSize());
 		}
 		return getMaxSize();
