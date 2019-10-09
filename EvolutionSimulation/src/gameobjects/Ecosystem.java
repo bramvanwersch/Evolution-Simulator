@@ -50,7 +50,6 @@ public class Ecosystem {
 		createPopulations(options);
 		this.hetPopOrderSeed = createPopOrderSeed(hetrotrophPopulations.size());
 		this.autPopOrderSeed = createPopOrderSeed(autotrophPopulations.size());
-
 	}
 
 	/**
@@ -379,12 +378,68 @@ public class Ecosystem {
 		return livingPopulations;
 	}
 	
+	/**
+	 * Function that gives the population data class that saves the average
+	 * data for all populations
+	 * @return Instance of PopulationData
+	 */
 	public PopulationData getAveragePopData() {
 		return this.averagePopData;
 	}
 	
+	/**
+	 * Function for returning the environemnt
+	 * @return Instance of environment class.
+	 */
 	public Environment getEnvironment() {
 		return this.environment;
+	}
+	
+	/**
+	 * Returns the instance of the population with the most species. It 
+	 * prioritises the population that comes first in the list and takes that
+	 * over populations with the same amount of species later in the list with 
+	 * populations.
+	 * @return instance of Population.
+	 */
+	public Population getMaxSpeciesHetPopulations() {
+		Population maxPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
+				maxPopulation = hetrotrophPopulations.get(i);
+			}
+		}
+		return maxPopulation;
+	}
+	
+	/**
+	 * Returns the population with the minimum number of species. It 
+	 * prioritises the population that comes first in the list and takes that
+	 * over populations with the same amount of species later in the list with 
+	 * populations.
+	 * @return an instance of Population.
+	 */
+	public Population getMinSpeciesHetPopulations() {
+		Population minPopulation = hetrotrophPopulations.get(0);
+		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
+			if (hetrotrophPopulations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
+				minPopulation = hetrotrophPopulations.get(i);
+			}
+		}
+		return minPopulation;
+	}
+	
+	/**
+	 * Function that returns a list of all the PopulationData classes that 
+	 * are associated with the individual populations.
+	 * @return An array of PopulationData Objects.
+	 */
+	public PopulationData[] getAllPopData() {
+		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
+		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
+			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
+		}
+		return popDataArray;
 	}
 
 /*
@@ -403,6 +458,14 @@ public class Ecosystem {
 		averagePopData.setTime(timeElapsed/1000);
 	}
 	
+	/**
+	 * Function that returns the average values for each population based on
+	 * the values saved for individual species for each attribute.
+	 * TODO min and max should not be calculated over the average but be the
+	 * min and max of a certain species specifically.
+	 * @return Array of Arrays of doubles containing the average min and max 
+	 * for each attribute.
+	 */
 	public double[][] getAveragePopulationStats() {
 		double[][] valArray = new double[5][getLivingPopulations().size()];
 		
@@ -412,7 +475,6 @@ public class Ecosystem {
 				valArray[j][i] = attributes[j][0];
 			}
 		}
-		System.out.println(Arrays.deepToString(valArray));
 		double[][] finalArray = new double[5][];
 		for (int k = 0; k < finalArray.length; k++) {
 			double[] attribute = valArray[k];	
@@ -422,35 +484,11 @@ public class Ecosystem {
 		return finalArray;
 	}
 	
-	
-	public Population getMaxNrSpeciesPop() {
-		Population maxPopulation = hetrotrophPopulations.get(0);
-		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
-			if (hetrotrophPopulations.get(i).getNrSpecies() > maxPopulation.getNrSpecies()) {
-				maxPopulation = hetrotrophPopulations.get(i);
-			}
-		}
-		return maxPopulation;
-	}
-	public Population getMinNrSpeciesPop() {
-		Population minPopulation = hetrotrophPopulations.get(0);
-		for (int i = 1; i < hetrotrophPopulations.size(); i++) {
-			if (hetrotrophPopulations.get(i).getNrSpecies() < minPopulation.getNrSpecies()) {
-				minPopulation = hetrotrophPopulations.get(i);
-			}
-		}
-		return minPopulation;
-	}
-	
-	public PopulationData[] getAllPopData() {
-		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
-		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
-			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
-		}
-		return popDataArray;
-	}
-	
-
+	/**
+	 * Calculates the average of a certain array of doubles
+	 * @param attrArray is the array of doubles that has to be averaged
+	 * @return a number presenting the average of the data array.
+	 */
 	private double calcAvgAttribute(double[] attrArray) {
 		double total = 0;
 		for(double arr : attrArray){
@@ -458,7 +496,12 @@ public class Ecosystem {
 		}
 		return total/new Double(attrArray.length);
 	}
-	
+
+	/**
+	 * Filter out the minimum and maximum value out of an array of doubles
+	 * @param attrArray is the array of douvles that has to be averaged
+	 * @return an array of 2 doubles first min then maximum
+	 */
 	private double[] calcMinMax(double[] attrArray) {
 		double[] minMax = {attrArray[0], attrArray[0]};
 		for(int i = 0; i < attrArray.length; i++){

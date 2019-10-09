@@ -42,7 +42,7 @@ public class BlankGameLoop implements ActionListener {
 				// The Thread goes so fast that if I don't wait for a second, the last value of populationData doesn't exist yet.
 
 				PopulationData winnerData = getSoleSurvivor();
-				Population winnerPop = environment.getMaxNrSpeciesPop();
+				Population winnerPop = environment.getMaxSpeciesHetPopulations();
 				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
 				System.out.println("length of all popData");
 				System.out.println(environment.getAllPopData().length);
@@ -52,7 +52,7 @@ public class BlankGameLoop implements ActionListener {
 				dataSaverWinner.saveWinner();
 
 				PopulationData loserData = getSoleSurvivor();
-				Population loserPop = environment.getMinNrSpeciesPop();
+				Population loserPop = environment.getMinSpeciesHetPopulations();
 				DataSaver dataSaverLoser = new DataSaver(loserData, loserPop);
 				dataSaverLoser.saveLoser();
 
