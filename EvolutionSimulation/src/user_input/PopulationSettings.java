@@ -3,6 +3,10 @@ package user_input;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Class for saving settings set by the user for an individual population
+ * @author Bram van Wersch
+ */
 public class PopulationSettings {
 	private String type;
 	private String name;
@@ -14,6 +18,19 @@ public class PopulationSettings {
 	private Color color;
 	private double eatSizeFactor;
 	
+	/**
+	 * Construtor for the class for setting all of the population values.
+	 * @param type of the population.
+	 * @param name of the population.
+	 * @param noIndividuals number of individuals for the population to start
+	 * with
+	 * @param size of all the species in the population at creation.
+	 * @param speed of all the species in the population at creation.
+	 * @param maxAge of all the species in the population at creation.
+	 * @param scentRange of all the species in the population at creation.
+	 * @param color of the population.
+	 * @param eatSizeFactor of all the species in the population at creation.
+	 */
 	public PopulationSettings(String type, String name, int noIndividuals, int size,
 			int speed, int maxAge, int scentRange, Color color, double eatSizeFactor) {
 		this.type = type;
@@ -63,6 +80,11 @@ public class PopulationSettings {
 		return this.type;
 	}
 	
+	/**
+	 * Function that determines if a population is autotroph or hetrotroph
+	 * depening on the type of species the population contains.
+	 * @return String that tells what type the population is.
+	 */
 	public String getPopulationType() {
 		if (type.equals("Plant")) {
 			return "Autotroph";
