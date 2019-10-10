@@ -44,6 +44,9 @@ public class PopulationSettings {
 		this.eatSizeFactor = eatSizeFactor;
 	}
 	
+	/*
+	 * Functions for returning the individualy saved settings.
+	 */
 	public String getName() {
 		return this.name;
 	}
