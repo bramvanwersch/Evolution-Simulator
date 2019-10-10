@@ -14,25 +14,17 @@ import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Toolkit;
-
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import populations.Population;
 import user_input.OptionData;
 import user_input.PopulationSettings;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -54,7 +46,7 @@ public class OptionMenu extends JFrame {
 	private int numberOfSpecies;
 	private ArrayList<ArrayList<JSpinner>> spinnerValues;
 	private ArrayList<JLabel> speciesColors;
-	private ArrayList<JComboBox> speciesTypes;
+	private ArrayList<JComboBox<String>> speciesTypes;
 	private ArrayList<JTextField> speciesNames;
 	private ArrayList<JPanel> populationPanels;
 	private OptionData data;
@@ -66,7 +58,7 @@ public class OptionMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OptionMenu frame = new OptionMenu();
+					new OptionMenu();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,7 +74,7 @@ public class OptionMenu extends JFrame {
 		numberOfSpecies = 0;
 		spinnerValues =  new ArrayList<ArrayList<JSpinner>>();
 		speciesColors = new ArrayList<JLabel>();
-		speciesTypes = new ArrayList<JComboBox>();
+		speciesTypes = new ArrayList<JComboBox<String>>();
 		speciesNames = new ArrayList<JTextField>();
 		populationPanels = new ArrayList<JPanel>();
 		data = new OptionData();
@@ -308,8 +300,8 @@ public class OptionMenu extends JFrame {
 		gbc_typeComboBox.fill = GridBagConstraints.BOTH;
 		gbc_typeComboBox.gridx = 1;
 		gbc_typeComboBox.gridy = 0;
-		JComboBox<String> typeComboBox = new JComboBox();
-		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Herbivore", "Omnivore", "Carnivore"}));
+		JComboBox<String> typeComboBox = new JComboBox<String>();
+		typeComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Herbivore", "Omnivore", "Carnivore"}));
 		panel_1.add(typeComboBox, gbc_typeComboBox);
 		speciesTypes.add(typeComboBox);
 		
@@ -453,8 +445,7 @@ public class OptionMenu extends JFrame {
 		JButton newColorBtn = new JButton("Choose color");
 		newColorBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JColorChooser chooser = new JColorChooser();
-				Color speciesColor = chooser.showDialog(null, "Choose a color", Color.GREEN);
+				Color speciesColor = JColorChooser.showDialog(null, "Choose a color", Color.GREEN);
 				if (speciesColor != null) {
 					colorLabel.setBackground(speciesColor);
 				}

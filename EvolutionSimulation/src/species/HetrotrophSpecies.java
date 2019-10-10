@@ -1,6 +1,4 @@
 package species;
-import java.math.BigDecimal;
-
 import genome.Genome;
 
 /**

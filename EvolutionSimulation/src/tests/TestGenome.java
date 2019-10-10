@@ -1,8 +1,5 @@
 package tests;
 
-import java.util.Arrays;
-
-import genome.DNAtoAA;
 import genome.Genome;
 import junit.framework.TestCase;
 

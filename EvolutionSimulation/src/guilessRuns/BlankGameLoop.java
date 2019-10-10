@@ -2,15 +2,9 @@ package guilessRuns;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.swing.Timer;
 
 import gameobjects.Ecosystem;
-import gui.SidePanelGui;
-import gui.TerrainPanel;
 import populations.Population;
 import populations.PopulationData;
 

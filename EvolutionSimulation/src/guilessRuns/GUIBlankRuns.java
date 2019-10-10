@@ -1,27 +1,18 @@
 package guilessRuns;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-
-import gameobjects.Ecosystem;
-import user_input.OptionData;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -29,7 +20,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUIBlankRuns extends JFrame {
 	private Timer timer;
-	private Ecosystem environment;
 	private BlankGameLoop blankLoop;
 	private JPanel contentPane;
 	private JLabel lblCounter;
@@ -122,9 +112,6 @@ public class GUIBlankRuns extends JFrame {
 		timer.start();
 	}
 	
-	private void stopTimer() {
-		timer.stop();
-	}
 	
 	/* This creates an instance of optionData with all the values necessary to complete a run. Normally one would select these values in OptionMenu.java.
 	 * 

@@ -1,11 +1,9 @@
 package tests;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import junit.framework.TestCase;
-import populations.Population;
 import user_input.OptionData;
 import user_input.PopulationSettings;
 import gameobjects.Ecosystem;

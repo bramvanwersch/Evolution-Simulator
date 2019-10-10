@@ -2,7 +2,6 @@ package populations;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,7 +24,6 @@ public class PopulationData {
     private ArrayList<Double> nrSpecies;
     private int dataDivisionFactor;
     private boolean reduce;
-    private String type;
 
     /**
      * For innitialising all the arrayLists that hold all the data .

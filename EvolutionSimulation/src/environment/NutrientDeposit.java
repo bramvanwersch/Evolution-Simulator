@@ -3,13 +3,11 @@ package environment;
 public class NutrientDeposit {
 	private int WINDOW_SIZE = 950;
 	private int radius;
-	private String type;
 	private int x;
 	private int y;
 	private double value;
 	
 	public NutrientDeposit(String type, int maxValue) {
-		this.type = type;
 		this.value = Math.random() * (maxValue- 0.75* maxValue) + 0.75* maxValue;
 		this.radius = (int) (Math.random() * (75 - 50) + 50);
 		x = (int) (Math.random() * (WINDOW_SIZE - 2 * radius));

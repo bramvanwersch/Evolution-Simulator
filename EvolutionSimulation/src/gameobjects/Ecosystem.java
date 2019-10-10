@@ -2,8 +2,6 @@ package gameobjects;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 import environment.Environment;
@@ -12,11 +10,7 @@ import populations.HetrotrophPopulation;
 import populations.Population;
 import populations.PopulationData;
 import species.AutotrophSpecies;
-import species.Carnivore;
-import species.Herbivore;
 import species.HetrotrophSpecies;
-import species.Omnivore;
-import species.Plant;
 import species.Species;
 import user_input.OptionData;
 import user_input.PopulationSettings;

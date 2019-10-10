@@ -1,8 +1,6 @@
 package user_input;
 
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Class that holds general settings and lists of settings for individual

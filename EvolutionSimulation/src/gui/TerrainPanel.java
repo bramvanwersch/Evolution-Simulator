@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import environment.NutrientDeposit;
 import gameobjects.Ecosystem;
 import populations.Population;
-import species.Plant;
 import species.Species;
 
 /**

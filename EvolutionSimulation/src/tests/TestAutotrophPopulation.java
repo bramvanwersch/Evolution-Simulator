@@ -5,11 +5,7 @@ import java.awt.Color;
 
 import junit.framework.TestCase;
 import populations.AutotrophPopulation;
-import populations.HetrotrophPopulation;
 import species.AutotrophSpecies;
-import species.Herbivore;
-import species.HetrotrophSpecies;
-import species.Plant;
 import user_input.PopulationSettings;
 
 public class TestAutotrophPopulation extends TestCase {

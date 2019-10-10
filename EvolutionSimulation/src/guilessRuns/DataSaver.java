@@ -3,22 +3,18 @@ package guilessRuns;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import gameobjects.Ecosystem;
 import populations.Population;
 import populations.PopulationData;
 
 public class DataSaver {
 	private int runCounter;
 	private PopulationData populationData;
-	private Ecosystem environment;
 	private Population population;
 	private String lineSeparator = System.getProperty("line.separator");
-	private boolean winner;
 	
 	
 	public DataSaver(PopulationData populationData,Population population) {

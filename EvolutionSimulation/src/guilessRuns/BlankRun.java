@@ -3,18 +3,12 @@ package guilessRuns;
 
 
 import java.awt.Color;
-import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
-import environment.Environment;
 import gameobjects.Ecosystem;
-import populations.Population;
 import user_input.OptionData;
 import user_input.PopulationSettings;
 

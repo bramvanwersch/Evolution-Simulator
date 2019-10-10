@@ -8,12 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import environment.Environment;
 import gameobjects.Ecosystem;
 import gameobjects.GameLoop;
 import gui.SidePanelGui;
 import populations.Population;
-import populations.PopulationData;
 import user_input.OptionData;
 
 /**
@@ -62,8 +60,8 @@ public class Run {
 		BorderLayout bd = new BorderLayout();
 		f.setLayout(bd);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(panel, bd.CENTER);
-		f.add(sidePanel, bd.EAST);
+		f.add(panel, BorderLayout.CENTER);
+		f.add(sidePanel, BorderLayout.EAST);
 		
 		JPanel buttonPanel = new JPanel();
 		

@@ -1,7 +1,6 @@
 package user_input;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 /**
  * Class for saving settings set by the user for an individual population

@@ -1,11 +1,6 @@
 package populations;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import genome.Genome;
 import genome.PanGenome;
 import species.Species;
 import user_input.PopulationSettings;
