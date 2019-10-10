@@ -16,6 +16,12 @@ import populations.Population;
 import populations.PopulationData;
 import user_input.OptionData;
 
+/**
+ * Class that creates the ecosystem and places it in the GUI together with some
+ * extra controll buttons that allow the user to restart or redo parts of the
+ * configuration 
+ * @author Bram van Wersch.
+ */
 public class Run {
 	private Timer timer;
 	private int UPDATE_TIME = 50;
@@ -25,11 +31,16 @@ public class Run {
 	private TerrainPanel panel;
 	private GameLoop loop;
 	private Ecosystem ecosystem;
-	private Environment environment;
 
+	/**
+	 * Construtor for innitialising the GameLoop that is a timer the pannel for
+	 * display of the game and surrounding widgets.
+	 * @param data is a class that saves all the settings so they can be
+	 * accesed by the relevant classes. In this case the information is just
+	 * passed on.
+	 */
 	public Run(OptionData data) {
 		this.data = data;
-		//HARDCODED FOR NOW NEEDS FEEDBACK FROM OPTIONS
 		ecosystem = new Ecosystem(this.data);
 		f = new JFrame("Terrain");
 		createGui();
@@ -37,6 +48,10 @@ public class Run {
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
+	/**
+	 * Function that creates the GUI and places all JPannels in the correct 
+	 * places.
+	 */
 	private void createGui() {
 		//main panel
 		panel = new TerrainPanel(950,950, ecosystem);
@@ -98,15 +113,24 @@ public class Run {
 		f.setVisible(true);
 	}
 	
+	/**
+	 * Starts the game timer making the game run and update.
+	 */
 	public void startTimer() {
 		timer.start();
 	}
 	
+	/**
+	 * Stops the game timer and all update related processes.
+	 */
 	private void stopTimer() {
 		timer.stop();
-	}
-	
+	}	
  
+	/**
+	 * Restarts the game timer and recreates all relevant classes that are
+	 * needed for a restart.
+	 */
 	private void restartTimer() {
 		timer.stop();
 		f.dispose();
@@ -117,15 +141,20 @@ public class Run {
 		timer = new Timer(UPDATE_TIME, loop);
 	}
 	
+	/**
+	 * Completelely restarts the simulation by disposing of the current window
+	 * and making a new OptionMenu object.
+	 */
 	private void newGame() {
 		timer.stop();
 		f.dispose();
 		new OptionMenu();
 	}
 	
-
+	/**
+	 * Method that is invoked for drawing the graph
+	 */
 	private void drawGraph() {
-		//LENGHT OF ATTRIBUTES IS STILL HARDCODED
 		String[] populationNames = new String[ecosystem.getNrHetrotrophPopulations()];
 		for (int i = 0; i < ecosystem.getNrHetrotrophPopulations(); i++) {
 			Population sp = ecosystem.getHetrotrophPopulation(i);
@@ -135,5 +164,4 @@ public class Run {
 		new GraphBuilder(ecosystem, populationNames, attributeNames,
 				1000, 800, new String [] {"Time", ""}, false).start();
 	}
-
 }
