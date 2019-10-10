@@ -39,6 +39,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
+/**
+ * Class that is the start of the application. It shows an option menu in which
+ * the user can select the prefered options.
+ * @author Bram van Wersch
+ */
 public class OptionMenu extends JFrame {
 
 	private JPanel contentPane;
@@ -70,7 +75,8 @@ public class OptionMenu extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor that creates the frame and innitialises ArrayLists for 
+	 * collecting the neccesairy data.
 	 */
 	public OptionMenu() {
 		numberOfSpecies = 0;
@@ -84,6 +90,9 @@ public class OptionMenu extends JFrame {
 		setVisible(true);
 	}
 	
+	/**
+	 * Creates the gui 
+	 */
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1500, 900);
@@ -273,6 +282,11 @@ public class OptionMenu extends JFrame {
 		scrollPane.setViewportView(scrollPanel);
 	}
 
+	/**
+	 * Creates a JPannel that contains a default population. This function is
+	 * called when the user requests a new population.
+	 * @return a JPannel that contains default values for a population.
+	 */
 	private JPanel addPopulationLabel() {
 		ArrayList<JSpinner> textList = new ArrayList<JSpinner>();
 		JPanel panel_1 = new JPanel();
@@ -479,7 +493,12 @@ public class OptionMenu extends JFrame {
 		return panel_1;
 	}
 
-	public void saveData() {
+	/**
+	 * Saves the data collected by this class into OptionDatat and 
+	 * PopulationSettings Objects for the global and individual population
+	 * setting respectively.
+	 */
+	private void saveData() {
 		data.setPlantEnergy((int) plantEnergySpinner.getValue());
 		data.setPlantSize((int) plantSizeSpinner.getValue());
 		for(int i = 0; i < speciesTypes.size(); i++) {
@@ -492,6 +511,11 @@ public class OptionMenu extends JFrame {
 		}
 	}
 	
+	/**
+	 * Creates a default name to make sure that populations can be 
+	 * distinguished based on name when the simulation is running
+	 * @return a String that is the name of a population.
+	 */
 	private String getDefaultName() {
 		return "Pop. " + (speciesNames.size() +1);
 	}
