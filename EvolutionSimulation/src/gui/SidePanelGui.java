@@ -11,6 +11,11 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * Class that creates a side panel that displays some live statistics about the
+ * simulation. These are averaged for all populations. 
+ * @author Bram van Wersch
+ */
 public class SidePanelGui extends JPanel{
 	public JTextField txtNumberFood;
 	private JLabel lblNrSpeciesText;
@@ -24,41 +29,27 @@ public class SidePanelGui extends JPanel{
 	private int width;
 	private GridBagLayout gbl_gamePanel;
 	
+	/**
+	 * Constructor that innitialises the panel itself aswell as dimension
+	 * values 
+	 * @param heigth of the pannel.
+	 * @param width of the pannel.
+	 */
 	public SidePanelGui(int heigth, int width) {
 		gbl_gamePanel = new GridBagLayout();
 		this.heigth = heigth;
 		this.width = width;
 		drawPanel();
-		
 	}
+	
+	@Override
 	public Dimension getPreferredSize() {
         return new Dimension(width, heigth);
     }
-		
-//menu bar
-//		JMenuBar menuBar = new JMenuBar();
-//		f.setJMenuBar(menuBar);
-//		
-//		JMenu evolutionMenu = new JMenu("Evolution game");
-//		menuBar.add(evolutionMenu);
-//		
-//		JMenuItem mntmNew = new JMenuItem("New...");
-//		mntmNew.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				newGame();
-//			}
-//		});
-//		evolutionMenu.add(mntmNew);
-//		
-//		JMenuItem mntmOpen = new JMenuItem("Restart...");
-//		mntmOpen.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				restartGame();
-//			}
-//		});
-//		evolutionMenu.add(mntmOpen);
-		
-		
+	
+	/**
+	 * Draws the side panel.
+	 */
 	private void drawPanel() {
 		setLayout(gbl_gamePanel);
 
@@ -175,23 +166,6 @@ public class SidePanelGui extends JPanel{
 		gbc_lblEnergyConsumptionText.gridy = 7;
 		add(lblEnergyConsumptionText, gbc_lblEnergyConsumptionText);
 		
-//		JButton btnShowGraph = new JButton("Show Graph");
-//		btnShowGraph.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				new GraphBuilder(gameloop.getData().getTimeArray(), gameloop.getData().getDataArray()
-//						,1000, 800, new String [] {"Time", ""}, false);
-//			}
-//
-//	
-//		});
-//		GridBagConstraints gbc_btnShowGraph = new GridBagConstraints();
-//		gbc_btnShowGraph.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_btnShowGraph.insets = new Insets(5, 5, 5, 5);
-//		gbc_btnShowGraph.gridx = 2;
-//		gbc_btnShowGraph.gridy = 11;
-//		gamePannel.add(btnShowGraph, gbc_btnShowGraph);
-//	
-		
 		JLabel lblTimeElapsed = new JLabel("Time elapsed:");
 		GridBagConstraints gbc_lblTimeElapsed = new GridBagConstraints();
 		gbc_lblTimeElapsed.anchor = GridBagConstraints.WEST;
@@ -209,44 +183,14 @@ public class SidePanelGui extends JPanel{
 		gbc_lblTime.gridx = 2;
 		gbc_lblTime.gridy = 8;
 		add(lblTime, gbc_lblTime);
-		
-//		JLabel lblNrFood = new JLabel("Regen of food:");
-//		GridBagConstraints gbc_lblNrFood = new GridBagConstraints();
-//		gbc_lblNrFood.anchor = GridBagConstraints.WEST;
-//		gbc_lblNrFood.insets = new Insets(5, 5, 5, 5);
-//		gbc_lblNrFood.gridx = 1;
-//		gbc_lblNrFood.gridy = 9;
-//		add(lblNrFood, gbc_lblNrFood);
-//		
-//		txtNumberFood = new JTextField();
-//		txtNumberFood.setText(FOOD_REGENERATION_RATE + "");
-//		GridBagConstraints gbc_txtNumberFood = new GridBagConstraints();
-//		gbc_txtNumberFood.anchor = GridBagConstraints.WEST;
-//		gbc_txtNumberFood.weightx = 1.0;
-//		gbc_txtNumberFood.insets = new Insets(0, 0, 5, 0);
-//		gbc_txtNumberFood.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_txtNumberFood.gridx = 2;
-//		gbc_txtNumberFood.gridy = 9;
-//		add(txtNumberFood, gbc_txtNumberFood);
-//		txtNumberFood.setColumns(10);
 	}
-	
 
-//	
-//	//broken needs fixing
-//	private void restartGame() {
-//		if (timer != null) {
-//			timer.stop();
-//			initGUI();
-//			this.environment = new Environment(this.options);
-//			panel.repaint();
-//			lblNrSpeciesText.setText(panel.getEnvironment().getNrSpecies() + "");
-//			this.gameloop = new GameLoop(panel,txtNumberFood, this);
-//			timer.restart();
-//			}
-//	}
-	
-
+	/**
+	 * Function for updating the lables of the side panel so it displays
+	 * accurate averages.
+	 * @param textArray is an array of values for the labels that display the
+	 * averages.
+	 */
 	public void updateLabels(String [] textArray){
 		this.lblNrSpeciesText.setText(textArray[0]);
 		this.lblAvgSpeedText.setText(textArray[1]);
@@ -256,6 +200,5 @@ public class SidePanelGui extends JPanel{
 		this.lblEnergyConsumptionText.setText(textArray[5]);
 		this.lblTime.setText(textArray[6]);
 	}
-
 }
 
