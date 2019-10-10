@@ -13,13 +13,22 @@ import populations.Population;
 import species.Plant;
 import species.Species;
 
+/**
+ * Class that draws the simulation itself.
+ * @author Bram van Wersch
+ */
 public class TerrainPanel extends JPanel{
 	private int heigth;
 	private int width;
 	private Graphics2D g2d;
 	private Ecosystem ecosystem;
 			
-	
+	/**
+	 * Constructor that saves some provided starter values
+	 * @param heigth of the panel
+	 * @param width of the panel
+	 * @param ecosystem instance to get populations for drawing them properly.
+	 */
 	public TerrainPanel(int heigth, int width, Ecosystem ecosystem) {
 		this.heigth = heigth;
 		this.width = width;
@@ -27,10 +36,17 @@ public class TerrainPanel extends JPanel{
 		this.setBackground(Color.WHITE);
 	}
 	
+	@Override
 	public Dimension getPreferredSize() {
         return new Dimension(width, heigth);
     }
 	
+	/**
+	 * Is called everytime repaint or paint is called on this class. It redraws
+	 * all species and other things depending on the classes saved in 
+	 * ecosystem.
+	 */
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
@@ -38,6 +54,10 @@ public class TerrainPanel extends JPanel{
 		drawSpecies();
 	}
 
+	/**
+	 * Probabaly temporary for displaying the concentrations of nutrients in
+	 * the ecosystem.
+	 */
 	private void drawNutrientCircles() {
 		for (NutrientDeposit nd : ecosystem.getEnvironment().getNitrogenDeposits()){
 			g2d.setColor(new Color(255, 0, 0, 50));
@@ -53,6 +73,9 @@ public class TerrainPanel extends JPanel{
 		}
 	}
 
+	/**
+	 * Draws all the species of all populations od the ecosystem.
+	 */
 	private void drawSpecies() {
 		for (int i = 0; i < ecosystem.getNrPopulations(); i++) {
 			Population sp = ecosystem.getPopulation(i);
@@ -70,14 +93,17 @@ public class TerrainPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Draws a string in such a way around a x and y coordinate that it looks
+	 * centered around those coordinates.
+	 * @param xCoord is the x location of the string to be centered around.
+	 * @param yCoord is the y location of the string to be centered around.
+	 * @param text is the text to be drawn
+	 */
 	private void drawCenteredString(int xCoord, int yCoord, String text) {
     	int adjXCoord = xCoord - g2d.getFontMetrics().stringWidth(text)/ 2;
     	int adjYCoord = yCoord + g2d.getFontMetrics().getHeight()/3;
     	g2d.drawString(text, adjXCoord, adjYCoord);
-	}
-	
-	public Ecosystem getEnvironment() {
-		return ecosystem;
 	}
 }
 
