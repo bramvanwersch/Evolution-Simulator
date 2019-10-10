@@ -15,14 +15,14 @@ import populations.Population;
 import populations.PopulationData;
 
 public class BlankGameLoop implements ActionListener {
-	private Ecosystem environment;
+	private Ecosystem ecosystem;
 	private int timeElapsed;
 	private int updateTime;
 	private Integer runCount;
 	private boolean runFinished;
 	
-	public BlankGameLoop(Ecosystem enviroment, int updateTime) {
-		this.environment = enviroment;
+	public BlankGameLoop(Ecosystem ecosystem, int updateTime) {
+		this.ecosystem = ecosystem;
 		this.timeElapsed = 0;
 		this.updateTime = updateTime;
 	}
@@ -33,7 +33,7 @@ public class BlankGameLoop implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		timeElapsed += updateTime;
-		environment.nextTimeStep();
+		ecosystem.nextTimeStep();
 		addPopData();
 		if (timeElapsed % 1000 == 0) {
 			addPopData();
@@ -42,17 +42,17 @@ public class BlankGameLoop implements ActionListener {
 				// The Thread goes so fast that if I don't wait for a second, the last value of populationData doesn't exist yet.
 
 				PopulationData winnerData = getSoleSurvivor();
-				Population winnerPop = environment.getMaxSpeciesHetPopulations();
+				Population winnerPop = ecosystem.getMaxSpeciesHetPopulations();
 				DataSaver dataSaverWinner = new DataSaver(winnerData, winnerPop);
 				System.out.println("length of all popData");
-				System.out.println(environment.getAllPopData().length);
+				System.out.println(ecosystem.getNrHetrotrophPopulations());
 				if(winnerData==null || winnerPop==null) {
 					System.out.println("non existing winner");
 				}
 				dataSaverWinner.saveWinner();
 
 				PopulationData loserData = getSoleSurvivor();
-				Population loserPop = environment.getMinSpeciesHetPopulations();
+				Population loserPop = ecosystem.getMinSpeciesHetPopulations();
 				DataSaver dataSaverLoser = new DataSaver(loserData, loserPop);
 				dataSaverLoser.saveLoser();
 
@@ -66,8 +66,8 @@ public class BlankGameLoop implements ActionListener {
 	 * Function that is evoked every second to record data points for every stat of the species and time.
 	 */
 	private void addPopData() {
-		for (int i = 0; i < environment.getNrPopulations(); i ++) {
-			environment.getPopulation(i).saveStatsData(timeElapsed);
+		for (int i = 0; i < ecosystem.getNrPopulations(); i ++) {
+			ecosystem.getPopulation(i).saveStatsData(timeElapsed);
 		}
 	}
 	
@@ -91,10 +91,10 @@ public class BlankGameLoop implements ActionListener {
 	private PopulationData getSoleSurvivor() {
 		int length = 0;
 		PopulationData soleSurvivor = null;
-		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
-			PopulationData pd = environment.getAllPopData()[i];
-			length = pd.getNrSpecies().length-1;
-			if(pd.getNrSpecies()[length]!=0) {
+		for(int i = 0; i < ecosystem.getNrHetrotrophPopulations(); i++ ) {
+			PopulationData pd = ecosystem.getPopulation(i).getPopData();
+			length = pd.getNrSpecies().length - 1;
+			if(pd.getNrSpecies()[length] != 0) {
 				soleSurvivor = pd;
 			}
 			}
@@ -103,8 +103,8 @@ public class BlankGameLoop implements ActionListener {
 	private PopulationData getSoleLoser() {
 		int length = 0;
 		PopulationData soleLoser = null;
-		for(int i = 0; i < environment.getAllPopData().length ; i++ ) {
-			PopulationData pd = environment.getAllPopData()[i];
+		for(int i = 0; i < ecosystem.getNrHetrotrophPopulations() ; i++ ) {
+			PopulationData pd = ecosystem.getPopulation(i).getPopData();
 			length = pd.getNrSpecies().length;
 			if(pd.getNrSpecies()[length-1]==0) {
 				soleLoser = pd;
@@ -128,8 +128,8 @@ public class BlankGameLoop implements ActionListener {
 	
 	public Integer getDeadPopulation() {
 		Integer countDeadPopulation = 0;
-		for (int i = 0; i < environment.getNrPopulations(); i++) {
-			Population pops = environment.getPopulation(i);
+		for (int i = 0; i < ecosystem.getNrPopulations(); i++) {
+			Population pops = ecosystem.getPopulation(i);
 			if(pops.getNrSpecies()==0) {
 				countDeadPopulation += 1;
 			}

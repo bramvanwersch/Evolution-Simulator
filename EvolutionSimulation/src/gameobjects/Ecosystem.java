@@ -428,19 +428,6 @@ public class Ecosystem {
 		}
 		return minPopulation;
 	}
-	
-	/**
-	 * Function that returns a list of all the PopulationData classes that 
-	 * are associated with the individual populations.
-	 * @return An array of PopulationData Objects.
-	 */
-	public PopulationData[] getAllPopData() {
-		PopulationData[] popDataArray = new PopulationData[hetrotrophPopulations.size()];
-		for (int i = 0; i < hetrotrophPopulations.size(); i++) {
-			popDataArray[i] = hetrotrophPopulations.get(i).getPopData();
-		}
-		return popDataArray;
-	}
 
 /*
  * Data saving functions	
