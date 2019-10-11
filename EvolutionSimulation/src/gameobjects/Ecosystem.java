@@ -100,7 +100,7 @@ public class Ecosystem {
 			}
 		}
 		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
-		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,50,1, Color.GREEN, 1.0));
+		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,20,1, Color.GREEN, 1.0));
 		autotrophPopulations.add(p);
 	}
 
