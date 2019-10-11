@@ -191,7 +191,8 @@ public class Ecosystem {
 			AutotrophPopulation p = autotrophPopulations.get(loc);
 			for(int j = 0; j < p.getNrSpecies(); j++){
 				AutotrophSpecies s = p.getSpecies(j);
-				s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
+				double fractionConsumed = s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
+				environment.reduceNutrientValues(s.getxLoc(), s.getyLoc(), fractionConsumed);
 			}
 				
 		}

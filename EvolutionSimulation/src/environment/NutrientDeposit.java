@@ -7,7 +7,7 @@ public class NutrientDeposit {
 	private int y;
 	private double value;
 	
-	public NutrientDeposit(String type, int maxValue) {
+	public NutrientDeposit(int maxValue) {
 		this.value = Math.random() * (maxValue- 0.75* maxValue) + 0.75* maxValue;
 		this.radius = (int) (Math.random() * (75 - 50) + 50);
 		x = (int) (Math.random() * (WINDOW_SIZE - 2 * radius));
@@ -42,6 +42,17 @@ public class NutrientDeposit {
 			double inverseFractionDistance = 1 - radialDistanceFromCentre/radius;
 			return inverseFractionDistance * value;
 		}
+		return 0.0;
+	}
+	
+	public double removeAmount(double amount) {
+		if (this.value == 0) return amount;
+		if (this.value - amount < 0) {
+			double left =  amount  - this.value;
+			this.value = 0;
+			return left;
+		}
+		this.value -= amount;
 		return 0.0;
 	}
 	

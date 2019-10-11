@@ -9,7 +9,7 @@ import genome.Genome;
 public class AutotrophSpecies extends Species{
 	private final int MAX_ENERGY_GAIN = 50;
 	//value at wich the growth efficincy of the species goes down
-	private final static int MINIMAL_NUTRIENT_NEEDED = 20;
+	public final static int MINIMAL_NUTRIENT_NEEDED = 20;
 	private int maxAge;
 	private int size;
 
@@ -64,7 +64,6 @@ public class AutotrophSpecies extends Species{
 				lowestVal = val;
 			}
 		}
-		//factor between 1 and 0.1 if all above 20 addition factor stays 1
 		additionFactor *= lowestVal / MINIMAL_NUTRIENT_NEEDED * 0.9 + 0.1;
 		changeEnergy(additionFactor * MAX_ENERGY_GAIN);
 		return additionFactor;
