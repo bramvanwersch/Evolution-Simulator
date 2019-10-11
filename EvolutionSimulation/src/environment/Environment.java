@@ -9,11 +9,10 @@ import utility_functions.Utility;
 /**
  * Class that holds the environment related values.
  * @author Bram
- *
  */
 public class Environment {
 	private NutrientDeposit[][] allDeposits;
-	private final double REGENERATION_RATE = 50.0;
+	private final double REGENERATION_RATE = 25.0;
 	
 	/**
 	 * Constructor that creates deposits for the 3 main nutrients. 
@@ -159,7 +158,7 @@ public class Environment {
 	 * checks for zero values to speed up the process.
 	 * @param xCoord of the location the information is requested for
 	 * @param yCoord of the location the information is requested for
-	 * @param fractionConsumed is a fraction of the MAXIMUM_NUTRIENT_NEEDED
+	 * @param fractionConsumed is a fraction of the MAXIMUM_CONSUMPTION_RATE
 	 * based on the nutrient that is the least available.
 	 */
 	public void reduceNutrientValues(int xCoord, int yCoord, double fractionConsumed) {
@@ -169,7 +168,9 @@ public class Environment {
 				double reduceAmount = (AutotrophSpecies.MAXIMUM_CONSUMPTION_RATE * fractionConsumed);
 				for (int j = 0; j < depositsList[i].length; j++) {
 					if (reduceAmount == 0.0) break;
-					reduceAmount = allDeposits[i][j].removeAmount(reduceAmount);
+					if (depositsList[i][j] > 0) {
+						reduceAmount = allDeposits[i][j].removeAmount(reduceAmount);
+					}
 				}
 			}
 		}

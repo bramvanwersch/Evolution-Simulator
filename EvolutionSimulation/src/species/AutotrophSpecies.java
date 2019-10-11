@@ -53,7 +53,7 @@ public class AutotrophSpecies extends Species{
 	 * values.
 	 * @param nutrientValues is an array that contains the values for the three
 	 * nutrients and determines how much energy the plant can consume.
-	 * @return a fraction between 1 and 0.1 that tells how much of the 
+	 * @return a fraction between 1 and 0.05 that tells how much of the 
 	 * nutrients where consumed.
 	 */
 	public double eat(double[] nutrientValues) {
@@ -64,7 +64,7 @@ public class AutotrophSpecies extends Species{
 				lowestVal = val;
 			}
 		}
-		additionFactor *= lowestVal / MAXIMUM_CONSUMPTION_RATE * 0.9 + 0.1;
+		additionFactor *= lowestVal / MAXIMUM_CONSUMPTION_RATE * 0.95 + 0.05;
 		changeEnergy(additionFactor * MAX_ENERGY_GAIN);
 		return additionFactor;
 	}

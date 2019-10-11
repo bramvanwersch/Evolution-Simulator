@@ -36,7 +36,7 @@ public class Ecosystem {
 	 * concerning the options that where chosen.
 	 */
 	public Ecosystem(OptionData options) {
-		this.environment = new Environment(new int[] {50,500}, new int[] {50,500}, new int[] {50,500});
+		this.environment = new Environment(new int[] {50,5000}, new int[] {50,5000}, new int[] {50,5000});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
 		this.averagePopData = new PopulationData();
