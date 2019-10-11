@@ -1,6 +1,8 @@
 package environment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import species.AutotrophSpecies;
 
@@ -10,10 +12,8 @@ import species.AutotrophSpecies;
  *
  */
 public class Environment {
-	private NutrientDeposit[] nitrogenDeposits;
-	private NutrientDeposit[] phosporusDeposits;
-	private NutrientDeposit[] potassiumDeposits;
 	private NutrientDeposit[][] allDeposits;
+	private final double REGENERATION_RATE = 50.0;
 	
 	/**
 	 * Constructor that creates deposits for the 3 main nutrients. 
@@ -25,10 +25,35 @@ public class Environment {
 	 * deposits and the maximum amount of potassium in the deposit.
 	 */
 	public Environment(int[] nitrogen, int[] phosporus, int[] potassium) {
-		nitrogenDeposits = createDeposits(nitrogen);
-		phosporusDeposits = createDeposits(phosporus);
-		potassiumDeposits = createDeposits(potassium);
-		allDeposits = new NutrientDeposit[][] {nitrogenDeposits, phosporusDeposits, potassiumDeposits};
+		allDeposits = new NutrientDeposit[][] {createDeposits(nitrogen), createDeposits(phosporus), createDeposits(potassium)};
+	}
+	
+	public void nextTimePoint() {
+		for (int i = 0; i < allDeposits.length; i++) {
+			allDeposits[i] = shuffleArray(allDeposits[i]);
+		}
+		removeEmptyDeposits();
+		regenerateNutrients();
+	}
+
+	private void regenerateNutrients() {
+		for (int i = 0; i < allDeposits.length; i++) {
+			for (int j = 0; j < allDeposits[i].length; j++) {
+				allDeposits[i][j].addNutrient(REGENERATION_RATE);
+			}
+		}
+	}
+
+	private void removeEmptyDeposits() {
+		for (int i = 0; i < allDeposits.length; i++) {
+			ArrayList<NutrientDeposit> existingDeposits = new ArrayList<NutrientDeposit>();
+			for (int j = 0; j < allDeposits[i].length; j++) {
+				if (allDeposits[i][j].getTotalAvailableNutrient() > 0.0) {
+					existingDeposits.add(allDeposits[i][j]);
+				}
+			}
+			allDeposits[i] = existingDeposits.toArray(new NutrientDeposit[existingDeposits.size()]);
+		}
 	}
 
 	/**
@@ -50,15 +75,15 @@ public class Environment {
 
 	//TODO these functions need to return individual Objects not lists like this.
 	public NutrientDeposit[] getNitrogenDeposits() {
-		return nitrogenDeposits;
+		return allDeposits[0];
 	}
 
 	public NutrientDeposit[] getPhosporusDeposits() {
-		return phosporusDeposits;
+		return allDeposits[1];
 	}
 
 	public NutrientDeposit[] getPotassiumDeposits() {
-		return potassiumDeposits;
+		return allDeposits[2];
 	}
 	
 	/**
@@ -141,12 +166,31 @@ public class Environment {
 		double[][] depositsList = getNutrientDepositValueList(xCoord, yCoord);
 		for (int i = 0; i < depositsList.length; i++) {
 			if (anyAboveZero(depositsList[i])) {
-				double reduceAmount = (AutotrophSpecies.MINIMAL_NUTRIENT_NEEDED * fractionConsumed);
+				double reduceAmount = (AutotrophSpecies.MAXIMUM_CONSUMPTION_RATE * fractionConsumed);
 				for (int j = 0; j < depositsList[i].length; j++) {
 					if (reduceAmount == 0.0) break;
 					reduceAmount = allDeposits[i][j].removeAmount(reduceAmount);
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Creates a randomly shuffled array. By swapping each position in the array
+	 * with a random position of the array (can be the same position).
+	 * @ar the array that needs to be shuffled
+	 * @return an integer array that contains as much numbers as populations. 
+	 * This is to ensure that populations are looped trough at random but the 
+	 * data collection stays logical.
+	 */
+	private NutrientDeposit[] shuffleArray(NutrientDeposit[] ar) {
+		Random rnd = new Random();
+		for (int i = ar.length - 1; i > 0; i--){
+			int index = rnd.nextInt(i + 1);
+			NutrientDeposit a = ar[index];
+			ar[index] = ar[i];
+			ar[i] = a;
+		}
+		return ar;
 	}
 }

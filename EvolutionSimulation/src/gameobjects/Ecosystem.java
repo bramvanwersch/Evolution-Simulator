@@ -14,6 +14,7 @@ import species.HetrotrophSpecies;
 import species.Species;
 import user_input.OptionData;
 import user_input.PopulationSettings;
+import utility_functions.Utility;
 
 /**
  * Class that holds the dependencies between populations and their environment.
@@ -35,7 +36,7 @@ public class Ecosystem {
 	 * concerning the options that where chosen.
 	 */
 	public Ecosystem(OptionData options) {
-		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
+		this.environment = new Environment(new int[] {50,500}, new int[] {50,500}, new int[] {50,500});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
 		this.averagePopData = new PopulationData();
@@ -59,6 +60,7 @@ public class Ecosystem {
 			Population sp = autotrophPopulations.get(loc);
 			sp.nextTimePoint();
 		}
+		environment.nextTimePoint();
 		hetrotrophEating();
 		autotrophEating();
 		shuffleLists();
@@ -208,27 +210,8 @@ public class Ecosystem {
 			Population sp = getPopulation(i);
 			sp.shuffleSpeciesList();
 		}
-		this.hetPopOrderSeed = shufflePopOrderSeed(hetPopOrderSeed);
-		this.autPopOrderSeed = shufflePopOrderSeed(autPopOrderSeed);
-	}
-	
-	/**
-	 * Creates a randomly shuffled array. By swapping each position in the array
-	 * with a random position of the array (can be the same position).
-	 * @ar the array that needs to be shuffled
-	 * @return an integer array that contains as much numbers as populations. 
-	 * This is to ensure that populations are looped trough at random but the 
-	 * data collection stays logical.
-	 */
-	private int[] shufflePopOrderSeed(int[] ar) {
-		Random rnd = new Random();
-		for (int i = ar.length - 1; i > 0; i--){
-			int index = rnd.nextInt(i + 1);
-			int a = ar[index];
-			ar[index] = ar[i];
-			ar[i] = a;
-		}
-		return ar;
+		this.hetPopOrderSeed = Utility.shuffleArray(hetPopOrderSeed);
+		this.autPopOrderSeed = Utility.shuffleArray(autPopOrderSeed);
 	}
 	
 //	private boolean checkSpeciesPlacement(Species spec) {
