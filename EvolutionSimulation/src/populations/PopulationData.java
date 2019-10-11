@@ -4,6 +4,8 @@ package populations;
 import java.util.ArrayList;
 import java.util.List;
 
+import utility_functions.Utility;
+
 /**
  * Class that records a data point for every second the a population is alive. It holds
  * the data for the graph to display. It saves the average, min, max value for each time
@@ -184,31 +186,18 @@ public class PopulationData {
 		for (int i = 0; i < dataArray.size(); i += dataDivisionFactor) {
 			if (i + dataDivisionFactor <= dataArray.size()) {
 				List<Double> values  = dataArray.subList(i, (int) (i + dataDivisionFactor));
-				averagedData.add(sum(values)/dataDivisionFactor);
+				averagedData.add(Utility.sum(values)/dataDivisionFactor);
 			}
 			else {
 				List<Double> values = new ArrayList<Double>();
 				for (int j = i; j < dataArray.size(); j++) {
 					values.add(dataArray.get(i));
 				}
-				averagedData.add(sum(values)/(double) values.size());
+				averagedData.add(Utility.sum(values)/(double) values.size());
 			}
 		}
 		return averagedData;
 	}
-	
-	/**
-	 * Calculates a sum of a list of doubles. 
-	 * @param values is a list of doubles 
-	 * @return a double that represents the sum of the list of doubles.
-	 */
-    public double sum(List<Double> values) {
-        double sum = 0;
-        for (double val : values) {
-            sum += val;
-        }
-        return sum;
-    }
     
     /**
      * Returns the sum of all values in a list of double arrays. This is used

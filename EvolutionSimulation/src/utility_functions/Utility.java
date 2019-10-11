@@ -1,5 +1,6 @@
 package utility_functions;
 
+import java.util.List;
 import java.util.Random;
 
 public class Utility {
@@ -22,4 +23,30 @@ public class Utility {
 		}
 		return ar;
 	}
+	
+	/**
+	 * Calculates a sum of a list of doubles. 
+	 * @param values is a list of doubles 
+	 * @return a double that represents the sum of the list of doubles.
+	 */
+	public static double sum(List<Double> values) {
+        double sum = 0;
+        for (double val : values) {
+            sum += val;
+        }
+        return sum;
+	}
+	
+	/**
+	 * Calculates a sum of an array of doubles. 
+	 * @param values is a array of doubles 
+	 * @return a double that represents the sum of the array of doubles.
+	 */
+    public static double sum(double[] values) {
+        double sum = 0;
+        for (double val : values) {
+            sum += val;
+        }
+        return sum;
+    }
 }

@@ -96,15 +96,6 @@ public class TestPopulationData extends TestCase {
 		assertEquals(res, p.reduceAvgData(a));
 	}
 	
-	public void testSum() {
-		PopulationData p = new PopulationData();
-		ArrayList<Double> a = new ArrayList<Double>();
-		a.add(1.0);
-		a.add(2.0);
-		a.add(5.0);
-		assertEquals(8.0, p.sum(a));
-	}
-	
 	public void testAllSum() {
 		PopulationData p = new PopulationData();
 		ArrayList<double[]> a = new ArrayList<double[]>();

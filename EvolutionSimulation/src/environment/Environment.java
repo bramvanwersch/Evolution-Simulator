@@ -1,10 +1,10 @@
 package environment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import species.AutotrophSpecies;
+import utility_functions.Utility;
 
 /**
  * Class that holds the environment related values.
@@ -110,7 +110,7 @@ public class Environment {
 		double[] nutrientValues = new double[] {0,0,0};
 		double[][] depositsList = getNutrientDepositValueList(xCoord, yCoord);
 		for (int i = 0; i < depositsList.length; i++) {
-			nutrientValues[i] = sum(depositsList[i]);
+			nutrientValues[i] = Utility.sum(depositsList[i]);
 		}
 		return nutrientValues;
 	}
@@ -136,19 +136,6 @@ public class Environment {
 		return depositsList;
 	}
 	
-	/**
-	 * Calculates a sum of an array of doubles. 
-	 * @param values is a list of doubles 
-	 * @return a double that represents the sum of the list of doubles.
-	 */
-    private double sum(double[] values) {
-        double sum = 0;
-        for (double val : values) {
-            sum += val;
-        }
-        return sum;
-    }
-    
     /**
      * Loops trough an array and tests if any value is not 0. If a value larger
      * then 0 is encountered true is immediatly returned.
