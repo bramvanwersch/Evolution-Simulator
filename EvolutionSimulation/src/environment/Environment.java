@@ -25,9 +25,13 @@ public class Environment {
 	 * deposits and the maximum amount of potassium in the deposit.
 	 */
 	public Environment(int[] nitrogen, int[] phosporus, int[] potassium) {
-		allDeposits = new NutrientDeposit[][] {createDeposits(nitrogen), createDeposits(phosporus), createDeposits(potassium)};
+		allDeposits = new NutrientDeposit[][] {createDeposits(nitrogen),
+			createDeposits(phosporus), createDeposits(potassium)};
 	}
 	
+	/**
+	 * Triggers methods that happen each update for the environment.
+	 */
 	public void nextTimePoint() {
 		for (int i = 0; i < allDeposits.length; i++) {
 			allDeposits[i] = shuffleArray(allDeposits[i]);
@@ -36,14 +40,10 @@ public class Environment {
 		regenerateNutrients();
 	}
 
-	private void regenerateNutrients() {
-		for (int i = 0; i < allDeposits.length; i++) {
-			for (int j = 0; j < allDeposits[i].length; j++) {
-				allDeposits[i][j].addNutrient(REGENERATION_RATE);
-			}
-		}
-	}
-
+	/**
+	 * Checks if there are nutrients in a deposit and removes all deposits that
+	 * are empty.
+	 */
 	private void removeEmptyDeposits() {
 		for (int i = 0; i < allDeposits.length; i++) {
 			ArrayList<NutrientDeposit> existingDeposits = new ArrayList<NutrientDeposit>();
@@ -53,6 +53,18 @@ public class Environment {
 				}
 			}
 			allDeposits[i] = existingDeposits.toArray(new NutrientDeposit[existingDeposits.size()]);
+		}
+	}
+	
+	/**
+	 * Adds a small amount of  nutrients into every deposit equal to the
+	 * REGENERATION_RATE.
+	 */
+	private void regenerateNutrients() {
+		for (int i = 0; i < allDeposits.length; i++) {
+			for (int j = 0; j < allDeposits[i].length; j++) {
+				allDeposits[i][j].addNutrient(REGENERATION_RATE);
+			}
 		}
 	}
 
@@ -138,9 +150,10 @@ public class Environment {
     }
     
     /**
-     * Counts all values in a list that are bigger then 0
+     * Loops trough an array and tests if any value is not 0. If a value larger
+     * then 0 is encountered true is immediatly returned.
      * @param array of doubles
-     * @return the number of values in the array that are bigger then 0.
+     * @return a boolean that tells if there is a value above 0 in the array.
      */
     private boolean anyAboveZero(double[] array) {
     	for (double val : array) {

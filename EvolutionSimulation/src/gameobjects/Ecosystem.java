@@ -48,7 +48,8 @@ public class Ecosystem {
 	}
 
 	/**
-	 * Container function for invoking methods that need to be updated every frame for each species in a population
+	 * Container function for invoking methods that need to be updated every
+	 * frame for each species in a population
 	 */
 	public void nextTimeStep() {
 		
