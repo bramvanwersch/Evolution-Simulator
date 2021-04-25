@@ -95,4 +95,9 @@ public class PopulationSettings {
 			return "Hetrotroph";
 		}
 	}
+
+	public int[] getMaxNutrientValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

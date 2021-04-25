@@ -56,7 +56,7 @@ public class OptionMenu extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run() { 
 				try {
 					new OptionMenu();
 				} catch (Exception e) {

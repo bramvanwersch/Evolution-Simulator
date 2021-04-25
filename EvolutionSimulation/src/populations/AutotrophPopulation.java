@@ -28,15 +28,15 @@ public class AutotrophPopulation extends Population{
 	public AutotrophPopulation(PopulationSettings options) {
 		super(options);
 		this.speciesList = new ArrayList<AutotrophSpecies>();
-		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), ENERGY);
+		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), ENERGY, options.getMaxNutrientValues());
 	}
 	
-	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy) {
+	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy, int[] maxNutrientValues) {
 		for (int j = 0; j < nrSpecies; j++) {
 			AutotrophSpecies s = null;
 			if (getNrSpecies() == 0) {
 				if (getType().equals("Plant")) {
-						s = new Plant(size, maxAge, energy);
+						s = new Plant(size, maxAge, energy, maxNutrientValues);
 				}
 			}
 			if (s == null){
@@ -116,12 +116,12 @@ public class AutotrophPopulation extends Population{
 	 */
 	@Override
 	public void createOffspring(int index) {
-		Species s = speciesList.get(index);
+		AutotrophSpecies s = speciesList.get(index);
 		s.divideEnergy();
 		int[] xyLoc = s.getOfsetXYLoc();
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant") && !isOverlapping(xyLoc[0], xyLoc[1])) {
-			sCopy = new Plant(xyLoc[0], xyLoc[1], s.getSize(), s.getMaxAge(), s.getEnergy());
+			sCopy = new Plant(xyLoc[0], xyLoc[1], s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues());
 		}
 		if(sCopy != null) {
 			speciesList.add(sCopy);
@@ -136,10 +136,10 @@ public class AutotrophPopulation extends Population{
 	 */
 	@Override
 	public void cloneOffspring(int index) {
-		Species s = speciesList.get(index);
+		AutotrophSpecies s = speciesList.get(index);
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant")) {
-			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy());
+			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues());
 		}
 		if(sCopy != null) {
 			sCopy.setXYLoc();

@@ -14,6 +14,7 @@ import species.HetrotrophSpecies;
 import species.Species;
 import user_input.OptionData;
 import user_input.PopulationSettings;
+import utility_functions.Utility;
 
 /**
  * Class that holds the dependencies between populations and their environment.
@@ -35,7 +36,7 @@ public class Ecosystem {
 	 * concerning the options that where chosen.
 	 */
 	public Ecosystem(OptionData options) {
-		this.environment = new Environment(new int[] {50,50}, new int[] {50,50}, new int[] {50,50});
+		this.environment = new Environment(new int[] {50,5000}, new int[] {50,5000}, new int[] {50,5000});
 		this.hetrotrophPopulations = new ArrayList<HetrotrophPopulation>();
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
 		this.averagePopData = new PopulationData();
@@ -47,7 +48,8 @@ public class Ecosystem {
 	}
 
 	/**
-	 * Container function for invoking methods that need to be updated every frame for each species in a population
+	 * Container function for invoking methods that need to be updated every
+	 * frame for each species in a population
 	 */
 	public void nextTimeStep() {
 		
@@ -59,6 +61,7 @@ public class Ecosystem {
 			Population sp = autotrophPopulations.get(loc);
 			sp.nextTimePoint();
 		}
+		environment.nextTimePoint();
 		hetrotrophEating();
 		autotrophEating();
 		shuffleLists();
@@ -97,7 +100,7 @@ public class Ecosystem {
 			}
 		}
 		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
-		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,50,1, Color.GREEN, 1.0));
+		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,20,1, Color.GREEN, 1.0));
 		autotrophPopulations.add(p);
 	}
 
@@ -191,7 +194,8 @@ public class Ecosystem {
 			AutotrophPopulation p = autotrophPopulations.get(loc);
 			for(int j = 0; j < p.getNrSpecies(); j++){
 				AutotrophSpecies s = p.getSpecies(j);
-				s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
+				double fractionConsumed = s.eat(environment.getNutrientValues(s.getxLoc(), s.getyLoc()));
+				environment.reduceNutrientValues(s.getxLoc(), s.getyLoc(), fractionConsumed);
 			}
 				
 		}
@@ -207,27 +211,8 @@ public class Ecosystem {
 			Population sp = getPopulation(i);
 			sp.shuffleSpeciesList();
 		}
-		this.hetPopOrderSeed = shufflePopOrderSeed(hetPopOrderSeed);
-		this.autPopOrderSeed = shufflePopOrderSeed(autPopOrderSeed);
-	}
-	
-	/**
-	 * Creates a randomly shuffled array. By swapping each position in the array
-	 * with a random position of the array (can be the same position).
-	 * @ar the array that needs to be shuffled
-	 * @return an integer array that contains as much numbers as populations. 
-	 * This is to ensure that populations are looped trough at random but the 
-	 * data collection stays logical.
-	 */
-	private int[] shufflePopOrderSeed(int[] ar) {
-		Random rnd = new Random();
-		for (int i = ar.length - 1; i > 0; i--){
-			int index = rnd.nextInt(i + 1);
-			int a = ar[index];
-			ar[index] = ar[i];
-			ar[i] = a;
-		}
-		return ar;
+		this.hetPopOrderSeed = Utility.shuffleArray(hetPopOrderSeed);
+		this.autPopOrderSeed = Utility.shuffleArray(autPopOrderSeed);
 	}
 	
 //	private boolean checkSpeciesPlacement(Species spec) {

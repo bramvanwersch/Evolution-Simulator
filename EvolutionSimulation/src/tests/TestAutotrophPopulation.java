@@ -16,7 +16,7 @@ public class TestAutotrophPopulation extends TestCase {
 	
 	public void testIsOverlappingPositive() {
 		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
-		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000);
+		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000, new int[] {0,0,0});
 		p.addSpecies(s);
 		p.getSpecies(0).setXYLoc(10, 10);
 		assertEquals(true, p.isOverlapping(10, 10));
@@ -30,7 +30,7 @@ public class TestAutotrophPopulation extends TestCase {
 	
 	public void testIsOverlappingNegative() {
 		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
-		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000);
+		AutotrophSpecies s = new AutotrophSpecies(10, 10, 2000, new int[] {0,0,0});
 		p.addSpecies(s);
 		p.getSpecies(0).setXYLoc(100, 100);
 		assertEquals(true, p.isOverlapping(100, 100));
@@ -44,7 +44,7 @@ public class TestAutotrophPopulation extends TestCase {
 	
 	public void testCloneOffspring() {
 		AutotrophPopulation p = new AutotrophPopulation(createOptionSettings());
-		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000);
+		AutotrophSpecies h = new AutotrophSpecies(10, 10, 2000, new int[] {0,0,0});
 		p.addSpecies(h);
 		p.cloneOffspring(0);
 		AutotrophSpecies sp1 = p.getSpecies(0);

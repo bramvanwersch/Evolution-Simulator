@@ -21,7 +21,7 @@ public abstract class HetrotrophSpecies extends Species {
 	 * another species.
 	 */
 	public HetrotrophSpecies(int size, int speed, int maxAge, int scentRange, double eatSizeFactor) {
-		super(20000);
+		super(10000);
 		this.genome = new Genome(new String[] {"size","speed","maxAge","scentRange"}, new int[] {size, speed, maxAge, scentRange});
 		this.genome.setGeneValues();
 		this.facingDirection = Math.random() * 2 * Math.PI;
@@ -40,7 +40,7 @@ public abstract class HetrotrophSpecies extends Species {
 	 * another species.
 	 */
 	public HetrotrophSpecies(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
-		super(energy, number, 20000);
+		super(energy, number, 10000);
 		this.genome = genome;
 		this.eatSizeFactor = eatSizeFactor;
 		this.facingDirection = Math.random() * 2 * Math.PI;

@@ -60,16 +60,17 @@ public class TerrainPanel extends JPanel{
 	private void drawNutrientCircles() {
 		for (NutrientDeposit nd : ecosystem.getEnvironment().getNitrogenDeposits()){
 			g2d.setColor(new Color(255, 0, 0, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
+			g2d.fillOval(nd.getXPos() - nd.getRadius(), nd.getYPos() - nd.getRadius()
+					, nd.getRadius() * 2, nd.getRadius() * 2);
 		}
 		for (NutrientDeposit nd : ecosystem.getEnvironment().getPhosporusDeposits()){
 			g2d.setColor(new Color(0, 0, 255, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
-		}
+			g2d.fillOval(nd.getXPos() - nd.getRadius(), nd.getYPos() - nd.getRadius()
+					, nd.getRadius() * 2, nd.getRadius() * 2);		}
 		for (NutrientDeposit nd : ecosystem.getEnvironment().getPotassiumDeposits()){
 			g2d.setColor(new Color(255, 255, 0, 50));
-			g2d.fillOval(nd.getXPos(), nd.getYPos(), nd.getSize(), nd.getSize());
-		}
+			g2d.fillOval(nd.getXPos() - nd.getRadius(), nd.getYPos() - nd.getRadius()
+					, nd.getRadius() * 2, nd.getRadius() * 2);		}
 	}
 
 	/**

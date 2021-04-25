@@ -42,7 +42,7 @@ public abstract class Population {
 	}
 	
 	/**
-	 * Triggers methods that happen each update for each population
+	 * Triggers methods that happen each update for a population
 	 */
 	public abstract void nextTimePoint();
 	
