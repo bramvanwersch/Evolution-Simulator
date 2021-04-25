@@ -47,6 +47,7 @@ public class AutotrophSpecies extends Species{
 		this.maxAge = maxAge;
 		this.size = size;
 		setXYLoc(x, y);
+		this.nutrientValues = addNutrientValues(maxNutrientValues);
 	}
 	
 	@Override
@@ -97,30 +98,29 @@ public class AutotrophSpecies extends Species{
 	 */
 	public double eat(double[] nutrientValues) {
 		double additionFactor = 1.0;
-//		double lowestVal = MAXIMUM_CONSUMPTION_RATE;
-//		for (double val: nutrientValues) {
-//			if (val < lowestVal) {
-//				lowestVal = val;
-//			}
-//		}
-//		if (lowestVal < MAXIMUM_CONSUMPTION_RATE) {
-//			additionFactor = lowestVal / MAXIMUM_CONSUMPTION_RATE * (1 - MINIMAL_GROWTH_FACTOR) 
-//					+ MINIMAL_GROWTH_FACTOR;
-//		}
-//
-//		//the two nutrients that might be more abundant can have a certain additional impact
-//		//this makes is so they have a function if not all 3 are present and the balance
-//		//of nutrients is better controlled. They have the same impact as the lowest val
+		double lowestVal = MAXIMUM_CONSUMPTION_RATE;
+		for (double val: nutrientValues) {
+			if (val < lowestVal) {
+				lowestVal = val;
+			}
+		}
+		if (lowestVal < MAXIMUM_CONSUMPTION_RATE) {
+			additionFactor = lowestVal / MAXIMUM_CONSUMPTION_RATE * (1 - MINIMAL_GROWTH_FACTOR) 
+					+ MINIMAL_GROWTH_FACTOR;
+		}
+
+		//the two nutrients that might be more abundant can have a certain additional impact
+		//this makes is so they have a function if not all 3 are present and the balance
+		//of nutrients is better controlled. They have the same impact as the lowest val
+		for (double val: nutrientValues) {
+			if (val != lowestVal) {
+				additionFactor += val / MAXIMUM_CONSUMPTION_RATE * (0.1 - MINIMAL_GROWTH_FACTOR) 
+						+ MINIMAL_GROWTH_FACTOR;
+			}
+		}
 //		System.out.println(additionFactor);
-//		for (double val: nutrientValues) {
-//			if (val != lowestVal) {
-//				additionFactor += val / MAXIMUM_CONSUMPTION_RATE * (0.1 - MINIMAL_GROWTH_FACTOR) 
-//						+ MINIMAL_GROWTH_FACTOR;
-//			}
-//		}
-////		System.out.println(additionFactor);
-////		System.out.println();
-//		changeEnergy(additionFactor * MAX_ENERGY_GAIN);
+//		System.out.println();
+		changeEnergy(additionFactor * MAX_ENERGY_GAIN);
 		return additionFactor;
 	}
 
