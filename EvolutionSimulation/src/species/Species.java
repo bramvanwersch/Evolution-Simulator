@@ -18,6 +18,7 @@ import genome.Genome;
  *
  */
 public abstract class Species{
+	public double digestion_efficiency = 1;
 	private final int ENERGY_DIVISION = 2;
 	private int startingEnergy;
 	public final int WINDOW_SIZE = 950;
@@ -52,6 +53,14 @@ public abstract class Species{
 		this.startingEnergy = startEnergy;
 		this.no = number;
 		this.age = 0;
+	}
+	
+	/**
+	 * Get the efficiency that energy in food is converted to energy for a species.
+	 * @return double of the efficiency as a fraction
+	 */
+	protected double getDigestionEfficiency() {
+		return digestion_efficiency;
 	}
 	
 	/**
@@ -238,7 +247,7 @@ public abstract class Species{
 	 * @param energyConsumption Double telling how much the energy has to change
 	 */
 	public void changeEnergy(double energyConsumption) {
-		this.energy += energyConsumption;
+		this.energy += energyConsumption * getDigestionEfficiency();
 	}
 	
 	/**

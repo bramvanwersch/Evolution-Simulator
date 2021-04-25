@@ -3,7 +3,8 @@ package species;
 import genome.Genome;
 
 public class Herbivore extends HetrotrophSpecies{
-	
+	public double digestion_efficiency = 0.5;
+
 	/**
 	 * Constructor for cloning herbivores
 	 * @param size the maximum size of the hetrotrophspecies
@@ -30,6 +31,15 @@ public class Herbivore extends HetrotrophSpecies{
 	public Herbivore(int x, int y, int energy, Genome genome, int number, double eatSizeFactor) {
 		super(x, y,energy, genome, number, eatSizeFactor);
 	}
+	
+	/**
+	 * Get the efficiency that energy in food is converted to energy for a species.
+	 * @return double of the efficiency as a fraction
+	 */
+	protected double getDigestionEfficiency() {
+		return digestion_efficiency;
+	}
+	
 	
 	/**
 	 * Needs proper implementation

@@ -3,6 +3,7 @@ package species;
 import genome.Genome;
 
 public class Carnivore extends HetrotrophSpecies{
+	public double digestion_efficiency = 0.75;
 	private final int FOOD_DIGEST_TIME = 1000;
 	boolean eating = false;
 	private int timeSinceEating;
@@ -36,6 +37,15 @@ public class Carnivore extends HetrotrophSpecies{
 		super(x, y, energy, genome, number, eatSizeFactor);
 		this.timeSinceEating = 0;
 	}
+	
+	/**
+	 * Get the efficiency that energy in food is converted to energy for a species.
+	 * @return double of the efficiency as a fraction
+	 */
+	protected double getDigestionEfficiency() {
+		return digestion_efficiency;
+	}
+	
 	
 	/**
 	 * For evoking methods specific for carnivores only that need to be checked every time point.

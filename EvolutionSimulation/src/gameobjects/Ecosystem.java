@@ -41,7 +41,6 @@ public class Ecosystem {
 		this.autotrophPopulations = new ArrayList<AutotrophPopulation>();
 		this.averagePopData = new PopulationData();
 		this.averagePopData.setReduce(true);
-		//Still hardcoded parts needs addition of option panel data.
 		createPopulations(options);
 		this.hetPopOrderSeed = createPopOrderSeed(hetrotrophPopulations.size());
 		this.autPopOrderSeed = createPopOrderSeed(autotrophPopulations.size());

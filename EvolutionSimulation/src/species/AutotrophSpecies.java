@@ -118,8 +118,6 @@ public class AutotrophSpecies extends Species{
 						+ MINIMAL_GROWTH_FACTOR;
 			}
 		}
-//		System.out.println(additionFactor);
-//		System.out.println();
 		changeEnergy(additionFactor * MAX_ENERGY_GAIN);
 		return additionFactor;
 	}
