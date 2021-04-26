@@ -199,11 +199,6 @@ public abstract class HetrotrophSpecies extends Species {
 	 */
 	@Override
 	public int getSize() {
-		double smallerFactor = ((double) getAge() ) / getMaxAge();
-		if (smallerFactor <= 0.5) {
-			if ((int) ((0.5 + smallerFactor) * getMaxSize()) == 0) return 1;
-			return (int) ((0.5 + smallerFactor) * getMaxSize());
-		}
 		return getMaxSize();
 	}
 
