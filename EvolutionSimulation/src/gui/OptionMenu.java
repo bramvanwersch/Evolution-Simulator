@@ -242,7 +242,7 @@ public class OptionMenu extends JFrame {
 		contentPane.add(startGameButton, gbc_startGameButton);
 		
 		//Add a species at the start to not create an empty playing field.
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < Constants.DEFAULT_START_POPULATIONS; i++) {
 			addSpeciesPanel();
 		}	
 	}
@@ -299,7 +299,7 @@ public class OptionMenu extends JFrame {
 		nameTxt.setColumns(10);
 		speciesNames.add(nameTxt);
 		
-		JLabel noIndLabel = new JLabel("No ind.(1,20):");
+		JLabel noIndLabel = new JLabel(String.format("No ind.(1, %d):", Constants.MAX_INDIVIDUALS));
 		noIndLabel.setToolTipText("Number of individuals.\r\n");
 		GridBagConstraints gbc_noIndLabel = new GridBagConstraints();
 		gbc_noIndLabel.anchor = GridBagConstraints.WEST;
@@ -309,7 +309,7 @@ public class OptionMenu extends JFrame {
 		gbc_noIndLabel.gridy = 2;
 		panel_1.add(noIndLabel, gbc_noIndLabel);
 		
-		SpinnerNumberModel indModel = new SpinnerNumberModel(1, 1, 20, 1);
+		SpinnerNumberModel indModel = new SpinnerNumberModel(Constants.DEFAULT_START_INDIVIDUALS, 1, Constants.MAX_INDIVIDUALS, 1);
 		JSpinner noIndField = new JSpinner(indModel);
 		GridBagConstraints gbc_noIndField = new GridBagConstraints();
 		gbc_noIndField.anchor = GridBagConstraints.WEST;
@@ -320,7 +320,7 @@ public class OptionMenu extends JFrame {
 		panel_1.add(noIndField, gbc_noIndField);
 		textList.add(noIndField);
 		
-		JLabel sizeLabel = new JLabel("Size (1,150):");
+		JLabel sizeLabel = new JLabel(String.format("Size (1, %d):", Constants.MAX_SIZE));
 		sizeLabel.setToolTipText("Starting diameter of the species in pixels.");
 		GridBagConstraints gbc_sizeLabel = new GridBagConstraints();
 		gbc_sizeLabel.anchor = GridBagConstraints.WEST;
@@ -330,7 +330,7 @@ public class OptionMenu extends JFrame {
 		gbc_sizeLabel.gridy = 3;
 		panel_1.add(sizeLabel, gbc_sizeLabel);
 		
-		SpinnerNumberModel sizeModel = new SpinnerNumberModel(50, 1, 150, 1);
+		SpinnerNumberModel sizeModel = new SpinnerNumberModel(Constants.DEFAULT_SIZE, 1, Constants.MAX_SIZE, 1);
 		JSpinner sizeSpinner = new JSpinner(sizeModel);
 		GridBagConstraints gbc_sizeSpinner = new GridBagConstraints();
 		gbc_sizeSpinner.anchor = GridBagConstraints.WEST;
@@ -341,7 +341,7 @@ public class OptionMenu extends JFrame {
 		panel_1.add(sizeSpinner, gbc_sizeSpinner);
 		textList.add(sizeSpinner);
 		
-		JLabel speedLabel = new JLabel("Speed (1, 50):");
+		JLabel speedLabel = new JLabel(String.format("Speed (1, %d):", Constants.MAX_SPEED));
 		speedLabel.setToolTipText("The starting speed of the species in pixels moved per frame.");
 		GridBagConstraints gbc_speedLabel = new GridBagConstraints();
 		gbc_speedLabel.anchor = GridBagConstraints.WEST;
@@ -351,7 +351,7 @@ public class OptionMenu extends JFrame {
 		gbc_speedLabel.gridy = 4;
 		panel_1.add(speedLabel, gbc_speedLabel);
 		
-		SpinnerNumberModel speedModel = new SpinnerNumberModel(10, 1, 50, 1);
+		SpinnerNumberModel speedModel = new SpinnerNumberModel(Constants.DEFAULT_SPEED, 1, Constants.MAX_SPEED, 1);
 		JSpinner speedSpinner = new JSpinner(speedModel);
 		GridBagConstraints gbc_speedSpinner = new GridBagConstraints();
 		gbc_speedSpinner.anchor = GridBagConstraints.WEST;
@@ -362,7 +362,7 @@ public class OptionMenu extends JFrame {
 		panel_1.add(speedSpinner, gbc_speedSpinner);
 		textList.add(speedSpinner);
 		
-		JLabel maxAgeLabel = new JLabel("Max age (10, 500):");
+		JLabel maxAgeLabel = new JLabel(String.format("Max age (1, %d):", Constants.MAX_MAX_AGE));
 		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
 		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
 		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
@@ -372,7 +372,7 @@ public class OptionMenu extends JFrame {
 		gbc_maxAgeLabel.gridy = 0;
 		panel_1.add(maxAgeLabel, gbc_maxAgeLabel);
 		
-		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(20, 1, 500, 1);
+		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(Constants.DEFAULT_MAX_AGE, 1, Constants.MAX_MAX_AGE, 1);
 		JSpinner maxAgeSpinner = new JSpinner(maxAgeModel);
 		GridBagConstraints gbc_maxAgeSpinner = new GridBagConstraints();
 		gbc_maxAgeSpinner.anchor = GridBagConstraints.WEST;
@@ -383,7 +383,7 @@ public class OptionMenu extends JFrame {
 		panel_1.add(maxAgeSpinner, gbc_maxAgeSpinner);
 		textList.add(maxAgeSpinner);
 		
-		JLabel scentRangeLabel = new JLabel("Scent range (0, 100):");
+		JLabel scentRangeLabel = new JLabel(String.format("Scent range (0, %d):", Constants.MAX_SCENT_RANGE));
 		scentRangeLabel.setToolTipText("Range at which a species can smell another species.");
 		GridBagConstraints gbc_scentRangeLabel = new GridBagConstraints();
 		gbc_scentRangeLabel.anchor = GridBagConstraints.WEST;
@@ -393,7 +393,7 @@ public class OptionMenu extends JFrame {
 		gbc_scentRangeLabel.gridy = 1;
 		panel_1.add(scentRangeLabel, gbc_scentRangeLabel);
 		
-		SpinnerNumberModel scentRangeModel = new SpinnerNumberModel(10, 0, 100, 1);
+		SpinnerNumberModel scentRangeModel = new SpinnerNumberModel(Constants.DEFAULT_SCENT_RANGE, 0, Constants.MAX_SCENT_RANGE, 1);
 		JSpinner scentRangeSpinner = new JSpinner(scentRangeModel);
 		GridBagConstraints gbc_scentRangeSpinner = new GridBagConstraints();
 		gbc_scentRangeSpinner.anchor = GridBagConstraints.WEST;
@@ -433,7 +433,7 @@ public class OptionMenu extends JFrame {
 		gbc_newColorBtn.gridy = 2;
 		panel_1.add(newColorBtn, gbc_newColorBtn);
 		
-		JLabel eatSizeFactorLabel = new JLabel("Eat size factor (0, 10):");
+		JLabel eatSizeFactorLabel = new JLabel(String.format("Eat size factor (0, %d):", Constants.MAX_EAT_SIZE_FACTOR));
 		eatSizeFactorLabel.setToolTipText("<html>\r\nFactor that tells how mutch bigger a species has to be to be<br>\r\nable to eat its respective plant. A value of 1 means that the<br>\r\nspecies has to be as big or bigger to be able to eat its plant.<br>\r\n</html>\r\n");
 		GridBagConstraints gbc_eatSizeFactorLbl = new GridBagConstraints();
 		gbc_eatSizeFactorLbl.anchor = GridBagConstraints.WEST;
@@ -443,7 +443,7 @@ public class OptionMenu extends JFrame {
 		gbc_eatSizeFactorLbl.gridy = 3;
 		panel_1.add(eatSizeFactorLabel, gbc_eatSizeFactorLbl);
 		
-		SpinnerNumberModel eatSizeFactorModel = new SpinnerNumberModel(1, 0, 10, 0.1);
+		SpinnerNumberModel eatSizeFactorModel = new SpinnerNumberModel(Constants.DEFAULT_EAT_SIZE_FACTOR, 0, Constants.MAX_SCENT_RANGE, 0.1);
 		JSpinner eatSizeFactorSpinner = new JSpinner(eatSizeFactorModel);
 		GridBagConstraints gbc_eatSizeFactorSpinner = new GridBagConstraints();
 		gbc_eatSizeFactorSpinner.anchor = GridBagConstraints.WEST;
@@ -478,12 +478,11 @@ public class OptionMenu extends JFrame {
 	
 	private void addSpeciesPanel() {
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridy = numberOfSpecies / 2 - 1;
+		gbc_panel.gridy = (int) (numberOfSpecies / 2);
 		gbc_panel.gridx = numberOfSpecies % 2;
 		gbc_panel.insets = new Insets(25, 25, 25, 25);
 		numberOfSpecies += 1;
-		JPanel panel = new JPanel();
-		panel = addPopulationLabel();
+		JPanel panel = addPopulationLabel();
 		populationPanels.add(panel);
 		scrollPanel.add(panel, gbc_panel);
 		scrollPane.setViewportView(scrollPanel);
