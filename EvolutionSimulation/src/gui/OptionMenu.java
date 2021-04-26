@@ -32,6 +32,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
+import utility_functions.Constants;
+
 /**
  * Class that is the start of the application. It shows an option menu in which
  * the user can select the prefered options.
@@ -88,29 +90,18 @@ public class OptionMenu extends JFrame {
 	 */
 	private void initGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1500, 900);
+		setBounds(0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 3.0};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-		gbc_tabbedPane.gridheight = 3;
-		gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
-		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 0;
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabbedPane, gbc_tabbedPane);
-		
 		JPanel environmentPanel = new JPanel();
-		tabbedPane.addTab("Environment", null, environmentPanel, null);
+		contentPane.add(environmentPanel);
 		GridBagLayout gbl_environmentPanel = new GridBagLayout();
 		gbl_environmentPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_environmentPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
@@ -187,14 +178,37 @@ public class OptionMenu extends JFrame {
 		terrainPanel.add(lblTbd, gbc_lblTbd);
 		
 		JPanel populationPanel = new JPanel();
-		tabbedPane.addTab("Populations", null, populationPanel, null);
-		tabbedPane.setEnabledAt(1, true);
+		contentPane.add(populationPanel);
 		GridBagLayout gbl_populationPanel = new GridBagLayout();
-		gbl_populationPanel.rowHeights = new int[] {0};
-		gbl_populationPanel.columnWidths = new int[] {0};
-		gbl_populationPanel.columnWeights = new double[]{1.0};
-		gbl_populationPanel.rowWeights = new double[]{1.0};
+		gbl_populationPanel.rowHeights = new int[] {50, Constants.WINDOW_HEIGTH - 150};
+		int column_width = (int) ((Constants.WINDOW_WIDTH * (2.3 / 3.0) / 2));
+		gbl_populationPanel.columnWidths = new int[] {column_width, column_width};
+		gbl_populationPanel.columnWeights = new double[]{1.0, 1.0};
+		gbl_populationPanel.rowWeights = new double[]{1.0, 1.0};
 		populationPanel.setLayout(gbl_populationPanel);
+		
+		JButton btnMoreSpecies = new JButton("New Species");
+		btnMoreSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addSpeciesPanel();
+			}});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.gridy = 0;
+		gbc_button.gridx = 0;
+		populationPanel.add(btnMoreSpecies, gbc_button);
+		
+		JButton btnLessSpecies = new JButton("Less Species");
+		btnLessSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
+				populationPanels.remove(numberOfSpecies-1);
+				numberOfSpecies -= 1;
+				scrollPane.setViewportView(scrollPanel);
+			}});
+		GridBagConstraints gbc_less_button = new GridBagConstraints();
+		gbc_less_button.gridy = 0;
+		gbc_less_button.gridx = 1;
+		populationPanel.add(btnLessSpecies, gbc_less_button);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -202,48 +216,13 @@ public class OptionMenu extends JFrame {
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
+		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridwidth = 2;
 		populationPanel.add(scrollPane, gbc_scrollPane);
 		
 		scrollPanel = new JPanel();
 		GridBagLayout gbl_scrollPanel = new GridBagLayout();
 		scrollPanel.setLayout(gbl_scrollPanel);
-
-		JButton btnMoreSpecies = new JButton("New Species");
-		btnMoreSpecies.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GridBagConstraints gbc_panel = new GridBagConstraints();
-				gbc_panel.gridy = numberOfSpecies / 3 + 1;
-				gbc_panel.gridx = numberOfSpecies % 3;
-				numberOfSpecies += 1;
-				JPanel panel = new JPanel();
-				panel = addPopulationLabel();
-				populationPanels.add(panel);
-				scrollPanel.add(panel, gbc_panel);
-				scrollPane.setViewportView(scrollPanel);
-			}});
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.gridy = 0;
-		gbc_button.gridx = 0;
-		scrollPanel.add(btnMoreSpecies, gbc_button);
-		scrollPane.setViewportView(scrollPanel);
-		
-		JButton btnLessSpecies = new JButton("Less Species");
-		btnLessSpecies.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GridBagConstraints gbc_panel = new GridBagConstraints();
-				gbc_panel.gridy = numberOfSpecies / 3 - 1;
-				gbc_panel.gridx = numberOfSpecies % 3;
-				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
-				populationPanels.remove(numberOfSpecies-1);
-				numberOfSpecies -= 1;
-				scrollPane.setViewportView(scrollPanel);
-			}});
-		GridBagConstraints gbc_less_button = new GridBagConstraints();
-		gbc_button.gridy = 0;
-		gbc_button.gridx = 1;
-		scrollPanel.add(btnLessSpecies, gbc_less_button);
-		scrollPane.setViewportView(scrollPanel);
 		
 		JButton startGameButton = new JButton("Start game");
 		startGameButton.addActionListener(new ActionListener() {
@@ -263,16 +242,8 @@ public class OptionMenu extends JFrame {
 		
 		//Add a species at the start to not create an empty playing field.
 		for (int i = 0; i < 4; i++) {
-			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridy = numberOfSpecies / 3 + 1;
-			gbc_panel.gridx = numberOfSpecies % 3;
-			numberOfSpecies += 1;
-			JPanel panel = new JPanel();
-			panel = addPopulationLabel();
-			populationPanels.add(panel);
-			scrollPanel.add(panel, gbc_panel);
+			addSpeciesPanel();
 		}	
-		scrollPane.setViewportView(scrollPanel);
 	}
 
 	/**
@@ -394,7 +365,7 @@ public class OptionMenu extends JFrame {
 		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
 		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
 		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
-		gbc_maxAgeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_maxAgeLabel.insets = new Insets(5, 10, 5, 5);
 		gbc_maxAgeLabel.fill = GridBagConstraints.BOTH;
 		gbc_maxAgeLabel.gridx = 2;
 		gbc_maxAgeLabel.gridy = 0;
@@ -502,6 +473,19 @@ public class OptionMenu extends JFrame {
 					speciesColors.get(i).getBackground(), (double) spinnerValues.get(i).get(5).getValue());
 			data.addPopulationSettings(p);
 		}
+	}
+	
+	private void addSpeciesPanel() {
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridy = numberOfSpecies / 2 - 1;
+		gbc_panel.gridx = numberOfSpecies % 2;
+		gbc_panel.insets = new Insets(25, 25, 25, 25);
+		numberOfSpecies += 1;
+		JPanel panel = new JPanel();
+		panel = addPopulationLabel();
+		populationPanels.add(panel);
+		scrollPanel.add(panel, gbc_panel);
+		scrollPane.setViewportView(scrollPanel);
 	}
 	
 	/**
