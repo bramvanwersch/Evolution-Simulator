@@ -21,6 +21,8 @@ import user_input.OptionData;
 import user_input.PopulationSettings;
 
 import javax.swing.border.LineBorder;
+
+import java.awt.Button;
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -187,28 +189,26 @@ public class OptionMenu extends JFrame {
 		gbl_populationPanel.rowWeights = new double[]{1.0, 1.0};
 		populationPanel.setLayout(gbl_populationPanel);
 		
-		JButton btnMoreSpecies = new JButton("New Species");
+		JButton btnMoreSpecies = new JButton("New Hetrotroph Species");
 		btnMoreSpecies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addSpeciesPanel();
+				addSpeciesPanel(numberOfSpecies);
 			}});
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.gridy = 0;
 		gbc_button.gridx = 0;
 		populationPanel.add(btnMoreSpecies, gbc_button);
 		
-		JButton btnLessSpecies = new JButton("Less Species");
-		btnLessSpecies.addActionListener(new ActionListener() {
+		
+		JButton btnMorePlantSpecies = new JButton("New Autotroph Species");
+		btnMorePlantSpecies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				scrollPanel.remove(populationPanels.get(numberOfSpecies-1));
-				populationPanels.remove(numberOfSpecies-1);
-				numberOfSpecies -= 1;
-				scrollPane.setViewportView(scrollPanel);
+				addSpeciesPanel(numberOfSpecies);
 			}});
-		GridBagConstraints gbc_less_button = new GridBagConstraints();
-		gbc_less_button.gridy = 0;
-		gbc_less_button.gridx = 1;
-		populationPanel.add(btnLessSpecies, gbc_less_button);
+		GridBagConstraints gbc_plant_button = new GridBagConstraints();
+		gbc_plant_button.gridy = 0;
+		gbc_plant_button.gridx = 1;
+		populationPanel.add(btnMorePlantSpecies, gbc_plant_button);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -243,7 +243,7 @@ public class OptionMenu extends JFrame {
 		
 		//Add a species at the start to not create an empty playing field.
 		for (int i = 0; i < Constants.DEFAULT_START_POPULATIONS; i++) {
-			addSpeciesPanel();
+			addSpeciesPanel(numberOfSpecies);
 		}	
 	}
 
@@ -455,6 +455,18 @@ public class OptionMenu extends JFrame {
 		textList.add(eatSizeFactorSpinner);
 		
 		spinnerValues.add(textList);
+		
+		
+		JButton btnMoreSpecies = new JButton("X");
+		btnMoreSpecies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeSpeciesPanel(panel_1);
+			}});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.gridy = 0;
+		gbc_button.gridx = 4;
+		panel_1.add(btnMoreSpecies, gbc_button);
+		
 		return panel_1;
 	}
 
@@ -476,15 +488,35 @@ public class OptionMenu extends JFrame {
 		}
 	}
 	
-	private void addSpeciesPanel() {
+	private void addSpeciesPanel(int panel_no) {
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridy = (int) (numberOfSpecies / 2);
-		gbc_panel.gridx = numberOfSpecies % 2;
+		gbc_panel.gridy = (int) (panel_no / 2);
+		gbc_panel.gridx = panel_no % 2;
 		gbc_panel.insets = new Insets(25, 25, 25, 25);
 		numberOfSpecies += 1;
 		JPanel panel = addPopulationLabel();
 		populationPanels.add(panel);
 		scrollPanel.add(panel, gbc_panel);
+		scrollPane.setViewportView(scrollPanel);
+	}
+	
+	private void removeSpeciesPanel(JPanel remove_panel) {
+		int remove_index = populationPanels.indexOf(remove_panel);
+		scrollPanel.remove(populationPanels.get(remove_index));
+		populationPanels.remove(remove_index);
+		numberOfSpecies -= 1;
+		int count = 0;
+		// make sure to re-add all panels to reconfigure correct placement
+		for (JPanel panel: populationPanels) {
+			int panel_index = populationPanels.indexOf(panel);
+			scrollPanel.remove(populationPanels.get(panel_index));
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridy = (int) (count / 2);
+			gbc_panel.gridx = count % 2;
+			gbc_panel.insets = new Insets(25, 25, 25, 25);
+			scrollPanel.add(panel, gbc_panel);
+			count++;
+		}
 		scrollPane.setViewportView(scrollPanel);
 	}
 	
