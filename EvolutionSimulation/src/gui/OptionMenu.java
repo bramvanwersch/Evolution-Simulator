@@ -407,7 +407,7 @@ public class OptionMenu extends JFrame {
 		JLabel colorLabel = new JLabel();
 		GridBagConstraints gbc_colorLabel = new GridBagConstraints();
 		colorLabel.setOpaque(true);
-		colorLabel.setBackground(Color.BLUE);
+		colorLabel.setBackground(Color.CYAN);
 		gbc_colorLabel.anchor = GridBagConstraints.WEST;
 		gbc_colorLabel.insets = new Insets(5, 10, 5, 5);
 		gbc_colorLabel.fill = GridBagConstraints.BOTH;
