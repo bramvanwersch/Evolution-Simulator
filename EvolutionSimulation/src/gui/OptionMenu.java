@@ -27,6 +27,7 @@ import javax.swing.JSpinner;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -223,7 +224,7 @@ public class OptionMenu extends JFrame {
 			}});
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.gridy = 0;
-		gbc_button.gridx = 2;
+		gbc_button.gridx = 0;
 		scrollPanel.add(btnMoreSpecies, gbc_button);
 		scrollPane.setViewportView(scrollPanel);
 		
@@ -240,7 +241,7 @@ public class OptionMenu extends JFrame {
 			}});
 		GridBagConstraints gbc_less_button = new GridBagConstraints();
 		gbc_button.gridy = 0;
-		gbc_button.gridx = 3;
+		gbc_button.gridx = 1;
 		scrollPanel.add(btnLessSpecies, gbc_less_button);
 		scrollPane.setViewportView(scrollPanel);
 		
@@ -282,6 +283,7 @@ public class OptionMenu extends JFrame {
 	private JPanel addPopulationLabel() {
 		ArrayList<JSpinner> textList = new ArrayList<JSpinner>();
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black));
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		panel_1.setLayout(gbl_panel_1);
 		
@@ -392,7 +394,7 @@ public class OptionMenu extends JFrame {
 		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
 		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
 		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
-		gbc_maxAgeLabel.insets = new Insets(5, 10, 5, 5);
+		gbc_maxAgeLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_maxAgeLabel.fill = GridBagConstraints.BOTH;
 		gbc_maxAgeLabel.gridx = 2;
 		gbc_maxAgeLabel.gridy = 0;
@@ -402,7 +404,7 @@ public class OptionMenu extends JFrame {
 		JSpinner maxAgeSpinner = new JSpinner(maxAgeModel);
 		GridBagConstraints gbc_maxAgeSpinner = new GridBagConstraints();
 		gbc_maxAgeSpinner.anchor = GridBagConstraints.WEST;
-		gbc_maxAgeSpinner.insets = new Insets(0, 0, 5, 5);
+		gbc_maxAgeSpinner.insets = new Insets(10, 0, 5, 5);
 		gbc_maxAgeSpinner.fill = GridBagConstraints.BOTH;
 		gbc_maxAgeSpinner.gridx = 3;
 		gbc_maxAgeSpinner.gridy = 0;
