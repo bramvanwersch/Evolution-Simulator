@@ -11,6 +11,7 @@ import environment.NutrientDeposit;
 import gameobjects.Ecosystem;
 import populations.Population;
 import species.Species;
+import utility_functions.Constants;
 
 /**
  * Class that draws the simulation itself.
@@ -49,7 +50,9 @@ public class TerrainPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2d = (Graphics2D) g;
-		drawNutrientCircles();
+		if (Constants.SHOW_NUTRIENT_CIRCLES) {
+			drawNutrientCircles();
+		}
 		drawSpecies();
 	}
 
