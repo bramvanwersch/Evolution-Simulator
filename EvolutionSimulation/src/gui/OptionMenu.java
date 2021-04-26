@@ -238,6 +238,7 @@ public class OptionMenu extends JFrame {
 		gbc_startGameButton.fill = GridBagConstraints.VERTICAL;
 		gbc_startGameButton.gridx = 0;
 		gbc_startGameButton.gridy = 3;
+		gbc_startGameButton.gridwidth = 3;
 		contentPane.add(startGameButton, gbc_startGameButton);
 		
 		//Add a species at the start to not create an empty playing field.
