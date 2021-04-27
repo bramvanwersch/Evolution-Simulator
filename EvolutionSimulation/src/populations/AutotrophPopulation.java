@@ -6,6 +6,8 @@ import java.util.Collections;
 import species.AutotrophSpecies;
 import species.Plant;
 import species.Species;
+import user_input.AutotrophPopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 import user_input.PopulationSettings;
 
 /**
@@ -25,8 +27,8 @@ public class AutotrophPopulation extends Population{
 	/**
 	 * Constructor that creates the list of species that each population holds.
 	 */
-	public AutotrophPopulation(PopulationSettings options) {
-		super(options);
+	public AutotrophPopulation(AutotrophPopulationSettings options) {
+		super((PopulationSettings) (options));
 		this.speciesList = new ArrayList<AutotrophSpecies>();
 		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), ENERGY, options.getMaxNutrientValues());
 	}

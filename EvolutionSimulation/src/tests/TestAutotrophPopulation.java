@@ -6,12 +6,12 @@ import java.awt.Color;
 import junit.framework.TestCase;
 import populations.AutotrophPopulation;
 import species.AutotrophSpecies;
-import user_input.PopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 
 public class TestAutotrophPopulation extends TestCase {
 	
-	public PopulationSettings createOptionSettings() {
-		return new PopulationSettings("Plant", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
+	public HetrotrophPopulationSettings createOptionSettings() {
+		return new HetrotrophPopulationSettings("Plant", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
 	}
 	
 	public void testIsOverlappingPositive() {

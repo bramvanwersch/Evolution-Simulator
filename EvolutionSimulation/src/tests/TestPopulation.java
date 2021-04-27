@@ -6,12 +6,12 @@ import java.util.Arrays;
 import junit.framework.TestCase;
 import populations.AutotrophPopulation;
 import populations.Population;
-import user_input.PopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 
 public class TestPopulation extends TestCase {
 	
-	public PopulationSettings createOptionSettings() {
-		return new PopulationSettings("Plant", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
+	public HetrotrophPopulationSettings createOptionSettings() {
+		return new HetrotrophPopulationSettings("Plant", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
 	}
 	
 	public void testCalcAvgAttribute() {

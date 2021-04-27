@@ -10,7 +10,7 @@ import javax.swing.Timer;
 
 import gameobjects.Ecosystem;
 import user_input.OptionData;
-import user_input.PopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 
 public class BlankRun extends SwingWorker<Void, Integer> {
 	private int runs;
@@ -55,8 +55,8 @@ public class BlankRun extends SwingWorker<Void, Integer> {
 		optionData.setPlantEnergy(100);
 		optionData.setPlantSize(5);
 		
-		PopulationSettings p1 = new PopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
-		PopulationSettings p2 = new PopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
+		HetrotrophPopulationSettings p1 = new HetrotrophPopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
+		HetrotrophPopulationSettings p2 = new HetrotrophPopulationSettings("Carnivore", "Brams", 1, 50, 10,3, 10,Color.RED, 1.0);
 
 		optionData.addPopulationSettings(p1);
 		optionData.addPopulationSettings(p2);

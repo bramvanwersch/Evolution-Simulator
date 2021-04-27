@@ -6,12 +6,12 @@ import junit.framework.TestCase;
 import populations.HetrotrophPopulation;
 import species.Herbivore;
 import species.HetrotrophSpecies;
-import user_input.PopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 
 public class TestHetrotrophPopulation extends TestCase {
 	
-	public PopulationSettings createOptionSettings() {
-		return new PopulationSettings("Herbivore", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
+	public HetrotrophPopulationSettings createOptionSettings() {
+		return new HetrotrophPopulationSettings("Herbivore", "a name", 0, 1, 1, 1, 1, Color.GREEN, 1.0);
 	}
 
 	public void testCreateOffspring() {

@@ -9,6 +9,7 @@ import species.Herbivore;
 import species.HetrotrophSpecies;
 import species.Omnivore;
 import species.Species;
+import user_input.HetrotrophPopulationSettings;
 import user_input.PopulationSettings;
 
 /**
@@ -27,8 +28,8 @@ public class HetrotrophPopulation extends Population {
 	/**
 	 * Constructor that creates the list of species that each population holds.
 	 */
-	public HetrotrophPopulation(PopulationSettings options) {
-		super(options);
+	public HetrotrophPopulation(HetrotrophPopulationSettings options) {
+		super((PopulationSettings) options);
 		this.speciesList = new ArrayList<HetrotrophSpecies>();
 		createStarterSpecies(options.getNoIndividuals(), options.getSize(), options.getSpeed(),
 				options.getMaxAge(), options.getScentRange(), options.getEatSizeFactor());

@@ -5,17 +5,17 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 import user_input.OptionData;
-import user_input.PopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 import gameobjects.Ecosystem;
 
 public class TestEcosystem extends TestCase {
 	
 	public OptionData createOptionData(int aS1, int aS2, int aS3, int aS4) {
 		OptionData p = new OptionData();
-		p.addPopulationSettings(new PopulationSettings("Plant", "a name", aS1, 4, 1, 1, 0, Color.GREEN, 1.0));
-		p.addPopulationSettings(new PopulationSettings("Herbivore", "a name", aS2, 2, 1, 3, 2, Color.GREEN, 1.0));
-		p.addPopulationSettings(new PopulationSettings("Carnivore", "a name", aS3, 0, 4, 1, 1, Color.GREEN, 1.0));
-		p.addPopulationSettings(new PopulationSettings("Omnivore", "a name", aS4, 10, 1, 2, 15, Color.GREEN, 1.0));
+		p.addPopulationSettings(new HetrotrophPopulationSettings("Plant", "a name", aS1, 4, 1, 1, 0, Color.GREEN, 1.0));
+		p.addPopulationSettings(new HetrotrophPopulationSettings("Herbivore", "a name", aS2, 2, 1, 3, 2, Color.GREEN, 1.0));
+		p.addPopulationSettings(new HetrotrophPopulationSettings("Carnivore", "a name", aS3, 0, 4, 1, 1, Color.GREEN, 1.0));
+		p.addPopulationSettings(new HetrotrophPopulationSettings("Omnivore", "a name", aS4, 10, 1, 2, 15, Color.GREEN, 1.0));
 		p.setPlantEnergy(100);
 		p.setPlantSize(5);
 		return p;

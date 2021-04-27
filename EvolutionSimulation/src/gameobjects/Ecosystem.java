@@ -13,7 +13,8 @@ import species.AutotrophSpecies;
 import species.HetrotrophSpecies;
 import species.Species;
 import user_input.OptionData;
-import user_input.PopulationSettings;
+import user_input.AutotrophPopulationSettings;
+import user_input.HetrotrophPopulationSettings;
 import utility_functions.Utility;
 
 /**
@@ -90,17 +91,17 @@ public class Ecosystem {
 	private void createPopulations(OptionData options) {
 		for (int i = 0; i < options.getPopulationSettingSize(); i++) {
 			if (options.getPopulationSettings(i).getPopulationType().equals("Hetrotroph")) {
-				HetrotrophPopulation p = new HetrotrophPopulation(options.getPopulationSettings(i));
+				HetrotrophPopulation p = new HetrotrophPopulation((HetrotrophPopulationSettings) options.getPopulationSettings(i));
 				hetrotrophPopulations.add(p);
 			}
 			else if (options.getPopulationSettings(i).getPopulationType().equals("Autotroph")) {
-				AutotrophPopulation p = new AutotrophPopulation(options.getPopulationSettings(i));
+				AutotrophPopulation p = new AutotrophPopulation((AutotrophPopulationSettings) options.getPopulationSettings(i));
 				autotrophPopulations.add(p);
 			}
 		}
-		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
-		AutotrophPopulation p = new AutotrophPopulation(new PopulationSettings("Plant","",100 ,5 ,1 ,20,1, Color.GREEN, 1.0));
-		autotrophPopulations.add(p);
+//		// ABSOLUTELY HARDCODED AND NEEEEEDS TO GO BUT IS A TEMPORARY SOLUTION UNTIL SETTINGS ARE FIXED
+//		AutotrophPopulation p = new AutotrophPopulation(new HetrotrophPopulationSettings("Plant","",100 ,5 ,1 ,20,1, Color.GREEN, 1.0));
+//		autotrophPopulations.add(p);
 	}
 
 //	/**
