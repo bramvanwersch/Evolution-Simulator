@@ -23,6 +23,9 @@ public class AutotrophPopulationSettings extends PopulationSettings{
 	public int[] getMaxNutrientValues() {
 		return new int[] {50, 50, 50};
 	}
-
+	
+	public int getEnergyOnConsumption() {
+		return 0;
+	}
 	
 }

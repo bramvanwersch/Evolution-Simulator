@@ -49,9 +49,9 @@ public class OptionMenu extends JFrame {
 	private JScrollPane scrollPane;
 	private JPanel scrollPanel;
 	private int numberOfSpecies;
-	private ArrayList<JTextField> speciesNames;
 	private ArrayList<PopulationPanel> populationPanels;
 	private OptionData data;
+	private int counter;
 	
 	/**
 	 * Launch the application.
@@ -74,10 +74,11 @@ public class OptionMenu extends JFrame {
 	 */
 	public OptionMenu() {
 		numberOfSpecies = 0;
-		speciesNames = new ArrayList<JTextField>();
+		counter = 1;
 		populationPanels = new ArrayList<PopulationPanel>();
 		data = new OptionData();
 		initGUI();
+		createStartingSpecies();
 		setVisible(true);
 	}
 	
@@ -197,7 +198,7 @@ public class OptionMenu extends JFrame {
 		JButton btnMorePlantSpecies = new JButton("New Autotroph Species");
 		btnMorePlantSpecies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addHetrotrophSpeciesPanel(numberOfSpecies);
+				addAutotrophSpeciesPanel(numberOfSpecies);
 			}});
 		GridBagConstraints gbc_plant_button = new GridBagConstraints();
 		gbc_plant_button.gridy = 0;
@@ -234,15 +235,15 @@ public class OptionMenu extends JFrame {
 		gbc_startGameButton.gridy = 3;
 		gbc_startGameButton.gridwidth = 3;
 		contentPane.add(startGameButton, gbc_startGameButton);
-		
-		//Add a species at the start to not create an empty playing field.
-		for (int i = 0; i < Constants.DEFAULT_START_POPULATIONS; i++) {
-			addHetrotrophSpeciesPanel(numberOfSpecies);
-		}	
 	}
 	
-	private JPanel addAutotrophPopulationPanel() {
-		return null;
+	private void createStartingSpecies() {
+		for (int i = 0; i < Constants.DEFAULT_HETROTROPH_START_POPULATIONS; i++) {
+			addHetrotrophSpeciesPanel(numberOfSpecies);
+		}
+		for (int i = 0; i < Constants.DEFAULT_AUTOTROPH_START_POPULATIONS; i++) {
+			addAutotrophSpeciesPanel(numberOfSpecies);
+		}
 	}
 
 	/**
@@ -264,10 +265,11 @@ public class OptionMenu extends JFrame {
 		gbc_panel.gridx = panel_no % 2;
 		gbc_panel.insets = new Insets(25, 25, 25, 25);
 		numberOfSpecies += 1;
-		PopulationPanel panel = new HetrotrophPopulationPanel();
+		PopulationPanel panel = new HetrotrophPopulationPanel(getDefaultName());
 		populationPanels.add(panel);
 		scrollPanel.add(panel, gbc_panel);
 		scrollPane.setViewportView(scrollPanel);
+		counter++;
 	}
 	
 	private void addAutotrophSpeciesPanel(int panel_no) {
@@ -276,10 +278,11 @@ public class OptionMenu extends JFrame {
 		gbc_panel.gridx = panel_no % 2;
 		gbc_panel.insets = new Insets(25, 25, 25, 25);
 		numberOfSpecies += 1;
-		PopulationPanel panel = new AutotrophPopulationPanel();
+		PopulationPanel panel = new AutotrophPopulationPanel(getDefaultName());
 		populationPanels.add(panel);
 		scrollPanel.add(panel, gbc_panel);
 		scrollPane.setViewportView(scrollPanel);
+		counter++;
 	}
 	
 	private void removeSpeciesPanel(JPanel remove_panel) {
@@ -308,7 +311,7 @@ public class OptionMenu extends JFrame {
 	 * @return a String that is the name of a population.
 	 */
 	private String getDefaultName() {
-		return "Pop. " + (speciesNames.size() +1);
+		return "Pop. " + (counter);
 	}
 	
 }

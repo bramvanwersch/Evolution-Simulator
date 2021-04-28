@@ -19,11 +19,18 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import user_input.HetrotrophPopulationSettings;
+import user_input.PopulationSettings;
 import utility_functions.Constants;
 
 
 public class HetrotrophPopulationPanel extends PopulationPanel {
 	private HetrotrophPopulationSettings settings;
+	
+	public HetrotrophPopulationPanel(String baseName) {
+		super(baseName);
+		// TODO Auto-generated constructor stub
+	}
+
 	
 	public HetrotrophPopulationSettings getSettings() {
 		return settings;
@@ -64,7 +71,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		gbc_lblName.gridy = 1;
 		this.add(lblName, gbc_lblName);
 		
-		JTextField nameTxt = new JTextField("Placeholder");
+		JTextField nameTxt = new JTextField(this.name);
 		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
 		gbc_nameTxt.anchor = GridBagConstraints.WEST;
 		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
@@ -74,7 +81,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		this.add(nameTxt, gbc_nameTxt);
 		nameTxt.setColumns(10);
 		
-		JLabel noIndLabel = new JLabel(String.format("No ind.(1, %d):", Constants.MAX_INDIVIDUALS));
+		JLabel noIndLabel = new JLabel(String.format("No ind.(1, %d):", Constants.MAX_HETROTROPH_INDIVIDUALS));
 		noIndLabel.setToolTipText("Number of individuals.\r\n");
 		GridBagConstraints gbc_noIndLabel = new GridBagConstraints();
 		gbc_noIndLabel.anchor = GridBagConstraints.WEST;
@@ -84,7 +91,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		gbc_noIndLabel.gridy = 2;
 		this.add(noIndLabel, gbc_noIndLabel);
 		
-		SpinnerNumberModel indModel = new SpinnerNumberModel(Constants.DEFAULT_START_INDIVIDUALS, 1, Constants.MAX_INDIVIDUALS, 1);
+		SpinnerNumberModel indModel = new SpinnerNumberModel(Constants.DEFAULT_HETROTROPH_START_INDIVIDUALS, 1, Constants.MAX_HETROTROPH_INDIVIDUALS, 1);
 		JSpinner noIndField = new JSpinner(indModel);
 		GridBagConstraints gbc_noIndField = new GridBagConstraints();
 		gbc_noIndField.anchor = GridBagConstraints.WEST;
@@ -95,7 +102,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		this.add(noIndField, gbc_noIndField);
 		textList.add(noIndField);
 		
-		JLabel sizeLabel = new JLabel(String.format("Size (1, %d):", Constants.MAX_SIZE));
+		JLabel sizeLabel = new JLabel(String.format("Size (1, %d):", Constants.MAX_HETROTROPH_SIZE));
 		sizeLabel.setToolTipText("Starting diameter of the species in pixels.");
 		GridBagConstraints gbc_sizeLabel = new GridBagConstraints();
 		gbc_sizeLabel.anchor = GridBagConstraints.WEST;
@@ -105,7 +112,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		gbc_sizeLabel.gridy = 3;
 		this.add(sizeLabel, gbc_sizeLabel);
 		
-		SpinnerNumberModel sizeModel = new SpinnerNumberModel(Constants.DEFAULT_SIZE, 1, Constants.MAX_SIZE, 1);
+		SpinnerNumberModel sizeModel = new SpinnerNumberModel(Constants.DEFAULT_HETROTROPH_SIZE, 1, Constants.MAX_HETROTROPH_SIZE, 1);
 		JSpinner sizeSpinner = new JSpinner(sizeModel);
 		GridBagConstraints gbc_sizeSpinner = new GridBagConstraints();
 		gbc_sizeSpinner.anchor = GridBagConstraints.WEST;
@@ -137,7 +144,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		this.add(speedSpinner, gbc_speedSpinner);
 		textList.add(speedSpinner);
 		
-		JLabel maxAgeLabel = new JLabel(String.format("Max age (1, %d):", Constants.MAX_MAX_AGE));
+		JLabel maxAgeLabel = new JLabel(String.format("Max age (1, %d):", Constants.MAX_HETROTROPH_MAX_AGE));
 		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
 		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
 		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
@@ -147,7 +154,7 @@ public class HetrotrophPopulationPanel extends PopulationPanel {
 		gbc_maxAgeLabel.gridy = 0;
 		this.add(maxAgeLabel, gbc_maxAgeLabel);
 		
-		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(Constants.DEFAULT_MAX_AGE, 1, Constants.MAX_MAX_AGE, 1);
+		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(Constants.DEFAULT_HETROTROPH_MAX_AGE, 1, Constants.MAX_HETROTROPH_MAX_AGE, 1);
 		JSpinner maxAgeSpinner = new JSpinner(maxAgeModel);
 		GridBagConstraints gbc_maxAgeSpinner = new GridBagConstraints();
 		gbc_maxAgeSpinner.anchor = GridBagConstraints.WEST;

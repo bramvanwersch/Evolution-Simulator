@@ -25,10 +25,14 @@ import utility_functions.Constants;
 
 
 public class AutotrophPopulationPanel extends PopulationPanel{
-	private PopulationSettings settings;
+	private AutotrophPopulationSettings settings;
+	
+	public AutotrophPopulationPanel(String baseName) {
+		super(baseName);
+	}
 
 	
-	public PopulationSettings getSettings() {
+	public AutotrophPopulationSettings getSettings() {
 		return settings;
 	}
 	
@@ -54,7 +58,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_typeComboBox.gridx = 1;
 		gbc_typeComboBox.gridy = 0;
 		JComboBox<String> typeComboBox = new JComboBox<String>();
-		typeComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Herbivore", "Omnivore", "Carnivore"}));
+		typeComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Plant"}));
 		this.add(typeComboBox, gbc_typeComboBox);
 		
 		JLabel lblName = new JLabel("Name:");
@@ -66,7 +70,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_lblName.gridy = 1;
 		this.add(lblName, gbc_lblName);
 		
-		JTextField nameTxt = new JTextField("Placeholder");
+		JTextField nameTxt = new JTextField(this.name);
 		GridBagConstraints gbc_nameTxt = new GridBagConstraints();
 		gbc_nameTxt.anchor = GridBagConstraints.WEST;
 		gbc_nameTxt.insets = new Insets(0, 0, 5, 5);
@@ -76,7 +80,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		this.add(nameTxt, gbc_nameTxt);
 		nameTxt.setColumns(10);
 		
-		JLabel noIndLabel = new JLabel(String.format("No ind.(1, %d):", Constants.MAX_INDIVIDUALS));
+		JLabel noIndLabel = new JLabel(String.format("No ind.(1, %d):", Constants.MAX_AUTOTROPH_INDIVIDUALS));
 		noIndLabel.setToolTipText("Number of individuals.\r\n");
 		GridBagConstraints gbc_noIndLabel = new GridBagConstraints();
 		gbc_noIndLabel.anchor = GridBagConstraints.WEST;
@@ -86,7 +90,8 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_noIndLabel.gridy = 2;
 		this.add(noIndLabel, gbc_noIndLabel);
 		
-		SpinnerNumberModel indModel = new SpinnerNumberModel(Constants.DEFAULT_START_INDIVIDUALS, 1, Constants.MAX_INDIVIDUALS, 1);
+		SpinnerNumberModel indModel = new SpinnerNumberModel(Constants.DEFAULT_AUTOTROPH_START_INDIVIDUALS,
+				1, Constants.MAX_AUTOTROPH_INDIVIDUALS, 1);
 		JSpinner noIndField = new JSpinner(indModel);
 		GridBagConstraints gbc_noIndField = new GridBagConstraints();
 		gbc_noIndField.anchor = GridBagConstraints.WEST;
@@ -97,7 +102,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		this.add(noIndField, gbc_noIndField);
 		textList.add(noIndField);
 		
-		JLabel sizeLabel = new JLabel(String.format("Size (1, %d):", Constants.MAX_SIZE));
+		JLabel sizeLabel = new JLabel(String.format("Size (1, %d):", Constants.MAX_AUTOTROPH_SIZE));
 		sizeLabel.setToolTipText("Starting diameter of the species in pixels.");
 		GridBagConstraints gbc_sizeLabel = new GridBagConstraints();
 		gbc_sizeLabel.anchor = GridBagConstraints.WEST;
@@ -107,7 +112,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_sizeLabel.gridy = 3;
 		this.add(sizeLabel, gbc_sizeLabel);
 		
-		SpinnerNumberModel sizeModel = new SpinnerNumberModel(Constants.DEFAULT_SIZE, 1, Constants.MAX_SIZE, 1);
+		SpinnerNumberModel sizeModel = new SpinnerNumberModel(Constants.DEFAULT_AUTOTROPH_SIZE, 1, Constants.MAX_AUTOTROPH_SIZE, 1);
 		JSpinner sizeSpinner = new JSpinner(sizeModel);
 		GridBagConstraints gbc_sizeSpinner = new GridBagConstraints();
 		gbc_sizeSpinner.anchor = GridBagConstraints.WEST;
@@ -118,28 +123,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		this.add(sizeSpinner, gbc_sizeSpinner);
 		textList.add(sizeSpinner);
 		
-		JLabel speedLabel = new JLabel(String.format("Speed (1, %d):", Constants.MAX_SPEED));
-		speedLabel.setToolTipText("The starting speed of the species in pixels moved per frame.");
-		GridBagConstraints gbc_speedLabel = new GridBagConstraints();
-		gbc_speedLabel.anchor = GridBagConstraints.WEST;
-		gbc_speedLabel.insets = new Insets(5, 10, 5, 5);
-		gbc_speedLabel.fill = GridBagConstraints.BOTH;
-		gbc_speedLabel.gridx = 0;
-		gbc_speedLabel.gridy = 4;
-		this.add(speedLabel, gbc_speedLabel);
-		
-		SpinnerNumberModel speedModel = new SpinnerNumberModel(Constants.DEFAULT_SPEED, 1, Constants.MAX_SPEED, 1);
-		JSpinner speedSpinner = new JSpinner(speedModel);
-		GridBagConstraints gbc_speedSpinner = new GridBagConstraints();
-		gbc_speedSpinner.anchor = GridBagConstraints.WEST;
-		gbc_speedSpinner.insets = new Insets(0, 0, 5, 5);
-		gbc_speedSpinner.fill = GridBagConstraints.BOTH;
-		gbc_speedSpinner.gridx = 1;
-		gbc_speedSpinner.gridy = 4;
-		this.add(speedSpinner, gbc_speedSpinner);
-		textList.add(speedSpinner);
-		
-		JLabel maxAgeLabel = new JLabel(String.format("Max age (1, %d):", Constants.MAX_MAX_AGE));
+		JLabel maxAgeLabel = new JLabel(String.format("Max age (1, %d):", Constants.MAX_AUTOTROPH_MAX_AGE));
 		maxAgeLabel.setToolTipText("Age at which the species dies if that did not happen before due to other circumstances.");
 		GridBagConstraints gbc_maxAgeLabel = new GridBagConstraints();
 		gbc_maxAgeLabel.anchor = GridBagConstraints.WEST;
@@ -149,7 +133,8 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_maxAgeLabel.gridy = 0;
 		this.add(maxAgeLabel, gbc_maxAgeLabel);
 		
-		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(Constants.DEFAULT_MAX_AGE, 1, Constants.MAX_MAX_AGE, 1);
+		SpinnerNumberModel maxAgeModel = new SpinnerNumberModel(Constants.DEFAULT_AUTOTROPH_MAX_AGE,
+				1, Constants.MAX_AUTOTROPH_MAX_AGE, 1);
 		JSpinner maxAgeSpinner = new JSpinner(maxAgeModel);
 		GridBagConstraints gbc_maxAgeSpinner = new GridBagConstraints();
 		gbc_maxAgeSpinner.anchor = GridBagConstraints.WEST;
@@ -160,31 +145,10 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		this.add(maxAgeSpinner, gbc_maxAgeSpinner);
 		textList.add(maxAgeSpinner);
 		
-		JLabel scentRangeLabel = new JLabel(String.format("Scent range (0, %d):", Constants.MAX_SCENT_RANGE));
-		scentRangeLabel.setToolTipText("Range at which a species can smell another species.");
-		GridBagConstraints gbc_scentRangeLabel = new GridBagConstraints();
-		gbc_scentRangeLabel.anchor = GridBagConstraints.WEST;
-		gbc_scentRangeLabel.insets = new Insets(5, 10, 5, 5);
-		gbc_scentRangeLabel.fill = GridBagConstraints.BOTH;
-		gbc_scentRangeLabel.gridx = 2;
-		gbc_scentRangeLabel.gridy = 1;
-		this.add(scentRangeLabel, gbc_scentRangeLabel);
-		
-		SpinnerNumberModel scentRangeModel = new SpinnerNumberModel(Constants.DEFAULT_SCENT_RANGE, 0, Constants.MAX_SCENT_RANGE, 1);
-		JSpinner scentRangeSpinner = new JSpinner(scentRangeModel);
-		GridBagConstraints gbc_scentRangeSpinner = new GridBagConstraints();
-		gbc_scentRangeSpinner.anchor = GridBagConstraints.WEST;
-		gbc_scentRangeSpinner.insets = new Insets(0, 0, 5, 5);
-		gbc_scentRangeSpinner.fill = GridBagConstraints.BOTH;
-		gbc_scentRangeSpinner.gridx = 3;
-		gbc_scentRangeSpinner.gridy = 1;
-		this.add(scentRangeSpinner, gbc_scentRangeSpinner);
-		textList.add(scentRangeSpinner);
-		
 		JLabel colorLabel = new JLabel();
 		GridBagConstraints gbc_colorLabel = new GridBagConstraints();
 		colorLabel.setOpaque(true);
-		colorLabel.setBackground(Color.CYAN);
+		colorLabel.setBackground(Color.GREEN);
 		gbc_colorLabel.anchor = GridBagConstraints.WEST;
 		gbc_colorLabel.insets = new Insets(5, 10, 5, 5);
 		gbc_colorLabel.fill = GridBagConstraints.BOTH;
