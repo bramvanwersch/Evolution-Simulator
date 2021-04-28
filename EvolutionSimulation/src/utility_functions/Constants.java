@@ -33,6 +33,9 @@ public class Constants {
 	public static final int MAX_EAT_SIZE_FACTOR = 10;
 	public static final int DEFAULT_EAT_SIZE_FACTOR = 1;
 	
+	public static final int MAX_AUTOTROPH_ENERGY_ON_EAT = 1000;
+	public static final int DEFAULT_AUTOTROPH_ENERGY_ON_EAT = 250;
+	
 	public static final int DEFAULT_HETROTROPH_START_POPULATIONS = 2;
 	public static final int DEFAULT_AUTOTROPH_START_POPULATIONS = 1;
 	

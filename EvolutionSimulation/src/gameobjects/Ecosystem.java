@@ -178,7 +178,7 @@ public class Ecosystem {
 			for(int j = prey.getNrSpecies() - 1; j >= 0; j--){
 				HetrotrophSpecies s1 = predator.getSpecies(i);
 				Species s2 = prey.getSpecies(j);
-				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergy())) {
+				if (s1.eat(s2.getxLoc(), s2.getyLoc(), s2.getSize(), s2.getEnergyOnDeath())) {
 					prey.removeSpecies(j);
 				}
 			}

@@ -8,11 +8,13 @@ import user_input.PopulationSettings;
 
 
 public class AutotrophPopulationSettings extends PopulationSettings{
+	private JSpinner energyOnEat;
 
 	
 	public AutotrophPopulationSettings(JComboBox<String> type, JTextField name, JSpinner noIndividuals, JSpinner size,
-			JSpinner maxAge, JLabel color) {
+			JSpinner maxAge, JLabel color, JSpinner energyOnEat) {
 		super(type, name, noIndividuals, size, maxAge, color);
+		this.energyOnEat = energyOnEat;
 	}
 
 	public String getPopulationType() {
@@ -25,7 +27,7 @@ public class AutotrophPopulationSettings extends PopulationSettings{
 	}
 	
 	public int getEnergyOnConsumption() {
-		return 0;
+		return (int) (energyOnEat.getValue());
 	}
 	
 }

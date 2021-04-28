@@ -55,6 +55,10 @@ public abstract class Species{
 		this.age = 0;
 	}
 	
+	public boolean isShowPopName() {
+		return true;
+	}
+	
 	/**
 	 * Get the efficiency that energy in food is converted to energy for a species.
 	 * @return double of the efficiency as a fraction
@@ -239,6 +243,14 @@ public abstract class Species{
 	 * @return Int representing the enrgy in an imaginary unit.
 	 */
 	public int getEnergy() {
+		return this.energy;
+	}
+	
+	/**
+	 * Get the energy given by the species on death to the species consuming it
+	 * @return the int of energy given
+	 */
+	public int getEnergyOnDeath() {
 		return this.energy;
 	}
 	

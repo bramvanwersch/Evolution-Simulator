@@ -91,7 +91,10 @@ public class TerrainPanel extends JPanel{
 				//for drawing the enrgy
 				g2d.setColor(Color.BLACK);
 //				drawCenteredString(s.getxLoc(), yCoord -5,String .format("%d(-%.0f)",s.getEnergy(), s.getEnergyConsumption()));
-				drawCenteredString(s.getxLoc(), s.getyLoc(),String.format("%s",sp.getName()));
+				if (s.isShowPopName()) {
+					drawCenteredString(s.getxLoc(), s.getyLoc(),String.format("%s",sp.getName()));	
+				}
+				
 			}
 		}
 	}

@@ -153,7 +153,7 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_colorLabel.insets = new Insets(5, 10, 5, 5);
 		gbc_colorLabel.fill = GridBagConstraints.BOTH;
 		gbc_colorLabel.gridx = 2;
-		gbc_colorLabel.gridy = 2;
+		gbc_colorLabel.gridy = 1;
 		this.add(colorLabel, gbc_colorLabel);
 		
 		JButton newColorBtn = new JButton("Choose color");
@@ -170,29 +170,30 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 		gbc_newColorBtn.insets = new Insets(0, 0, 5, 5);
 		gbc_newColorBtn.fill = GridBagConstraints.BOTH;
 		gbc_newColorBtn.gridx = 3;
-		gbc_newColorBtn.gridy = 2;
+		gbc_newColorBtn.gridy = 1;
 		this.add(newColorBtn, gbc_newColorBtn);
 		
-		JLabel eatSizeFactorLabel = new JLabel(String.format("Eat size factor (0, %d):", Constants.MAX_EAT_SIZE_FACTOR));
-		eatSizeFactorLabel.setToolTipText("<html>\r\nFactor that tells how mutch bigger a species has to be to be<br>\r\nable to eat its respective plant. A value of 1 means that the<br>\r\nspecies has to be as big or bigger to be able to eat its plant.<br>\r\n</html>\r\n");
-		GridBagConstraints gbc_eatSizeFactorLbl = new GridBagConstraints();
-		gbc_eatSizeFactorLbl.anchor = GridBagConstraints.WEST;
-		gbc_eatSizeFactorLbl.insets = new Insets(5, 10, 5, 5);
-		gbc_eatSizeFactorLbl.fill = GridBagConstraints.BOTH;
-		gbc_eatSizeFactorLbl.gridx = 2;
-		gbc_eatSizeFactorLbl.gridy = 3;
-		this.add(eatSizeFactorLabel, gbc_eatSizeFactorLbl);
+		JLabel energyOnEatLabel = new JLabel(String.format("Eat energy (50, %d):", Constants.MAX_AUTOTROPH_ENERGY_ON_EAT));
+		energyOnEatLabel.setToolTipText("Energy recieved by species eating this.");
+		GridBagConstraints gbc_energyOnEatLbl = new GridBagConstraints();
+		gbc_energyOnEatLbl.anchor = GridBagConstraints.WEST;
+		gbc_energyOnEatLbl.insets = new Insets(5, 10, 5, 5);
+		gbc_energyOnEatLbl.fill = GridBagConstraints.BOTH;
+		gbc_energyOnEatLbl.gridx = 2;
+		gbc_energyOnEatLbl.gridy = 2;
+		this.add(energyOnEatLabel, gbc_energyOnEatLbl);
 		
-		SpinnerNumberModel eatSizeFactorModel = new SpinnerNumberModel(Constants.DEFAULT_EAT_SIZE_FACTOR, 0, Constants.MAX_SCENT_RANGE, 0.1);
-		JSpinner eatSizeFactorSpinner = new JSpinner(eatSizeFactorModel);
-		GridBagConstraints gbc_eatSizeFactorSpinner = new GridBagConstraints();
-		gbc_eatSizeFactorSpinner.anchor = GridBagConstraints.WEST;
-		gbc_eatSizeFactorSpinner.insets = new Insets(0, 0, 5, 5);
-		gbc_eatSizeFactorSpinner.fill = GridBagConstraints.BOTH;
-		gbc_eatSizeFactorSpinner.gridx = 3;
-		gbc_eatSizeFactorSpinner.gridy = 3;
-		this.add(eatSizeFactorSpinner, gbc_eatSizeFactorSpinner);
-		textList.add(eatSizeFactorSpinner);
+		SpinnerNumberModel eatSizeFactorModel = new SpinnerNumberModel(Constants.DEFAULT_AUTOTROPH_ENERGY_ON_EAT,
+				50, Constants.MAX_AUTOTROPH_ENERGY_ON_EAT, 50);
+		JSpinner energyOnEatSpinner = new JSpinner(eatSizeFactorModel);
+		GridBagConstraints gbc_energyOnEatSpinner = new GridBagConstraints();
+		gbc_energyOnEatSpinner.anchor = GridBagConstraints.WEST;
+		gbc_energyOnEatSpinner.insets = new Insets(0, 0, 5, 5);
+		gbc_energyOnEatSpinner.fill = GridBagConstraints.BOTH;
+		gbc_energyOnEatSpinner.gridx = 3;
+		gbc_energyOnEatSpinner.gridy = 2;
+		this.add(energyOnEatSpinner, gbc_energyOnEatSpinner);
+		textList.add(energyOnEatSpinner);
 				
 		
 //		JButton btnMoreSpecies = new JButton("X");
@@ -205,7 +206,8 @@ public class AutotrophPopulationPanel extends PopulationPanel{
 //		gbc_button.gridx = 4;
 //		this.add(btnMoreSpecies, gbc_button);
 		
-		settings = new AutotrophPopulationSettings(typeComboBox, nameTxt, noIndField, sizeSpinner, maxAgeSpinner, colorLabel);
+		settings = new AutotrophPopulationSettings(typeComboBox, nameTxt, noIndField, sizeSpinner, maxAgeSpinner, colorLabel,
+				energyOnEatSpinner);
 		
 	}
 

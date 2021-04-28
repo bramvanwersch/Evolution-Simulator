@@ -30,15 +30,16 @@ public class AutotrophPopulation extends Population{
 	public AutotrophPopulation(AutotrophPopulationSettings options) {
 		super((PopulationSettings) (options));
 		this.speciesList = new ArrayList<AutotrophSpecies>();
-		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), ENERGY, options.getMaxNutrientValues());
+		createAutotrophSpecies(options.getNoIndividuals(), options.getSize(), options.getMaxAge(), 
+				ENERGY, options.getMaxNutrientValues(), options.getEnergyOnConsumption());
 	}
 	
-	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy, int[] maxNutrientValues) {
+	private void createAutotrophSpecies(int nrSpecies, int size, int maxAge, int energy, int[] maxNutrientValues, int consumptionEnergy) {
 		for (int j = 0; j < nrSpecies; j++) {
 			AutotrophSpecies s = null;
 			if (getNrSpecies() == 0) {
 				if (getType().equals("Plant")) {
-						s = new Plant(size, maxAge, energy, maxNutrientValues);
+						s = new Plant(size, maxAge, energy, maxNutrientValues, consumptionEnergy);
 				}
 			}
 			if (s == null){
@@ -123,7 +124,8 @@ public class AutotrophPopulation extends Population{
 		int[] xyLoc = s.getOfsetXYLoc();
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant") && !isOverlapping(xyLoc[0], xyLoc[1])) {
-			sCopy = new Plant(xyLoc[0], xyLoc[1], s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues());
+			sCopy = new Plant(xyLoc[0], xyLoc[1], s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues(),
+					s.getEnergyOnDeath());
 		}
 		if(sCopy != null) {
 			speciesList.add(sCopy);
@@ -141,7 +143,7 @@ public class AutotrophPopulation extends Population{
 		AutotrophSpecies s = speciesList.get(index);
 		AutotrophSpecies sCopy = null;
 		if (getType().equals("Plant")) {
-			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues());
+			sCopy = new Plant(s.getSize(), s.getMaxAge(), s.getEnergy(), s.getMaxNutrientValues(), s.getEnergyOnDeath());
 		}
 		if(sCopy != null) {
 			sCopy.setXYLoc();

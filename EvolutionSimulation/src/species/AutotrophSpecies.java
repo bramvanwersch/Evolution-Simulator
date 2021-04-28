@@ -16,6 +16,7 @@ public class AutotrophSpecies extends Species{
 	public final double MINIMAL_GROWTH_FACTOR = 0.05;
 	private int maxAge;
 	private int size;
+	private int energyOnConsumption;
 	private Map<String, double[]> nutrientValues;
 
 	/**
@@ -25,11 +26,12 @@ public class AutotrophSpecies extends Species{
 	 * @param maxAge of the species
 	 * @param startEnergy of the species
 	 */
-	public AutotrophSpecies(int size, int maxAge, int startEnergy, int[] maxNutrientValues) {
+	public AutotrophSpecies(int size, int maxAge, int startEnergy, int[] maxNutrientValues, int energyOnConsumption) {
 		super(startEnergy);
 		setXYLoc();
 		this.maxAge = maxAge;
 		this.size = size;
+		this.energyOnConsumption = energyOnConsumption;
 		this.nutrientValues = addNutrientValues(maxNutrientValues);
 	}
 
@@ -42,10 +44,11 @@ public class AutotrophSpecies extends Species{
 	 * @param maxAge of the species
 	 * @param startEnergy of the species
 	 */
-	public AutotrophSpecies(int x, int y, int size, int maxAge, int startEnergy, int[] maxNutrientValues) {
+	public AutotrophSpecies(int x, int y, int size, int maxAge, int startEnergy, int[] maxNutrientValues, int energyOnConsumption) {
 		super(startEnergy);
 		this.maxAge = maxAge;
 		this.size = size;
+		this.energyOnConsumption = energyOnConsumption;
 		setXYLoc(x, y);
 		this.nutrientValues = addNutrientValues(maxNutrientValues);
 	}
@@ -53,6 +56,15 @@ public class AutotrophSpecies extends Species{
 	@Override
 	public void nextTimePoint() {
 		addAge();
+	}
+	
+	@Override
+	public boolean isShowPopName() {
+		return false;
+	}
+	
+	public int getEnergyOnDeath() {
+		return this.energyOnConsumption;
 	}
 	
 	/** 
