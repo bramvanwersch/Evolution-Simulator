@@ -50,6 +50,7 @@ public class OptionMenu extends JFrame {
 	private JPanel scrollPanel;
 	private int numberOfSpecies;
 	private ArrayList<PopulationPanel> populationPanels;
+	private  ArrayList<JButton> populationRemoveButtons;
 	private OptionData data;
 	private int counter;
 	
@@ -76,6 +77,7 @@ public class OptionMenu extends JFrame {
 		numberOfSpecies = 0;
 		counter = 1;
 		populationPanels = new ArrayList<PopulationPanel>();
+		populationRemoveButtons = new ArrayList<JButton>();
 		data = new OptionData();
 		initGUI();
 		createStartingSpecies();
@@ -259,48 +261,75 @@ public class OptionMenu extends JFrame {
 		}
 	}
 	
-	private void addHetrotrophSpeciesPanel(int panel_no) {
+	private void addPanel(int panel_no, PopulationPanel panel) {
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridy = (int) (panel_no / 2);
 		gbc_panel.gridx = panel_no % 2;
 		gbc_panel.insets = new Insets(25, 25, 25, 25);
 		numberOfSpecies += 1;
-		PopulationPanel panel = new HetrotrophPopulationPanel(getDefaultName());
 		populationPanels.add(panel);
 		scrollPanel.add(panel, gbc_panel);
 		scrollPane.setViewportView(scrollPanel);
 		counter++;
+		
+		// add the top bar
+		JButton removeButton = new JButton("X");
+		removeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeSpeciesPanel(panel);
+				scrollPanel.remove(removeButton);
+			}});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.gridy = (int) (panel_no / 2);
+		gbc_button.gridx = panel_no % 2;
+		gbc_button.anchor = GridBagConstraints.NORTHEAST;
+		gbc_button.insets = new Insets(0, 0, 0, 25);
+		populationRemoveButtons.add(removeButton);
+		
+		scrollPanel.add(removeButton, gbc_button);
+		scrollPane.setViewportView(scrollPanel);
+	}
+	
+	private void addHetrotrophSpeciesPanel(int panel_no) {
+		PopulationPanel panel = new HetrotrophPopulationPanel(getDefaultName());
+		addPanel(panel_no, panel);
 	}
 	
 	private void addAutotrophSpeciesPanel(int panel_no) {
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridy = (int) (panel_no / 2);
-		gbc_panel.gridx = panel_no % 2;
-		gbc_panel.insets = new Insets(25, 25, 25, 25);
-		numberOfSpecies += 1;
 		PopulationPanel panel = new AutotrophPopulationPanel(getDefaultName());
-		populationPanels.add(panel);
-		scrollPanel.add(panel, gbc_panel);
-		scrollPane.setViewportView(scrollPanel);
-		counter++;
+		addPanel(panel_no, panel);
 	}
 	
 	private void removeSpeciesPanel(JPanel remove_panel) {
 		int remove_index = populationPanels.indexOf(remove_panel);
 		scrollPanel.remove(populationPanels.get(remove_index));
 		populationPanels.remove(remove_index);
+		populationRemoveButtons.remove(remove_index);
 		numberOfSpecies -= 1;
-		int count = 0;
+		int count1 = 0;
 		// make sure to re-add all panels to reconfigure correct placement
 		for (JPanel panel: populationPanels) {
 			int panel_index = populationPanels.indexOf(panel);
 			scrollPanel.remove(populationPanels.get(panel_index));
 			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.gridy = (int) (count / 2);
-			gbc_panel.gridx = count % 2;
+			gbc_panel.gridy = (int) (count1 / 2);
+			gbc_panel.gridx = count1 % 2;
 			gbc_panel.insets = new Insets(25, 25, 25, 25);
 			scrollPanel.add(panel, gbc_panel);
-			count++;
+			count1++;
+		}
+		
+		int count2 = 0;
+		for (JButton removeButton : populationRemoveButtons) {
+			int button_index = populationRemoveButtons.indexOf(removeButton);
+			scrollPanel.remove(populationRemoveButtons.get(button_index));
+			GridBagConstraints gbc_button = new GridBagConstraints();
+			gbc_button.gridy = (int) (count2 / 2);
+			gbc_button.gridx = count2 % 2;
+			gbc_button.anchor = GridBagConstraints.NORTHEAST;
+			gbc_button.insets = new Insets(0, 0, 0, 25);
+			scrollPanel.add(removeButton, gbc_button);
+			count2++;
 		}
 		scrollPane.setViewportView(scrollPanel);
 	}
