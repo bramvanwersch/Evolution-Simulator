@@ -8,7 +8,7 @@ import species.Species;
 public class TestSpecies extends TestCase {
 	
 	public void testGetOfsetXYLoc() {
-		Species s = new Plant(10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(10, 10, 2000, new int[] {0,0,0}, 0);
 		s.setXYLoc(100, 100);
 		int[] test = s.getOfsetXYLoc();
 		//test 100 times
@@ -18,7 +18,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void testGetOfsetXYLoc2() {
-		Species s = new Plant(10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(10, 10, 2000, new int[] {0,0,0}, 0);
 		s.setXYLoc(900, 900);
 		int[] test = s.getOfsetXYLoc();
 		//test 100 times
@@ -28,7 +28,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void tetsChangeXLoc() {
-		Species s = new Plant(100, 100, 10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(100, 100, 10, 10, 2000, new int[] {0,0,0}, 0);
 		s.changeXLoc(5);
 		assertEquals(105, s.getxLoc());
 		s.changeXLoc(-10);
@@ -36,7 +36,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void testChangeYLoc() {
-		Species s = new Plant(100, 100, 10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(100, 100, 10, 10, 2000, new int[] {0,0,0}, 0);
 		s.changeYLoc(5);
 		assertEquals(105, s.getyLoc());
 		s.changeYLoc(-10);
@@ -52,7 +52,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void testInXBounds() {
-		Species s = new Plant(1, 1, 10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(1, 1, 10, 10, 2000, new int[] {0,0,0}, 0);
 		assertFalse(s.inXBounds(-1));
 		assertTrue(s.inXBounds(100));
 		assertFalse(s.inXBounds(2000));
@@ -60,7 +60,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void testInYBounds() {
-		Species s = new Plant(1, 1, 10, 10, 2000, new int[] {0,0,0});
+		Species s = new Plant(1, 1, 10, 10, 2000, new int[] {0,0,0}, 0);
 		assertFalse(s.inYBounds(-1));
 		assertTrue(s.inYBounds(100));
 		assertFalse(s.inYBounds(2000));
@@ -68,14 +68,14 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void testIsAliveEnergy() {
-		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0});
+		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0}, 0);
 		assertTrue(s.isAlive());
 		s.changeEnergy(-2000);
 		assertFalse(s.isAlive());
 	}
 	
 	public void testIsAliveAge() {
-		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0});
+		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0}, 0);
 		assertTrue(s.isAlive());
 		//increase age by one second
 		for (int i = 0; i < 20; i++) {
@@ -85,7 +85,7 @@ public class TestSpecies extends TestCase {
 	}
 	
 	public void tetsAddAge() {
-		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0});
+		Species s = new Plant(1, 1, 10, 1, 2000, new int[] {0,0,0}, 0);
 		for (int i = 0; i < 20; i++) {
 			s.addAge();
 		}		

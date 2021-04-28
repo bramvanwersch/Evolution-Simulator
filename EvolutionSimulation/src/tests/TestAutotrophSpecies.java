@@ -6,7 +6,7 @@ import species.AutotrophSpecies;
 public class TestAutotrophSpecies extends TestCase {
 	
 	public void testEat() {
-		AutotrophSpecies s = new AutotrophSpecies(0,0,0, new int[] {0,0,0});
+		AutotrophSpecies s = new AutotrophSpecies(0,0,0, new int[] {0,0,0}, 0);
 		double eatFraction1 = s.eat(new double[] {19,20,20});
 		assertEquals(0.955, eatFraction1);
 		double eatFraction2 = s.eat(new double[] {30,20,20});
